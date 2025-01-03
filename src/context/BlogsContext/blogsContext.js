@@ -9,6 +9,7 @@ export const BlogsProvider = ({ children }) => {
         {
             id: 1,
             title: '15 Space-Saving Furniture Ideas For Small Apartments',
+            slug: '15-space-saving-furniture-ideas-for-small-apartments',
             category: 'Dining Room',
             createdBy: 'Furniture Mecca', 
             comments: '4 comments',
@@ -25,6 +26,7 @@ export const BlogsProvider = ({ children }) => {
         {
             id: 2,
             title: 'An Easy Guide For Furnishing Winter Vacation Home',
+            slug: 'an-easy-guide-for-furnishing-winter-vacation-home',
             category: 'Dining Room',
             createdBy: 'Furniture Mecca', 
             comments: '4 comments',
@@ -41,6 +43,7 @@ export const BlogsProvider = ({ children }) => {
         {
             id: 3,
             title: 'Best Furniture Trends You’ll See In 2025',
+            slug: 'best-furniture-trends-youll-see-in-2025',
             category: 'Dining Room',
             createdBy: 'Furniture Mecca', 
             comments: '4 comments',
@@ -57,6 +60,7 @@ export const BlogsProvider = ({ children }) => {
         {
             id: 4,
             title: 'An Easy Guide For Furnishing Winter Vacation Home',
+            slug: 'an-easy-guide-for-furnishing-winter-vacation-home',
             category: 'Dining Room',
             createdBy: 'Furniture Mecca', 
             comments: '4 comments',
@@ -73,6 +77,7 @@ export const BlogsProvider = ({ children }) => {
         {
             id: 5,
             title: 'Best Furniture Trends You’ll See In 2025',
+            slug: 'best-furniture-trends-youll-see-in-2025',
             category: 'Dining Room',
             createdBy: 'Furniture Mecca', 
             comments: '4 comments',

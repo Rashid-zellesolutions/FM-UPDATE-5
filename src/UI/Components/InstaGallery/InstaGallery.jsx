@@ -11,7 +11,7 @@ import galleryImageEight from '../../../Assets/Furniture Mecca/Landing Page/inst
 import galleryImageNine from '../../../Assets/Furniture Mecca/Landing Page/instagram images/Rectangle 882.png';
 import galleryImageTen from '../../../Assets/Furniture Mecca/Landing Page/instagram images/Rectangle 883.png';
 import instaIcon from '../../../Assets/Furniture Mecca/Landing Page/instagram images/insta-icon.png'
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+// import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Link } from 'react-router-dom';
 
 
@@ -32,12 +32,12 @@ const InstaGallery = () => {
         <div className='images'>
             
             {instaGalleryImages.map((image, index) => {
-                return <LazyLoadImage key={index} src={image} alt={`image ${index + 1}`} effect='blur' />
+                return <img key={index} src={image} alt={`image ${index + 1}`} effect='blur' />
             })}
         </div>
         <div className={`icon ${animateMouse ? 'animate' : ''}`}>
             <Link target='_blank' to={'https://www.instagram.com/myfurnituremecca/?igshid=MzRlODBiNWFlZA%3D%3D'}>
-                <LazyLoadImage src={instaIcon} alt='icon' className={`${animateMouse ? 'animate' : ''}`} effect='blur'/>
+                <img src={instaIcon} alt='icon' className={`${animateMouse ? 'animate' : ''}`} effect='blur'/>
             </Link>
         </div>
     </div>

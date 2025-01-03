@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './AllBlogs.css';
 import BlogCard from '../BlogCard/BlogCard';
 import BlogCardShimmer from '../../Loaders/blogCardShimmer/BlogCardShimmer';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { url } from '../../../../utils/api';
 
 const AllBlogs = ({blogData}) => {
@@ -12,7 +12,7 @@ const AllBlogs = ({blogData}) => {
 
   // Functions
   const handleNavigate = (item) => {
-    navigate(`/single-blog/${item.id}`, {state:  item});
+    navigate(`/single-blog/${item.slug}`, {state:  item});
   }
 
   return (

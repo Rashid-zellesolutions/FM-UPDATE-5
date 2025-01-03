@@ -159,13 +159,13 @@ const Cart = () => {
 
   const navigateToCheckout = () => {
     
-    navigate("/cart-page/check-out");
+    navigate("/check-out");
   }
 
   const handleQuickViewClose = () => { setQuickView(false) }
 
   const handleProductClick = (item) => {
-    navigate(`/single-product/${item.slug}`, { state: item })
+    navigate(`/product/${item.slug}`, { state: item })
   };
 
   // Slick
@@ -212,7 +212,7 @@ const Cart = () => {
 
 
   const handleCardClick = (item) => {
-    navigate(`/single-product/${item.slug}`, { state: { products: item } })
+    navigate(`/product/${item.slug}`, { state: { products: item } })
   }
 
   // wish list
@@ -389,7 +389,7 @@ const Cart = () => {
             </div>
 
             <button
-              //  to={'/cart-page/check-out'} 
+              //  to={'/check-out'} 
               onClick={navigateToCheckout}
               className='cart-summary-proceed-btn'>Proceed to checkout</button>
 

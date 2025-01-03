@@ -25,7 +25,6 @@ const ProductCard = ({
         <img
           src={img}
           alt="product"
-          effect="blur"
           onClick={() => handleCardClicked(productData)}
           onDragStart={(e) => e.preventDefault()} // Prevent drag behavior
         />

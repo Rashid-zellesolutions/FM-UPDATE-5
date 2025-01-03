@@ -17,12 +17,12 @@ import { useBlog } from '../../../context/BlogsContext/blogsContext'
 const SingleBlog = () => {
     const location = useLocation()
     const navigate = useNavigate();
-    const { id } = useParams();
+    const { slug } = useParams();
     const {blogs} = useBlog();
     let singleBlog = location.state || {}
-    if (!singleBlog.id) {
+    if (!singleBlog.slug) {
         // If `singleBlog` is not available in `location.state`, find it in the `blogs` array
-        singleBlog = blogs.find((blog) => blog.id === parseInt(id)) || {};
+        singleBlog = blogs.find((blog) => blog.slug === parseInt(slug)) || {};
     }
     console.log("single blog", singleBlog)
 
@@ -40,7 +40,7 @@ const SingleBlog = () => {
         return doc.body.textContent || doc.body.innerText
     }
     // const { blogs } = useBlog()
-    const filteredBlogs = blogs.filter((item) => item.id !== singleBlog.id);
+    const filteredBlogs = blogs.filter((item) => item.slug !== singleBlog.slug);
 
     // Get Surrouding Blogs
     // const getSurroundingBlogs = (id) => {
@@ -61,18 +61,18 @@ const SingleBlog = () => {
     // }
 
 
-    const getSurroundingBlogs = (id) => {
-        const currentIndex = blogs.findIndex((item) => item.id === id); // Find the index of the current blog
+    const getSurroundingBlogs = (slug) => {
+        const currentIndex = blogs.findIndex((item) => item.slug === slug); // Find the index of the current blog
         console.log("current blog index", currentIndex);
 
         if (currentIndex === -1) {
             return { beforeId: null, afterId: null }; // If the blog is not found
         }
 
-        const beforeId = currentIndex === 0 ? null : blogs[currentIndex - 1].id; 
-        const beforeIndex = beforeId !== null ? blogs.findIndex((item) => item.id === beforeId) : null
-        const afterId = currentIndex + 1 < blogs.length ? blogs[currentIndex + 1].id : null;
-        const afterIndex = afterId !== null ? blogs.findIndex((item) => item.id === afterId) : null;
+        const beforeSlug = currentIndex === 0 ? null : blogs[currentIndex - 1].slug; 
+        const beforeIndex = beforeSlug !== null ? blogs.findIndex((item) => item.slug === beforeSlug) : null
+        const afterSlug = currentIndex + 1 < blogs.length ? blogs[currentIndex + 1].slug : null;
+        const afterIndex = afterSlug !== null ? blogs.findIndex((item) => item.slug === afterSlug) : null;
 
         return { beforeIndex, afterIndex };
 
@@ -85,13 +85,13 @@ const SingleBlog = () => {
 
 
     // const { beforeId, afterId } = getSurroundingBlogs(singleBlog.id);
-    const { beforeIndex, afterIndex } = getSurroundingBlogs(singleBlog.id);
+    const { beforeIndex, afterIndex } = getSurroundingBlogs(singleBlog.slug);
     console.log("beforeIndex", beforeIndex);
     console.log("afterIndex", afterIndex);
 
     const navigateToSingleBlog = (item) => {
         console.log("item", item)
-        navigate(`/single-blog/${item.id}`, { state: item });
+        navigate(`/single-blog/${item.slug}`, { state: item });
     }
 
 

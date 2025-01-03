@@ -185,7 +185,7 @@ const DealOfTheDay = () => {
   const { addSingleProduct } = useSingleProductContext();
   const handleDealCardClick = (items) => {
     addSingleProduct(items)
-    navigate(`/single-product/${items.slug}`, { state: items })
+    navigate(`/product/${items.slug}`, { state: items })
   }
 
   // console.log("all products of deal", allProducts)

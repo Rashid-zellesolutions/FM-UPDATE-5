@@ -135,11 +135,11 @@ const Products = ({ productArchiveHading }) => {
 
     // navigate to single product page with product data
     // const handleProductClick = (item) => {
-    //     navigate(`/single-product/${item.slug}`, {state: item});
+    //     navigate(`/product/${item.slug}`, {state: item});
     // };
 
     const handleProductClick = (item) => {
-        navigate(`/single-product/${item.slug}`, { state: item });
+        navigate(`/product/${item.slug}`, { state: item });
     };
 
     // filters data
@@ -334,8 +334,8 @@ const Products = ({ productArchiveHading }) => {
     return (
         <div className='products-main-container'>
             <Breadcrumb />
-            <h3 className='desktop-view-category-title'>Category: {productArchiveHading}</h3>
-            <p className='mobile-view-category-title'>{productArchiveHading}</p>
+            {/* <h3 className='desktop-view-category-title'>Category: {productArchiveHading}</h3> */}
+            {/* <p className='mobile-view-category-title'>{productArchiveHading}</p> */}
 
             {/* Toggle section code */}
             {/* <div className='toggle-sort-section'>
@@ -373,7 +373,8 @@ const Products = ({ productArchiveHading }) => {
             <div className='products-and-filter-container'>
                 {/* Filters side bar section code */}
                 <div className={`filters-section ${hideFilters ? 'hide-filter' : ''}`}>
-                    <div className={`hide-filters-btn ${viewAccording ? 'hide-filter-btn-query-search' : ''}`}>
+                    {/* <div className={`hide-filters-btn ${viewAccording ? 'hide-filter-btn-query-search' : ''}`}> */}
+                    <div className={`hide-filters-btn`}>
                         <button onClick={handleFilterSection}>
                             <img src={arrowBlack} alt='arrow black' />
                             Hide Filters

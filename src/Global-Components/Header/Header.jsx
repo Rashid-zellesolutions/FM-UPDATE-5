@@ -235,7 +235,7 @@ const Header = () => {
   }
 
   const handleNavigateToSingleProduct = (items) => {
-    navigate(`/single-product/${items.slug}`, { state: items })
+    navigate(`/product/${items.slug}`, { state: items })
     setSearchQuery('')
     setSearchedProducts([])
     setIsSearchInputFocused(false)
@@ -387,7 +387,7 @@ const Header = () => {
           setUserToken(null);
           setIsTokenValid(false);
           setMainLoader(false);
-          navigate("/login", { state: { message: "decided" } })
+          navigate("/my-account", { state: { message: "decided" } })
           console.log("")
         }
       } catch (error) {
@@ -403,13 +403,13 @@ const Header = () => {
     else if (token === undefined) {
       console.log("working55 is here")
       // setMainLoader(false);
-      // navigate("/login")
-      navigate("/login", { state: { message: "decided" } });
+      // navigate("/my-account")
+      navigate("/my-account", { state: { message: "decided" } });
     }
     else {
       console.log("working55 is here")
       setMainLoader(false);
-      navigate("/login")
+      navigate("/my-account")
     }
 
 
@@ -601,7 +601,7 @@ const Header = () => {
             <img src={profileIcon} alt="profile" />
           </div>
 
-          <Link to={'/wish-list'}>
+          <Link to={'/wishlist'}>
             <img src={HeartIcon} alt="heart" />
           </Link>
           <button className='header-cart-icon-count' onClick={handleCartSectionOpen}>

@@ -53,7 +53,7 @@ const ProductSlider = ({ cardData }) => {
     // addSingleProduct(item)
     addSingleProduct(item)
     addToCart(item)
-    navigate(`/single-product/${item.slug}`, { state: item })
+    navigate(`/product/${item.slug}`, { state: item })
     // addQuantityIntoProduct(item.uid, setAllProducts, allProducts)
     // console.log("product uid", item.uid)
     // console.log("added quantity into payload", allProducts)

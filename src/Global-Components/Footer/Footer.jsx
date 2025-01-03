@@ -275,16 +275,16 @@ const Footer = ({ notLandingPage }) => {
         {
             heading: 'Customer Care', navLinks: [
                 { name: 'Contact Us', link: '/contact-us' },
-                { name: 'Financing', link: '/financing-option' },
+                { name: 'Financing', link: '/financing' },
                 { name: 'Shipping & Delivery', link: '/shipping-and-delivery' },
-                { name: 'Terms & Conditions', link: '/terms-condition' },
+                { name: 'Terms & Conditions', link: '/terms-and-conditions' },
             ]
         },
         {
             heading: 'About Furniture Mecca', navLinks: [
                 { name: 'About Us', link: '/about-us' },
                 { name: 'Career', link: '/careers' },
-                { name: 'Store Locations', link: '/our-locations' },
+                { name: 'Store Locations', link: '/store-locator' },
                 { name: 'Reference', link: '#' },
                 { name: 'My Account', link: '/user-dashboard' },
                 { name: 'Blogs', link: '/blogs' },

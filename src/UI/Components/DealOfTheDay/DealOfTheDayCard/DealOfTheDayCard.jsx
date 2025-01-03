@@ -11,7 +11,7 @@ import heartIcon from '../../../../Assets/icons/heart-charcol.png';
 // import leftArrow from '../../../../Assets/icons/arrow-left-white.png';
 // import rightArrow from '../../../../Assets/icons/right-arrow-white.png';
 import { url } from '../../../../utils/api';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { img } from 'react-lazy-load-image-component';
 import { useList } from '../../../../context/wishListContext/wishListContext';
 import RatingReview from '../../starRating/starRating';
 
@@ -82,7 +82,7 @@ const DealOfTheDayCard = ({
         <div className='deal-of-the-day-product-image'>
           <img src={heartIcon} alt='heart-icon' className='mobile-view-deal-day-card-heart-icon' />
           <div className='deal-of-the-day-product-discount'><p>-12%</p></div>
-          <LazyLoadImage src={`${url}${productImage}`} alt='img' effect='blur' />
+          <img src={`${url}${productImage}`} alt='img' effect='blur' />
           <div className='deal-of-the-day-card-icons-div'>
               <button 
                   className={`deal-of-the-day-icon-one`}

@@ -77,7 +77,7 @@ const TrendingNow = () => {
                                             <img
                                                 src={`${url}${image.image_url}`}
                                                 alt={`Slide ${index + 1}`}
-                                                loading="lazy"
+                                                
                                             />
                                         </div>
                                     ))}

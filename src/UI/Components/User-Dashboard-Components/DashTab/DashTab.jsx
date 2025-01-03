@@ -17,7 +17,7 @@ const DashTab = ({data}) => {
     localStorage.removeItem('userToken');
     localStorage.removeItem('uuid');
     setUserToken(null);
-    navigate("/login",{state:{message:"decided"}})
+    navigate("/my-account",{state:{message:"decided"}})
   }
   return (
     <div className='dash-tab-main-container'>

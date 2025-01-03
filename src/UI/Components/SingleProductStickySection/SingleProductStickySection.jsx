@@ -263,8 +263,8 @@ const SingleProductStickySection = ({ productData }) => {
   return (
     <>
       <div className='sticky-main-container-0'>
-        {/* <Breadcrumb /> */}
-        <Breadcrumb sku={productData?.sku} category={productData?.categories?.[0]?.name} categorySlug={productData?.categories?.[0]?.slug} />
+        {/* <Breadcrumb /> */} 
+        <Breadcrumb sku={productData?.sku} productName={productData?.name} category={productData?.categories?.[0]?.name} categorySlug={productData?.categories?.[0]?.slug} />
         <div className="sticky-main-container">
           <div className='left-section'>
             <div className='single-product-alice-slider'>

@@ -1,12 +1,12 @@
 import React from 'react'
 import './TrandingBlogs.css'
 import { url } from '../../../../utils/api'
-import {useNavigate } from 'react-router-dom'
+import {useNavigate, useParams } from 'react-router-dom'
 
 const TrandingBlogs = ({blogs}) => {
     const navigate = useNavigate();
     const navigateToSingleBlog = (item) => {
-        navigate(`/single-blog/${item.id}`, {state:  item});
+        navigate(`/single-blog/${item.slug}`, {state:  item});
     }
 
     return (

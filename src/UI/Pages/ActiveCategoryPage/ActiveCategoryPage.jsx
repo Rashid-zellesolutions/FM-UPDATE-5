@@ -24,7 +24,7 @@ export default function ActiveCategoryPage() {
         return title.length > maxLength ? title.slice(0, maxLength) + '...' : title
     };
     const handleProductClick = (item) => {
-        navigate(`/single-product/${item.slug}`, {state:  item});
+        navigate(`/product/${item.slug}`, {state:  item});
     };
 
     const moveToProductArchive = () => {

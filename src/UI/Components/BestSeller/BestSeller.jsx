@@ -58,7 +58,7 @@ const BestSeller = ({ categoryData }) => {
     };
 
     const handleProductClick = (item) => {
-        navigate(`/single-product/${item.slug}`, { state: { products: item } });
+        navigate(`/product/${item.slug}`, { state: { products: item } });
     }
 
     const itemPerPage = 6

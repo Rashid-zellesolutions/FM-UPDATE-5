@@ -27,7 +27,7 @@ const PromotionalBanner = ({handleLanguageModal, handleDeliverModal, currentSele
           <div className='banner-link-container'>
             <Link to={'our-locations'}>Stores</Link>
             <Link to={'#'}>Orders</Link>
-            <Link to={'/financing-option'}>Financing</Link>
+            <Link to={'/financing'}>Financing</Link>
             <Link to={'#'}>Help</Link>
           </div>
           <div className='header-main-banner-language-div'>

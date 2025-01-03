@@ -72,7 +72,7 @@ const CartProducts = () => {
     const navigate = useNavigate();
     const handleNavigateToCheckoutPage = () => {
         console.log("Cart before adding to order:", cart);
-        navigate(`/cart-page/check-out`);
+        navigate(`/check-out`);
     }
 
     return (

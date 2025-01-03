@@ -50,21 +50,21 @@ const UserDashboard = () => {
           setUserToken(null);
           setIsTokenValid(false);
           setMainLoader(false);
-          navigate("/login")
+          navigate("/my-account")
         }
       } catch (error) {
         localStorage.removeItem('userToken');
         setUserToken(null);
         setIsTokenValid(false);
         setMainLoader(false);
-        navigate("/login")
+        navigate("/my-account")
       }
 
       setMainLoader(false);
     }
     else {
       setMainLoader(false);
-      navigate("/login")
+      navigate("/my-account")
     }
 
   };

@@ -104,7 +104,7 @@ const GetTheScop = () => {
               {error && <p style={{ color: 'red' }}>{error}</p>}
 
             </form>
-            <p>By Signing Up you agree to our <Link to={'/terms-condition'} className='desktop-get-the-scoop-terms'> Terms of Use </Link> and <Link to={'/privacy-policy'} className='desktop-get-the-scoop-terms'> Privacy Policy </Link></p>
+            <p>By Signing Up you agree to our <Link to={'/terms-and-conditions'} className='desktop-get-the-scoop-terms'> Terms of Use </Link> and <Link to={'/privacy-policy'} className='desktop-get-the-scoop-terms'> Privacy Policy </Link></p>
 
           </div> :
             <div className="subscription_done">
@@ -156,7 +156,7 @@ const GetTheScop = () => {
               <p className='done_message_2'>Your Subscription Has Been Done Successfully.</p>
               <p className='done_message_3'>Check your email</p>
             </div>}
-          <p className='mobile-view-conditions'>By signing up, you agree to our <Link to={'/privacy-policy'} className='mobile-view-get-the-scoop-conditions'> Privacy Policy </Link> and <Link to={'/terms-condition'} className='mobile-view-get-the-scoop-conditions'> Terms of Use </Link>.</p>
+          <p className='mobile-view-conditions'>By signing up, you agree to our <Link to={'/privacy-policy'} className='mobile-view-get-the-scoop-conditions'> Privacy Policy </Link> and <Link to={'/terms-and-conditions'} className='mobile-view-get-the-scoop-conditions'> Terms of Use </Link>.</p>
           
           {/* <div className='mobile-view-flyre-view'>
             <h3>Furniture Mecca Promotions</h3>

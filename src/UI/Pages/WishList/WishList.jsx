@@ -45,7 +45,7 @@ const WishList = () => {
   }
   const handleQuickViewClose = () => { setQuickView(false) }
   const handleProductClick = (item) => {
-    navigate(`/single-product/${item.slug}`, { state: item });
+    navigate(`/product/${item.slug}`, { state: item });
   };
 
   // wish list

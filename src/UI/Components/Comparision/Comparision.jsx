@@ -9,10 +9,10 @@ const Comparision = ({heading,image,mobileImage}) => {
     <div className='comparision-main-div'>
         <h3>{heading}</h3>
         <div className='comparision-img-div'>
-            <LazyLoadImage src={url+image.image_url} alt='img' effect='blur' />
+            <img src={url+image.image_url} alt='img'  />
         </div>
         <div className='mobile-view-comparission'>
-          <LazyLoadImage src={url+mobileImage.image_url} alt='img' effect='blur' />
+          <img src={url+mobileImage.image_url} alt='img'  />
         </div>
     </div>
   )

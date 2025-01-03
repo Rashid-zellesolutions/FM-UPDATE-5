@@ -5,7 +5,8 @@ import { useNavigation } from '../../context/BreadCrumbContext/NavigationContext
 import { FaHouseChimney } from 'react-icons/fa6';
 import rightArrow from "../../Assets/right-arrow.png";
 
-const Breadcrumb = ({ category, sku, categorySlug }) => {
+const Breadcrumb = ({ category, productName, sku, categorySlug }) => {
+    console.log("breadcrumb name ", productName)
     const location = useLocation();
     const { navigationHistory } = useNavigation();
     const pathnames = location.pathname.split('/').filter(x => x);
@@ -30,7 +31,7 @@ const Breadcrumb = ({ category, sku, categorySlug }) => {
                 {/* Dynamic Breadcrumb Links */}
                 {fullPathNames.map((pathname, index) => {
                     // Determine if the current route is the product page
-                    const isProductPage = location.pathname.includes('/single-product') && index === fullPathNames.length - 1;
+                    const isProductPage = location.pathname.includes('/product') && index === fullPathNames.length - 1;
                
 
                     // Determine if the current route is the category
@@ -42,7 +43,7 @@ const Breadcrumb = ({ category, sku, categorySlug }) => {
                             ? category // Replace "single-product" with category
                             : pathname.charAt(0).toUpperCase() + pathname.slice(1).replace(/-/g, ' '); // Default name
                             const routeTo = isProductPage && categorySlug && index === fullPathNames.length - 1
-                            ? `/single-product/${sku}`  // Ensure that SKU does not redirect to the category page
+                            ? `/product/${sku}`  // Ensure that SKU does not redirect to the category page
                             : isCategory
                             ? `/${categorySlug}` // Go to categorySlug for category links
                             : `/${fullPathNames.slice(0, index + 1).join('/')}`; // Default behavior

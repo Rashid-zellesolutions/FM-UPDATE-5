@@ -154,7 +154,7 @@ const SimillerProducts = ({collection}) => {
 
     const navigate = useNavigate();
     const handleCardClick = (item) => {
-        navigate(`/single-product/${item.slug}`, {state: {products: item}})
+        navigate(`/product/${item.slug}`, {state: {products: item}})
     }
 
     // wish list

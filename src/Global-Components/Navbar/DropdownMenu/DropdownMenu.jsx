@@ -13,7 +13,7 @@ const DropdownMenu = ({ parentCategorySlug, navHeading, dropDownNavData, product
     }
 
     const handleNavigate = (item) => {
-        navigate(`/single-product/${item.slug}`, { state: item });
+        navigate(`/product/${item.slug}`, { state: item });
     }
 
 
@@ -36,7 +36,11 @@ const DropdownMenu = ({ parentCategorySlug, navHeading, dropDownNavData, product
                     return <div key={index} className='mattress-image' onClick={() => handleNavigate(item)}>
                         <img src={url + item.image} alt={item.name} />
                         <p className='image-title'><Link to={item.slug}>{item.name}</Link> </p>
-                        <div className='pricing'>{item.sale_price === "" ? <p className='price'>${item.regular_price}</p> : <del><p className='price'>${item.regular_price}</p></del>}
+                        <div className='pricing'>
+                            {item.sale_price === "" ? 
+                            <p className='price'>${item.regular_price}</p> 
+                            : <del><p className='price'>${item.regular_price}</p></del>
+                            }
                             <p className='price new'>${item.sale_price}</p></div>
                     </div>
                 })}

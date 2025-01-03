@@ -13,7 +13,7 @@ import copy from 'copy-to-clipboard';
 
 const ShareProduct = ({ isSharePopup, setIsSharePopup, selectedUid, selectedProduct }) => {
     const copyRef = useRef()
-    let generatedLink = `https://furnituremecca.zellesolutions.com/single-product/${selectedProduct?.slug}`
+    let generatedLink = `https://furnituremecca.zellesolutions.com/product/${selectedProduct?.slug}`
 
     const handleCloseShareProductPopup = () => {
         setIsSharePopup(null)

@@ -47,7 +47,6 @@ function FinanceBannerSlider() {
                         <img
                             src={`${url}${image.image_url}`}
                             alt={`slide ${index + 1}`}
-                            loading="lazy"
                         />
                     </div>
                 ))}

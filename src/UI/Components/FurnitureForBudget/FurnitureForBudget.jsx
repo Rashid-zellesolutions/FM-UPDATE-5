@@ -16,7 +16,7 @@ const FurnitureForBudget = ({ budgetCardData }) => {
     const navigate = useNavigate();
 
     const navigateToDetails = (uid, max_price, category) => {
-        navigate(`/furniture-at-every-budget?category=${category}&categoryUid=${uid}&max_price=${max_price}`);
+        navigate(`/furniture-for-every-budget?category=${category}&categoryUid=${uid}&max_price=${max_price}`);
     }
     return (
         <div className='furniture-for-budget-main-secton'>

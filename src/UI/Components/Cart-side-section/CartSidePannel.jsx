@@ -31,7 +31,7 @@ const CartSidePannel = (
   const navigate = useNavigate()
   const handleCLoseCartPanel = () => {
     setAddToCartClick(false)
-    navigate(`/add-to-cart`)
+    navigate(`/cart`)
 
   }
   // const [isCheck, setIsCheck] = useState({});
@@ -55,7 +55,7 @@ const CartSidePannel = (
 
   const navigateToCheckout = () => {
     setAddToCartClick(false)
-    navigate("/cart-page/check-out");
+    navigate("/check-out");
   }
 
 
