@@ -73,15 +73,15 @@ export const CartProvider = ({ children }) => {
                     products: [
                         ...updatedProducts,
                         {
-                            product_uid: product.uid,
-                            name: product.name,
-                            isVariable: product.type === "simple" ? 0 : 1,
-                            variation_uid: product.type === "simple" ? 0 : variationData.uid,
-                            image: product.type === "simple" ? product.image : variationData?.images[0],
+                            product_uid: product?.uid,
+                            name: product?.name,
+                            isVariable: product?.type === "simple" ? 0 : 1,
+                            variation_uid: product?.type === "simple" ? 0 : variationData.uid,
+                            image: product?.type === "simple" ? product?.image : variationData?.images?.[0],
                             attributes: product.type === "simple" ? product.attributes : variationData?.attributes,
                             sale_price: product.type === "simple" ? product.sale_price : variationData?.sale_price,
                             regular_price: product.type === "simple" ? product.regular_price : variationData?.regular_price,
-                            quantity: 1,
+                            quantity: product?.quantity,
                             sku: product.type === "simple" ? product.sku : variationData.sku,
                             is_protected: isProtected,
                         },
@@ -98,7 +98,7 @@ export const CartProvider = ({ children }) => {
     const [deliveryCharges, setDeliveryCharges] = useState(50)
     const [taxValue, setTaxValue] = useState(0);
     const [grandValue, setGrandValue] = useState(0);
-    
+
     const [cart, setCart] = useState(() => {
         const savedCart = localStorage.getItem('cart');
         return savedCart ? JSON.parse(savedCart) : [];

@@ -8,7 +8,7 @@ import cartBlack from '../../../Assets/icons/cart-black.png';
 import eyeBlack from '../../../Assets/icons/eye-black.png';
 import eyeWhite from '../../../Assets/icons/eye-white.png';
 import { url } from '../../../utils/api';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+// import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useList } from '../../../context/wishListContext/wishListContext';
 import { VscHeartFilled } from "react-icons/vsc";
 import ProductCardImageShimmer from '../Loaders/CardImageShimmer/cardImageShimmer';
@@ -59,9 +59,9 @@ const ProductCard = ({
 
     const dispatch = useDispatch();
     const selectedColorIndex = useSelector((state) => state.colorIndex.colorIndex);
-    const handleColorVariationIndex = (colorIndex) => {
-        dispatch(setColorIndex(colorIndex))
-    }
+    // const handleColorVariationIndex = (colorIndex) => {
+    //     dispatch(setColorIndex(colorIndex))
+    // }
 
     const handleClick = (colorIndex, color) => {
         dispatch(setColorIndex(colorIndex));
@@ -96,21 +96,25 @@ const ProductCard = ({
 
     const priorityAttribute = getPriorityAttribute(attributes);
 
-    const [selectedColorVariableindex, setSelectedColorVariableIndex] = useState(1)
-    const handleVariationImageSelect = (index) => {
-        setSelectedColorVariableIndex(index)
-    }
+    // const [selectedColorVariableindex, setSelectedColorVariableIndex] = useState(1)
+    // const handleVariationImageSelect = (index) => {
+    //     setSelectedColorVariableIndex(index)
+    // }
 
 
     // Select color
+    
     const [hoveredImage, setHoveredImage] = useState()
     const [selectedColor, setSelectedColor] = useState();
+    const [selectedImage, setSelectedImage] = useState();
     const [selectedColorImage, setSelectedColorImage] = useState();
+
     const handleColorSelect = (color) => {
         // e.stopPropagation()
         // console.log("change variation click")
         setSelectedColor(color)
-        
+        // console.log("selected color", color)
+        // console.log('single product', singleProductData)
         const matchingAttribute = singleProductData?.variations?.find(variation =>
             variation?.attributes?.some(attribute =>
                 attribute?.type === "color" &&
@@ -120,8 +124,29 @@ const ProductCard = ({
 
         setSelectedColorImage(matchingAttribute?.images[0]?.image_url)
         setHoveredImage(matchingAttribute?.images[1]?.image_url)
+        // console.log("matching attribute", matchingAttribute)
         return matchingAttribute;
     }
+
+    const handleImageSelect = (image) => {
+        // console.log("image", image)
+        // e.stopPropagation()
+        // console.log("change variation click")
+        setSelectedImage(image)
+        // console.log('single product', singleProductData)
+        const matchingAttribute = singleProductData?.variations?.find(variation =>
+            variation?.attributes?.some(attribute =>
+                attribute?.type === "image" &&
+                attribute?.options?.some(option => option?.value === image)
+            )
+        );
+
+        setSelectedColorImage(matchingAttribute?.images[0]?.image_url)
+        setHoveredImage(matchingAttribute?.images[1]?.image_url)
+        // console.log("matching attribute", matchingAttribute)
+        return matchingAttribute;
+    }
+
     const [priorArray, setPriorArray] = useState([])
     const moveToFirst = (array, defValue) => {
         const index = array.findIndex(item => item === defValue);
@@ -162,17 +187,19 @@ const ProductCard = ({
 
 
     const [mainImageHoverIndex, setMainImageHoverIndex] = useState(null)
-    const handleMouseOnMainImage = (id) => {
-        setMainImageHoverIndex(id);
-        // console.log("on mouse enter",mainImageHoverIndex);
-    }
 
-    const handleMouseLeaveOnMainImage = () => {
-        setMainImageHoverIndex(null)
-        // console.log("on mouse leave",mainImageHoverIndex);
-    }
+    // const handleMouseOnMainImage = (id) => {
+    //     setMainImageHoverIndex(id);
+    //     // console.log("on mouse enter",mainImageHoverIndex);
+    // }
+
+    // const handleMouseLeaveOnMainImage = () => {
+    //     setMainImageHoverIndex(null)
+    //     // console.log("on mouse leave",mainImageHoverIndex);
+    // }
 
     // console.log("type check", priorityAttribute)
+
     const {isInWishList} = useList();
 
     return (
@@ -187,11 +214,6 @@ const ProductCard = ({
                 onClick={() => handleCardClick(singleProductData)}
                 >
 
-                    {/* <div className='tag-and-heart'>
-                        <h3 className='stock-label'>{stock.is_stock_manage === 1 ? "In Stock" : "Out of Stock"}</h3>
-                        <p className='percent-label'>{percent}</p>
-                        <img src={tagIcon} alt='heart img' className={tagClass} />
-                    </div> */}
 
                     <div className='product-main-image-container' /* onMouseEnter={() => handleMouseOnMainImage(singleProductData?.uid)} onMouseLeave={handleMouseLeaveOnMainImage} */>
                         <div className='tag-and-heart'>
@@ -208,12 +230,6 @@ const ProductCard = ({
                                         }} 
                                     /> 
                             : 
-                                // <img 
-                                //     src={tagIcon} alt='heart img' 
-                                //     className={tagClass} 
-                                //     loading='lazy'
-                                //     onClick={(e) => {e.stopPropagation(); handleWishListclick(singleProductData)}}
-                                // />
                                 <></>
                             }
                             
@@ -284,77 +300,6 @@ const ProductCard = ({
                             <h3 className='product-price-tag'> <del className='product-del-price-with-sale-price'>${priceTag}</del>  ${sale_price}</h3>
                     }
 
-
-                    {/* <div className='category-product-price'>
-                        {sale_price !== "" ? <del>${priceTag}</del> : <></>}
-                        <p>${sale_price}</p>
-
-                    </div> */}
-
-                    {/* {type === 'variable' ?
-                        <div className='variable-colors-variations-div'>
-                            {variation.map((item, index) => (
-                                item.attributes.filter((attr) => attr.type === 'color').map((colorAtr, attrIndex) => (
-                                    <div className="color-variation-div">
-                                    {colorAtr.options.map((option, opindex) => (
-                                        <span
-                                            key={index}
-                                            className="color-variation"
-                                            onClick={() => handleVariationImageSelect(index)}
-                                            style={{
-                                                backgroundColor: option.value,
-                                                border: 'none',
-                                                boxShadow: ''
-                                            }}
-                                        ></span>
-                                    ))}
-                                    </div>
-                                ))
-                            ))}
-                        </div>
-                        : priorityAttribute && (
-                            <div className='product-card-attr' >
-                                {priorityAttribute.type === "image" && (
-                                    <div className="image-variation">
-                                        {priorityAttribute.options.map((item, index) => (
-                                            <img
-                                                key={index}
-                                                src={"https://fm.skyhub.pk" + item.value}
-                                                alt=""
-                                            />
-                                        ))}
-                                    </div>
-                                )}
-
-                                {priorityAttribute.type === "color" && (
-                                    <div className="color-variation-div">
-                                        {priorityAttribute.options.map((item, index) => (
-                                            <span
-                                                key={index}
-                                                className="color-variation"
-                                                onClick={() => { }}
-                                                style={{
-                                                    backgroundColor: item.value,
-                                                    border: 'none',
-                                                    boxShadow: ''
-                                                }}
-                                            ></span>
-                                        ))}
-                                    </div>
-                                )}
-
-                                {priorityAttribute.type === "select" && (
-                                    <div className="text-variation">
-                                        {priorityAttribute.options.map((item, index) => (
-                                            <p key={index} className="attr-var">{item.value}</p>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-                        )
-
-                    } */}
-
                     {priorityAttribute && (
                         <div className='product-card-attr' >
                             {priorityAttribute.type === "image" && (
@@ -362,6 +307,7 @@ const ProductCard = ({
                                     {priorityAttribute.options.map((item, index) => (
                                         <img
                                             key={index}
+                                            onClick={(e) => {e.stopPropagation() ; handleImageSelect(item.value)}}
                                             src={"https://fm.skyhub.pk" + item.value}
                                             alt=""
                                         />
@@ -398,23 +344,6 @@ const ProductCard = ({
                         </div>
                     )}
 
-                    {/* <p className='mobile-view-mos-finance'>12 mos special financing <i> Learn more</i></p> */}
-                    {/* <div className='color-variation-div'>
-                        <div className='color-variations'>
-                            {colorVariation && colorVariation.map((color, colorIndex) => {
-                                return <span key={colorIndex} className='color-variation' onClick={() => handleClick(colorIndex, color)}
-                                    style={{
-                                        backgroundColor: `${color.color}`,
-                                        border: selectedColorIndices[mainIndex] === colorIndex ? `1px solid ${color.color}` : 'none',
-                                        boxShadow: selectedColorIndices[mainIndex] === colorIndex ? `inset 0 0 0 2px #FFFF` : ''
-                                    }}></span>
-                            })}
-                        </div>
-                        <div className='mobile-view-cart-and-view-icons'>
-                            <img src={cartBlack} alt='cart icon' />
-                            <img src={eyeBlack} alt='eye icon' onClick={handleQuickView} />
-                        </div>
-                    </div>/ */}
                 </div>
             </div>
 

@@ -30,6 +30,10 @@
     gap: 25px;
     display: flex;
 }
+.finance_banner_2_desktop img{
+    cursor: pointer;
+}
+
 .finance_banner_2_mobile{
     display: none;
 }

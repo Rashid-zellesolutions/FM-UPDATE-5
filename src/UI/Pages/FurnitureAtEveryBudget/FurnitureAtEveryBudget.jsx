@@ -140,8 +140,6 @@ export default function FurnitureAtEveryBudget() {
 
         const defoultColor = defAttrColor?.options?.[0]?.value;
         const defoultValue = defAttrSelect?.options?.[0]?.value;
-        // console.log("on parent color", defoultColor);
-        // console.log("on parent label", defoultValue)
         setSelectVariation(defoultValue);
         setSelectedColor(defoultColor)
         getVariationMatch()
@@ -155,10 +153,10 @@ export default function FurnitureAtEveryBudget() {
     // if (error) return <p>Error: {error}</p>;
     const [activeGrid, setActiveGrid] = useState('single-col')
     const [selectedGrid, setSelectedGrid] = useState('single-col');
-    const handleActiveGrid = (grid) => {
-        setActiveGrid(grid)
-        setSelectedGrid('single-col');
-    }
+    // const handleActiveGrid = (grid) => {
+    //     setActiveGrid(grid)
+    //     setSelectedGrid('single-col');
+    // }
 
 
 
@@ -217,42 +215,6 @@ export default function FurnitureAtEveryBudget() {
                             <ProductCardShimmer />
                         ))
                     )}
-                    {/* data && data.products.map((item, index) => (
-                        <ProductCard
-                            key={index}
-                            slug={item.slug}
-                            singleProductData={item}
-                            maxWidthAccordingToComp="100%"
-                            tagIcon={item.productTag ? item.productTag : heart}
-                            tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
-                            mainImage={`${item.image.image_url}`}
-                            productCardContainerClass="product-card"
-                            ProductSku={item.sku}
-                            tags={item.tags}
-                            ProductTitle={truncateTitle(item.name, maxLength)}
-                            stars={[
-                                { icon: star, title: 'filled' },
-                                { icon: star, title: 'filled' },
-                                { icon: star, title: 'filled' },
-                                { icon: star, title: 'filled' },
-                                { icon: star, title: 'filled' },
-                            ]}
-                            reviewCount={item.reviewCount}
-                            lowPriceAddvertisement={item.lowPriceAddvertisement}
-                            priceTag={item.regular_price}
-                            sale_price={item.sale_price}
-                            financingAdd={item.financingAdd}
-                            learnMore={item.learnMore}
-                            mainIndex={index}
-                            deliveryTime={item.deliveryTime}
-                            stock={item.manage_stock}
-                            attributes={item.attributes}
-                            handleCardClick={() => handleProductClick(item)}
-                            handleQuickView={() => handleQuickViewOpen(item)}
-                            type={item.type}
-                            variation={item.variations}
-                        />
-                    )) */}
                 </div>
                 
                 <div className={`mobile-view-furniture-for-every-budget ${selectedGrid === 'single-col' ? 'single-col' : 'two-col'} `}>
@@ -300,42 +262,6 @@ export default function FurnitureAtEveryBudget() {
                             <ProductCardShimmer />
                         ))
                     )}
-                    {/* data && data.products.map((item, index) => (
-                        <ProductCard
-                            key={index}
-                            slug={item.slug}
-                            singleProductData={item}
-                            maxWidthAccordingToComp="100%"
-                            tagIcon={item.productTag ? item.productTag : heart}
-                            tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
-                            mainImage={`${item.image.image_url}`}
-                            productCardContainerClass="product-card"
-                            ProductSku={item.sku}
-                            tags={item.tags}
-                            ProductTitle={truncateTitle(item.name, maxLength)}
-                            stars={[
-                                { icon: star, title: 'filled' },
-                                { icon: star, title: 'filled' },
-                                { icon: star, title: 'filled' },
-                                { icon: star, title: 'filled' },
-                                { icon: star, title: 'filled' },
-                            ]}
-                            reviewCount={item.reviewCount}
-                            lowPriceAddvertisement={item.lowPriceAddvertisement}
-                            priceTag={item.regular_price}
-                            sale_price={item.sale_price}
-                            financingAdd={item.financingAdd}
-                            learnMore={item.learnMore}
-                            mainIndex={index}
-                            deliveryTime={item.deliveryTime}
-                            stock={item.manage_stock}
-                            attributes={item.attributes}
-                            handleCardClick={() => handleProductClick(item)}
-                            handleQuickView={() => handleQuickViewOpen(item)}
-                            type={item.type}
-                            variation={item.variations}
-                        />
-                    )) */}
                 </div>
 
 

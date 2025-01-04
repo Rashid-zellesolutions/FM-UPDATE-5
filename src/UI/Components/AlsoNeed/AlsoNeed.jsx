@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './AlsoNeed.css';
 import filledStar from '../../../Assets/icons/Star 19.png';
 import axios from 'axios';
-import { url } from '../../../utils/api';
+import { formatedPrice, url } from '../../../utils/api';
 import RatingReview from '../starRating/starRating';
 
 const AlsoNeed = ({productsUid}) => {
@@ -42,13 +42,6 @@ const AlsoNeed = ({productsUid}) => {
         if(!title) return '';
         return title.length > maxLength ? title.slice(0, maxLength) + '...' : title;
     };
-
-    const formatedPrice = (price) => {
-        return Intl.NumberFormat('en-us', {
-            style: 'currency',
-            currency: 'USD'
-        }).format(price)
-    }
 
   return (
     <div className={`might-need-main-container`}>

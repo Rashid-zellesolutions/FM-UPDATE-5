@@ -11,7 +11,7 @@ const Nav = ({ navLinks, sale_data }) => {
     const [activeIndex, setActiveIndex] = useState(0)
     const location = useLocation()
 
-    console.log("sale data", sale_data)
+    console.log("sale data", navLinks)
 
     // Functions
     const handleMouseEnter = (index) => {

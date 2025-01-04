@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './CartSideSection.css';
-import { url } from '../../../utils/api';
+import { formatedPrice, url } from '../../../utils/api';
 import { useCart } from '../../../context/cartContext/cartContext';
 import { FaMinus } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
@@ -25,22 +25,22 @@ const CartSideSection = (
     const { eachProtectionValue, isCartProtected } = useCart();
 
     const productTotalPrice = sale_price !== "0" ? (sale_price * quantity) + (isCartProtected ? 0 : (isProtected === 1 ? eachProtectionValue : 0)) : (regular_price * quantity) + (isCartProtected ? 0 : (isProtected === 1 ? eachProtectionValue : 0));
+    console.log("quantity recieve: ", quantity)
 
+    // const formatedSalePrice = Intl.NumberFormat('en-us', {
+    //     style: 'currency',
+    //     currency: 'USD'
+    // }).format(sale_price)
 
-    const formatedSalePrice = Intl.NumberFormat('en-us', {
-        style: 'currency',
-        currency: 'USD'
-    }).format(sale_price)
+    // const formatedRegularPrice = Intl.NumberFormat('en-us', {
+    //     style: 'currency',
+    //     currency: 'USD'
+    // }).format(regular_price)
 
-    const formatedRegularPrice = Intl.NumberFormat('en-us', {
-        style: 'currency',
-        currency: 'USD'
-    }).format(regular_price)
-
-    const formatedTotalPrice = Intl.NumberFormat('en-us', {
-        style: 'currency',
-        currency: 'USD'
-    }).format(productTotalPrice)
+    // const formatedTotalPrice = Intl.NumberFormat('en-us', {
+    //     style: 'currency',
+    //     currency: 'USD'
+    // }).format(productTotalPrice)
 
     return (
         <div className='cart-side-section-product'>
@@ -65,8 +65,8 @@ const CartSideSection = (
                         <div className='cart-side-section-price-and-count'>
                             <p><del style={{
                                 color: "#989898"
-                            }} >{formatedRegularPrice}</del></p>
-                            <p>{formatedSalePrice}</p>
+                            }} >{formatedPrice(regular_price)}</del></p>
+                            <p>{formatedPrice(sale_price)}</p>
 
                         </div>
                         {
@@ -91,7 +91,7 @@ const CartSideSection = (
                                 <FaPlus size={15} />
                             </button>
                         </div>
-                        <p className='cart-side-section-product-total'>{formatedTotalPrice} </p>
+                        <p className='cart-side-section-product-total'>{formatedPrice(productTotalPrice)} </p>
                     </div>
                 </div>
             </div>

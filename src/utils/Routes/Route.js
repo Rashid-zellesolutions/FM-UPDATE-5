@@ -150,6 +150,10 @@ const routes = (
             element={<BookAppointment />}
         />
         <Route
+            path="/user-dashboard"
+            element={<UserDashboard />}
+        />
+        <Route
             path="/user-dashboard/:id"
             element={<UserDashboard />}
         />

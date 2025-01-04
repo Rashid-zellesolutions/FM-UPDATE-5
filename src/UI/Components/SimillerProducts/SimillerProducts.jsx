@@ -66,23 +66,8 @@ const SimillerProducts = ({collection}) => {
         getchMyCollectionProducts()
     }, [])
 
-    // useEffect(() => {
-    //   const checkOverflow = () => {
-    //     const container = scrollContainerRef.current;
-    //     if (container) {
-    //       const isOverflowing = container.scrollWidth > container.clientWidth;
-    //       setIsOverflowing(isOverflowing);
-    //     }
-    //   };
-  
-    //   checkOverflow();
-    //   window.addEventListener('resize', checkOverflow);
-    //   return () => window.removeEventListener('resize', checkOverflow);
-    // }, [data]);
     const showArrowOnCardLength = data && data.length
-    // console.log("cards data", showArrowOnCardLength)
-    // console.log("converted my collection", data)
-    // console.log("single collection", products)
+
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [hideFilters, setHideFilters] = useState(false);
 
@@ -113,33 +98,6 @@ const SimillerProducts = ({collection}) => {
 
     // product color variation index from redux
     const colorIndex = useSelector((state) => state.colorIndex.colorIndex)
-
-    const scrollContainerRef = useRef(null);
-    const cardWidth = 310; // Adjust the width of your cards here
-    const [simillerProductIndex, setSimillerProductIndex] = useState(0);
-    const handleScroll = (direction) => {
-        const newIndex = simillerProductIndex + direction;
-        if(newIndex >= 0 && newIndex <= data.length - 1){
-            setSimillerProductIndex(newIndex)
-        }
-        const container = scrollContainerRef.current;
-        if (container) {
-            const scrollAmount = direction * cardWidth * 1;
-            container.scrollBy({
-                left: scrollAmount,
-                behavior: 'smooth'
-            });
-        }
-    };
-
-    // Prevent dragging to scroll
-    const handleMouseDown = (e) => {
-        e.preventDefault();
-    };
-
-    const handleTouchMove = (e) => {
-        e.preventDefault();
-    };
 
         // const navigate = useNavigate()
         const [quickViewProduct, setQuickViewProduct] = useState({})
@@ -188,8 +146,10 @@ const SimillerProducts = ({collection}) => {
     arrows: true,
     // nextArrow: true,
     // prevArrow: true,
-    nextArrow: <SampleNextArrow to="next" />,
-    prevArrow: <SamplePrevArrow to="prev" />,
+    nextArrow: 
+      data && data.length > 4 ? <SampleNextArrow to="next" /> : null,
+    prevArrow: 
+      data && data.length > 4 ? <SamplePrevArrow to="prev" /> : null,
     responsive: [
       {
         breakpoint: 1024,
@@ -197,7 +157,8 @@ const SimillerProducts = ({collection}) => {
           slidesToShow: 2,
           slidesToScroll: 1,
           infinite: false,
-          dots: false
+          dots: false,
+          arrows: data && data.length > 4 ? true : false,
         }
       },
       {
@@ -205,14 +166,17 @@ const SimillerProducts = ({collection}) => {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
-          initialSlide: 2
+          initialSlide: 2,
+          arrows: data && data.length > 2 ? true : false,
+
         }
       },
       {
         breakpoint: 480,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
+          slidesToScroll: 1,
+          arrows: data && data.length > 1 ? true : false,
         }
       }
     ]
@@ -221,66 +185,6 @@ const SimillerProducts = ({collection}) => {
   return (
     <div className='similler-products-main-container'>
         <h3>Shop from this collection</h3>
-        {/* <div className='similler-products-wrapper' onMouseDown={handleMouseDown}
-            onTouchMove={handleTouchMove}>
-            <button
-                className={`scroll-button left ${simillerProductIndex >= data && data.length ? 'disable-similler-product-arrow' : ''} ${showArrowOnCardLength > 4 ? 'show-arrow-on-slider' : ''}`}
-                onClick={() => handleScroll(-1)} 
-            //    onClick={handlePrev}
-                disabled={simillerProductIndex === 0}
-            >
-                <img src={arrowLeftRed} alt='arrow-left' />
-            </button> 
-            <div className='similler-products-cards' ref={scrollContainerRef}>
-                {data ? (
-                    data && data.slice(0, 12).map((item, index) => (
-                    <ProductCard
-                        key={item.uid}
-                        maxWidthAccordingToComp={'100%'} justWidth={'310px'}
-                        // tagIcon={item.productTag ? item.productTag : item.heart}
-                        tagIcon={heart}
-                        tagClass={` ${item.productTag ? 'tag-img' : 'heart-icon'}`}
-                        tagDivClass={`${item.productTag ? 'product-tag-div' : 'heart-icon-div'}`}
-                        mainImage={hoveredIndex === index && item.image.image_url ? item.hoverImage : item.image.image_url}
-                        productCardContainerClass={`product-card ${hideFilters ? 'card-width-increase' : ''}`}
-                        mouseEnter={() => handleImageHover(index)}
-                        mouseLeave={handleImageHoverLeave}
-                        ProductTitle={truncateTitle(item.name, maxLength)}
-                        stars={item.ratingStars}
-                        reviewCount={'200'}
-                        lowPriceAddvertisement={item.lowPriceAddvertisement}
-                        priceTag={item.regular_price}
-                        financingAdd={item.financingAdd}
-                        learnMore={item.learnMore}
-                        colorVariation={item.colorVariation}
-                        mainIndex={index}
-                        deliveryTime={item.deliveryTime}
-                        selectedColorIndices={selectedColorIndices}
-                        handleVariantColor={() => handleVariantImageClick(index, colorIndex)}
-                        borderLeft={index % 4 === 3}
-                        stock={item.manage_stock}
-                        handleCardClick={() => handleCardClick(item)}
-                        singleProductData={item}
-                        attributes={item.attributes}
-                        ProductSku={item.sku}
-                        sale_price={item.sale_price}
-                        handleWishListclick={() => handleWishList(item)}
-                    />
-                ))
-            ) : (
-                Array.from({ length: 5 }).map((_, index) => (
-                    <ProductCardShimmer />
-                ))
-            )}
-            </div>
-            <button
-                className={`scroll-button right ${simillerProductIndex >= data && data.length ? 'disable-similler-product-arrow' : ''} ${showArrowOnCardLength > 4 ? 'show-arrow-on-slider' : ''}`}
-               onClick={() => handleScroll(1)} 
-            
-            >
-                <img src={arrowRightRed} about='arrow-right' />
-            </button>
-        </div> */}
 
         <div className='cart-related-products-slider-main-div'>
           <Slider {...settings}>

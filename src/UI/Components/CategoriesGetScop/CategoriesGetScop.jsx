@@ -4,8 +4,9 @@ import imgOne from '../../../Assets/Furniture Mecca/Landing Page/get the scope/R
 import imgTwo from '../../../Assets/Furniture Mecca/category page/get the scope/Rectangle 921.png'
 import imgThree from '../../../Assets/Furniture Mecca/category page/get the scope/Rectangle 925.png'
 import { Link } from 'react-router-dom';
+import { url } from '../../../utils/api';
 
-const CategoriesGetScop = ({ isTrue, text }) => {
+const CategoriesGetScop = ({ isTrue, text, contentImages }) => {
 
     const mobileProductText = [
         {
@@ -32,6 +33,7 @@ const CategoriesGetScop = ({ isTrue, text }) => {
         }
     ]
     const sliderImages = [imgOne, imgTwo, imgThree]
+    console.log('contentImages', contentImages)
     
     return (
         <div className='scop-main-container'>
@@ -66,18 +68,32 @@ const CategoriesGetScop = ({ isTrue, text }) => {
                 <div className='image-gallery-slider'>
 
                     <div className='vertical-slider'>
+                        <div className='img-one-container'>
+                            {contentImages.slice(0, 4).map((item, index) => (
+                                <img key={index} className='img-one' src={`${url}${item.image_url}`} alt='img' />
+
+                            ))}
+                        </div>
+                        <div className='img-two-container'>
+                            {contentImages.slice(4, 8).map((item, index) => (
+                                <img key={index} className='img-two' src={`${url}${item.image_url}`} alt='img' />
+                            ))}
+                        </div>
+                        {/* <img className='img-one' src={imgOne} alt='img' />
                         <img className='img-one' src={imgOne} alt='img' />
-                        <img className='img-one' src={imgOne} alt='img' />
-                        <img className='img-one' src={imgOne} alt='img' />
-                        <img className='img-one' src={imgOne} alt='img' />
+                        <img className='img-one' src={imgOne} alt='img' /> */}
                     </div>
 
-                    <div className='vertical-slider'>
+                    {/* <div className='vertical-slider'> */}
+                        {/* <div className='img-two-container'>
+                            {contentImages.slice(4, 8).map((item, index) => (
+                                <img className='img-two' src={`${url}${item.image_url}`} alt='img' />
+                            ))}
+                        </div> */}
+                        {/* <img className='img-two' src={imgOne} alt='img' />
                         <img className='img-two' src={imgOne} alt='img' />
-                        <img className='img-two' src={imgOne} alt='img' />
-                        <img className='img-two' src={imgOne} alt='img' />
-                        <img className='img-two' src={imgOne} alt='img' />
-                    </div>
+                        <img className='img-two' src={imgOne} alt='img' /> */}
+                    {/* </div> */}
 
                 </div>
 

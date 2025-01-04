@@ -27,9 +27,8 @@ import "react-alice-carousel/lib/alice-carousel.css";
 
 // functions and context
 import { useCart } from '../../../context/cartContext/cartContext';
-import { url } from '../../../utils/api';
+import { formatedPrice, url } from '../../../utils/api';
 import axios from 'axios';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useList } from '../../../context/wishListContext/wishListContext';
 import { useProductPage } from '../../../context/ProductPageContext/productPageContext';
 import { IoChevronForward } from "react-icons/io5";
@@ -37,7 +36,7 @@ import { IoChevronBack } from "react-icons/io5";
 
 const SingleProductStickySection = ({ productData }) => {
 
-  console.log("product data", productData.images);
+  // console.log("product data", productData.images);
   const {
     setSingleProductData,
     setSelectedVariationUid,
@@ -66,16 +65,11 @@ const SingleProductStickySection = ({ productData }) => {
     if (!productData || Object.keys(productData).length === 0 || !('images' in productData)) {
       getProductDataWithSlug(slug);
     }
-    // if(productData?.slug === undefined){
-
-    // }
     setSingleProductData(productData)
     setSelectedVariationUid(productData?.default_variation)
     setSelectedVariationData(findObjectByUID(productData?.default_variation, productData?.variations));
 
   }, [productData, slug]);
-
-  // const [product, setProduct] = useState(Object.keys(productData || {}).length > 0 && productData.images !== undefined ?  productData : getBySlug)
 
   const [product, setProduct] = useState(
     Object.keys(productData || {}).length > 0 && productData.images !== undefined
@@ -83,7 +77,6 @@ const SingleProductStickySection = ({ productData }) => {
       : getBySlug
   );
   useEffect(() => {
-    // setProduct(Object.keys(productData || {}).length > 0 && productData.images !== undefined ? productData : getBySlug)
 
      if (
     Object.keys(productData || {}).length > 0 &&
@@ -108,6 +101,7 @@ const SingleProductStickySection = ({ productData }) => {
   }
   const decreaseLocalQuantity = () => {
     setQuantity((prevQuantity) => Math.max(1, prevQuantity - 1));
+    // console.log("quantity on sticky", quantity)
   }
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -206,10 +200,12 @@ const SingleProductStickySection = ({ productData }) => {
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);
+    // setCartSection(true);
   };
 
   const handleAddToCartProduct = (product) => {
     setCartSection(true);
+    // console.log("quantity on ad function", quantity)
     addToCart(product, quantity, !isProtectionCheck);
   }
   const handleCartClose = () => {
@@ -242,12 +238,12 @@ const SingleProductStickySection = ({ productData }) => {
   }
 
   //console.log("imgggg", variationData)
-  const formatePrice = (price) => {
-    return new Intl.NumberFormat('en-us', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(price)
-  }
+  // const formatePrice = (price) => {
+  //   return new Intl.NumberFormat('en-us', {
+  //     style: 'currency',
+  //     currency: 'USD'
+  //   }).format(price)
+  // }
 
   // //console.log("product variable", product.type)
   const { addToList, removeFromList, isInWishList } = useList()
@@ -320,7 +316,7 @@ const SingleProductStickySection = ({ productData }) => {
                       className={`single-product-slider-thumbnail ${activeIndex === index ? '' : 'single-product-slider-thumbnail-inactive'}`}
                       onClick={() => handleThumbnailClickk(index)}
                     >
-                      <LazyLoadImage effect="blur" src={`${url}${simpleImg.image_url}`} alt={`Thumbnail ${index}`} />
+                      <imag src={`${url}${simpleImg.image_url}`} alt={`Thumbnail ${index}`} />
                     </div>
                   ))
                 )}
@@ -342,20 +338,21 @@ const SingleProductStickySection = ({ productData }) => {
                 <div className='single-product-rating'>
                   <RatingReview rating={(product?.average_rating)} disabled={true} size={"20px"} />
                 </div>
-                {productData.type === "simple" ? <>
-                  {productData?.sale_price !== "0=" ? <div className='single-product-prices'>
-                    <del className='single-product-old-price'>{formatePrice(productData?.regular_price)}</del>
-                    <h3 className='single-product-new-price'>{formatePrice(productData?.sale_price)}</h3>
+                {product.type === "simple" ? <>
+                {console.log("product data on midle", productData)}
+                  {product?.sale_price !== "" ? <div className='single-product-prices'>
+                    <del className='single-product-old-price'>{formatedPrice(productData.regular_price)}</del>
+                    <h3 className='single-product-new-price'>{formatedPrice(productData?.sale_price)}</h3>
                   </div> : <div className='single-product-prices'>
-                    <h3 className='single-product-new-price'>{formatePrice(productData.regular_price)}</h3>
+                    <h3 className='single-product-new-price'>{formatedPrice(productData.regular_price)}</h3>
                   </div>
                   }
                 </> : <>
-                  {selectedVariationData?.sale_price !== "0=" ? <div className='single-product-prices'>
-                    <del className='single-product-old-price'>{formatePrice(selectedVariationData?.regular_price)}</del>
-                    <h3 className='single-product-new-price'>{formatePrice(selectedVariationData?.sale_price)}</h3>
+                  {selectedVariationData?.sale_price !== "" ? <div className='single-product-prices'>
+                    <del className='single-product-old-price'>{formatedPrice(selectedVariationData?.regular_price)}</del>
+                    <h3 className='single-product-new-price'>{formatedPrice(selectedVariationData?.sale_price)}</h3>
                   </div> : <div className='single-product-prices'>
-                    <h3 className='single-product-new-price'>{formatePrice(product.regular_price)}</h3>
+                    <h3 className='single-product-new-price'>{formatedPrice(product.regular_price)}</h3>
                   </div>
                   }
                 </>}
@@ -435,18 +432,18 @@ const SingleProductStickySection = ({ productData }) => {
             <div className='old-and-new-price'>
               {productData.type === "simple" ? <>
                 {productData?.sale_price !== "0=" ? <div className='single-product-prices'>
-                  <del className='single-product-old-price'>{formatePrice(productData?.regular_price)}</del>
-                  <h3 className='single-product-new-price'>{formatePrice(productData?.sale_price)}</h3>
+                  <del className='single-product-old-price'>{formatedPrice(productData?.regular_price)}</del>
+                  <h3 className='single-product-new-price'>{formatedPrice(productData?.sale_price)}</h3>
                 </div> : <div className='single-product-prices'>
-                  <h3 className='single-product-new-price'>{formatePrice(productData.regular_price)}</h3>
+                  <h3 className='single-product-new-price'>{formatedPrice(productData.regular_price)}</h3>
                 </div>
                 }
               </> : <>
                 {selectedVariationData?.sale_price !== "0=" ? <div className='single-product-prices'>
-                  <del className='single-product-old-price'>{formatePrice(selectedVariationData?.regular_price)}</del>
-                  <h3 className='single-product-new-price'>{formatePrice(selectedVariationData?.sale_price)}</h3>
+                  <del className='single-product-old-price'>{formatedPrice(selectedVariationData?.regular_price)}</del>
+                  <h3 className='single-product-new-price'>{formatedPrice(selectedVariationData?.sale_price)}</h3>
                 </div> : <div className='single-product-prices'>
-                  <h3 className='single-product-new-price'>{formatePrice(product.regular_price)}</h3>
+                  <h3 className='single-product-new-price'>{formatedPrice(product.regular_price)}</h3>
                 </div>
                 }
               </>}
@@ -525,7 +522,7 @@ const SingleProductStickySection = ({ productData }) => {
                     className={`single-product-slider-thumbnail ${mobileActiveIndex === index ? '' : 'single-product-slider-thumbnail-inactive'}`}
                     onClick={() => handleMobThumbnailClickk(index)}
                   >
-                    <LazyLoadImage effect="blur" src={`${url}${simpleImg.image_url}`} alt={`Thumbnail ${index}`} />
+                    <img  src={`${url}${simpleImg.image_url}`} alt={`Thumbnail ${index}`} />
                   </div>
                 ))
               )}

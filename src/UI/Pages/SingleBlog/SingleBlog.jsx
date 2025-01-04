@@ -42,25 +42,6 @@ const SingleBlog = () => {
     // const { blogs } = useBlog()
     const filteredBlogs = blogs.filter((item) => item.slug !== singleBlog.slug);
 
-    // Get Surrouding Blogs
-    // const getSurroundingBlogs = (id) => {
-    //     const currentIndex = blogs.findIndex((item) => item.id === id); // Get the index of the blog
-    //     console.log("current blog index", currentIndex);
-
-    //     if (currentIndex === -1) {
-    //         return { before: null, after: null }; // If blog is not found
-    //     }
-
-    //     const beforeIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : null; // Index before the current one
-    //     const afterIndex = currentIndex + 1 < blogs.length ? currentIndex + 1 : null; // Index after the current one
-
-    //     console.log("beforeIndex", beforeIndex);
-    //     console.log("afterIndex", afterIndex);
-
-    //     return { beforeIndex, afterIndex };
-    // }
-
-
     const getSurroundingBlogs = (slug) => {
         const currentIndex = blogs.findIndex((item) => item.slug === slug); // Find the index of the current blog
         console.log("current blog index", currentIndex);

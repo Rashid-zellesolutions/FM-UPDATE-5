@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './LatestModulerBanner.css';
-// import SodaBannerOne from '../../../Assets/to-be-change/soda-1.png';
-// import SodaBannerTwo from '../../../Assets/to-be-change/soda-2.png';
-// import SodaMobileViewBanner from '../../../Assets/images/Rectangle 679.png'
 import PaypalBannerOne from '../../../Assets/Furniture Mecca/Landing Page/Pay option banner/download 51.png';
 import PaypalBannerTwo from '../../../Assets/Furniture Mecca/Landing Page/Pay option banner/Well-Fargo-Financing-1 1.png';
 import MobileViewPaypalBanner from '../../../Assets/images/Group 382.png';
@@ -43,7 +40,7 @@ const LatestModulerBanner = ({ images, mobileMainImage, customWidth, mainImage, 
         
         <div className={`dining-image-div ${mainImgShow ? 'show-main-img' : ''}`}>
           <img onLoad={() => setImagePreloader(true)} src={mainImage} alt='dining image' className='desktop-main-banner' />
-          <img src={mobileMainImage} alt='mobile-main-image' className='mobile-main-banner' />
+          <img onLoad={() => setImagePreloader(true)} src={mobileMainImage} alt='mobile-main-image' className='mobile-main-banner' />
           {!imagePreloader && <div className='image_preloader'>
             <img src={loader} alt="" srcset="" />
           </div>}

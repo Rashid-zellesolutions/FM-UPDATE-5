@@ -13,6 +13,8 @@ export const NavigationProvider = ({ children }) => {
         setNavigationHistory((prev) => [...prev, path]);
     };
 
+    
+
     return (
         <NavigationContext.Provider value={{ navigationHistory, addToHistory }}>
             {children}

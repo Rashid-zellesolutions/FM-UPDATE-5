@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 const CartPaymentInfo = ({ isPaymentTrue }) => {
 
     const [currentCardType, setCurrentCardType] = useState(0);
-    // const [prevIndex, setPrevIndex] = useState(currentCardType - 1);
     const [animationDirection, setAnimationDirection] = useState(0);
     const containerRef = useRef(null);
 
@@ -22,8 +21,6 @@ const CartPaymentInfo = ({ isPaymentTrue }) => {
             setAnimationDirection((currentCardType * headingWidth) - (0 * headingWidth));
         }
     }, [currentCardType]);
-
-    // const [isSummaryOpen, setIsSummeryOpen] = useState(false);
 
     const cardTypes = ['Credit Card', 'Paypal', 'Acima', 'Progressive'];
     const cardIcons = [visaCArd, masterCard, discoverCArd, americanExpressCard]

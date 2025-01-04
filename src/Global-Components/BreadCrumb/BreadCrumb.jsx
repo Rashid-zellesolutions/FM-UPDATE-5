@@ -37,8 +37,8 @@ const Breadcrumb = ({ category, productName, sku, categorySlug }) => {
                     // Determine if the current route is the category
                     const isCategory = pathname === 'single-product' && category;
 
-                    const name = isProductPage && sku
-                        ? sku // Use SKU if on product page
+                    const name = isProductPage && productName
+                        ? productName // Use SKU if on product page
                         : isCategory
                             ? category // Replace "single-product" with category
                             : pathname.charAt(0).toUpperCase() + pathname.slice(1).replace(/-/g, ' '); // Default name
@@ -64,3 +64,5 @@ const Breadcrumb = ({ category, productName, sku, categorySlug }) => {
 };
 
 export default Breadcrumb;
+
+

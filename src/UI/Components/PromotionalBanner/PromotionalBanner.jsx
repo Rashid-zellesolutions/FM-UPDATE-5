@@ -20,12 +20,12 @@ const PromotionalBanner = ({handleLanguageModal, handleDeliverModal, currentSele
     <div className='furniture-mecca-promotional-banner'>
         <div className='rotating-message'>
           {currentIndex === 1 ? <span>Need help ordering? <Link className='toll-free-ancor' href='#'> Call 860-812-1111 </Link> </span> 
-          : currentIndex === 2 ? <span>Learn about my <Link className='toll-free-ancor' href='#'>Financing Options</Link> </span> 
+          : currentIndex === 2 ? <span>Learn about my <Link to={'/financing'} className='toll-free-ancor' href='#'>Financing Options</Link> </span> 
           : <span>Shop everyday low prices!</span>}
         </div>
         <div className='header-links-and-select-language'>
           <div className='banner-link-container'>
-            <Link to={'our-locations'}>Stores</Link>
+            <Link to={'/store-locator'}>Stores</Link>
             <Link to={'#'}>Orders</Link>
             <Link to={'/financing'}>Financing</Link>
             <Link to={'#'}>Help</Link>

@@ -3,7 +3,6 @@ import './BlogCard.css'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import arrowRight from '../../../../Assets/icons/blog-btn-arrow.png'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 const BlogCard = (
   {
@@ -54,7 +53,7 @@ const BlogCard = (
       onClick={navigateToSinglePage}
     >
       <div className='blog-card-main-image-div'>
-        <LazyLoadImage effect='blur' src={blogMainImage} alt='main' className='blog-card-main-image-class' />
+        <img src={blogMainImage} alt='main' className='blog-card-main-image-class' />
       </div>
       <div className='blog-card-content-div'>
         <Link className='blog-card-category'>{blogCategory}</Link>

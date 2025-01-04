@@ -1,29 +1,35 @@
 import React, { useEffect, useState } from 'react'
 import './Products.css';
 import { Link, useLocation, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+// Assets
 import AddBtn from '../../../Assets/icons/add-bold-btn.png'
-import { MdKeyboardArrowDown } from "react-icons/md";
 import filterHumberger from '../../../Assets/icons/humberger-icon.png'
 import arrowUpDown from '../../../Assets/icons/arrow-up-donw.png'
-import { useDispatch, useSelector } from 'react-redux';
-import ProductCard from '../ProductCard/ProductCard';
-import { useNavigate } from 'react-router-dom';
 import arrowBlack from '../../../Assets/icons/hide-arrow-black.png'
-import { useProducts } from '../../../context/productsContext/productContext';
-import { useCart } from '../../../context/cartContext/cartContext';
 import closeBtn from '../../../Assets/icons/close-btn.png'
-import QuickView from '../QuickView/QuickView';
-import CartSidePannel from '../Cart-side-section/CartSidePannel';
 import paginationArrow from '../../../Assets/icons/arrow-right-large.png'
-import MobileViewProductFilters from '../MobileViewProductFilters/MobileViewProductFilters';
-import Breadcrumb from '../../../Global-Components/BreadCrumb/BreadCrumb';
-import { IoMdClose } from "react-icons/io";
 import star from "../../../Assets/icons/Star 19.png"
 import heart from '../../../Assets/icons/heart-vector.png'
-// import ProductCardTwo from '../ProductCard/ProductCardTwo';
+import { MdKeyboardArrowDown } from "react-icons/md";
+import { IoMdClose } from "react-icons/io";
+
+// Components
+
+import ProductCard from '../ProductCard/ProductCard';
+import ProductCardShimmer from '../Loaders/productCardShimmer/productCardShimmer';
+import QuickView from '../QuickView/QuickView';
+import CartSidePannel from '../Cart-side-section/CartSidePannel';
+import MobileViewProductFilters from '../MobileViewProductFilters/MobileViewProductFilters';
+import Breadcrumb from '../../../Global-Components/BreadCrumb/BreadCrumb';
+
+// Functions and Context
 import { url } from '../../../utils/api';
 import axios from 'axios';
-import ProductCardShimmer from '../Loaders/productCardShimmer/productCardShimmer';
+import { useProducts } from '../../../context/productsContext/productContext';
+import { useCart } from '../../../context/cartContext/cartContext';
 import { useList } from '../../../context/wishListContext/wishListContext';
 import { toast } from 'react-toastify';
 
@@ -97,17 +103,6 @@ const Products = ({ productArchiveHading }) => {
         }
     };
 
-    // const searchForProducts = async (text) => {
-    //     const api = `/api/v1/products/by-name?name`;
-    //     try {
-    //         // setIsSearching(true)
-    //         // setIsLoading(true);
-    //         const response = await axios.get(`${url}${api}=${text}`)
-    //         setSearchedProducts(response.data.products)
-    //     } catch (error) {
-    //         console.error("error fething data", error);
-    //     }
-    // }
     useEffect(() => {
         fetchProductData()
     }, [])
@@ -117,8 +112,6 @@ const Products = ({ productArchiveHading }) => {
 
     const handleCartSectionOpen = (item) => {
         setAddToCartClicked(true)
-        // console.log("Cart Data ", cart)
-        // addToCart(item)
     }
 
     const handleCartSectionClose = () => {
@@ -132,11 +125,6 @@ const Products = ({ productArchiveHading }) => {
 
     }
     const handleQuickViewClose = () => { setQuickView(false) }
-
-    // navigate to single product page with product data
-    // const handleProductClick = (item) => {
-    //     navigate(`/product/${item.slug}`, {state: item});
-    // };
 
     const handleProductClick = (item) => {
         navigate(`/product/${item.slug}`, { state: item });
@@ -334,41 +322,6 @@ const Products = ({ productArchiveHading }) => {
     return (
         <div className='products-main-container'>
             <Breadcrumb />
-            {/* <h3 className='desktop-view-category-title'>Category: {productArchiveHading}</h3> */}
-            {/* <p className='mobile-view-category-title'>{productArchiveHading}</p> */}
-
-            {/* Toggle section code */}
-            {/* <div className='toggle-sort-section'>
-                <div className='hide-and-show-filters-button-container' onClick={handleFilterSection}>
-                    <button> <img src={filterHumberger} alt='img' /> {hideFilters ? 'Show Filters' : 'Hide Filters'}</button>
-                </div>
-                <div className='set-zip-to-dileviry-container'>
-                    <div class="checkbox-wrapper-1">
-                        <input class="tgl-one tgl-light" id="cb1-1" type="checkbox" />
-                        <label class="tgl-btn" for="cb1-1" />
-                    </div>
-                    <span>
-                        <p>Deliver to: </p>
-                        <h5>04062 (Change)</h5>
-                    </span>
-                </div>
-                <div className='sort-availablity-container'>
-                    <div class="checkbox-wrapper-2">
-                        <input class="tgl-two tgl-light" id="cb1-2" type="checkbox" />
-                        <label class="tgl-btn" for="cb1-2" />
-                    </div>
-                    <span>
-                        <p>Availabiliity: </p>
-                        <h5 onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} >
-                            Within 3 Months
-                            <div className={`availability-dropdown ${showAvailaabilityBox ? 'show-box' : ''}`}>
-                                <p> <Link to={'#'}>Within 3 Months</Link></p>
-                                <p> <Link to={'#'}>Within 8 Weeks</Link> </p>
-                            </div>
-                        </h5>
-                    </span>
-                </div>
-            </div> */}
 
             <div className='products-and-filter-container'>
                 {/* Filters side bar section code */}
@@ -451,30 +404,6 @@ const Products = ({ productArchiveHading }) => {
                         </div>
                     </div>
                     <div className={`product-main ${hideFilters ? 'increase-columns' : ''}`}>
-                        {/* {products.slice(0, 9).map((item, index) => {
-                        return <ProductCardTwo 
-                            key={index}
-                            slug={item.slug}
-                            singleProductData={item}
-                            maxWidthAccordingToComp={'32%'} 
-                            justWidth={'100%'} 
-                            tagIcon={item.productTag ? item.productTag : item.heart}
-                            tagClass={` ${item.productTag ? 'tag-img' : 'heart-icon'}`}
-                            mainImage={hoveredIndex === index && item.hoverImage ? item.hoverImage : item.mainImage}
-                            productCardContainerClass={`product-card ${hideFilters ? 'card-width-increase' : ''}`}
-                            mouseEnter={() => handleImageHover(index)}
-                            mouseLeave={handleImageHoverLeave} ProductTitle={truncateTitle(item.productTitle, maxLength)}
-                            stars={item.ratingStars} reviewCount={item.reviewCount} lowPriceAddvertisement={item.lowPriceAddvertisement}
-                            priceTag={item.priceTag} financingAdd={item.financingAdd} learnMore={item.learnMore} colorVariation={item.colorVariation}
-                            mainIndex={index} deliveryTime={item.deliveryTime} 
-                            selectedColorIndices={selectedColorIndices} handleVariantColor={() => handleVariantImageClick(index, colorIndex)}
-                            borderLeft={index % 3 === 2} handleCardClick={() => handleProductClick(item)}
-                            handleAddToCart={() => addToCart(item)}
-                            handleCartSectionOpen={() => handleCartSectionOpen(item)}
-                            handleQuickView={() => handleQuickViewOpen(item)}
-                            stock={item.stock}
-                        />
-                    })} */}
 
                         {products && products.length > 0 ? (
                             products.map((item, index) => {
@@ -519,43 +448,6 @@ const Products = ({ productArchiveHading }) => {
                             ))
                         )}
 
-                        {/* {products.slice(0, 9).map((item, index) => {
-                        return  <ProductCard
-                        key={index}
-                        slug={item.slug}
-                        singleProductData={item}
-                        maxWidthAccordingToComp={"32%"}
-                        justWidth={'100%'}
-                        tagIcon={item.productTag ? item.productTag : heart}
-                        tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
-                        mainImage={`${item.image.image_url}`}
-                        productCardContainerClass="product-card"
-                        ProductSku={item.sku}
-                        tags={item.tags}
-                        ProductTitle={truncateTitle(item.name, maxLength)}
-                        stars={[
-                            { icon: star, title: 'filled' },
-                            { icon: star, title: 'filled' },
-                            { icon: star, title: 'filled' },
-                            { icon: star, title: 'filled' },
-                            { icon: star, title: 'filled' },
-                        ]}
-                        reviewCount={item.reviewCount}
-                        lowPriceAddvertisement={item.lowPriceAddvertisement}
-                        priceTag={item.regular_price}
-                        sale_price={item.sale_price}
-                        financingAdd={item.financingAdd}
-                        learnMore={item.learnMore}
-                        mainIndex={index}
-                        deliveryTime={item.deliveryTime}
-                        stock={item.manage_stock}
-                        attributes={item.attributes}
-                        handleCardClick={() => handleProductClick(item)}
-                        handleQuickView={() => handleQuickViewOpen(item)}
-                    />
-                    })} */}
-
-
                     </div>
                     {/* Product Card Code End */}
                     <div className='view-more-products-button-div'>
@@ -591,37 +483,6 @@ const Products = ({ productArchiveHading }) => {
                     </div>
                 </div>
                 <div className={`${selectedGrid === 'single-col' ? 'mobile-view-product-single-column' : 'mobile-view-products-main-container'} `}>
-                    {/* {products.slice(0, 3).map((item, index) => {
-                        return <ProductCardTwo key={index}
-                            slug={item.slug}
-                            singleProductData={item}
-                            maxWidthAccordingToComp={'32%'} 
-                            justWidth={'100%'} 
-                            tagIcon={item.productTag ? item.productTag : item.heart}
-                            tagClass={` ${item.productTag ? 'tag-img' : 'heart-icon'}`}
-                            mainImage={hoveredIndex === index && item.hoverImage ? item.hoverImage : item.mainImage}
-                            productCardContainerClass={`product-card ${hideFilters ? 'card-width-increase' : ''}`}
-                            mouseEnter={() => handleImageHover(index)}
-                            ProductTitle={truncateTitle(item.productTitle, maxLength)}
-                            stars={item.ratingStars} 
-                            reviewCount={item.reviewCount} 
-                            lowPriceAddvertisement={item.lowPriceAddvertisement}
-                            priceTag={item.priceTag} 
-                            financingAdd={item.financingAdd} learnMore={item.learnMore} colorVariation={item.colorVariation}
-                            mainIndex={index} 
-                            deliveryTime={item.deliveryTime} 
-                            selectedColorIndices={selectedColorIndices} 
-                            borderLeft={index % 3 === 2} 
-                            stock={item.stock}
-                            percent={'-12%'}
-                            mouseLeave={handleImageHoverLeave} 
-                            handleVariantColor={() => handleVariantImageClick(index, colorIndex)}
-                            handleCardClick={() => handleProductClick(item)}
-                            handleAddToCart={() => addToCart(item)}
-                            handleCartSectionOpen={() => handleCartSectionOpen(item)}
-                            handleQuickView={() => handleQuickViewOpen(item)}
-                        />
-                    })} */}
 
                     {products.map((item, index) => {
                         return <ProductCard

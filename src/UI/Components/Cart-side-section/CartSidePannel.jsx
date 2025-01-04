@@ -34,20 +34,6 @@ const CartSidePannel = (
     navigate(`/cart`)
 
   }
-  // const [isCheck, setIsCheck] = useState({});
-
-  // const handleCheckboxCheck = (index) => {
-  //   setIsCheck((prev) => ({
-  //     ...prev,
-  //     [index]: !prev[index], // Toggle the checked state
-  //   }));
-  //   // setIsCheck(index);
-  //   console.log("checked value", isCheck)
-  // }
-  // const cartSummeryCheckData = [
-  //   { type: 'checkbox', label: 'Professional Assembly (+ $210)', detail: 'Use professional assembly for all products and save up to $80' },
-  //   { type: 'checkbox', label: 'Elite Platinum Furniture Protection(+ $199)', detail: 'Use professional assembly for all products and save up to $80' }
-  // ]
 
   const handleContinueShopping = () => {
     setAddToCartClick(false)
@@ -82,7 +68,6 @@ const CartSidePannel = (
         <div className='cart-section-products'>
           {cartData && cartData?.products?.map((items, index) => {
             return <CartSideSection
-
               key={items.product_uid}
               attributes={items.attributes}
               handleItemRemove={() => removeFromCart(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
@@ -95,6 +80,7 @@ const CartSidePannel = (
               minusBtn={minusBtn}
               quantity={items.quantity}
               increamentQuantity={() => increamentQuantity(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
+              
               plusBtn={plusBtn}
               sale_price={items.sale_price}
               regular_price={items.regular_price}

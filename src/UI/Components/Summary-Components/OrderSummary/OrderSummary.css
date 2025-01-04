@@ -134,7 +134,7 @@
 
 .selected-product-total{
     display: flex;
-    padding-left: 120px;
+    padding: 0 20px;
     align-items: center;
     justify-content: center;
 }

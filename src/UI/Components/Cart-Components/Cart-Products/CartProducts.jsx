@@ -4,8 +4,6 @@ import CartItems from '../Cart-items/CartItems';
 import CartPaymnetMethoud from '../CArtAddPaymentMethoud/CartPaymnetMethoud';
 import { useCart } from '../../../../context/cartContext/cartContext';
 import EmptyCart from '../Empty-Cart/EmptyCart';
-import deliveryTruck from '../../../../Assets/icons/delivery.png';
-import  locationIcon from '../../../../Assets/icons/location-red.png';
 import MobileCart from '../Mobile-Cart/MobileCart';
 import { useNavigate } from 'react-router-dom';
 import Breadcrumb from '../../../../Global-Components/BreadCrumb/BreadCrumb';
@@ -28,26 +26,10 @@ const CartProducts = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [checkoutFixed, setCheckoutFixed] = useState(true);
 
-    // const detailsDeta = [
-    //     {
-    //         title: 'Sub Total', price: formatedPrice(subTotal),
-    //     },
-    //     {
-    //         title: 'Delivery', price: formatedPrice(deliveryCharges)
-    //     },
-    //     {
-    //         title: 'Tax', price: formatedPrice(taxValue)
-    //     },
-    //     {
-    //         title: 'Total', price: formatedPrice(subTotal + deliveryCharges + taxValue)
-    //     },
-    // ]
-
     const handleToggle = () => {
         setIsOpen(!isOpen);
     };
 
-    
     const handleScroll = () => {
         if(window.scrollY > 250){
             setCheckoutFixed(false);
@@ -63,17 +45,10 @@ const CartProducts = () => {
             window.removeEventListener('scroll', handleScroll)
         }
     }, [])
-
-    // const [protectAll, setProtectAll] = useState(false);
     
     const [issingleProtected, setIsSingleProtected] = useState(false);
 
 
-    const navigate = useNavigate();
-    const handleNavigateToCheckoutPage = () => {
-        console.log("Cart before adding to order:", cart);
-        navigate(`/check-out`);
-    }
 
     return (
         <>
