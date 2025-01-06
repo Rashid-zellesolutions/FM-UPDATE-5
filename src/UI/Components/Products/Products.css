@@ -402,6 +402,7 @@
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
+    
 }
 
 .single-filter span p{
@@ -420,6 +421,32 @@
 .rotate{
     transform: rotate(45deg);
     transition: transform 0.3s ease-in-out;
+}
+
+.single-filter-items-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    align-items: start;
+    justify-content: start;
+    padding: 0;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    border-bottom: 1px solid var(--border-color);
+    transition: all 0.3s ease-in-out;
+}
+
+.single-filter-items-container.show-single-filter-icons{
+    visibility: visible;
+    opacity: 1;
+    height: 220px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-top: 10px;
+    padding: 10px 0;
 }
 
 .filters{
@@ -458,7 +485,8 @@
     display: flex !important;
     align-items: center !important;
     justify-content: start !important;
-    width: 45% !important; 
+    width: 100%;
+    gap: 10px;
 }
 
 .filters.show-filter{
@@ -759,6 +787,56 @@ label {
     width: 100%;
     align-items: center;
     justify-content: center;
+}
+
+.view-more-products-pagination-main{
+    display: flex;
+    width: max-content;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.view-more-product-pages-count{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.view-more-product-pagination-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    transition: all 0.5 ease-in-out;
+}
+
+.view-more-product-pagination-button:hover{
+    transform: scale(1.2);
+}
+
+.view-more-product-page-number{
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 2px 5px;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3 ease-in-out;
+}
+
+.view-more-product-page-number:hover{
+    border-bottom: 1px solid var(--text-color);
+}
+
+.view-more-product-page-number.active-page-selected{
+    border-bottom: 1px solid var(--text-color);
 }
 
 .view-more-btn{

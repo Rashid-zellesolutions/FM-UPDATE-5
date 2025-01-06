@@ -7,11 +7,11 @@ import { Link } from 'react-router-dom';
 const Nav = ({ navLinks, sale_data }) => {
 
     // States and variables
-    const [dropdownOpen, setDropdownOpen] = useState(0);
-    const [activeIndex, setActiveIndex] = useState(0)
+    const [dropdownOpen, setDropdownOpen] = useState(null);
+    const [activeIndex, setActiveIndex] = useState(null)
     const location = useLocation()
 
-    console.log("sale data", navLinks)
+    // console.log("sale data", navLinks)
 
     // Functions
     const handleMouseEnter = (index) => {

@@ -73,7 +73,7 @@ const ProductCard = ({
     const [cardHovered, setCardHovered] = useState(false);
     const handleMouseEnter = () => {
         setCardHovered(true)
-        console.log(cardHovered);
+        // console.log(cardHovered);
     }
 
     const handleMouseLeave = () => {
@@ -217,7 +217,7 @@ const ProductCard = ({
 
                     <div className='product-main-image-container' /* onMouseEnter={() => handleMouseOnMainImage(singleProductData?.uid)} onMouseLeave={handleMouseLeaveOnMainImage} */>
                         <div className='tag-and-heart'>
-                            <h3 className='stock-label'>{stock?.is_stock_manage === 1 ? "In Stock" : "Out of Stock"}</h3>
+                            <h3 className={`stock-label ${stock?.is_stock_manage === 1 ? 'show-stock-tag' : ''}`}>{stock?.is_stock_manage === 1 ? "In Stock" : "Out of Stock"}</h3>
                             <p className='percent-label'>{percent}</p>
                             {
                                 isInWishList(singleProductData.uid) ? 

@@ -45,51 +45,11 @@ const SingleProductStickySection = ({ productData }) => {
     selectedVariationData
   } = useProductPage();
 
-  const { slug } = useParams()
-  const [getBySlug, setGetBySlug] = useState({})
-
-  const getProductDataWithSlug = async (slug) => {
-    const api = `/api/v1/products/get-by-slug/`
-    try {
-      const response = await axios.get(`${url}${api}${slug}`)
-      const temporaryProduct = response.data.products[0] || {};
-      console.log("temporaryProduct", temporaryProduct)
-      setGetBySlug(temporaryProduct)
-    } catch (error) {
-      //console.log("Error Fetching fetching data with slug", error);
-    }
-  }
-
-  // Effect to fetch data if user came directly via link
   useEffect(() => {
-    if (!productData || Object.keys(productData).length === 0 || !('images' in productData)) {
-      getProductDataWithSlug(slug);
-    }
-    setSingleProductData(productData)
-    setSelectedVariationUid(productData?.default_variation)
-    setSelectedVariationData(findObjectByUID(productData?.default_variation, productData?.variations));
+    console.log("variation data", selectedVariationData)
+  }, [])
+  
 
-  }, [productData, slug]);
-
-  const [product, setProduct] = useState(
-    Object.keys(productData || {}).length > 0 && productData.images !== undefined
-      ? productData
-      : getBySlug
-  );
-  useEffect(() => {
-
-     if (
-    Object.keys(productData || {}).length > 0 &&
-    productData.images !== undefined &&
-    productData !== product
-  ) {
-    setProduct(productData);
-  } else if (!productData || Object.keys(productData).length === 0 || !productData.images) {
-    setProduct(getBySlug);
-  }
-  }, [productData, slug, getBySlug, product])
-
-  useEffect(() => { console.log("product single", product) }, [product])
 
   const { cart, addToCart, decreamentQuantity, increamentQuantity, removeFromCart, calculateTotalPrice, addToCart0, cartProducts } = useCart();
   const [cartSection, setCartSection] = useState(false);
@@ -119,9 +79,9 @@ const SingleProductStickySection = ({ productData }) => {
   };
 
   const handleNextSlide = () => {
-    const totalItems = product.type === 'variable'
+    const totalItems = productData.type === 'variable'
       ? selectedVariationData?.images.length
-      : product?.images.length;
+      : productData?.images.length;
 
     const newIndex = activeIndex === totalItems - 1 ? 0 : activeIndex + 1;
 
@@ -130,9 +90,9 @@ const SingleProductStickySection = ({ productData }) => {
   };
 
   const handleMobNextSlide = () => {
-    const totalItems = product.type === 'variable'
+    const totalItems = productData.type === 'variable'
       ? selectedVariationData?.images.length
-      : product?.images.length;
+      : productData?.images.length;
 
     const newIndex = mobileActiveIndex === totalItems - 1 ? 0 : mobileActiveIndex + 1;
 
@@ -141,9 +101,9 @@ const SingleProductStickySection = ({ productData }) => {
   };
 
   const handlePrevSlide = () => {
-    const totalItems = product.type === 'variable'
+    const totalItems = productData.type === 'variable'
       ? selectedVariationData?.images.length
-      : product?.images.length;
+      : productData?.images.length;
 
     const newIndex = activeIndex === 0 ? totalItems - 1 : activeIndex - 1;
 
@@ -152,9 +112,9 @@ const SingleProductStickySection = ({ productData }) => {
   };
 
   const handleMobPrevSlide = () => {
-    const totalItems = product.type === 'variable'
+    const totalItems = productData.type === 'variable'
       ? selectedVariationData?.images.length
-      : product?.images.length;
+      : productData?.images.length;
 
     const newIndex = mobileActiveIndex === 0 ? totalItems - 1 : mobileActiveIndex - 1;
 
@@ -216,17 +176,19 @@ const SingleProductStickySection = ({ productData }) => {
   const [selectVariation, setSelectVariation] = useState(0);
   const handleSelectVariation = (value) => {
     setSelectVariation(value);
+
   }
   const [selectedUid, setSelectedUid] = useState(null);
-
+  console.log("product variation ", productData)
   const handleSelectedVariationData = (value) => {
+    console.log("variation data", value)
     setSelectedUid(value);
 
     const selectedIndex = productData?.variations?.findIndex(variation => variation?.uid === value);
 
-    console.log(productData.variations);
-    console.log(selectedUid, "here");
-    console.log(selectedIndex, "index");
+    // console.log(productData.variations);
+    // console.log(selectedUid, "here");
+    // console.log(selectedIndex, "index");
     setVariationData(productData?.variations?.[selectedIndex]);
 
   };
@@ -274,7 +236,7 @@ const SingleProductStickySection = ({ productData }) => {
                 disableDotsControls
                 disableButtonsControls
                 items={
-                  product.type === 'variable'
+                  productData.type === 'variable'
                     ? (selectedVariationData?.images || []).map((img, index) => (
                       <img
                         key={index}
@@ -283,7 +245,7 @@ const SingleProductStickySection = ({ productData }) => {
                         alt={`Slide ${index}`}
                       />
                     ))
-                    : (product?.images || []).map((item, index) => (
+                    : (productData?.images || []).map((item, index) => (
                       <img
                         key={index}
                         src={`${url}${item.image_url}`}
@@ -299,7 +261,7 @@ const SingleProductStickySection = ({ productData }) => {
               />
 
               <div className="single-product-slider-thumbnails">
-                {product.type === 'variable' ? (
+                {productData.type === 'variable' ? (
                   selectedVariationData?.images?.map((img, ind) => (
                     <div
                       key={ind}
@@ -310,13 +272,13 @@ const SingleProductStickySection = ({ productData }) => {
                     </div>
                   ))
                 ) : (
-                  product.images?.map((simpleImg, index) => (
+                  productData.images?.map((simpleImg, index) => (
                     <div
                       key={index}
                       className={`single-product-slider-thumbnail ${activeIndex === index ? '' : 'single-product-slider-thumbnail-inactive'}`}
                       onClick={() => handleThumbnailClickk(index)}
                     >
-                      <imag src={`${url}${simpleImg.image_url}`} alt={`Thumbnail ${index}`} />
+                      <img src={`${url}${simpleImg.image_url}`} alt={`Thumbnail ${index}`} />
                     </div>
                   ))
                 )}
@@ -331,16 +293,16 @@ const SingleProductStickySection = ({ productData }) => {
           <div className='right-section'>
             <div className='single-product-detail-container'>
               <div className='single-page-product-name-anddetails'>
-                <h3 className='single-product-heading'>{product.name}</h3>
+                <h3 className='single-product-heading'>{productData.name}</h3>
                 <p className='single-product-sku'>
-                  SKU : {product.sku}
+                  SKU : {productData.sku}
                 </p>
                 <div className='single-product-rating'>
-                  <RatingReview rating={(product?.average_rating)} disabled={true} size={"20px"} />
+                  <RatingReview rating={(productData?.average_rating)} disabled={true} size={"20px"} />
                 </div>
-                {product.type === "simple" ? <>
-                {console.log("product data on midle", productData)}
-                  {product?.sale_price !== "" ? <div className='single-product-prices'>
+                {productData.type === "simple" ? <>
+                {/* {console.log("product data on midle", productData)} */}
+                  {productData?.sale_price !== "" ? <div className='single-product-prices'>
                     <del className='single-product-old-price'>{formatedPrice(productData.regular_price)}</del>
                     <h3 className='single-product-new-price'>{formatedPrice(productData?.sale_price)}</h3>
                   </div> : <div className='single-product-prices'>
@@ -352,7 +314,7 @@ const SingleProductStickySection = ({ productData }) => {
                     <del className='single-product-old-price'>{formatedPrice(selectedVariationData?.regular_price)}</del>
                     <h3 className='single-product-new-price'>{formatedPrice(selectedVariationData?.sale_price)}</h3>
                   </div> : <div className='single-product-prices'>
-                    <h3 className='single-product-new-price'>{formatedPrice(product.regular_price)}</h3>
+                    <h3 className='single-product-new-price'>{formatedPrice(productData.regular_price)}</h3>
                   </div>
                   }
                 </>}
@@ -363,9 +325,9 @@ const SingleProductStickySection = ({ productData }) => {
                 </span>
                 <div className='single-product-frame-color'>
                   <SizeVariant
-                    productType={product.type}
-                    productData={product.variations}
-                    attributes={product.attributes}
+                    productType={productData.type}
+                    productData={productData.variations}
+                    attributes={productData.attributes}
                     selectedColor={selectedColor}
                     selectVariation={selectVariation}
                     handleSelectColor={handleSelectColor}
@@ -376,7 +338,7 @@ const SingleProductStickySection = ({ productData }) => {
 
                 <div className='add-cart-or-add-items-div'>
                   <div className='item-count'>
-                    <button className={`minus-btn ${product.quantity === 1 ? 'disabled' : ''}`} onClick={decreaseLocalQuantity} disabled={product.quantity === 1}>
+                    <button className={`minus-btn ${productData.quantity === 1 ? 'disabled' : ''}`} onClick={decreaseLocalQuantity} disabled={productData.quantity === 1}>
                       <img src={minus} alt='minus btn' />
                     </button>
 
@@ -385,13 +347,13 @@ const SingleProductStickySection = ({ productData }) => {
                       <img src={plus} alt='plus btn' />
                     </button>
                   </div>
-                  <img src={isInWishList(product.uid) ? filledHeart : redHeart} alt='red-heart-icon' className='red-heart-icon' onClick={(e) => { e.stopPropagation(); handleWishList(product) }} />
+                  <img src={isInWishList(productData.uid) ? filledHeart : redHeart} alt='red-heart-icon' className='red-heart-icon' onClick={(e) => { e.stopPropagation(); handleWishList(productData) }} />
                   <button
                     className={`add-to-cart-btn ${isLoading ? 'loading' : ''}`}
                     onClick={() => {
                       handleClick();
-                      addToCart0(product, variationData, !isProtectionCheck ? 1 : 0)
-                      handleAddToCartProduct(product);
+                      addToCart0(productData, variationData, !isProtectionCheck ? 1 : 0,quantity)
+                      handleAddToCartProduct(productData);
                     }
                     }>
                     {isLoading ? 'Loading...' : 'Add To Cart'}
@@ -399,11 +361,11 @@ const SingleProductStickySection = ({ productData }) => {
                 </div>
               </div>
               <FinancingOptions />
-              {product.may_also_need && product.may_also_need.length > 0 ? <AlsoNeed productsUid={product.may_also_need} /> : <></>}
+              {productData.may_also_need && productData.may_also_need.length > 0 ? <AlsoNeed productsUid={productData.may_also_need} /> : <></>}
 
               <WhatWeOffer key={"single-protection"} isProtected={isProtectionCheck} setIsProtected={setIsProtectionCheck} />
               <DeliveryOptions />
-              <SingleProductFAQ description={product.description} />
+              <SingleProductFAQ description={productData.description} />
             </div>
           </div>
         </div>
@@ -423,10 +385,10 @@ const SingleProductStickySection = ({ productData }) => {
         <div className='mobile-view-single-product-slider'>
 
           <h3 className='mobile-view-product-name'>
-            {product.name}
+            {productData.name}
           </h3>
           <p className='mobile-view-product-sku'>
-            SKU: {product.sku}
+            SKU: {productData.sku}
           </p>
           <div className='mobile-view-price-and-favorite-div'>
             <div className='old-and-new-price'>
@@ -443,7 +405,7 @@ const SingleProductStickySection = ({ productData }) => {
                   <del className='single-product-old-price'>{formatedPrice(selectedVariationData?.regular_price)}</del>
                   <h3 className='single-product-new-price'>{formatedPrice(selectedVariationData?.sale_price)}</h3>
                 </div> : <div className='single-product-prices'>
-                  <h3 className='single-product-new-price'>{formatedPrice(product.regular_price)}</h3>
+                  <h3 className='single-product-new-price'>{formatedPrice(productData.regular_price)}</h3>
                 </div>
                 }
               </>}
@@ -452,7 +414,7 @@ const SingleProductStickySection = ({ productData }) => {
           </div>
 
           <div className='mobile-view-single-product-rating'>
-            <RatingReview rating={(product?.average_rating)} disabled={true} size={"12px"} />
+            <RatingReview rating={(productData?.average_rating)} disabled={true} size={"12px"} />
             {/* <p>4.1</p> */}
             {/* <Link>{product.reviewCount} Reviews</Link> */}
           </div>
@@ -479,7 +441,7 @@ const SingleProductStickySection = ({ productData }) => {
                 disableDotsControls
                 disableButtonsControls
                 items={
-                  product.type === 'variable'
+                  productData.type === 'variable'
                     ? (selectedVariationData?.images || []).map((img, index) => (
                       <img
                         key={index}
@@ -488,7 +450,7 @@ const SingleProductStickySection = ({ productData }) => {
                         alt={`Slide ${index}`}
                       />
                     ))
-                    : (product?.images || []).map((item, index) => (
+                    : (productData?.images || []).map((item, index) => (
                       <img
                         key={index}
                         src={`${url}${item.image_url}`}
@@ -505,7 +467,7 @@ const SingleProductStickySection = ({ productData }) => {
             </div>
 
             <div className='mobile-view-slider-thumb-images'>
-              {product.type === 'variable' ? (
+              {productData.type === 'variable' ? (
                 selectedVariationData?.images?.map((img, ind) => (
                   <div
                     key={ind}
@@ -516,7 +478,7 @@ const SingleProductStickySection = ({ productData }) => {
                   </div>
                 ))
               ) : (
-                product.images?.map((simpleImg, index) => (
+                productData.images?.map((simpleImg, index) => (
                   <div
                     key={index}
                     className={`single-product-slider-thumbnail ${mobileActiveIndex === index ? '' : 'single-product-slider-thumbnail-inactive'}`}
@@ -539,9 +501,9 @@ const SingleProductStickySection = ({ productData }) => {
         <div className='mobile-view-single-product-details'>
           <div className='mobile-view-color-variant'>
             <SizeVariant
-              productType={product.type}
-              productData={product.variations}
-              attributes={product.attributes}
+              productType={productData.type}
+              productData={productData.variations}
+              attributes={productData.attributes}
               selectedColor={selectedColor}
               selectVariation={selectVariation}
               handleSelectColor={handleSelectColor}
@@ -554,7 +516,7 @@ const SingleProductStickySection = ({ productData }) => {
 
             <div className='mobile-product-count'>
 
-              <button className={`mobile-minus-btn ${product.quantity === 1 ? 'disabled' : ''}`} onClick={decreaseLocalQuantity} disabled={product.quantity === 1}>
+              <button className={`mobile-minus-btn ${productData.quantity === 1 ? 'disabled' : ''}`} onClick={decreaseLocalQuantity} disabled={productData.quantity === 1}>
                 <img src={minus} alt='minus btn' />
               </button>
 
@@ -569,8 +531,8 @@ const SingleProductStickySection = ({ productData }) => {
               className={`mobile-add-to-cart-btn ${isLoading ? 'loading' : ''}`}
               onClick={() => {
                 handleClick();
-                addToCart0(product, variationData, !isProtectionCheck ? 1 : 0)
-                handleAddToCartProduct(product);
+                addToCart0(productData, variationData, !isProtectionCheck ? 1 : 0)
+                handleAddToCartProduct(productData);
               }
               }>
               {isLoading ? 'Loading...' : 'Add To Cart'}

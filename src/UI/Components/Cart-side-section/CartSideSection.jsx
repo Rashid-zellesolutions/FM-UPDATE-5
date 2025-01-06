@@ -25,7 +25,7 @@ const CartSideSection = (
     const { eachProtectionValue, isCartProtected } = useCart();
 
     const productTotalPrice = sale_price !== "0" ? (sale_price * quantity) + (isCartProtected ? 0 : (isProtected === 1 ? eachProtectionValue : 0)) : (regular_price * quantity) + (isCartProtected ? 0 : (isProtected === 1 ? eachProtectionValue : 0));
-    console.log("quantity recieve: ", quantity)
+    // console.log("quantity recieve: ", quantity)
 
     // const formatedSalePrice = Intl.NumberFormat('en-us', {
     //     style: 'currency',

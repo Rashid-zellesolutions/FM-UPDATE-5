@@ -106,10 +106,16 @@
  justify-content: flex-start;
 }
 
+.image-title{
+    font-size: 18px !important;
+    line-height: 20px !important;
+    font-weight: 500 !important;
+}
+
 .image-title a{
     color: var(--text-color);
-    font-size: 22px !important;
-    line-height: 24px !important;
+    font-size: 18px !important;
+    line-height: 20px !important;
     font-weight: 500 !important;
     letter-spacing: normal !important;
     text-decoration: none !important;

@@ -45,7 +45,7 @@ export const CartProvider = ({ children }) => {
         }));
     };
 
-    const addToCart0 = (product, variationData, isProtected) => {
+    const addToCart0 = (product, variationData, isProtected, quantity) => {
         setCartProducts((prev) => {
             const updatedProducts = prev.products || []; // Ensure products array exists
 
@@ -60,10 +60,10 @@ export const CartProvider = ({ children }) => {
                     products: updatedProducts.map((item) =>
                         product.type === "simple"
                             ? item.product_uid === product.uid
-                                ? { ...item, quantity: item.quantity + 1 }
+                                ? { ...item, quantity: item.quantity + parseInt(quantity) }
                                 : item
                             : item.variation_uid === product.default_variation
-                                ? { ...item, quantity: item.quantity + 1 }
+                                ? { ...item, quantity: item.quantity + parseInt(quantity) }
                                 : item
                     ),
                 };
@@ -81,7 +81,7 @@ export const CartProvider = ({ children }) => {
                             attributes: product.type === "simple" ? product.attributes : variationData?.attributes,
                             sale_price: product.type === "simple" ? product.sale_price : variationData?.sale_price,
                             regular_price: product.type === "simple" ? product.regular_price : variationData?.regular_price,
-                            quantity: product?.quantity,
+                            quantity: parseInt(quantity),
                             sku: product.type === "simple" ? product.sku : variationData.sku,
                             is_protected: isProtected,
                         },
@@ -275,34 +275,63 @@ export const CartProvider = ({ children }) => {
         }));
     };
 
+    // const decreamentQuantity = (uid, isVariable = false) => {
+    //     setCartProducts((prevCart) => ({
+    //         ...prevCart,
+    //         products: prevCart.products.map((item) => {
+
+    //             // Check if it's a variable product and decrement based on variation_uid
+    //             if (isVariable && item.variation_uid === uid) {
+    //                 return {
+    //                     ...item,
+    //                     quantity: item.quantity - 1 > 0 ? item.quantity - 1 : 0,
+    //                 };
+    //             }
+
+    //             // For simple products, decrement based on product_uid
+    //             if (!isVariable && item.product_uid === uid) {
+    //                 return {
+    //                     ...item,
+    //                     quantity: item.quantity - 1 > 0 ? item.quantity - 1 : 0,
+    //                 };
+    //             }
+
+    //             // Return item unchanged if no match
+    //             return item;
+    //         }),
+    //     }));
+    // };
+
+    // Calculate total orders price
+    
     const decreamentQuantity = (uid, isVariable = false) => {
         setCartProducts((prevCart) => ({
             ...prevCart,
             products: prevCart.products.map((item) => {
+                if (
+                    (isVariable && item.variation_uid === uid && item.quantity <= 1) ||
+                    (!isVariable && item.product_uid === uid && item.quantity <= 1)
+                ) {
+                    return item;
+                }
 
-                // Check if it's a variable product and decrement based on variation_uid
                 if (isVariable && item.variation_uid === uid) {
                     return {
                         ...item,
-                        quantity: item.quantity - 1 > 0 ? item.quantity - 1 : 0,
+                        quantity: item.quantity - 1,
                     };
                 }
-
-                // For simple products, decrement based on product_uid
                 if (!isVariable && item.product_uid === uid) {
                     return {
                         ...item,
-                        quantity: item.quantity - 1 > 0 ? item.quantity - 1 : 0,
+                        quantity: item.quantity - 1,
                     };
                 }
-
-                // Return item unchanged if no match
                 return item;
             }),
         }));
     };
-
-    // Calculate total orders price
+    
     const calculateTotalPrice = () => {
         if (!Array.isArray(cartProducts.products)) {
             console.error("Invalid Array", cartProducts);

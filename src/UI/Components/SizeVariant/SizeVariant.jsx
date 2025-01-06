@@ -3,15 +3,18 @@ import './SizeVariant.css';
 import { url } from '../../../utils/api';
 import { useProductPage } from '../../../context/ProductPageContext/productPageContext';
 
-const SizeVariant = ({ 
+const SizeVariant = ({
     productType,
-    attributes, 
+    attributes,
     productData,
     selectedColor,
     handleSelectColor,
     handleSelectVariation,
     handleSelectedVariationData,
 }) => {
+
+    console.log("variation product data", productData)
+
     const { selectedVariationData, setSelectedVariationData } = useProductPage();
     const [colorVariation, setColorVariation] = useState();
     const [imageVariation, setImageVariation] = useState(0);
@@ -28,7 +31,7 @@ const SizeVariant = ({
                 attributes.forEach(attr => {
                     defaultSelections[attr.name] = attr.options?.[0]?.value;
                 });
-                
+
                 setSelectedSelectAttrs(defaultSelections); // Set all attributes selected
                 handleSelectedVariationData(productData?.[0]?.uid); // Notify parent
                 setSelectedVariationData(productData?.[0]); // Set the first variation as default
@@ -52,32 +55,32 @@ const SizeVariant = ({
             setSelectedSelectAttrs(defaultSelections); // Initialize selected attributes
         }
     }, [attributes, productData, selectedVariationData, productType]);
-    
+
 
     // Handle Image Selection
-    const handleImageVariation = (attributeName,index, name,value) => {
+    const handleImageVariation = (attributeName, index, name, value) => {
         setImageVariation(index); // Update image variation
         setSelectedImageName(name); // Optionally store image name
-        console.log(name, index, "Image variation selected");
-    
+        // console.log(name, index, "Image variation selected");
+
         // Update selected attributes to include the selected image
         setSelectedSelectAttrs((prevState) => {
             const updatedAttrs = {
                 ...prevState,
                 [attributeName]: value, // Update selected value for the attribute
             };
-            console.log(productData,"variations")
-    
+            // console.log(productData,"variations")
+
             // Now try to find the matching variation with all selected attributes
             const matchedVariation = productData.find((variation) => {
                 return variation.attributes.every((attr) => {
                     const selectedValue = updatedAttrs[attr.name];
                     // Ensure you're comparing the value correctly based on the attribute type
-                    console.log(updatedAttrs[attr.name],"atr nme")
+                    console.log(updatedAttrs[attr.name], "atr nme")
                     return selectedValue === attr.options?.[0]?.value;
                 });
             });
-    
+
             if (matchedVariation) {
                 console.log("Matched UID:", matchedVariation.uid);
                 handleSelectedVariationData(matchedVariation.uid); // Pass the matched UID
@@ -85,39 +88,39 @@ const SizeVariant = ({
             } else {
                 console.log("No matching variation found");
             }
-    
+
             return updatedAttrs; // Update the selected attributes
         });
     };
-    
+
 
     // Handle Color Selection
-    const handleClickColor = (attributeName,value, name) => {
+    const handleClickColor = (attributeName, value, name) => {
         setSelectedSelectAttrs((prevState) => {
             const updatedAttrs = {
                 ...prevState,
                 [attributeName]: value, // Update selected value for the attribute
             };
-            console.log(productData,"variations")
-    
+            // console.log(productData,"variations")
+
             // Now try to find the matching variation with all selected attributes
             const matchedVariation = productData.find((variation) => {
                 return variation.attributes.every((attr) => {
                     const selectedValue = updatedAttrs[attr.name];
                     // Ensure you're comparing the value correctly based on the attribute type
-                    console.log(updatedAttrs[attr.name],"atr nme")
+                    console.log(updatedAttrs[attr.name], "atr nme")
                     return selectedValue === attr.options?.[0]?.value;
                 });
             });
-    
+
             if (matchedVariation) {
-                console.log("Matched UID:", matchedVariation.uid);
+                // console.log("Matched UID:", matchedVariation.uid);
                 handleSelectedVariationData(matchedVariation.uid); // Pass the matched UID
                 setSelectedVariationData(matchedVariation); // Set the context with matched variation
             } else {
                 console.log("No matching variation found");
             }
-    
+
             return updatedAttrs; // Update the selected attributes
         });
         handleSelectColor(value); // Call the parent handler for color
@@ -131,33 +134,33 @@ const SizeVariant = ({
                 ...prevState,
                 [attributeName]: value, // Update selected value for the attribute
             };
-            console.log(productData,"variations")
-    
+            // console.log(productData,"variations")
+
             // Now try to find the matching variation with all selected attributes
             const matchedVariation = productData.find((variation) => {
                 return variation.attributes.every((attr) => {
                     const selectedValue = updatedAttrs[attr.name];
                     // Ensure you're comparing the value correctly based on the attribute type
-                    console.log(updatedAttrs[attr.name],"atr nme")
+                    // console.log(updatedAttrs[attr.name],"atr nme")
                     return selectedValue === attr.options?.[0]?.value;
                 });
             });
-    
+
             if (matchedVariation) {
-                console.log("Matched UID:", matchedVariation.uid);
+                // console.log("Matched UID:", matchedVariation.uid);
                 handleSelectedVariationData(matchedVariation.uid); // Pass the matched UID
                 setSelectedVariationData(matchedVariation); // Set the context with matched variation
             } else {
                 console.log("No matching variation found");
             }
-    
+
             return updatedAttrs; // Update the selected attributes
         });
-    
+
         handleSelectVariation(value); // Pass the selected value to the parent if needed
-        console.log(selectedSelectAttrs, "Selected aattr");
+        // console.log(selectedSelectAttrs, "Selected aattr");
     };
-    
+
 
     return (
         <>
@@ -170,22 +173,21 @@ const SizeVariant = ({
                                 {attribute.name}
                             </h3>
                             <div className="attribute-variations">
-                            {attribute.options.map((option, index) => (
-    <div className="attribute-single-color" key={index}>
-        <div title={option.name}
-            className={`attribute-color-variation-box ${
-                selectedSelectAttrs[attribute.name] === option.value
-                    ? 'selected'
-                    : ''
-            }`}
-            onClick={() => handleClickColor(attribute.name, option.value, option.name)}
-            style={{
-                backgroundColor: option.value,
-            }}
-        ></div>
-        {/* <p className='quick-view-atribute-option-name'>{option.name}</p> */}
-    </div>
-))}
+                                {attribute.options.map((option, index) => (
+                                    <div className="attribute-single-color" key={index}>
+                                        <div title={option.name}
+                                            className={`attribute-color-variation-box ${selectedSelectAttrs[attribute.name] === option.value
+                                                    ? 'selected'
+                                                    : ''
+                                                }`}
+                                            onClick={() => handleClickColor(attribute.name, option.value, option.name)}
+                                            style={{
+                                                backgroundColor: option.value,
+                                            }}
+                                        ></div>
+                                        {/* <p className='quick-view-atribute-option-name'>{option.name}</p> */}
+                                    </div>
+                                ))}
 
                             </div>
                         </div>
@@ -200,11 +202,10 @@ const SizeVariant = ({
                                         onClick={() => handleImageVariation(attribute.name, index, option.name, option.value)}
                                     >
                                         <div
-                                            className={`variation-image-div ${
-                                                imageVariation === index
+                                            className={`variation-image-div ${imageVariation === index
                                                     ? 'active-selected-image-variation'
                                                     : ''
-                                            }`}
+                                                }`}
                                         >
                                             <img src={`${url}${option.value}`} alt={option.name} />
                                         </div>
@@ -219,17 +220,16 @@ const SizeVariant = ({
                                 {/* {selectedSelectAttrs[attribute.name]
                                     ? attribute.options.find(option => option.value === selectedSelectAttrs[attribute.name])?.name
                                     : attribute.name} */}
-                                    {attribute.name}
+                                {attribute.name}
                             </h3>
                             <div className="attribute-variations">
                                 {attribute.options.map((option, index) => (
                                     <div
                                         key={index}
-                                        className={`select-type-attribute ${
-                                            selectedSelectAttrs[attribute.name] === option.value
+                                        className={`select-type-attribute ${selectedSelectAttrs[attribute.name] === option.value
                                                 ? 'select-select-variation'
                                                 : ''
-                                        }`}
+                                            }`}
                                         onClick={() =>
                                             handleSelectClick(
                                                 attribute.name,

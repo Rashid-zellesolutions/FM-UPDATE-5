@@ -18,7 +18,7 @@ const RatingAndReview = ({ rating, data }) => {
         { count: 2, rev: 98 },
         { count: 1, rev: 117 }
     ]);
-    console.log("rating data", data)
+    // console.log("rating data", data)
 
     const maxValue = data ? data.length : 1;
 
@@ -27,7 +27,7 @@ const RatingAndReview = ({ rating, data }) => {
 
     useEffect(() => {
         if (data) {
-            console.log("Data updated: ", data);
+            // console.log("Data updated: ", data);
             setRatingDistribution(transformReviewData(data));
             setCustomerImages(extractImagesFromReviews(data));
         }

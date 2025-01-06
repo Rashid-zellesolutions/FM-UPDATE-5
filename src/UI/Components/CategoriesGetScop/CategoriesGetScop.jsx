@@ -69,13 +69,13 @@ const CategoriesGetScop = ({ isTrue, text, contentImages }) => {
 
                     <div className='vertical-slider'>
                         <div className='img-one-container'>
-                            {contentImages.slice(0, 4).map((item, index) => (
+                            {contentImages && contentImages.slice(0, 4).map((item, index) => (
                                 <img key={index} className='img-one' src={`${url}${item.image_url}`} alt='img' />
 
                             ))}
                         </div>
                         <div className='img-two-container'>
-                            {contentImages.slice(4, 8).map((item, index) => (
+                            {contentImages && contentImages.slice(4, 8).map((item, index) => (
                                 <img key={index} className='img-two' src={`${url}${item.image_url}`} alt='img' />
                             ))}
                         </div>

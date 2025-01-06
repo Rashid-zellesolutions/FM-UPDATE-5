@@ -62,7 +62,7 @@ export const transformReviewData = (reviews) => {
         }
     });
 
-    console.log(result,"here is result",reviews)
+    // console.log(result,"here is result",reviews)
 
     return result;
 };

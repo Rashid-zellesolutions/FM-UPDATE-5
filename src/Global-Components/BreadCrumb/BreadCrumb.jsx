@@ -6,7 +6,7 @@ import { FaHouseChimney } from 'react-icons/fa6';
 import rightArrow from "../../Assets/right-arrow.png";
 
 const Breadcrumb = ({ category, productName, sku, categorySlug }) => {
-    console.log("breadcrumb name ", productName)
+    // console.log("breadcrumb name ", productName)
     const location = useLocation();
     const { navigationHistory } = useNavigation();
     const pathnames = location.pathname.split('/').filter(x => x);
