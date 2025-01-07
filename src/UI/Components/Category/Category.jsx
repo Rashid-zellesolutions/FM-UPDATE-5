@@ -6,7 +6,7 @@ import { url } from '../../../utils/api';
 
 const Category = ({ title, categoryData, handleNavigate }) => {
  const [isloaded,setIsLoaded] = useState(false);
-  console.log("CAtegory Data", categoryData)
+  // console.log("CAtegory Data", categoryData)
   return (
 
     <div className='category-main-container'>
