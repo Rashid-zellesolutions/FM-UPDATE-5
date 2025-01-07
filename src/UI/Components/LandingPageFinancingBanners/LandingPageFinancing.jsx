@@ -47,7 +47,7 @@ const LandingPageFinancing = () => {
           <div className='financing-page-buttons-div'>
             {financingButtons.map((item, index) => (
               <div className='financing-page-buttons-div-column'>
-                  <Link to={item.link} className='financing-buttons'>
+                  <Link target='_blank' to={item.link} className='financing-buttons'>
                       <img src={item.img} alt={item.title} />
                   </Link>
               </div>

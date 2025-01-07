@@ -18,8 +18,8 @@
     visibility: hidden;
     padding: 5px;
     position: fixed;
-    bottom: 60px;
-    right: 40px;
+    bottom: 30px;
+    right: 30px;
     background-color: #edf1f3;
     cursor: pointer;
     z-index: 9999;

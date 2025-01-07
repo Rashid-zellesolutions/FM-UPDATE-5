@@ -56,7 +56,7 @@ const LanguagePopUp = ({changeLanguage, setChangeLanguage, handleCLoseLanguageMo
                           <img src={currentSelectedCountryFlag || usaFlag} alt='usa' />
                           <h3>{currentSelectedCountry || 'English'}</h3>
                         </span>
-                          <img src={arrowUpThin} alt='arrow' className={lanDrop ? 'select-lan-arrow-up' : 'select-lan-arrow-down'} />
+                          {/* <img src={arrowUpThin} alt='arrow' className={lanDrop ? 'select-lan-arrow-up' : 'select-lan-arrow-down'} /> */}
                       </div>
                       <div className='defrent-languages'>
                         {languagesData.map((item, index) => (

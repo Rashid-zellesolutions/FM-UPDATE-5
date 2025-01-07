@@ -7,9 +7,9 @@
 }
 
 .products-main-container h3{
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
-    line-height: 24px;
+    line-height: 19px;
     color: var(--product-text-color);
     /* margin-top: 5px; */
 }
@@ -529,11 +529,41 @@
     gap: 10px;
 }
 
+.color-custom-checkbox {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    /* border: 2px solid #4487C5; */
+    /* background-color: #4487C5; */
+    border-radius: 4px;
+    position: relative;
+    margin-right: 8px;
+    cursor: pointer;
+    outline: none;
+}
+
+.color-custom-checkbox:checked {
+    /* background-color: #4487C5; */
+    border-color: #4487C5;
+}
+
+.color-custom-checkbox:checked::after {
+    content: '';
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 3px;
+    height: 7px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
 .custom-checkbox {
     appearance: none;
     width: 20px;
     height: 20px;
-    border: 2px solid #ccc;
+    border: 2px solid #4487C5 !important;
     border-radius: 4px;
     position: relative;
     margin-right: 8px;
@@ -542,8 +572,8 @@
 }
 
 .custom-checkbox:checked {
-    background-color: #28828A;
-    border-color: #28828A;
+    background-color: #4487C5 !important;
+    border-color: #4487C5 !important;
 }
 
 .custom-checkbox:checked::after {
@@ -677,14 +707,15 @@ label {
 .relevance-container{
     display: flex;
     flex-direction: column;
+    /* width: 320px; */
     align-items: center;
-    width: max-content;
-    /* border-bottom: none !important; */
+    max-width: max-content;
 }
 
 .relevance-heading{
     display: flex;
     align-items: center;
+    width: 100%;
     justify-content: center;
     gap: 5px;
     position: relative;
@@ -736,15 +767,15 @@ label {
     transition: all 0.3s ease;
 }
 .relevance-dropdown.show-relevance{
-    height: 95px;
+    height: 105px;
     border: 1px solid var(--border-color);
 }
 
 .relevance-dropdown p{
     width: 100%;
     padding: 5px;
-    font-size: 14px;
-    line-height: 21px;
+    font-size: 12px;
+    line-height: 16px;
     font-weight: 400;
     color: var(--text-color);
     cursor: pointer;

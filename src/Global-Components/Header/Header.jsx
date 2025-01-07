@@ -453,7 +453,7 @@ const Header = () => {
             <input
               type='search'
               value={searchQuery}
-              placeholder='Search every thing'
+              placeholder='Search Furniture Mecca'
               onFocus={handleSearchInputFocus}
               // onBlur={handleBlur}
               onChange={handleSearchInput}

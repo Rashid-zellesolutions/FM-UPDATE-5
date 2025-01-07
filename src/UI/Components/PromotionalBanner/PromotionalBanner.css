@@ -15,6 +15,10 @@
     line-height: 18px;
 }
 
+.rotating-message span a{
+    color: var(--text-color);
+}
+
 .toll-free-ancor{
     font-weight: 500;
     color: var(--text-color);
