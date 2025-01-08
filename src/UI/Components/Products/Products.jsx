@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './Products.css';
 import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import {  useSelector } from 'react-redux';
 
 // Assets
 import AddBtn from '../../../Assets/icons/add-bold-btn.png'
@@ -34,6 +33,7 @@ import { useList } from '../../../context/wishListContext/wishListContext';
 import { toast } from 'react-toastify';
 import DoubleRangeSlider from '../../../Global-Components/MultiRangeBar/MultiRange';
 import RatingReview from '../starRating/starRating';
+import { debounce } from 'lodash';
 
 const Products = ({ productArchiveHading }) => {
 
@@ -45,6 +45,7 @@ const Products = ({ productArchiveHading }) => {
     } = useCart();
 
     const { subCategorySlug } = useParams();
+    const debounceTimeout = useRef(null);
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const query = params.get('query');
@@ -82,7 +83,7 @@ const Products = ({ productArchiveHading }) => {
     const [activePage, setActivePage] = useState(1);
     const [paginatonLoading, setPaginationLoading] = useState(false);
 
-    
+
 
     const fetchProductData = async () => {
         const page = searchParams.get("page") || "1"; // Get the current page from searchParams or default to 1
@@ -100,7 +101,7 @@ const Products = ({ productArchiveHading }) => {
             }
             const data = response.data.products;
             setTotalPages(response.data.pagination)
-            
+
             setProducts(data);
             setColors(colors)
 
@@ -111,7 +112,7 @@ const Products = ({ productArchiveHading }) => {
         }
         setPaginationLoading(false)
     };
-    
+
     const [priceRange, setPriceRange] = useState([130, 900]);
 
     const [allFilters, setAllFilters] = useState()
@@ -127,7 +128,7 @@ const Products = ({ productArchiveHading }) => {
             } else {
                 console.log(`UnExpected ${response.status} Error`)
             }
-           
+
         } catch (error) {
             console.error("Server Error");
         }
@@ -141,7 +142,7 @@ const Products = ({ productArchiveHading }) => {
         fetchProductData()
     }, [query])
 
-    useEffect(() => { console.log("filtered data", products)}, [products])
+    useEffect(() => { console.log("filtered data", products) }, [products])
 
     const handleCartSectionClose = () => {
         setAddToCartClicked(false)
@@ -340,15 +341,27 @@ const Products = ({ productArchiveHading }) => {
     }
 
     useEffect(() => {
-        const params = new URLSearchParams(searchParams);
-        params.set('price', priceRange.join(','));
 
-        const currentPage = searchParams.get('page');
-        params.set('page', currentPage);
+        if (debounceTimeout.current) {
+            clearTimeout(debounceTimeout.current)
+        }
 
-        let priceString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
-        setSearchParams(priceString)
-        filterProducts(priceString)
+        debounceTimeout.current = setTimeout(() => {
+            const params = new URLSearchParams(searchParams);
+            params.set('price', priceRange.join(','));
+
+            const currentPage = searchParams.get('page');
+            params.set('page', currentPage);
+
+            let priceString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
+            setSearchParams(priceString)
+            filterProducts(priceString)
+        }, 500);
+
+        return () => {
+            clearTimeout(debounceTimeout.current)
+        }
+
     }, [priceRange])
 
     const filterProducts = async (filter) => {
@@ -434,12 +447,6 @@ const Products = ({ productArchiveHading }) => {
     useEffect(() => {
 
     }, [colorValue, categoryValue, ratingValue])
-
-
-
-
-
-
 
     return (
         <div className='products-main-container'>

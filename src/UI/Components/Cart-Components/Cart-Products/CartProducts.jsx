@@ -62,6 +62,7 @@ const CartProducts = () => {
                     {cartProducts.products.map((items, index) => {
                         return <CartItems
                             key={items.product_uid}
+                            
                             attributes={items.attributes}
                             onlyMobile={false}
                             productData={items}

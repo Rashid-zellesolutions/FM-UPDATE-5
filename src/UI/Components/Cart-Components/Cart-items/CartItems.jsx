@@ -15,6 +15,7 @@ import rotatedArrow from '../../../../Assets/icons/arrow-rotate-white.png';
 import guardIcon from '../../../../Assets/icons/guard-icon.png';
 import { IoInformationCircle } from "react-icons/io5";
 import check from "../../../../Assets/check.png";
+import { useList } from '../../../../context/wishListContext/wishListContext';
 
 const CartItems = ({
     cartProductName,
@@ -22,6 +23,7 @@ const CartItems = ({
     cartProductColor,
     cartProductTitle,
     isCartOpen,
+    productData,
     quantity,
     handleRomoveProduct,
     cartIndex,
@@ -39,7 +41,7 @@ const CartItems = ({
     const {
         eachProtectionValue,
         isCartProtected,
-        cartProducts
+        cartProducts,
     } = useCart()
 
     const [saveForLeter, setSaveForLeter] = useState(false)
@@ -79,6 +81,20 @@ const CartItems = ({
     const toggleDetails = () => {
         setIsOpen(prev => !prev);
     };
+
+    const { addToList, removeFromList, isInWishList } = useList()
+      const handleWishList = (item) => {
+        console.log("item uid", item)
+        console.log("item uid type", item.isVariable===1 ? item.variation_uid : item.product_uid, item.isVariable === 1)
+    
+        if (isInWishList(item?.product_uid)) {
+          removeFromList(item?.product_uid)
+        } else {
+          addToList(item)
+           handleRomoveProduct();
+            console.log("item added in wish list and deleted from cart")
+        }
+      }
 
     return (
         <>
@@ -164,7 +180,8 @@ const CartItems = ({
                             {cartProducts.is_all_protected === 1 ? <div className="protection-all-protected">
                                 <img src={check} alt="" srcset="" />
                                 <p>Protection Applied</p>
-                            </div> : <div className='protection-btns-accept-and-cancel'>
+                            </div> 
+                            : <div className='protection-btns-accept-and-cancel'>
                                 <button
                                     className={`protection-buttons protect-no-thanks ${isProtectionClicked === 'no-thanks' ? 'select-not-protection' : ''}`}
                                     onClick={() => { handleProtectOrNotButtonClicked('no-thanks'); removeProtection() }}
@@ -194,7 +211,7 @@ const CartItems = ({
                     </div>
                     <div className={`desktop-total-price-and-remove-item ${isCartOpen ? 'hide-total-and-remove-item' : ''}`}>
                         <p>{formatedTotalPrice}</p>
-                        <button className='save-for-leter' onClick={handleSaveForLeter}>
+                        <button className='save-for-leter' onClick={(e) => { e.stopPropagation(); handleWishList(productData) }}>
                             <img src={rotatedArrow} className={`${saveForLeter ? 'arrow-rotate' : ''}`} /> Save For Later
                         </button>
                     </div>

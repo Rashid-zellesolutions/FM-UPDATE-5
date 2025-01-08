@@ -25,10 +25,15 @@
     height: max-content;
     max-height: max-content;
     overflow: hidden;
-    padding: 10px 0;
+    padding: 10px;
 }
 
 /* Alice Slider */
+.alice-carousel{
+    padding: 5px !important;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
 .single-product-alice-slider {
     display: flex;
     flex-direction: column;

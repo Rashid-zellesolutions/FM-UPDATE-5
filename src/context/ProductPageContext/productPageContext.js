@@ -1,6 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
 
-
 const ProductPageContext = createContext()
 
 export const ProductPageProvider = ({ children }) => {

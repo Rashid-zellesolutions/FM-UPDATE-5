@@ -14,42 +14,25 @@ import { VscHeartFilled } from "react-icons/vsc";
 import ProductCardImageShimmer from '../Loaders/CardImageShimmer/cardImageShimmer';
 
 const ProductCard = ({
-    tagIcon,
-    tagClass,
     mainImage,
     productCardContainerClass,
-    mouseEnter,
-    mouseLeave,
     ProductTitle,
     ProductSku,
-    stars,
     reviewCount,
     lowPriceAddvertisement,
     priceTag,
     sale_price,
     tags,
-    financingAdd,
     percent,
     singleProductData,
-    slug,
     stock,
     handleQuickView,
-    learnMore,
-    colorVariation,
-    handleAddToCart,
-    handleCartSectionOpen,
-    mainIndex,
-    deliveryTime,
-    handleVariantColor,
-    selectedColorIndices,
     maxWidthAccordingToComp,
     borderLeft,
     justWidth,
     handleCardClick,
     handleWishListclick,
     attributes,
-    type,
-    variation
 }) => {
 
     const [isImageLoaded,setImageLoaded] = useState(false);
@@ -57,18 +40,18 @@ const ProductCard = ({
     const [cartClicked, setCartClicked] = useState(true);
     // console.log("product ", singleProductData);
 
-    const dispatch = useDispatch();
-    const selectedColorIndex = useSelector((state) => state.colorIndex.colorIndex);
+    // const dispatch = useDispatch();
+    // const selectedColorIndex = useSelector((state) => state.colorIndex.colorIndex);
     // const handleColorVariationIndex = (colorIndex) => {
     //     dispatch(setColorIndex(colorIndex))
     // }
 
-    const handleClick = (colorIndex, color) => {
-        dispatch(setColorIndex(colorIndex));
-        if (handleVariantColor) {
-            handleVariantColor();
-        }
-    };
+    // const handleClick = (colorIndex, color) => {
+    //     dispatch(setColorIndex(colorIndex));
+    //     if (handleVariantColor) {
+    //         handleVariantColor();
+    //     }
+    // };
 
     const [cardHovered, setCardHovered] = useState(false);
     const handleMouseEnter = () => {

@@ -4,10 +4,12 @@ import filledStar from '../../../Assets/icons/Star 19.png';
 import axios from 'axios';
 import { formatedPrice, url } from '../../../utils/api';
 import RatingReview from '../starRating/starRating';
+import { useNavigate } from 'react-router-dom';
 
 const AlsoNeed = ({productsUid}) => {
     
     // States and variables
+    const navigate = useNavigate()
     const filledStars = [filledStar, filledStar, filledStar, filledStar]
     const relatedProduct = productsUid.map((item) => item)
     const [data, setData] = useState();
@@ -43,12 +45,16 @@ const AlsoNeed = ({productsUid}) => {
         return title.length > maxLength ? title.slice(0, maxLength) + '...' : title;
     };
 
+    const handleNavigate = (item) => {
+        navigate(`/product/${item.slug}`, {state: {products: item}})
+    }
+
   return (
     <div className={`might-need-main-container`}>
         <h3>You Might Also Need</h3>
         <div className='might-need-cards-main-container'>
             {data && data.map((item) => (
-                <div key={item.uid} className='might-need-product-card'>
+                <div key={item.uid} className='might-need-product-card' onClick={() => handleNavigate(item)}>
                     <img src={`${url}${item.image.image_url}`} alt='img' className='also-need-product-image' />
                     <div className='you-might-need-product-contant'>
                         <h3>{truncateTitle(item.name, maxLength)}</h3>

@@ -51,8 +51,12 @@ const FrequentlyBought = ({ relatedProducts }) => {
 
     // const {products} = useProducts()
     const navigate = useNavigate()
-    const handleProductClicked = (item) => {
-        navigate(`/product/${item.slug}`, { state: { products: item } })
+    // const handleProductClicked = (item) => {
+    //     navigate(`/product/${item.slug}`, { state: { products: item } })
+    // }
+
+    const handleCardClick = (item) => {
+        navigate(`/product/${item.slug}`, {state: {products: item}})
     }
 
     const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -93,9 +97,9 @@ const FrequentlyBought = ({ relatedProducts }) => {
 
     const colorIndex = useSelector((state) => state.colorIndex.colorIndex)
 
-    const handleCardClick = (item) => {
-        navigate(`/product/${item.slug}`, {state: {products: item}})
-    }
+    // const handleCardClick = (item) => {
+    //     navigate(`/product/${item.slug}`, {state: {products: item}})
+    // }
 
     // wish list
     const {addToList, removeFromList, isInWishList} = useList()
@@ -193,6 +197,7 @@ const FrequentlyBought = ({ relatedProducts }) => {
                         attributes={item.attributes}
                         ProductSku={item.sku}
                         sale_price={item.sale_price}
+                        handleCardClick={() => handleCardClick(item)}
                     />
                 ))}
             </div>

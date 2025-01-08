@@ -72,13 +72,11 @@ const SimillerProducts = ({collection}) => {
     const [hideFilters, setHideFilters] = useState(false);
 
     // Change image on hover function
-    const handleImageHover = (index) => {
-      setHoveredIndex(index);
-    };
+    // const handleImageHover = (index) => {
+    //   setHoveredIndex(index);
+    // };
 
-    const handleImageHoverLeave = () => {
-      setHoveredIndex(null);
-    };
+    // 
 
     // Card title words limit
     const maxLength = 30;
@@ -89,12 +87,12 @@ const SimillerProducts = ({collection}) => {
 
     // console.log("similler data", data)
     // Select Color Variations Functions
-    const [selectedColorIndices, setSelectedColorIndices] = useState(Array(data && data.length).fill(0));
-    const handleVariantImageClick = (cardIndex, colorIndex) => {
-        const updatedIndices = [...selectedColorIndices];
-        updatedIndices[cardIndex] = colorIndex;
-        setSelectedColorIndices(updatedIndices);
-    };
+    // const [selectedColorIndices, setSelectedColorIndices] = useState(Array(data && data.length).fill(0));
+    // const handleVariantImageClick = (cardIndex, colorIndex) => {
+    //     const updatedIndices = [...selectedColorIndices];
+    //     updatedIndices[cardIndex] = colorIndex;
+    //     setSelectedColorIndices(updatedIndices);
+    // };
 
     // product color variation index from redux
     const colorIndex = useSelector((state) => state.colorIndex.colorIndex)
@@ -108,7 +106,7 @@ const SimillerProducts = ({collection}) => {
 
         }
 
-        const handleQuickViewClose = () => { setQuickView(false) }
+        // const handleQuickViewClose = () => { setQuickView(false) }
 
     const navigate = useNavigate();
     const handleCardClick = (item) => {
@@ -144,8 +142,6 @@ const SimillerProducts = ({collection}) => {
     slidesToScroll: 1,
     initialSlide: 0,
     arrows: true,
-    // nextArrow: true,
-    // prevArrow: true,
     nextArrow: 
       data && data.length > 4 ? <SampleNextArrow to="next" /> : null,
     prevArrow: 

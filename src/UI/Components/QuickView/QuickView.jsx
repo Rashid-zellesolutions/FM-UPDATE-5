@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import './QuickView.css';
-import filledStar from '../../../Assets/icons/orange-star.png';
-import unFilledStar from '../../../Assets/icons/orange-star-outline.png';
-import testimage from '../../../Assets/Furniture Mecca/product archive page/product images/Dakota-Dining-Set-01-600x400 1.png';
-import imgTwo from '../../../Assets/Furniture Mecca/product archive page/product images/Dining-Room-Set-in-Gold-01-600x400 1.png';
-import imgThree from '../../../Assets/Furniture Mecca/product archive page/product images/Zora-600x400 1.png';
-import imgVariantOne from '../../../Assets/Furniture Mecca/product archive page/product images/Sherry-Set-01-300x200 1.png';
-import imgVariantTwo from '../../../Assets/Furniture Mecca/product archive page/product images/Sherry-Set-01-300x200 1 (1).png';
 import minusBtn from '../../../Assets/icons/minus.png'
 import plusBtn from '../../../Assets/icons/plus.png';
 import redHeart from '../../../Assets/icons/red-heart.png'
@@ -14,16 +7,14 @@ import arrowDown from '../../../Assets/icons/arrow-down-white.png';
 import arrowLeft from '../../../Assets/icons/arrow-left.png';
 import arrowRight from '../../../Assets/icons/arrow-right.png';
 import CartSidePannel from '../Cart-side-section/CartSidePannel';
-import { useProducts } from '../../../context/productsContext/productContext';
 import { useCart } from '../../../context/cartContext/cartContext';
 import { FaStar } from "react-icons/fa";
 import { url } from '../../../utils/api';
 import QuickViewVariations from '../SizeVariant/QuickViewVariations';
 
-const QuickView = ({ setQuickViewProduct, stars , quickViewClose}) => {
+const QuickView = ({ setQuickViewProduct, quickViewClose}) => {
     const { 
         cart, 
-        addToCart, 
         increamentQuantity, 
         decreamentQuantity, 
         removeFromCart, 
@@ -33,10 +24,10 @@ const QuickView = ({ setQuickViewProduct, stars , quickViewClose}) => {
     const [cartSection, setCartSection] = useState(false);
     const [viewDetails, setViewDetails] = useState(null)
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [isProtectionCheck, setIsProtectionCheck] = useState(true)
 
     const handleCartSectionClose = () => {
         setCartSection(false)
+        setQuantity(1)
     }
 
     const handlePrev = () => {
@@ -50,9 +41,6 @@ const QuickView = ({ setQuickViewProduct, stars , quickViewClose}) => {
     const handleViewDetails = (index) => {
         setViewDetails(prevIndex => (prevIndex === index ? null : index));
     }
-
-    
-
 
     const quickViewData = [
         {
@@ -76,15 +64,13 @@ const QuickView = ({ setQuickViewProduct, stars , quickViewClose}) => {
     
     const handleAddToCartProduct = (product) => {
         setCartSection(true);
-        // console.log("clicked product", product)
-        addToCart(product, quantity, isProtectionCheck);
-        addToCart0(product,variableProductData,0)
-        // console.log("cart data", cart)
+        addToCart0(product, variableProductData,0, quantity)
+        
+
     }
 
-    const searchProductOnCart = cart.find((item) => item.product.uid === setQuickViewProduct.uid)
     const imagesLenght = setQuickViewProduct.images && setQuickViewProduct.images.length;
-    const [quantity, setQuantity] = useState(searchProductOnCart !== undefined ? searchProductOnCart.product.quantity : 1)
+    const [quantity, setQuantity] = useState(1)
 
     const [variableProductData,setVariableData] = useState();
 
@@ -95,25 +81,15 @@ const QuickView = ({ setQuickViewProduct, stars , quickViewClose}) => {
         setQuantity(quantity - 1);
     }
 
-    useEffect(()=>{
-        // console.log(setQuickViewProduct,"here is product data")
-    },[])
-
     const [selectedVariationUid, setSelectedVariationUid] = useState(null);
     const handleVariationSelected = (uid) => {
         setSelectedVariationUid(uid);
-        // console.log(uid,"here is slected uid")
     };
 
     useEffect(()=>{
         const searchProductInVariation = setQuickViewProduct?.variations?.find((item) => item.uid === selectedVariationUid)
         setVariableData(searchProductInVariation);
-        console.log(searchProductInVariation,"here is variation data")
     },[selectedVariationUid])
-
-    
-
-
 
     return (
         <div className='quick-view-main'>
@@ -208,8 +184,8 @@ const QuickView = ({ setQuickViewProduct, stars , quickViewClose}) => {
             <CartSidePannel
                 cartData={cartProducts}
                 addToCartClicked={cartSection}
-                setAddToCartClick={setCartSection}
                 handleCartSectionClose={handleCartSectionClose}
+                setAddToCartClick={setCartSection}
                 removeFromCart={removeFromCart}
                 decreamentQuantity={decreamentQuantity}
                 increamentQuantity={increamentQuantity}
