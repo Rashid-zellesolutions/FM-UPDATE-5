@@ -18,8 +18,8 @@ const SizeVariant = ({
     const [selectedColorName, setSelectedColorName] = useState();
     const [selectedSelectAttrs, setSelectedSelectAttrs] = useState({}); // For multiple select attributes
     // console.log("product data on variations", productData)
-    console.log("product type on variations", productType)
-    console.log("product attributes on variations", attributes.length)
+    // console.log("product type on variations", productType)
+    // console.log("product attributes on variations", attributes.length)
     // const handleSelectVariations = () => {
     //     if (attributes && attributes.length > 0 && productData?.length > 0) {
     //         const defaultSelections = {};

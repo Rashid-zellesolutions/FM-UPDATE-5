@@ -24,6 +24,10 @@
     /* border-right: 1px solid #d9d9d9; */
 }
 
+.cart-products-section.cart-products-section-full-width{
+    width: 100%;
+}
+
 /* Cart oorder summery */
 
 .cart-order-summery-section {
@@ -34,6 +38,10 @@
     padding-top: 90px;
     /* border: 1px solid black; */
     position: relative;
+}
+
+.cart-order-summery-section.hide-order-summary{
+    display: none;
 }
 
 .cart-order-summery-inner-section {
@@ -496,6 +504,19 @@
     padding: 10px;
     border: 1px solid #F0F0F0;
     border-radius: 4px;
+}
+
+.order-summary-deliver-to{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.deliver-to-price{
+    font-size: 10px;
+    line-height: 18px;
+    font-weight: 600;
 }
 
 .delivery-option-container-label {

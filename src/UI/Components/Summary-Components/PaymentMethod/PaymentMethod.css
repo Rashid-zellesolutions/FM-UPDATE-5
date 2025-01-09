@@ -63,6 +63,14 @@
     /* margin-top: 21px; */
 }
 
+.terms-agree-label{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: start;
+}
+
 .terms-agree input[type='checkbox']{
     appearance: none;
     width: 20px;

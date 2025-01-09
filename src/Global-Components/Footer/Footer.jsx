@@ -278,6 +278,8 @@ const Footer = ({ notLandingPage }) => {
                 { name: 'Financing', link: '/financing' },
                 { name: 'Shipping & Delivery', link: '/shipping-and-delivery' },
                 { name: 'Terms & Conditions', link: '/terms-and-conditions' },
+                // { name: 'Protection Plan', link: '#' },
+                // { name: 'FAQs', link: '#' },
             ]
         },
         {
@@ -285,20 +287,20 @@ const Footer = ({ notLandingPage }) => {
                 { name: 'About Us', link: '/about-us' },
                 { name: 'Career', link: '/careers' },
                 { name: 'Store Locations', link: '/store-locator' },
-                { name: 'Reference', link: '#' },
+                // { name: 'Reference', link: '#' },
                 { name: 'My Account', link: '/user-dashboard' },
                 { name: 'Blogs', link: '/blogs' },
             ]
         },
     ]
 
-    const stars = [
-        { icon: filledStart },
-        { icon: filledStart },
-        { icon: filledStart },
-        { icon: filledStart },
-        { icon: unfilledStart },
-    ]
+    // const stars = [
+    //     { icon: filledStart },
+    //     { icon: filledStart },
+    //     { icon: filledStart },
+    //     { icon: filledStart },
+    //     { icon: unfilledStart },
+    // ]
 
     
 
@@ -432,18 +434,7 @@ const Footer = ({ notLandingPage }) => {
                                     <p className=''>Your Subscription Has Been Done Successfully.</p>
                                 </div>}
                         </div>
-                        {/* <div className='right-section-care-and-about'>
-                            {footerCustomerCareAndAbout.map((item, index) => (
-                                <div key={index} className='footer-costumer-care-and-about'>
-                                    <h3>{item.heading}</h3>
-                                    {item.navLinks.map((navItem, inn) => (
-                                        <Link key={inn} to={navItem.link} className='about-and-care-link'>
-                                            {navItem.name}
-                                        </Link>
-                                    ))}
-                                </div>
-                            ))}
-                        </div> */}
+                        
                         <div className='right-section-care-and-about'>
                             {footerCustomerCareAndAbout.map((item, index) => (
                                 <div key={index} className='footer-costumer-care-and-about'>

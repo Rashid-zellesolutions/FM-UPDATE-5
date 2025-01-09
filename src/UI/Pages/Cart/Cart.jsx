@@ -253,17 +253,25 @@ const Cart = () => {
       if (index === 2) return isCheck[1]; // Show 'Elite Title' if isCheck[1] is true
       return true; // Always include other items
     });
+
+    console.log("selected shipping methor", selectedShippingMethods)
+
+    const [deliveryOptionIndex, setDeliveryOptionIndex] = useState(null);
+    const handleDeliveryOptionndex = (index) => {
+      setDeliveryOptionIndex(index)
+    }
+
   
   return (
     <div className='cart-main-container'>
       <CartMainImage />
       
       <div className='cart-body'>
-        <div className='cart-products-section'>
+        <div className={`cart-products-section ${cartProducts?.products?.length === 0 ? 'cart-products-section-full-width' : ''}`}>
           <CartProducts />
         </div>
 
-        <div className='cart-order-summery-section'>
+        <div className={`cart-order-summery-section ${cartProducts?.products?.length === 0 ? 'hide-order-summary' : ''}`}>
           <div className='cart-order-summery-inner-section'>
             <h3 className='cart-order-summary-heading'>Order Summary</h3>
             {/* <p className='cart-order-summary-sub-title'>This order qualifies for free shipping</p> */}
@@ -328,9 +336,12 @@ const Cart = () => {
               </div>
 
               <div className="delivery-option-container">
-                <p className='delivery-opt-heading' >Delivery Options :</p>
+                <span className='order-summary-deliver-to'>
+                  <p className='delivery-opt-heading' >Delivery Options :</p>
+                  {/* <p className='deliver-to-price'>{formatePrice(selectedShippingMethods?.[deliveryOptionIndex]?.cost)}</p> */}
+                </span>
                 {selectedShippingMethods &&
-        selectedShippingMethods.map((option) => (
+        selectedShippingMethods.map((option, index) => (
           <label
             key={option.id}
             style={{
@@ -341,13 +352,14 @@ const Cart = () => {
               margin: "5px 0",
               gap: "10px",
             }}
+            onClick={() => handleDeliveryOptionndex(index)}
           >
             <input
               type="radio"
               name="options"
               value={option.id}
               checked={selectedOption?.id === option.id}
-              onChange={(e) => handleChange(e, option)} // Pass the `option` object
+              onChange={(e) => handleChange(e, option, index)} // Pass the `option` object
               style={{
                 marginTop: "5px",
               }}

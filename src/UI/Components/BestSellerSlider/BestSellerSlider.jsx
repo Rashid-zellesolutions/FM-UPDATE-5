@@ -295,7 +295,7 @@ const BestSellerSlider = () => {
                                         className='best-seller-slider'
                                         style={{
                                             transform: `translateX(-${(currentIndex / totalPages) * 100}%)`
-                                        }}>
+                                        }}> 
                                         {/* {products.slice(currentIndex, currentIndex + cardsPerPage).map((item, index) => ( */}
                                         {!loading ?
                                             getDisplayedCards().slice(currentIndex, currentIndex + cardsPerPage).map((item, index) => (

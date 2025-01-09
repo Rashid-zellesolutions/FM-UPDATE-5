@@ -144,7 +144,7 @@
 
 .deal-of-the-day-card-icons-div{
   position: absolute;
-  right: -44px;
+  right: -46px;
   top: 30%;
   display: flex;
   flex-direction: column;
@@ -176,7 +176,7 @@
 }
 
 .deal-of-the-day-icon-one:hover{
-  background-color: #595959;
+  background-color: var(--active-nav-item-color);
   background-image: url('../../../../Assets/icons/cart-bag-white.png');
 }
 
@@ -197,12 +197,12 @@
 }
 
 .deal-of-the-day-icon-two:hover{
-  background-color: #595959;
+  background-color: var(--active-nav-item-color);
   background-image: url('../../../../Assets/icons/heart-white.png');
 }
 
 .deal-of-the-day-icon-two.active-wish-list-btn{
-  background-color: #595959;
+  background-color: var(--active-nav-item-color);
   background-image: url('../../../../Assets/icons/heart-white.png');
 }
 
@@ -223,7 +223,7 @@
 }
 
 .deal-of-the-day-icon-three:hover{
-  background-color: #595959;
+  background-color: var(--active-nav-item-color);
   background-image: url('../../../../Assets/icons/multi-arrow-white.png');
 }
 

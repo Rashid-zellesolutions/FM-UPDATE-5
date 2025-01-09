@@ -59,7 +59,7 @@
     flex-direction: column;
     width: 55%;
     height: auto;
-    gap: 5px;
+    gap: 10px;
     justify-content: space-between;
 }
 
@@ -73,7 +73,7 @@
 .attributes_list p{
     font-size: 12px;
     font-weight: 400;
-    line-height: 19px;
+    line-height: 15px;
     color: var(--text-color);
 }
 
@@ -83,6 +83,7 @@
     justify-content: start;
     align-items: center;
     gap: 5px;
+    padding-top: 5px;
 }
 
 .cart-side-section-price-and-count p{

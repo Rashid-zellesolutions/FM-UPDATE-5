@@ -53,7 +53,7 @@ const PaymentMethod = ({handleSubmitOrder}) => {
                 </p>
                 <div className='terms-agree'>
                     <input type='checkbox' id='agree-terms' />
-                    <label for='agree-terms'>I have read & agreed to the website <Link>terms and conditions</Link></label>
+                    <label className='terms-agree-label' for='agree-terms'>I have read & agreed to the website <Link>terms and conditions</Link></label>
                 </div>
               </div>
               <div className={`procced-btn-div ${selectedLabel === 'Paypal' ? 'hide-proced' : ''}`}  onClick={handleSubmitOrder} >

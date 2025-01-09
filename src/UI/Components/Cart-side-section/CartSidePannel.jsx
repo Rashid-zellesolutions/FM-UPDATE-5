@@ -58,6 +58,7 @@ const CartSidePannel = (
         className={`cart-side-section-containt-div ${addToCartClicked ? 'show-side-cart-containt' : ''}`}
         onClick={(e) => e.stopPropagation()}
       >
+
         <div className='cart-section-heading-div'>
           <div className='cart-side-section-cart-bag-div'>
             <img src={cartBlack} alt='cart icon' />
@@ -65,6 +66,7 @@ const CartSidePannel = (
           </div>
           <p>Your Cart </p>
         </div>
+
         <div className='cart-section-products'>
           {cartData && cartData?.products?.map((items, index) => {
             return <CartSideSection
@@ -80,7 +82,7 @@ const CartSidePannel = (
               minusBtn={minusBtn}
               quantity={items.quantity}
               increamentQuantity={() => increamentQuantity(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
-              
+
               plusBtn={plusBtn}
               sale_price={items.sale_price}
               regular_price={items.regular_price}
@@ -90,40 +92,43 @@ const CartSidePannel = (
           })}
         </div>
 
-        {cartProducts.products.length > 0 ? (
-          <div className='proffesional-assembly-check-sec'>
-            <label className='order-summary-proffesional-check-item-label'>
-              <input
-                type="checkbox"
-                className='order-summary-checkbox'
-                checked={isProfessionalAssembly}
-                onChange={() => handleCartAssembly()}
-              />
-              Professional Assembly (+ $210)
-            </label>
-            <p className='order-summary-proffesional-check-item-detail'>Use professional assembly for all products and save up to $80</p>
-          </div>
-        ) : (<></>)}
 
-
-        {cartProducts.products.length > 1 ? (
-          <div className='proffesional-assembly-check-sec'>
-            <label className='order-summary-proffesional-check-item-label'>
-              <input
-                type="checkbox"
-                className='order-summary-checkbox'
-                checked={isCartProtected}
-                onChange={() => handleCartProtected()}
-              />
-              Elite Platinum Furniture Protection(+ $210)
-            </label>
-            <p className='order-summary-proffesional-check-item-detail'>Use professional assembly for all products and save up to $80</p>
-          </div>
-        ) : (<></>)}
 
 
 
         <div className='cart-side-section-buttons'>
+
+          {cartProducts.products.length > 0 ? (
+            <div className='proffesional-assembly-check-sec'>
+              <label className='order-summary-proffesional-check-item-label'>
+                <input
+                  type="checkbox"
+                  className='order-summary-checkbox'
+                  checked={isProfessionalAssembly}
+                  onChange={() => handleCartAssembly()}
+                />
+                Professional Assembly (+ $210)
+              </label>
+              <p className='order-summary-proffesional-check-item-detail'>Use professional assembly for all products and save up to $80</p>
+            </div>
+          ) : (<></>)}
+
+
+          {cartProducts.products.length > 1 ? (
+            <div className='proffesional-assembly-check-sec'>
+              <label className='order-summary-proffesional-check-item-label'>
+                <input
+                  type="checkbox"
+                  className='order-summary-checkbox'
+                  checked={isCartProtected}
+                  onChange={() => handleCartProtected()}
+                />
+                Elite Platinum Furniture Protection(+ $210)
+              </label>
+              <p className='order-summary-proffesional-check-item-detail'>Use professional assembly for all products and save up to $80</p>
+            </div>
+          ) : (<></>)}
+
           <div className='cart-section-view-cart-and-checkout-btn'>
             <button className='cart-side-section-view-cart' onClick={handleCLoseCartPanel}>
               View Cart

@@ -140,6 +140,7 @@ import { useMyOrders } from '../../../context/orderContext/ordersContext';
 import { useCart } from '../../../context/cartContext/cartContext';
 import Loader from '../../Components/Loader/Loader';
 import { GlobalContextProvider, useGlobalContext } from '../../../context/GlobalContext/globalContext';
+import ShippingForm from '../../Components/Summary-Components/ShippingForm/ShippingForm';
 
 
 const Summary = () => {
@@ -212,11 +213,13 @@ const Summary = () => {
         {
           selectedTab === 0 ?
             <div className='shipping-details-and-coupen-show'>
-              <ShippingDetails userInfoPayload={setOrderPayload} />
-              <Coupon />
+              {/* <ShippingDetails userInfoPayload={setOrderPayload} />
+              <Coupon /> */}
+              <ShippingForm />
             </div> :
             selectedTab === 1 ?
               <div className='order-summery-and-proceed-btn'>
+                <Coupon />
                 <ShipingAndDelivery />
                 <PaymentInfo />
                 <OrderSummary />

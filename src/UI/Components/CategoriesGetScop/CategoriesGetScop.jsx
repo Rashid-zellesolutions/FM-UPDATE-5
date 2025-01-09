@@ -33,7 +33,7 @@ const CategoriesGetScop = ({ isTrue, text, contentImages }) => {
         }
     ]
     const sliderImages = [imgOne, imgTwo, imgThree]
-    console.log('contentImages', contentImages)
+    // console.log('contentImages', contentImages)
     
     return (
         <div className='scop-main-container'>

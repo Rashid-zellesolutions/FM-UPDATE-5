@@ -6,7 +6,7 @@ const ShippingDetails = ({userInfoPayload}) => {
 
   return (
     <div className='shipping-main-container'>
-        <h3>Shipping Details</h3>
+        {/* <h3>Shipping Details</h3> */}
         <ShippingForm billingDetails={userInfoPayload} />
     </div>
   )

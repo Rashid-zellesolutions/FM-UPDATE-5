@@ -14,7 +14,7 @@ export default function ThankYou() {
                 <img src={checked_green} alt="" srcset="" />
                 <h1>Thank You</h1>
             </div>
-            
+        
             <h3>Your Order Has Been Placed Successfully</h3>
             <div className="order_number">
                 <div className="order_number_head">

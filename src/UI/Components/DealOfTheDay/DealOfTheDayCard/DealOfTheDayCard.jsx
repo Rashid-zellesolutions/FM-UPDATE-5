@@ -89,7 +89,7 @@ const DealOfTheDayCard = ({
                   onClick={() => handleCartSection(dealDayData)} 
               >
               </button>
-              
+            
               <button  
                   className={`deal-of-the-day-icon-two ${isInWishList(dealDayData.uid) ? 'active-wish-list-btn' : ''}`}
                   onClick={(e) => {e.stopPropagation(); handleWishListClick(dealDayData)}} 

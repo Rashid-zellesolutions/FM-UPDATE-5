@@ -26,7 +26,7 @@ const SamplePrevArrow = (props) => {
   return (
     <div onClick={onClick} className={`arrow ${className}`} >
       {/* <img src={leftArrow} alt='arrow' /> */}
-      <IoIosArrowDropleftCircle/>
+      <IoIosArrowDropleftCircle style={{backgroundColor: '#FFFFFF', borderRadius: '50%'}}/>
     </div>
   )
 }
@@ -36,7 +36,7 @@ function SampleNextArrow(props) {
   return (
     <div onClick={onClick} className={`arrow ${className}`} >
       {/* <img src={rightArrow} alt='arrow' /> */}
-      <IoIosArrowDroprightCircle/>
+      <IoIosArrowDroprightCircle size={22} style={{backgroundColor: '#FFFFFF', borderRadius: '50%',}}/>
     </div>
   )
 }
@@ -45,51 +45,7 @@ const DealOfTheDay = () => {
 
   const navigate = useNavigate();
 
-  let settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    initialSlide: 0,
-    nextArrow: <SampleNextArrow to="next" />,
-    prevArrow: <SamplePrevArrow to="prev" />,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: false,
-          dots: false
-        }
-      },
-      {
-        breakpoint: 850,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          infinite: false,
-          dots: false
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
-  };
+  
 
   const [dealEndTime, setDealEndTime] = useState(null); 
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -225,6 +181,54 @@ const DealOfTheDay = () => {
     setSelectedProduct(items)
     setSelectedUid(items.uid);
   }
+
+  let settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    initialSlide: 0,
+    arrows: true,
+    nextArrow: 
+      allProducts && allProducts.length > 4 ?  <SampleNextArrow to="next" /> : null,
+    prevArrow: <SamplePrevArrow to="prev" />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: false,
+          dots: false
+        }
+      },
+      {
+        breakpoint: 850,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          infinite: false,
+          dots: false
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  };
 
   return (
     <div className='deal-of-the-day-main-container'>
