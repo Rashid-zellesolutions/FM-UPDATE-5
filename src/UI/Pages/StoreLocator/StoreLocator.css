@@ -273,11 +273,12 @@
     flex-direction: column;
     /* gap: 15px; */
     padding: 0px;
-    overflow-x: hidden;
-    overflow-y: auto;
+    /* overflow-x: hidden;
+    overflow-y: auto; */
     visibility: hidden;
     opacity: 0;
     z-index: 9999;
+    overflow: hidden;
     transition: all 0.3s ease-in-out;
 }
 
@@ -285,6 +286,8 @@
     visibility: visible;
     padding: 10px;
     opacity: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
     width: 350px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
@@ -367,6 +370,8 @@
     width: 100%;
     align-items: center;
     justify-content: space-between;
+    visibility: hidden;
+    opacity: 0;
 }
 
 .single-store-bar-heading-and-rating{

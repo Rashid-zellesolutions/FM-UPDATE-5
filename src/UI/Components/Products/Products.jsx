@@ -79,6 +79,8 @@ const Products = ({ productArchiveHading }) => {
     const [products, setProducts] = useState([]);
     const [colors, setColors] = useState([]);
 
+    const [mobileFilters, setMobileFilters] = useState(false);
+
     const [totalPages, setTotalPages] = useState()
     const [activePage, setActivePage] = useState(1);
     const [paginatonLoading, setPaginationLoading] = useState(false);
@@ -115,7 +117,8 @@ const Products = ({ productArchiveHading }) => {
 
     const [priceRange, setPriceRange] = useState([130, 900]);
 
-    const [allFilters, setAllFilters] = useState()
+    const [allFilters, setAllFilters] = useState();
+    
     const fetchFilters = async () => {
         const api = `/api/v1/products/by-category/filters?categorySlug=${subCategorySlug}`
         try {
@@ -136,11 +139,12 @@ const Products = ({ productArchiveHading }) => {
 
     useEffect(() => {
         fetchFilters();
-    }, [])
+    }, []);
+    console.log("main product page filters", allFilters);
 
     useEffect(() => {
         fetchProductData()
-    }, [query])
+    }, [query]);
 
     useEffect(() => { console.log("filtered data", products) }, [products])
 
@@ -275,7 +279,7 @@ const Products = ({ productArchiveHading }) => {
     };
 
     // Mobile view Script
-    const [mobileFilters, setMobileFilters] = useState(false);
+    
     const [selectedGrid, setSelectedGrid] = useState('')
     const [activeGrid, setActiveGrid] = useState('')
     const handleActiveGrid = (grid) => {
@@ -788,7 +792,8 @@ const Products = ({ productArchiveHading }) => {
             <MobileViewProductFilters
                 showMobileFilters={mobileFilters}
                 setMobileFilters={setMobileFilters}
-                filtersData={filtersData}
+                filtersData={allFilters}
+                subCategorySlug={subCategorySlug}
             />
         </div>
     )

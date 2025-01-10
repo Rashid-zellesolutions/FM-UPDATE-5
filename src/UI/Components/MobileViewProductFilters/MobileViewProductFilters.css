@@ -11,7 +11,7 @@
     opacity: 0;
     gap: 15px;
     overflow: hidden;
-    z-index: 999;
+    z-index: 999999999;
     height: 100%;
     transition: all 0.3s ease-in-out;
 }
@@ -147,13 +147,14 @@
 
 .mobile-single-type-filters.show-filter-type{
     visibility: visible;
-    height: 130px;
+    height: 190px;
     opacity: 1;
     padding: 25px 10px;
 }
 
 .single-filter-label{
     display: flex;
+    flex-direction: row;
     width: 100%;
     align-items: center;
     justify-content: start;

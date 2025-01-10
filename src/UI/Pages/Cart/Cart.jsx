@@ -52,7 +52,7 @@ const Cart = () => {
   const [isCheck, setIsCheck] = useState({});
   const [isStarted, setIsStarted] = useState(false);
 
-  const { setAllShippingMethods, shippingMethods, setShippingMethods, shippingLoader, setShippingLoader, info, updateLocationData, zipCode, setZipCode, handleInputChange, handleButtonClick, totalTax,calculateTotalTax,getShippingInfo,selectedOption, setSelectedOption,handleChange,getShippingMethods,selectedShippingMethods, setSelectedShippingMethods,CalculateGrandTotal} = useGlobalContext();
+  const { setAllShippingMethods, shippingMethods, setShippingMethods, shippingLoader, setShippingLoader, info, updateLocationData, zipCode, setZipCode, handleInputChange, handleButtonClick, totalTax, calculateTotalTax, getShippingInfo, selectedOption, setSelectedOption, handleChange, getShippingMethods, selectedShippingMethods, setSelectedShippingMethods, CalculateGrandTotal } = useGlobalContext();
 
   const handleCheckboxCheck = (index) => {
     setIsCheck((prev) => ({
@@ -111,7 +111,7 @@ const Cart = () => {
 
 
 
-  
+
   useEffect(() => {
     // Always fetch latest products when the component mounts
     getLatestProducts();
@@ -133,7 +133,7 @@ const Cart = () => {
     if (shippingMethods) {
       getShippingMethods(subTotal, shippingMethods['shippingMethods']);
     }
-   
+
   }, [isStarted])
 
   useEffect(() => { setSelectedShippingMethods(null) }, [info])
@@ -158,7 +158,7 @@ const Cart = () => {
   }
 
   const navigateToCheckout = () => {
-    
+
     navigate("/check-out");
   }
 
@@ -244,28 +244,28 @@ const Cart = () => {
     { title: 'Protection plan', price: formatePrice(protectionPrice) },
     { title: 'Professional Assembly', price: formatePrice(assemblyPrice) },
     // { title: `Shipping ${selectedOption? getShippingInfo(selectedOption)?.taxIncluded : ""}`, price: selectedOption? getShippingInfo(selectedOption).result:""},
-    { title: `Tax (${totalTax?.tax_name})`, price: totalTax? formatePrice(calculateTotalTax(subTotal,parseFloat(totalTax?.tax_value))):0 }
+    { title: `Tax (${totalTax?.tax_name})`, price: totalTax ? formatePrice(calculateTotalTax(subTotal, parseFloat(totalTax?.tax_value))) : 0 }
   ]
 
-    // Define conditional visibility logic
-    const filteredOrderPriceDetails = orderPriceDetails.filter((_, index) => {
-      if (index === 1) return isCheck[0]; // Show 'Professional Assembly' if isCheck[0] is true
-      if (index === 2) return isCheck[1]; // Show 'Elite Title' if isCheck[1] is true
-      return true; // Always include other items
-    });
+  // Define conditional visibility logic
+  const filteredOrderPriceDetails = orderPriceDetails.filter((_, index) => {
+    if (index === 1) return isCheck[0]; // Show 'Professional Assembly' if isCheck[0] is true
+    if (index === 2) return isCheck[1]; // Show 'Elite Title' if isCheck[1] is true
+    return true; // Always include other items
+  });
 
-    console.log("selected shipping methor", selectedShippingMethods)
+  console.log("selected shipping methor", selectedShippingMethods)
 
-    const [deliveryOptionIndex, setDeliveryOptionIndex] = useState(null);
-    const handleDeliveryOptionndex = (index) => {
-      setDeliveryOptionIndex(index)
-    }
+  const [deliveryOptionIndex, setDeliveryOptionIndex] = useState(null);
+  const handleDeliveryOptionndex = (index) => {
+    setDeliveryOptionIndex(index)
+  }
 
-  
+
   return (
     <div className='cart-main-container'>
       <CartMainImage />
-      
+
       <div className='cart-body'>
         <div className={`cart-products-section ${cartProducts?.products?.length === 0 ? 'cart-products-section-full-width' : ''}`}>
           <CartProducts />
@@ -275,8 +275,8 @@ const Cart = () => {
           <div className='cart-order-summery-inner-section'>
             <h3 className='cart-order-summary-heading'>Order Summary</h3>
             {/* <p className='cart-order-summary-sub-title'>This order qualifies for free shipping</p> */}
-            
-              <div className='proffesional-assembly-check-sec'>
+
+            <div className='proffesional-assembly-check-sec'>
               <label className='order-summary-proffesional-check-item-label'>
                 <input
                   type="checkbox"
@@ -290,24 +290,24 @@ const Cart = () => {
             </div>
             {cartProducts.products.length > 1 ? (
               <div className='proffesional-assembly-check-sec'>
-              <label className='order-summary-proffesional-check-item-label'>
-                <input
-                  type="checkbox"
-                  className='order-summary-checkbox'
-                  checked={isCartProtected}
-                  onChange={() => handleCartProtected()}
-                />
-                Elite Platinum Furniture Protection(+ $199)
-              </label>
-              <p className='order-summary-proffesional-check-item-detail'>Use professional assembly for all products and save up to $80</p>
-            </div>
+                <label className='order-summary-proffesional-check-item-label'>
+                  <input
+                    type="checkbox"
+                    className='order-summary-checkbox'
+                    checked={isCartProtected}
+                    onChange={() => handleCartProtected()}
+                  />
+                  Elite Platinum Furniture Protection(+ $199)
+                </label>
+                <p className='order-summary-proffesional-check-item-detail'>Use professional assembly for all products and save up to $80</p>
+              </div>
             ) : (
               <></>
             )}
-            
 
 
-            
+
+
 
             <div className='cart-order-summary-price-details'>
               {filteredOrderPriceDetails.map((price, index) => (
@@ -341,43 +341,44 @@ const Cart = () => {
                   {/* <p className='deliver-to-price'>{formatePrice(selectedShippingMethods?.[deliveryOptionIndex]?.cost)}</p> */}
                 </span>
                 {selectedShippingMethods &&
-        selectedShippingMethods.map((option, index) => (
-          <label
-            key={option.id}
-            style={{
-              display: "flex",
-              alignItems: "flex-start",
-              flexDirection: "row",
-              justifyContent: "flex-start",
-              margin: "5px 0",
-              gap: "10px",
-            }}
-            onClick={() => handleDeliveryOptionndex(index)}
-          >
-            <input
-              type="radio"
-              name="options"
-              value={option.id}
-              checked={selectedOption?.id === option.id}
-              onChange={(e) => handleChange(e, option, index)} // Pass the `option` object
-              style={{
-                marginTop: "5px",
-              }}
-            />
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-start",
-                justifyContent: "center",
-              }}
-            >
-              <p className="delivery-option-container-label">{option.name}</p>
-              <p className="delivery-option-container-description">{option.description}</p>
-            </div>
-          </label>
-        ))}
+                  selectedShippingMethods.map((option, index) => (
+                    <label
+                      key={option.id}
+                      style={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        flexDirection: "row",
+                        justifyContent: "flex-start",
+                        margin: "5px 0",
+                        gap: "10px",
+                      }}
+                      onClick={() => handleDeliveryOptionndex(index)}
+                    >
+                      <input
+                        type="radio"
+                        name="options"
+                        value={option.id}
+                        checked={selectedOption?.id === option.id}
+                        onChange={(e) => handleChange(e, option, index)} // Pass the `option` object
+                        style={{
+                          marginTop: "5px",
+                        }}
+                      />
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "flex-start",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <p className="delivery-option-container-label">{option.name}</p>
+                        <p className="delivery-option-container-description">{option.description}</p>
+                      </div>
+                    </label>
+                  ))}
               </div>
+
               <div className='order-summary-coupon-div'>
                 <p onClick={handleCouponInput}>Add Coupon Code <IoIosArrowDown className={`cart-order-summary-coupon-arrow ${isCouponOpen ? 'cart-order-summary-coupon-arrow-rotate' : ''}`} size={20} /></p>
                 <div className={`cart-order-summary-coupon-input-div ${isCouponOpen ? 'show-coupon-update-input' : ''}`}>
@@ -387,6 +388,7 @@ const Cart = () => {
                   </div>
                 </div>
               </div>
+
             </div>
 
             <div className='cart-order-summary-total'>
@@ -403,13 +405,27 @@ const Cart = () => {
             <button
               //  to={'/check-out'} 
               onClick={navigateToCheckout}
-              className='cart-summary-proceed-btn'>Proceed to checkout</button>
+              className='cart-summary-proceed-btn'>
+                Proceed to checkout
+            </button>
 
           </div>
         </div>
       </div>
 
-
+      <div className='mobile-total-save-and-checkout-button'>
+        <div className='mobile-total-and-save'>
+          <p>Total</p>
+          <p>{formatePrice(CalculateGrandTotal())}</p>
+        </div>
+        <div className='mobile-total-and-save'>
+          <p>You Saved</p>
+          <p>{formatePrice(savings)}</p>
+        </div>
+        <button onClick={navigateToCheckout} className='mobile-proceed-to-checkout-button'>
+          Proceed to checkout
+        </button>
+      </div>
 
 
       <div className='cart-related-products-display-section'>

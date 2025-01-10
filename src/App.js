@@ -72,9 +72,15 @@ import Snowfall from "react-snowfall";
 function App() {
   const [currentUrl, setCurrentUrl] = useState('/');
   const location = useLocation();
+  const checkPage = window.location.pathname; // Get the current path
+  const checkoutPage = /^\/order-confirmation\/[a-zA-Z0-9]+$/.test(checkPage);
+  console.log("check out page url", checkoutPage)
   useEffect(() => {
     setCurrentUrl(location.pathname);
+    // setCheckoutPage(/^\/order-confirmation\/[a-zA-Z0-9]+$/.test(currentUrl));
+    // console.log("checkout page url", checkoutPage)
   }, [location]);
+
 
   const {title,setTitle,description,setDescription,image,setImage} = useSEOContext();
   const {mainLoader,isWarrantyModalOpen,setWarrantyModalState} = useGlobalContext();
@@ -127,13 +133,13 @@ function App() {
           autoClose={1000}
           // limit={1}
         />
-        <Header />
+        <Header checkoutPage={checkoutPage} />
         <Shopvia />
         {/* <Breadcrumb /> */}
         <Routes>
             {routes}
         </Routes>
-        <Footer notLandingPage={currentUrl === '/' ? false : true} />
+        <Footer checkoutPage={checkoutPage} notLandingPage={currentUrl === '/' ? false : true} />
         <button onClick={handleClickTop} className={`scroll-to-top-button ${isVisible ? 'show-scrollTop' : ''}`}>
           <IoIosArrowUp size={30} className='lead-to-top-btn' />
         </button>

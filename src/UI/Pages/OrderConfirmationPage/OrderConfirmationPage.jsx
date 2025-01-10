@@ -6,7 +6,7 @@ import DeliveryLocationMap from "./DeliveryLocationMap";
 // import card from "../../../Assets/card.svg"
 import CartItemOC from "./cartItem";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { formatedPrice } from "../../../utils/api";
 import { url } from "../../../utils/api";
 
@@ -16,6 +16,18 @@ export default function OrderConfirmationPage() {
     const [order, setOrder] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate()
+
+    const handleNavigate = () => {
+        navigate('/');
+    }
+
+    const [currentUrl, setCurrentUrl] = useState('/order-confirmation/:_id');
+    const location = useLocation();
+      useEffect(() => {
+        setCurrentUrl(location.pathname);
+        console.log("current location", currentUrl)
+      }, [location]);
 
     // Fetch order details based on _id
     useEffect(() => {
@@ -49,6 +61,7 @@ export default function OrderConfirmationPage() {
     return (
         <div className="order_confirmation_page">
             <div className="order_description">
+
                 <div className="header_order_description">
                     <img src={logo} alt="" />
                 </div>
@@ -69,6 +82,7 @@ export default function OrderConfirmationPage() {
                         <p className="order_placer">Thank you, {order.billing.first_name} {order.billing?.last_name}!</p> {/* Use order data */}
                     </div>
                 </div>
+
                 <div className="order_description_1_1">
                     <DeliveryLocationMap 
                         address_info={`${order.shipping.address_1 === "" ? 
@@ -83,6 +97,7 @@ export default function OrderConfirmationPage() {
                     <p className="para2">TRACKING NUMBER</p>
                     <p style={{ fontWeight: "600" }} className="para2">{order._id}</p> {/* Use order data */}
                 </div>
+
                 <div className="order_description_1_2">
                     <p className="heading">Order Details</p>
                     <div className="order_description_1_2_0">
@@ -94,8 +109,17 @@ export default function OrderConfirmationPage() {
                                 {order.billing.email} {/* Use order data */}
                             </p>
 
-                            <p style={{ marginTop: "30px" }} className="sub_heading">
+                            {/* <p style={{ marginTop: "30px" }} className="sub_heading">
                                 Shipping Address
+                            </p>
+                            <p className="sub_content">
+                                {order.billing.address_1} 
+                            </p>
+                            <p className="sub_content">
+                                {order.billing.city}, {order.billing.state} 
+                            </p> */}
+                            <p style={{ marginTop: "20px" }} className="sub_heading">
+                                Billing Address
                             </p>
                             <p className="sub_content">
                                 {order.billing.address_1} {/* Use order data */}
@@ -126,18 +150,29 @@ export default function OrderConfirmationPage() {
                                 </svg>
                             </p>
 
-                            <p style={{ marginTop: "20px" }} className="sub_heading">
+                            {/* <p style={{ marginTop: "20px" }} className="sub_heading">
                                 Billing Address
                             </p>
                             <p className="sub_content">
-                                {order.billing.address_1} {/* Use order data */}
+                                {order.billing.address_1} 
                             </p>
                             <p className="sub_content">
-                                {order.billing.city}, {order.billing.state} {/* Use order data */}
-                            </p>
+                                {order.billing.city}, {order.billing.state} 
+                            </p> */}
                         </div>
                     </div>
                 </div>
+
+                <div className="checkout-need-help-or-continue-shopping">
+                    <span className="checkout-page-contact-us-link-item">
+                        <p className="checkout-need-help-heading">Need help?</p>
+                        <Link className="checkout-contact-item" to={'/contact-us'}>Contact us</Link>
+                    </span>
+                    <button className="checkout-continue-shopping-button" onClick={handleNavigate}>
+                        Continue Shopping
+                    </button>
+                </div>
+
             </div>
             <div className="order_details">
                 <div className="cart_product_items">

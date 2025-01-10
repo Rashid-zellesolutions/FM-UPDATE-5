@@ -46,10 +46,13 @@ const StoreLocator = () => {
   const [selectedLatitude, setSelectedLatitude] = useState(null);
   const [selectedLongitude, setSelectedLongitude] = useState(null);
   const [showLocationDetails, setShowLocationDetails] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedStore, setSelectedStore] = useState();
   const [zipCode, setZipCode] = useState('');
+
+  const [showModal, setShowModal] = useState(null)
   const handleLocationDetails = async (item, index) => {
+    setShowModal((prevIndex) => prevIndex === index ? null : index)
     setSelectedLatitude(null)
     setSelectedLongitude(null)
     setGoogleReviewDetails(null)
@@ -59,6 +62,11 @@ const StoreLocator = () => {
     setGoogleReviewDetails(await getGoogleStoreDetails(item.placeId))
     console.log("selected store", item)
   }
+
+  console.log("show modal index", showModal)
+  console.log("show modal current index", currentIndex)
+
+  
 
   const [sliderIndex, setSliderIndex] = useState(0);
 
@@ -80,6 +88,7 @@ const StoreLocator = () => {
     longitude: 0,
     latitude: 0
   })
+
   const handleShowTab = (type, lat, long) => {
     setStoreSelected(type);
     altitude.latitude = lat
@@ -147,16 +156,17 @@ const StoreLocator = () => {
   }, [])
 
   const libraries = ["places"];
-  const mapContainerStyle = {
-    width: "100%",
-    height: "100%", // Set appropriate height for the map container
-  };
-  const center = {
-    lat: altitude.latitude,
-    lng: altitude.longitude, // Default longitude
-  };
+  // const mapContainerStyle = {
+  //   width: "100%",
+  //   height: "100%", // Set appropriate height for the map container
+  // };
+  // const center = {
+  //   lat: altitude.latitude,
+  //   lng: altitude.longitude, // Default longitude
+  // };
 
   // Load Google Maps API
+  
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: API_KEY, // Replace with your actual API key
     libraries: libraries
@@ -252,7 +262,7 @@ const StoreLocator = () => {
 
           </div>
 
-          <div className={`single-location-full-details  ${showLocationDetails !== currentIndex ? 'show-single-location-details' : ''}`}>
+          <div className={`single-location-full-details  ${showModal === currentIndex ? 'show-single-location-details' : ''}`}>
 
             <div className='single-location-details-bar-slider'>
               <div className="single-location-slider">
@@ -283,7 +293,7 @@ const StoreLocator = () => {
             </div>
 
 
-            <div className='single-location-details-bar-heading-and-direction-button'>
+            <div className={`single-location-details-bar-heading-and-direction-button ${showModal === currentIndex ? 'show-detail-heading-and-direction-button' : ''}`}>
               <div className='single-store-bar-heading-and-rating'>
                 <h3>{showLocationDetails?.name}</h3>
                 <RatingReview rating={googleReviewDetails?.data?.rating} disabled={true} size={"20px"} />
@@ -302,6 +312,7 @@ const StoreLocator = () => {
               <p><IoIosMailOpen style={{ marginRight: "5px", marginTop: "2px" }} />  {showLocationDetails?.email}</p>
 
             </div>
+
             <h3 className='comments-top-heading'>Store Timings</h3>
             <div className="store_timings">
               {showLocationDetails?.timings.map((item, index) => {

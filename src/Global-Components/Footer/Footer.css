@@ -6,6 +6,10 @@
     background-color: var(--footer-bg-color);
 }
 
+.footer-main-container.hide-whole-footer{
+    display: none;
+}
+
 .footer-nav{
     display: flex;
     gap: 10px;

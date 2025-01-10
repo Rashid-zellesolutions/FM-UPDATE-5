@@ -195,9 +195,7 @@ import InstaTwoImageGallery from '../../Components/InstaTwoImageGallery/InstaTwo
 import { useLPContentContext } from '../../../context/LPContentContext/LPContentContext';
 import LandingPageFinancing from '../../Components/LandingPageFinancingBanners/LandingPageFinancing';
 
-// functions and utils
-import { url } from '../../../utils/api';
-import axios from 'axios';
+
 
 
 const Home = () => {

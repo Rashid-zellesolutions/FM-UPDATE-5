@@ -449,6 +449,28 @@
     padding: 10px 0;
 }
 
+.single-filter-items-container::-webkit-scrollbar {
+  width: 4px; /* Slim width */
+  height: 4px; /* Slim height for horizontal scrollbar */
+}
+
+/* Style the scrollbar track */
+.single-filter-items-container::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light gray background */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* Style the scrollbar thumb */
+.single-filter-items-container::-webkit-scrollbar-thumb {
+  background: #888; /* Darker gray for the thumb */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* Style the scrollbar thumb on hover */
+.single-filter-items-container::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Darker shade on hover */
+}
+
 .filters{
     flex-direction: column;
     gap: 10px;

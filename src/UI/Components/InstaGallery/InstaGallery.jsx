@@ -17,7 +17,16 @@ import { Link } from 'react-router-dom';
 
 const InstaGallery = () => {
     const instaGalleryImages = [
-        galleryimageOne, galleryImageTwo, galleryImageThree, galleryImageFour, galleryImageFive, galleryImageSix, galleryImageSeven, galleryImageEight, galleryImageNine, galleryImageTen
+        galleryimageOne, 
+        galleryImageTwo, 
+        galleryImageThree, 
+        galleryImageFour, 
+        galleryImageFive, 
+        galleryImageSix, 
+        galleryImageSeven, 
+        galleryImageEight, 
+        galleryImageNine, 
+        galleryImageTen
     ]
     const [animateMouse, setAnimateMouse] = useState(false);
     const handleMouseMove = () => {

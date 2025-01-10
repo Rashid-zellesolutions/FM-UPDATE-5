@@ -34,7 +34,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import axios from 'axios';
 import { useGlobalContext } from '../../context/GlobalContext/globalContext';
 
-const Footer = ({ notLandingPage }) => {
+const Footer = ({ notLandingPage, checkoutPage }) => {
 
      const navigate = useNavigate();
 
@@ -337,7 +337,7 @@ const Footer = ({ notLandingPage }) => {
 
     return (
         <>
-            <div className='footer-main-container'>
+            <div className={`footer-main-container ${checkoutPage ? 'hide-whole-footer' : ''}`}>
                 <div className='footer-nav'>
                     {footerNavLinks.map((items, index) => {
                         return <div key={index} className='footer-nav-links'>
