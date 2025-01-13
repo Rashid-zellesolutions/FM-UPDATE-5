@@ -698,7 +698,7 @@ const Header = ({checkoutPage}) => {
             ))
           }
           <button 
-            className='mobile-view-see-all-products'
+            className={`mobile-view-see-all-products ${searchedProducts.length === 0 ? 'hide-see-all-product-button' : ''}`}
             onClick={handleNavigateToMobileViewSearchedProducts}
           >
             See All Products

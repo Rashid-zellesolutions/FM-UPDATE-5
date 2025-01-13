@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './LocationPopUp.css';
 import deliverTo from '../../../Assets/icons/delivery.png'
 import closeBtn from '../../../Assets/icons/close-btn-black.png';
-import locationModalIcon from '../../../Assets/icons/location.png'
+import locationModalIcon from '../../../Assets/icons/location-charcol-icon.png'
 import { json } from 'react-router-dom';
 import { useGlobalContext } from '../../../context/GlobalContext/globalContext';
 

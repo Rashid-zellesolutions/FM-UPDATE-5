@@ -39,7 +39,7 @@ const MobileSubNav = ({
                 <div className='mobile-sub-nav-items'>
                     {subNavData.subCategories && subNavData.subCategories.map((items, index) => (
                         <Link to={`/${items.slug}`} key={index} className='mobile-sub-nav-single-item' onClick={handleCloseAllNav}>
-                            <img src={ordersIcon} alt='sub-nav-icon' />
+                            {/* <img src={ordersIcon} alt='sub-nav-icon' /> */}
                             <p >{items.name}</p>
                         </Link>
                     ))}

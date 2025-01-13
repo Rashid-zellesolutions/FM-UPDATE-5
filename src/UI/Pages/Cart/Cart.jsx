@@ -446,6 +446,7 @@ const Cart = () => {
                     mainImage={`${item.image.image_url}`}
                     productCardContainerClass="product-card"
                     ProductSku={item.sku}
+                    percent={'12%'}
                     tags={item.tags}
                     ProductTitle={truncateTitle(item.name, maxLength)}
                     stars={[

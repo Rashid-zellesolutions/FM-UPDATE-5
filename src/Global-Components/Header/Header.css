@@ -745,6 +745,10 @@
     cursor: pointer;
 }
 
+.mobile-view-see-all-products.hide-see-all-product-button{
+    display: none;
+}
+
 
 /* TAblate View Styling */
 .tab-view-header {

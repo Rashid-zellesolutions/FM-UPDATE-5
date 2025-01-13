@@ -474,7 +474,18 @@
     color: var(--text-white);
 }
 
+.footer-left-contact-section span p a{
+    font-size: 18px;
+    line-height: 27px;
+    font-weight: 500;
+    color: var(--text-white);
+}
+
 .footer-left-contact-section span p:hover{
+    color: #dfdfdf;
+}
+
+.footer-left-contact-section span p a:hover{
     color: #dfdfdf;
 }
 

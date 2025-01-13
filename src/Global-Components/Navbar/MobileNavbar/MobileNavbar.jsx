@@ -75,11 +75,11 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible }) => {
       <div className='mobile-nav-containt-section'>
         <div className='mobile-nav-containt-header'>
           <div className='mobile-nav-head-items'>
-            <img src={favoriteIcon} alt='hear' />
+            {/* <img src={favoriteIcon} alt='hear' /> */}
             <p>Favorite</p>
           </div>
           <div className='mobile-nav-head-items'>
-            <img src={ordersIcon} alt='hear' />
+            {/* <img src={ordersIcon} alt='hear' /> */}
             <p>My Orders</p>
           </div>
         </div>
@@ -89,7 +89,7 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible }) => {
             {headerData.map((items, index) => (
               <div className='mobile-nav-single-item' key={index} >
                 <Link to={`/${items.category_slug}`} className='mobile-nav-single-item-name' onClick={() => setMobileNavVisible(false)}>
-                  <img src={ordersIcon} alt='nav-icon' />
+                  {/* <img src={ordersIcon} alt='nav-icon' /> */}
                   <p>{items.category}</p>
                 </Link>
                 <img

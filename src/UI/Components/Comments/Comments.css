@@ -166,9 +166,10 @@
 
 .mobile-comment-status-and-rating{
     display: flex;
+    flex-direction: column;
     width: 100%;
-    align-items: center;
-    justify-content: space-between;
+    align-items: start;
+    justify-content: start;
 }
 
 .mobile-comment-status-and-rating p{
@@ -176,6 +177,13 @@
     line-height: 15px;
     font-weight: 400;
     color: var(--text-color);
+}
+
+.mobile-comment-verified-and-rating-stars{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .mobile-comment-status-and-rating span{
@@ -222,6 +230,8 @@
     display: flex;
     width: max-content;
     gap: 10px;
+    align-items: center;
+    justify-content: start;
 }
 
 .mobile-single-comment-images img{
@@ -230,6 +240,27 @@
     object-fit: contain;
     cursor: pointer;
     border-radius: 4px;
+}
+
+.mobile-comment-view-more-images{
+    width: 64px;
+    height: 48px;
+    border: 1px solid var(--border-color);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.mobile-comment-view-more-images.show-view-more-option{
+    display: flex;
+}
+
+.mobile-comment-view-more-images p{
+    font-size: 8px;
+    line-height: 12px;
+    font-weight: 400;
+    color: var(--text-color);
 }
 
 .mobile-comment-feedback{
@@ -270,7 +301,7 @@
         display: none;
     }
     .comments-container{
-        display: flex;
+        display: none;
     }
     .mobile-comments{
         display: flex;

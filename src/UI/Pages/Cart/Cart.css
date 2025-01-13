@@ -54,7 +54,7 @@
     flex-direction: column;
     width: 100%;
     padding: 10px;
-    gap: 15px;
+    gap: 10px;
     background-color: #FFFFFF;
     box-shadow: 1px 1px 6px 0px #00000026;
     border-radius: 5px;
@@ -320,8 +320,8 @@ mobile-cart-order-summary-total{
 }
 
 .cart-order-summary-coupon-input-div.show-coupon-update-input {
-    height: 75px;
-    padding: 15px 0;
+    height: 60px;
+    padding: 10px 0;
     visibility: visible;
 }
 
@@ -602,7 +602,7 @@ mobile-cart-order-summary-total{
     }
 
     .cart-body {
-        padding: 20px 10px;
+        padding: 10px;
         height: auto;
         flex-direction: column;
     }
@@ -617,7 +617,7 @@ mobile-cart-order-summary-total{
         flex-direction: column;
         width: 100%;
         height: auto;
-        padding-top: 30px;
+        padding-top: 0px;
         /* border: 1px solid black; */
         position: relative;
     }
@@ -625,9 +625,9 @@ mobile-cart-order-summary-total{
     .cart-related-products-display-section {
         display: flex;
         flex-direction: column;
-        gap: 25px;
+        gap: 15px;
         width: 100%;
-        padding: 20px 10px;
+        padding: 10px;
         margin-bottom: 0px;
     }
 

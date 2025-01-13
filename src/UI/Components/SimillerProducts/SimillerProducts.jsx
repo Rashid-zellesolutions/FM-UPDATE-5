@@ -71,28 +71,12 @@ const SimillerProducts = ({collection}) => {
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [hideFilters, setHideFilters] = useState(false);
 
-    // Change image on hover function
-    // const handleImageHover = (index) => {
-    //   setHoveredIndex(index);
-    // };
-
-    // 
-
     // Card title words limit
     const maxLength = 30;
     const truncateTitle = (title, maxLength) => {
         if(!title) return '';
         return title.length > maxLength ? title.slice(0, maxLength) + '...' : title
     };
-
-    // console.log("similler data", data)
-    // Select Color Variations Functions
-    // const [selectedColorIndices, setSelectedColorIndices] = useState(Array(data && data.length).fill(0));
-    // const handleVariantImageClick = (cardIndex, colorIndex) => {
-    //     const updatedIndices = [...selectedColorIndices];
-    //     updatedIndices[cardIndex] = colorIndex;
-    //     setSelectedColorIndices(updatedIndices);
-    // };
 
     // product color variation index from redux
     const colorIndex = useSelector((state) => state.colorIndex.colorIndex)
@@ -192,7 +176,6 @@ const SimillerProducts = ({collection}) => {
                   slug={item.slug}
                   singleProductData={item}
                   maxWidthAccordingToComp="98%"
-                  // justWidth={'320px'}
                   tagIcon={item.productTag ? item.productTag : heart}
                   tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
                   mainImage={`${item.image.image_url}`}
@@ -211,6 +194,7 @@ const SimillerProducts = ({collection}) => {
                   lowPriceAddvertisement={item.lowPriceAddvertisement}
                   priceTag={item.regular_price}
                   sale_price={item.sale_price}
+                  percent={'12%'}
                   financingAdd={item.financingAdd}
                   learnMore={item.learnMore}
                   mainIndex={index}

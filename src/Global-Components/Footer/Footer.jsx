@@ -13,13 +13,9 @@ import insta from '../../Assets/icons/insta-white.png'
 import youtube from '../../Assets/icons/youtube-white.png'
 import location from '../../Assets/icons/location.png'
 import call from '../../Assets/icons/call.png'
-import mail from '../../Assets/icons/mail.png'
 import clock from '../../Assets/icons/white-clock.png'
 import calander from '../../Assets/icons/white-calander.png'
-import filledStart from '../../Assets/icons/Star 3.png';
-import unfilledStart from '../../Assets/icons/Star 5.png';
-import nearStore from '../../Assets/Footer/venango-store-image.png';
-import checked from "../../Assets/checked.png"
+import mail from '../../Assets/icons/mail.png'
 import checked_white from "../../Assets/checked_white.png"
 import LoaderAnimation from "../../Assets/Loader-animations/loader-check-two.gif"
 import { getCurrentDay, getCurrentTimeForNewYork, url } from '../../utils/api';
@@ -30,7 +26,6 @@ import MobileFooter from '../TabAndMobileFooter/MobileFooter';
 import FooterNav from './FooterNav/FooterNav';
 
 // Functions and Utils
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 import axios from 'axios';
 import { useGlobalContext } from '../../context/GlobalContext/globalContext';
 
@@ -46,9 +41,6 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
           navigate(link);
         }
     };
-
-
-    
 
     // State for email input and form submission status
     const [isSubscribed, setIsSubscribed] = useState(false);
@@ -66,6 +58,7 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
         setEmail(e.target.value);
         setError(''); // Reset error when the user types
     };
+
     const handleSubmit = async (e) => {
         e.preventDefault();  // Prevent the default form submission
 
@@ -114,11 +107,7 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
         }
     };
 
- 
-
     const [googleRating,setGoogleRating] = useState(null);
-
-
 
     const fetchGoogleRating = async () => {
         const api = `${url}/api/v1/stores/get-top-rated`;
@@ -127,7 +116,6 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
           let response;
           response = await axios.get(api);
           const stores = response.data.data;
-        //   console.log(response,"here isth")
           setGoogleRating(stores)
         } catch (error) {
           console.error("Error fetching stores data", error);
@@ -294,16 +282,6 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
         },
     ]
 
-    // const stars = [
-    //     { icon: filledStart },
-    //     { icon: filledStart },
-    //     { icon: filledStart },
-    //     { icon: filledStart },
-    //     { icon: unfilledStart },
-    // ]
-
-    
-
     const {stores} = useGlobalContext()
     const findDefaultStore = () => {
         const defaultStore = stores.find(store => store.postal_code === '19134')
@@ -311,7 +289,6 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
     }
 
     const defaultStore = findDefaultStore()
-    // console.log("Def Store", defaultStore)
 
     const currentDay = getCurrentDay(getCurrentTimeForNewYork(), 'en-us')
     const defaultStoreTimings = defaultStore?.timings?.find(day => day.day === currentDay);
@@ -375,11 +352,12 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
                                 {locationPhoneMail.map((item, index) => (
                                     <span key={index}>
                                         <img src={item.icon} alt='icon' />
-                                        <p>{item.name}</p>
+                                        <p>{item.name === '215 352 1600' ? <a  href='tel:2153521600'>{item.name}</a> :item.name}</p>
                                     </span>
                                 ))}
                             </div>
                         </div>
+
                         <div className='left-section-location-section'>
                             <h3 className='footer-location-section'>Nearest Store</h3>
                             <div className='near-store-containt-section'>
@@ -407,6 +385,7 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <div className='footer-right-section'>
                         <div className={`footer-right-get-scoop ${notLandingPage ? 'show-footer-get-the-scoop' : ''}`}>
@@ -450,9 +429,9 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
                     </div>
                 </div>
                 <div className='footer-rights-reserved-container'>
-                    <p>2020 - 2024 Furniture Mecca. All Rights Reserved</p>
+                    <p>2020 - 2025 Furniture Mecca. All Rights Reserved</p>
                     <p>
-                        <Link to={'https://zellesolutions.com/'}>Designed & Managed By Zelle Solutions</Link>
+                        <Link target='_blank' to={'https://zellesolutions.com/'}>Designed & Managed By Zelle Solutions</Link>
                     </p>
                 </div>
             </div>

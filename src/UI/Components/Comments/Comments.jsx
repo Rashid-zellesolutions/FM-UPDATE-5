@@ -10,66 +10,12 @@ import { url } from '../../../utils/api';
 import { formatTime } from '../../../utils/api';
 
 const Comments = ({ data ,order }) => {
-    const mobileCommentData = [
-        {
-            name: 'Pamela', date: '23/10/2024', state: 'Duxbury, MA', verified: 'Verified',
-            starIcon: [
-                { star: filledStar },
-                { star: filledStar },
-                { star: filledStar },
-                { star: filledStar },
-                { star: filledStar },
-            ],
-            comment: `
-                This furniture has barely made it into a third season. 
-                Despite covering it during the winter, it has completely fallen apart....`,
-            productImgs: [
-                { img: productOne },
-                { img: productTwo },
-                { img: productThree },
-            ]
-        },
-        {
-            name: 'Pamela', date: '23/10/2024', state: 'Duxbury, MA', verified: 'Verified',
-            starIcon: [
-                { star: filledStar },
-                { star: filledStar },
-                { star: filledStar },
-                { star: filledStar },
-                { star: filledStar },
-            ],
-            comment: `
-                This furniture has barely made it into a third season. 
-                Despite covering it during the winter, it has completely fallen apart....
-        `, productImgs: [
-                { img: productOne },
-                { img: productTwo },
-                { img: productThree },
-            ]
-        },
-        {
-            name: 'Pamela', date: '23/10/2024', state: 'Duxbury, MA', verified: 'Verified',
-            starIcon: [
-                { star: filledStar },
-                { star: filledStar },
-                { star: filledStar },
-                { star: filledStar },
-                { star: filledStar },
-            ],
-            comment: `
-                This furniture has barely made it into a third season. 
-                Despite covering it during the winter, it has completely fallen apart....
-        `, productImgs: [
-                { img: productOne },
-                { img: productTwo },
-                { img: productThree },
-            ]
-        }
-    ]
+
+    console.log("comment data", data)
     
 
     return (
-        <div >
+        <div>
             {data?.map((item, index) => {
                 return <div className='comments-container'>
                     <div className='user-details'>
@@ -93,7 +39,6 @@ const Comments = ({ data ,order }) => {
                         </div>
                         <div className='comment-and-see-more'>
                             <p>{item.review}</p>
-                            {/* <Link>{item.showLess}</Link> */}
                         </div>
                     </div>
                     <div className='feedback'>
@@ -107,28 +52,41 @@ const Comments = ({ data ,order }) => {
 
 
             <div className='mobile-comments'>
-                {mobileCommentData.map((item, index) => (
+                {data && data?.map((item, index) => (
                     <div key={index} className='mobile-single-comment'>
                         <div className='mobile-comment-name-and-date'>
-                            <h3>{item.name}</h3>
-                            <p>{item.date}</p>
+                            <h3>{item.reviewer}</h3>
+                            <p>{formatTime("Pennsylvania",item.date_created)}</p>
                         </div>
                         <h3 className='mobile-comment-state'>{item.state}</h3>
                         <div className='mobile-comment-status-and-rating'>
-                            <p>{item.verified}</p>
-                            <span>
+                            <p>Panselvania</p>
+                            <div className='mobile-comment-verified-and-rating-stars'>
+                                <p>{item.verified ? "Verified" : "Not Verifiled"}</p>
+                                <RatingReview disabled={true} rating={item.rating} />
+                                {/* <span>
+                                    {item.starIcon.map((item, ind) => (
+                                        <img key={ind} src={item.star} alt='star' />
+                                    ))}
+                                </span> */}
+                            </div>
+                            {/* <p>{item.verified}</p> */}
+                            {/* <span>
                                 {item.starIcon.map((item, ind) => (
                                     <img key={ind} src={item.star} alt='star' />
                                 ))}
-                            </span>
+                            </span> */}
                         </div>
-                        <p className='mobile-comment'>{item.comment}</p>
+                        <p className='mobile-comment'>{item.review}</p>
                         <button className='mobile-comment-show-more-btn'>show more</button>
                         <div className='mobile-comment-images-and-feedback'>
                             <div className='mobile-single-comment-images'>
-                                {item.productImgs.map((item, index) => (
-                                    <img src={item.img} alt='product-image' />
+                                {item.images?.slice(0, 2).map((item, index) => (
+                                    <img src={`${url}${item}`} alt='product-image' />
                                 ))}
+                                <div className={`mobile-comment-view-more-images ${item.image?.length !== 0 && item.images?.length > 2 ? 'show-view-more-option' : ''}`}>
+                                    <p>View More</p>
+                                </div>
                             </div>
                             <button className='mobile-comment-feedback'>
                                 <img src={thumbUp} alt='thhumb' />

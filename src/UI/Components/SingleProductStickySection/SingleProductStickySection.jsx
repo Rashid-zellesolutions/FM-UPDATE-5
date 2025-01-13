@@ -216,6 +216,8 @@ const SingleProductStickySection = ({ productData }) => {
   }
   const handleCartClose = () => {
     setCartSection(false)
+    setQuantity(1)
+    
   }
   const [variationData, setVariationData] = useState([])
 
@@ -563,7 +565,7 @@ const SingleProductStickySection = ({ productData }) => {
               className={`mobile-add-to-cart-btn ${isLoading ? 'loading' : ''}`}
               onClick={() => {
                 handleClick();
-                addToCart0(product, variationData, !isProtectionCheck ? 1 : 0)
+                addToCart0(product, variationData, !isProtectionCheck ? 1 : 0, quantity)
                 handleAddToCartProduct(product);
               }
               }>

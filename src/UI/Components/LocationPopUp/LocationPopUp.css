@@ -147,14 +147,15 @@
     display: flex;
     gap: 5px;
     align-items: center;
-    width: max-content;
+    width: 138px;
     height: 40px;
     background-color: #fff;
     border-radius: 4px;
     cursor: pointer;
     padding: 0 10px;
-    color: #fff;
-    background-color: #C61B1A;
+    color: var(--text-color);
+    /* background-color: #C61B1A; */
+    background-color: #FFFFFF;
 }
 
 .use-current-location img{
@@ -167,7 +168,7 @@
     font-size: 12px;
     font-weight: 600;
     line-height: 15px;
-    color: var(--text-white);
+    color: var(--text-color);
 }
 
 .location-modal-detail-section{
@@ -197,13 +198,13 @@
     .location-modal-containt-div{
         width: 100%;
     }
-    .location-heading-and-search-bar-section {
+    /* .location-heading-and-search-bar-section {
         padding: 30px 50px 20px 50px;
-    }
+    } */
 
-    .location-search-input {
+    /* .location-search-input {
         width: 115px;
-    }
+    } */
 
     .update-zip-btn {
         background-color: var(--active-nav-item-color);

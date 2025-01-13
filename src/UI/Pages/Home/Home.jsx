@@ -295,16 +295,14 @@ const Home = () => {
       <ShipBanner bannerImg={shipBanner} showBanner={true} paddindTrue={false} />
       <Category title={'Shop by Category'} categoryData={landingPageCategories} handleNavigate={handleNavigate} />
       <FinanceBannerSlider images={financingBanners} />
+      <MobileFinancingSlider />
       <LandingPageFinancing />
       <TrendingNow data={trendingNow? trendingNow : null} />
-      <MobileFinancingSlider />
-      <AnnouncmentBanners bannerImage={twelveMonthCreditOfferImage} padding={'10px'} />
+      {/* <AnnouncmentBanners bannerImage={twelveMonthCreditOfferImage} padding={'10px'} />
       <AnnouncmentBanners bannerImage={payPalMobileBanner} padding={'10px 0'} />
       <AnnouncmentBanners bannerImage={sixMonthCreditImage} padding={'10px 0'} />
-      <AnnouncmentBanners bannerImage={paymentOptionsBanner} padding={'10px 0'} />
-      
+      <AnnouncmentBanners bannerImage={paymentOptionsBanner} padding={'10px 0'} /> */}
 
-      
       <BestSellerSlider />
       {content2?.section_1 && (
         <Comparision

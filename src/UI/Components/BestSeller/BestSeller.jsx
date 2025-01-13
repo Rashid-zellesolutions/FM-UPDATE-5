@@ -1,4 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from 'react-slick';
 import './BestSeller.css';
 import { useNavigate } from 'react-router-dom';
 import { url } from '../../../utils/api';
@@ -7,11 +10,35 @@ import axios from 'axios';
 // Assets
 import arrowLeft from '../../../Assets/icons/arrow-left.png'
 import arrowRight from '../../../Assets/icons/arrow-right.png'
+import star from '../../../Assets/icons/Star 19.png'
 import bestSellerMobileBanner from '../../../Assets/Furniture Mecca/Landing Page/best seller products/mobile-view-main-image.png';
 
 // Components
 import BestSellerProductCard from '../BestSellerProductCard/BestSellerProductCard';
 import BestSellerProductCardShimmer from '../BestSellerProductCard/BestSellerProductCardShimmer';
+import { useSingleProductContext } from '../../../context/singleProductContext/singleProductContext';
+import { useCart } from '../../../context/cartContext/cartContext';
+import { useList } from '../../../context/wishListContext/wishListContext';
+import { toast } from 'react-toastify';
+
+
+const BestSellerPrevArrow = (props) => {
+    const { className, style, onClick } = props;
+    return (
+        <div onClick={onClick} className={`best-seller-arrow ${className}`} >
+            <img src={arrowLeft} alt='arrow' />
+        </div>
+    )
+}
+
+function BestSellerNextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+        <div onClick={onClick} className={`best-seller-arrow ${className}`} >
+            <img src={arrowRight} alt='arrow' />
+        </div>
+    )
+}
 
 const BestSeller = ({ categoryData }) => {
 
@@ -46,6 +73,8 @@ const BestSeller = ({ categoryData }) => {
         setMainBanner(categoryData.categories[0].image)
         setCurrentSlug(categoryData.categories[0].slug)
     }, []);
+
+    console.log("product", products)
 
     useEffect(() => {
         getBestSellerProducts(currentSlug)
@@ -93,6 +122,84 @@ const BestSeller = ({ categoryData }) => {
             const previusIndex = (prevIndex - 1) % mobileItemPerPage;
             return previusIndex;
         })
+    }
+
+    var settings = {
+        dots: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        initialSlide: 0,
+        arrows: false,
+        nextArrow: <BestSellerNextArrow to="next" />,
+        prevArrow: <BestSellerPrevArrow to="prev" />,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    infinite: false,
+                    dots: false
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    initialSlide: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    initialSlide: 1
+                }
+            }
+        ]
+    };
+
+    const ratingStars = [
+        { icon: star },
+        { icon: star },
+        { icon: star },
+        { icon: star },
+        { icon: star }
+    ]
+
+    const { addToList, isInWishList, removeFromList } = useList()
+    const notify = (str) => toast.success(str);
+    const notifyRemove = (str) => toast.error(str)
+    const [listed, setListed] = useState(false);
+    const { addSingleProduct } = useSingleProductContext();
+    const { addToCart } = useCart()
+    const handleCardClicked = (item) => {
+
+        addSingleProduct(item)
+        addToCart(item)
+        navigate(`/product/${item.slug}`, { state: item })
+
+    }
+
+    const handleWishlisted = (item) => {
+        console.log("to delete uid", item.uid)
+        if (isInWishList(item.uid)) {
+            removeFromList(item.uid);
+            notifyRemove('Removed from wish list', {
+                autoClose: 10000,
+                // position: toast.POSITION.BOTTOM_CENTER,
+                className: "toast-message",
+            })
+        } else {
+            addToList(item); // Add if not in wishlist
+            notify("added to wish list", {
+                autoClose: 10000,
+            })
+        }
     }
 
     return (
@@ -172,44 +279,37 @@ const BestSeller = ({ categoryData }) => {
                         ))}
                     </div>
                 </div>
+
                 <div className='mobile-view-category-best-seller-card-section'>
-                    <button
-                        className='mobile-view-best-seller-slider-arrows mobile-view-best-seller-arrow-left'
-                        onClick={() => handleMobileSliderPrev(mobCurrentIndex)}
-                    >
-                        <img src={arrowLeft} alt='left-arrow' />
-                    </button>
-                    <div className='mobile-view-best-seller-slider' style={{ transform: `translateX(-${(mobCurrentIndex / mobileItemPerPage) * 100}%)` }}>
-                        {products && products.slice(mobCurrentIndex, mobCurrentIndex + mobileItemPerPage).map((item, index) => (
-                            <BestSellerProductCard
-                                key={index}
-                                productData={item}
-                                productMainImage={item.mainImage}
-                                starIcon={item.ratingStars}
-                                reviews={item.reviewCount}
-                                productName={item.productTitle}
-                                oldPrice={item.priceTag}
-                                newPrice={item.priceTag}
-                                handleCardClicked={() => handleProductClick(item)}
-                            />
-                        ))}
+
+                    <div className='mobile-view-best-seller-slider'>
+                        {!loading ? (
+                            <Slider {...settings}>
+                                {products && products.map((item, index) => (
+                                    <BestSellerProductCard
+                                        productData={item}
+                                        isDiscountable={item.discount.is_discountable === 1 ? true : false}
+                                        key={index}
+                                        productMainImage={item.images?.[0]?.image_url}
+                                        starIcon={ratingStars}
+                                        reviews={'200'}
+                                        productName={item.name}
+                                        oldPrice={item.regular_price}
+                                        newPrice={item.sale_price}
+                                        listed={listed}
+                                        handleCardClicked={() => handleCardClicked(item)}
+                                        handleWishListClicked={() => handleWishlisted(item)}
+                                    />
+                                ))
+                                }
+                            </Slider>
+                        ) : (
+                            <BestSellerProductCardShimmer width={'85%'} />
+                        )}
                     </div>
-                    <button
-                        className='mobile-view-best-seller-slider-arrows mobile-view-best-seller-arrow-right'
-                        onClick={() => handleMobileSliderNext(mobCurrentIndex)}
-                    >
-                        <img src={arrowRight} alt='right arrow' />
-                    </button>
+
                 </div>
-                <div className='mobile-view-category-pagination-dots'>
-                    {Array.from({ length: maxIndex }, (_, index) => (
-                        <span
-                            key={index}
-                            className={`category-dot ${mobCurrentIndex === index ? 'category-dot-active-active' : ''}`}
-                            onClick={() => handleMobilePageChange(index)}
-                        ></span>
-                    ))}
-                </div>
+                
             </div>
 
             <div className='category-pagination-dots'>

@@ -241,7 +241,7 @@ const DealOfTheDay = () => {
       <div className='deal-of-the-day-outer-container'>
         <div className='mobile-view-deal-of-the-day-timer-and-product-count'>
           <div className='mobile-view-timer'>
-            <p>{days}d: {hours}h: {minutes}m: {seconds}s</p>
+            <p>{days}d: {hours}h: {minutes}m</p>
           </div>
           <h3 className='mobile-view-deal-of-the-day-product-count'>{productCount} Products</h3>
         </div>

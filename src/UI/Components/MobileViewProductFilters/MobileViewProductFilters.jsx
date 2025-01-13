@@ -23,6 +23,9 @@ const MobileViewProductFilters = ({ showMobileFilters, setMobileFilters, filters
     const handleShowAllFilters = () => {
         setShowAllFilters(!showAllFilters)
     }
+
+    
+
     return (
         <div className={`mobile-view-flters-popup ${showMobileFilters ? 'show-mobile-filter-popup' : ''}`}>
             <button className='close-mobile-filters' onClick={handleFiltersClose}>
@@ -90,7 +93,7 @@ const MobileViewProductFilters = ({ showMobileFilters, setMobileFilters, filters
                                         className='custom-checkbox'
                                         type='checkbox'
                                         name={filter.name}
-                                        style={{ backgroundColor: filter.value }}
+                                        style={{ backgroundColor: filter.value, border: `2px solid ${filter.value}` }}
                                     />
                                     {filter.name}
                                 </label>
@@ -131,7 +134,7 @@ const MobileViewProductFilters = ({ showMobileFilters, setMobileFilters, filters
                     </button>
                 </div>
                 <div className='mobile-view-filters-togle-button'>
-                    <button className='mobile-view-result-button'>
+                    <button className='mobile-view-result-button' >
                         View Result
                     </button>
                 </div>

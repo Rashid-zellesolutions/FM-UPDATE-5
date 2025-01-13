@@ -924,6 +924,11 @@ a {
 .mobile-view-slider-thumb-images {
     display: flex;
     padding-bottom: 5px;
+    overflow: hidden;
+    padding: 0 10px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .mobile-view-color-variant {
@@ -1105,7 +1110,12 @@ a {
     }
 
     .single-product-slider-thumbnail {
-        width: 70px;
+        width: 90px;
+        height: 70px;
+    }
+
+    .single-product-slider-thumbnail img {
+        width: 90px;
         height: 70px;
     }
 

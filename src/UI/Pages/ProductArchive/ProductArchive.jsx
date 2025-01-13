@@ -43,23 +43,23 @@ const ProductArchive = ({productArchiveHading}) => {
         />
         <RelatedCategories />
         <FAQ />
-        <MobileFinancingSlider />
-        <AnnouncmentBanners 
+        {/* <MobileFinancingSlider /> */}
+        {/* <AnnouncmentBanners 
           bannerImage={twelveMonthCreditOfferImage} 
           padding={'10px'}
-        />
-        <AnnouncmentBanners 
+        /> */}
+        {/* <AnnouncmentBanners 
           bannerImage={payPalMobileBanner} 
           padding={'10px 0'}
-        />
-        <AnnouncmentBanners 
+        /> */}
+        {/* <AnnouncmentBanners 
           bannerImage={sixMonthCreditImage} 
           padding={'10px 0'}
-        />
-        <AnnouncmentBanners 
+        /> */}
+        {/* <AnnouncmentBanners 
           bannerImage={paymentOptionsBanner} 
           padding={'10px 0'}
-        />
+        /> */}
     </div>    
   )
 }

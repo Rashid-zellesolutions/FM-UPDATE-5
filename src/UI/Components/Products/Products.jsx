@@ -118,7 +118,7 @@ const Products = ({ productArchiveHading }) => {
     const [priceRange, setPriceRange] = useState([130, 900]);
 
     const [allFilters, setAllFilters] = useState();
-    
+
     const fetchFilters = async () => {
         const api = `/api/v1/products/by-category/filters?categorySlug=${subCategorySlug}`
         try {
@@ -279,7 +279,7 @@ const Products = ({ productArchiveHading }) => {
     };
 
     // Mobile view Script
-    
+
     const [selectedGrid, setSelectedGrid] = useState('')
     const [activeGrid, setActiveGrid] = useState('')
     const handleActiveGrid = (grid) => {
@@ -714,42 +714,51 @@ const Products = ({ productArchiveHading }) => {
                 </div>
                 <div className={`${selectedGrid === 'single-col' ? 'mobile-view-product-single-column' : 'mobile-view-products-main-container'} `}>
 
-                    {products.map((item, index) => {
-                        return <ProductCard
-                            key={index}
-                            slug={item.slug}
-                            singleProductData={item}
-                            maxWidthAccordingToComp="100%"
-                            // justWidth={'310px'}
-                            percent={'-12%'}
-                            tagIcon={item.productTag ? item.productTag : item.heart}
-                            tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
-                            mainImage={`${item.image.image_url}`}
-                            productCardContainerClass="product-card"
-                            ProductSku={item.sku}
-                            tags={item.tags}
-                            ProductTitle={truncateTitle(item.name, maxLength)}
-                            stars={[
-                                { icon: star, title: 'filled' },
-                                { icon: star, title: 'filled' },
-                                { icon: star, title: 'filled' },
-                                { icon: star, title: 'filled' },
-                                { icon: star, title: 'filled' },
-                            ]}
-                            reviewCount={item.reviewCount}
-                            lowPriceAddvertisement={item.lowPriceAddvertisement}
-                            priceTag={item.regular_price}
-                            sale_price={item.sale_price}
-                            financingAdd={item.financingAdd}
-                            learnMore={item.learnMore}
-                            mainIndex={index}
-                            deliveryTime={item.deliveryTime}
-                            stock={item.manage_stock}
-                            attributes={item.attributes}
-                            handleCardClick={() => handleProductClick(item)}
-                            handleWishListclick={() => handleWishList(item)}
-                        />
-                    })}
+                    {products.length === 0 ? (
+                        selectedGrid === 'single-col' ?
+                        Array.from({ length: 1 }).map((_, index) => (
+                            <ProductCardShimmer key={index} />
+                        )) : Array.from({length: 2}).map((_, index) => (
+                            <ProductCardShimmer key={index} />
+                        ))
+                    ) : (
+                        products.map((item, index) => {
+                            return <ProductCard
+                                key={index}
+                                slug={item.slug}
+                                singleProductData={item}
+                                maxWidthAccordingToComp="100%"
+                                // justWidth={'310px'}
+                                percent={'-12%'}
+                                tagIcon={item.productTag ? item.productTag : item.heart}
+                                tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
+                                mainImage={`${item.image.image_url}`}
+                                productCardContainerClass="product-card"
+                                ProductSku={item.sku}
+                                tags={item.tags}
+                                ProductTitle={truncateTitle(item.name, maxLength)}
+                                stars={[
+                                    { icon: star, title: 'filled' },
+                                    { icon: star, title: 'filled' },
+                                    { icon: star, title: 'filled' },
+                                    { icon: star, title: 'filled' },
+                                    { icon: star, title: 'filled' },
+                                ]}
+                                reviewCount={item.reviewCount}
+                                lowPriceAddvertisement={item.lowPriceAddvertisement}
+                                priceTag={item.regular_price}
+                                sale_price={item.sale_price}
+                                financingAdd={item.financingAdd}
+                                learnMore={item.learnMore}
+                                mainIndex={index}
+                                deliveryTime={item.deliveryTime}
+                                stock={item.manage_stock}
+                                attributes={item.attributes}
+                                handleCardClick={() => handleProductClick(item)}
+                                handleWishListclick={() => handleWishList(item)}
+                            />
+                        })
+                    )}
                 </div>
                 <div className='mobile-view-pagination'>
                     <p>1</p>

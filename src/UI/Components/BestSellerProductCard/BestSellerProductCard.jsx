@@ -43,7 +43,7 @@ const BestSellerProductCard = (
         className='category-product-card' 
         onClick={() => handleCardClicked(productData)}
     >
-        <img src={heartIcon} alt='heart' className='show-on-mobile' />
+        {/* <img src={heartIcon} alt='heart' className='show-on-mobile' /> */}
         <div className='category-product-image'>
             <img src={`${url}${productMainImage}`} alt='product image' effect='blur' />
         </div>

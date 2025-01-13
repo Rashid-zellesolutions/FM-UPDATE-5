@@ -8,7 +8,7 @@ import { url } from '../../../../utils/api';
 const AllBlogs = ({blogData}) => {
 
   // States and Variables
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // Functions
   const handleNavigate = (item) => {

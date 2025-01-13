@@ -54,14 +54,14 @@
 }
 
 .left-arrow {
-    left: 30px !important;
+    left: 15px !important;
     background-color: #fff;
     border-radius: 30px;
     border: 1px solid var(--text-color);
 }
 
 .right-arrow {
-    right: 30px !important;
+    right: 15px !important;
     background-color: #fff;
     border-radius: 30px;
     border: 1px solid var(--text-color);

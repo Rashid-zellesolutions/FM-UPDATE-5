@@ -1018,7 +1018,7 @@ label {
     flex-direction: column;
     width: 100%;
     height: auto;
-    gap: 10px;
+    gap: 0px;
 }
 
 .mobile-view-filter-head{
@@ -1092,7 +1092,7 @@ label {
     align-items: center;
     justify-content: start;
     padding: 5px 15px;
-    gap: 20px;
+    gap: 10px;
     border-bottom: 2px solid #D7D7D799
 }
 
@@ -1144,8 +1144,8 @@ label {
 }
 
 .mobile-view-product-single-column .product-title{
-    font-size: 14px;
-    line-height: 21px;
+    font-size: 15px;
+    line-height: 18px;
     font-weight: 600;
 }
 
