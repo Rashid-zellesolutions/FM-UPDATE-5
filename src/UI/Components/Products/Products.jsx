@@ -344,6 +344,7 @@ const Products = ({ productArchiveHading }) => {
         }
     }
 
+
     useEffect(() => {
 
         if (debounceTimeout.current) {
@@ -381,6 +382,7 @@ const Products = ({ productArchiveHading }) => {
     }
 
     const handleColorCheck = (value) => {
+        // console.log("value selected from mobile filter", value)
         const updatedColorValue = colorValue.includes(value) ?
             colorValue.filter((item) => item !== value) :
             [...colorValue, value]
@@ -401,6 +403,11 @@ const Products = ({ productArchiveHading }) => {
         setSearchParams(queryString)
         filterProducts(queryString)
     }
+
+    // useEffect(() => {
+    //     handleColorCheck(colorValue)
+    //     console.log("color filter apply from mobile", colorValue)
+    // }, [colorValue])
 
     const handleRatingFilter = (value) => {
         const updatedRating = ratingValue.includes(value) ?
@@ -803,6 +810,15 @@ const Products = ({ productArchiveHading }) => {
                 setMobileFilters={setMobileFilters}
                 filtersData={allFilters}
                 subCategorySlug={subCategorySlug}
+                priceRange={priceRange}
+                setPriceRange={setPriceRange}
+                colorValue={colorValue}
+                setColorValue={setColorValue}
+                handleColor={handleColorCheck}
+                handleRating={handleRatingFilter}
+                handleCategory={handleCategorySelect}
+                // handleFilter={handleRatingFilter}
+                // handleCategory={handleCategorySelect}
             />
         </div>
     )

@@ -26,9 +26,14 @@ const DoubleRangeSlider = (
     setInitialRange(updatedRange);
   };
 
-  useEffect(() => {
+  const handleMouseLeave = () => {
     onRangeChange(initialRange)
-  }, [initialRange])
+    console.log("mouse up func call")
+  }
+
+  useEffect(() => {
+    
+  }, [handleMouseLeave])
 
   return (
     <div className="slider-container">
@@ -43,6 +48,7 @@ const DoubleRangeSlider = (
           min={min}
           max={max}
           value={initialRange[0]}
+          onPointerUp={handleMouseLeave}
           onChange={(e) => handleChange(e, 0)}
           className="range-input"
         />
@@ -53,6 +59,7 @@ const DoubleRangeSlider = (
           max={max}
           value={initialRange[1]}
           onChange={(e) => handleChange(e, 1)}
+          onPointerUp={handleMouseLeave}
           className="range-input"
         />
         {/* Track */}

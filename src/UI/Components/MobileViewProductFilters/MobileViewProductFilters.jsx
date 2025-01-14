@@ -5,26 +5,105 @@ import mainLogo from '../../../Assets/Logo/m_logo_360 2.png';
 import AddBtn from '../../../Assets/icons/add-bold-btn.png'
 import axios from 'axios';
 import { url } from '../../../utils/api';
+import RatingReview from '../starRating/starRating';
+import DoubleRangeSlider from '../../../Global-Components/MultiRangeBar/MultiRange';
 
-const MobileViewProductFilters = ({ showMobileFilters, setMobileFilters, filtersData = [] }) => {
+const MobileViewProductFilters = (
+    {
+        showMobileFilters,
+        setMobileFilters,
+        filtersData = [],
+        priceRange,
+        setPriceRange,
+        colorValue,
+        setColorValue,
+        handleColor,
+        handleRating,
+        handleCategory
+    }) => {
+
+
     // console.log("all filters data category", allFilters);
+    // const [priceRange, setPriceRange] = useState([130, 900]);
     const handleFiltersClose = () => {
         setMobileFilters(false)
     }
 
-    console.log("main mobile page filters", filtersData);
+    // console.log("main mobile page filters", filtersData);
 
-    const [filterOpen, setFilterOpen] = useState('');
+    const [colorFilter, setColorFilter] = useState('');
+    const [ratingFilter, setRatingFilter] = useState('')
+    const [categoryFilter, setCategoryFilter] = useState('')
+
     const handleFilterType = (type) => {
-        // setFilterOpen((prev) => (prev === index ? null : index));
-        setFilterOpen((prevOpen) => prevOpen === type ? '' : type)
+        setColorFilter((prevOpen) => prevOpen === type ? '' : type)
+        setRatingFilter((prevOpen) => prevOpen === type ? '' : type);
+        setCategoryFilter((prevOpen) => prevOpen === type ? '' : type)
     }
     const [showAllFilters, setShowAllFilters] = useState(false)
     const handleShowAllFilters = () => {
         setShowAllFilters(!showAllFilters)
     }
 
+
+
+    const [tempRange, setTampRange] = useState([300, 900])
+    const [tempColorValue, setTempColorValue] = useState([]);
+    const [tempRatingValue, setTempRatingValue] = useState([]);
+    const [tempCategoryValue, setTempCategoryValue] = useState([])
+
+    const handleMobileRangeChange = (newRange) => {
+        setTampRange(newRange)
+        // console.log("price range filter call", newRange)
+    }
+
+
+
     
+
+    const handleMobileColorCheck = (value) => {
+        // console.log("color value", value)
+        const updatedColorValue = tempColorValue.includes(value) ?
+            tempColorValue.filter((item) => item !== value) :
+            [...tempColorValue, value]
+
+        setTempColorValue(updatedColorValue)
+    }
+
+    const handleMobileRatingFilter = (value) => {
+        const updatedRating = tempRatingValue.includes(value) ?
+            tempRatingValue.filter((item) => item !== value) :
+            [...tempRatingValue, value];
+
+        setTempRatingValue(updatedRating)
+        console.log("rating click", value)
+    }
+
+    const handleMobileCategorySelect = (value) => {
+        const updatedCategory = tempCategoryValue.includes(value) ?
+            tempCategoryValue.filter((item) => item !== value) :
+            [...tempCategoryValue, value]
+
+        setTempCategoryValue(updatedCategory)
+    }
+
+    const handlePriceRangeClick = () => {
+        if (tempRange[0] !== priceRange[0] || tempRange[1] !== priceRange[1]) {
+            setPriceRange(tempRange);
+        }
+
+        if(tempColorValue.length > 0) {
+            handleColor(tempColorValue)
+        }
+        if(tempRatingValue.length > 0) {
+            handleRating(tempRatingValue);
+        }
+        if(tempCategoryValue.length > 0) {
+            handleCategory(tempCategoryValue)
+        }
+
+        setMobileFilters(false)
+    }
 
     return (
         <div className={`mobile-view-flters-popup ${showMobileFilters ? 'show-mobile-filter-popup' : ''}`}>
@@ -36,12 +115,7 @@ const MobileViewProductFilters = ({ showMobileFilters, setMobileFilters, filters
                     <img src={mainLogo} alt='logo' />
                 </a>
             </div>
-            {/* <div className='mobile-view-filters-body'>
-                <div>
-                    <h3>Filters</h3>
-                    <p>Clear Filters</p>
-                </div>
-            </div> */}
+
             <div className='mobile-view-filters-body'>
                 <div className='mobile-view-filters-body-head'>
                     <h3>Filters</h3>
@@ -49,54 +123,73 @@ const MobileViewProductFilters = ({ showMobileFilters, setMobileFilters, filters
                 </div>
                 <div className='mobile-view-filters-div'>
 
+                    <DoubleRangeSlider
+                        min={filtersData?.priceRange?.minPrice}
+                        max={filtersData?.priceRange?.maxPrice}
+                        initialRange={tempRange}
+                        setInitialRange={setTampRange}
+                        onRangeChange={handleMobileRangeChange}
+                        minLabel='Min Price:'
+                        maxLabel='Max Price:'
+                    />
+
                     <div className='mobile-view-single-filter-dropdown'>
                         <div className='mobile-view-single-type'
                             onClick={() => handleFilterType('open-color')}
                         >
                             <p>{filtersData?.colors?.[0]?.name}</p>
                             <img src={AddBtn} alt='add btn' className={`show-filter-add-button 
-                                     ${filterOpen === 'open-color' ? 'mobile-filter-section-button-rotate' : ''}`
+                                     ${colorFilter === 'open-color' ? 'mobile-filter-section-button-rotate' : ''}`
                             } />
                         </div>
                         <div className={`mobile-single-type-filters 
-                                ${filterOpen === 'open-color' ? 'show-filter-type' : ''}`
+                                ${colorFilter === 'open-color' ? 'show-filter-type' : ''}`
                         }>
-                            {filtersData?.colors?.[0]?.options.map((filter, ind) => (
-                                <label className='single-filter-label' key={ind}>
+                            {filtersData?.colors?.[0]?.options.map((item, index) => (
+                                <label className='single-filter-label' key={index}>
                                     <input
-                                        className='custom-checkbox'
                                         type='checkbox'
-                                        name={filter.name}
-                                        style={{ backgroundColor: filter.value }}
+                                        placeholder='checkbox'
+                                        value={item.name}
+                                        onChange={(e) => handleMobileColorCheck(e.target.value)}
+                                        style={{ backgroundColor: item.value, border: `2px solid ${item.value}` }}
+                                        className='color-custom-checkbox'
+                                        id={`filter-${index}`}
                                     />
-                                    {filter.name}
+                                    {item.name}
                                 </label>
                             ))}
                         </div>
                     </div>
-                    
+
+                    {/* Rating Filter */}
+
                     <div className='mobile-view-single-filter-dropdown'>
                         <div className='mobile-view-single-type'
                             onClick={() => handleFilterType('open-rating')}
                         >
-                            <p>{filtersData?.colors?.[0]?.name}</p>
+                            <p>Ratings</p>
                             <img src={AddBtn} alt='add btn' className={`show-filter-add-button 
-                                     ${filterOpen === 'open-rating' ? 'mobile-filter-section-button-rotate' : ''}`
+                                     ${colorFilter === 'open-rating' ? 'mobile-filter-section-button-rotate' : ''}`
                             } />
                         </div>
                         <div className={`mobile-single-type-filters 
-                                ${filterOpen === 'open-rating' ? 'show-filter-type' : ''}`
+                                ${colorFilter === 'open-rating' ? 'show-filter-type' : ''}`
                         }>
-                            {filtersData?.colors?.[0]?.options.map((filter, ind) => (
-                                <label className='single-filter-label' key={ind}>
+                            {[...Array(5).keys()].reverse().map((item, index) => (
+                                <span key={index} className={`color-span`} >
                                     <input
-                                        className='custom-checkbox'
                                         type='checkbox'
-                                        name={filter.name}
-                                        style={{ backgroundColor: filter.value, border: `2px solid ${filter.value}` }}
+                                        placeholder='checkbox'
+                                        value={item.name}
+                                        onChange={(e) => handleMobileRatingFilter(e.target.value)}
+                                        className='custom-checkbox'
+                                        id={`filter-${index}`}
                                     />
-                                    {filter.name}
-                                </label>
+                                    <label htmlFor={`filter-${5 - item}`}>
+                                        <RatingReview rating={item + 1} disabled={true} size={"20px"} />
+                                    </label>
+                                </span>
                             ))}
                         </div>
                     </div>
@@ -105,36 +198,39 @@ const MobileViewProductFilters = ({ showMobileFilters, setMobileFilters, filters
                         <div className='mobile-view-single-type'
                             onClick={() => handleFilterType('open-category')}
                         >
-                            <p>{filtersData?.colors?.[0]?.name}</p>
+                            <p>Categories</p>
                             <img src={AddBtn} alt='add btn' className={`show-filter-add-button 
-                                     ${filterOpen === 'open-category' ? 'mobile-filter-section-button-rotate' : ''}`
+                                     ${categoryFilter === 'open-category' ? 'mobile-filter-section-button-rotate' : ''}`
                             } />
                         </div>
                         <div className={`mobile-single-type-filters 
-                                ${filterOpen === 'open-category' ? 'show-filter-type' : ''}`
+                                ${categoryFilter === 'open-category' ? 'show-filter-type' : ''}`
                         }>
-                            {filtersData?.colors?.[0]?.options.map((filter, ind) => (
-                                <label className='single-filter-label' key={ind}>
+                            {filtersData?.categories?.map((item, index) => (
+                                <span key={index} className={`color-span`} >
                                     <input
-                                        className='custom-checkbox'
                                         type='checkbox'
-                                        name={filter.name}
-                                        style={{ backgroundColor: filter.value }}
+                                        placeholder='checkbox'
+                                        value={item.name}
+                                        onChange={(e) => handleMobileCategorySelect(e.target.value)}
+                                        className='custom-checkbox'
+                                        id={`filter-${index}`}
                                     />
-                                    {filter.name}
-                                </label>
+                                    <label htmlFor={`filter-${index}`}>{item.name}</label>
+                                </span>
                             ))}
                         </div>
                     </div>
 
                 </div>
+
                 <div className='mobile-view-filters-togle-button'>
                     <button className='mobile-view-more-filters-button' onClick={handleShowAllFilters}>
                         {showAllFilters ? 'View Less Filters' : 'View All Filters'}
                     </button>
                 </div>
                 <div className='mobile-view-filters-togle-button'>
-                    <button className='mobile-view-result-button' >
+                    <button className='mobile-view-result-button' onClick={handlePriceRangeClick}>
                         View Result
                     </button>
                 </div>
