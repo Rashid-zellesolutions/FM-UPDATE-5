@@ -74,7 +74,6 @@ function App() {
   const location = useLocation();
   const checkPage = window.location.pathname; // Get the current path
   const checkoutPage = /^\/order-confirmation\/[a-zA-Z0-9]+$/.test(checkPage);
-  console.log("check out page url", checkoutPage)
   useEffect(() => {
     setCurrentUrl(location.pathname);
     // setCheckoutPage(/^\/order-confirmation\/[a-zA-Z0-9]+$/.test(currentUrl));
@@ -84,21 +83,6 @@ function App() {
 
   const {title,setTitle,description,setDescription,image,setImage} = useSEOContext();
   const {mainLoader,isWarrantyModalOpen,setWarrantyModalState} = useGlobalContext();
-  // const categoryCardData = [
-  //   {title: "Dining Room Sets", img: newArrivalImage, link: '#'},
-  //   {title: "Pub Height Dining Sets", img: livingRoomImage, link: '#'},
-  //   {title: "Dining Table", img: diningImage, link: '#'},
-  //   {title: "Dining Chairs & Banches", img: bedroomImage, link: '#'},
-  //   {title: "Counter & Bar  Stools", img: outDoorImage, link: '#'},
-  //   {title: "Server Buffets & China Cabinate", img: recliningImage, link: '#'},
-  //   {title: "Small Space Dining", img: SectionaSofa, link: '#'},
-  //   {title: "Dining Room Collections", img: Mattresses, link: '#'},
-  //   {title: "Shop All Dining", img: HomeOffice, link: '#'},
-  //   {title: "Dining Room Outlets", img: KidsRoom, link: '#'},
-  //   {title: "Area Rugs", img: AreaRugs, link: '#'},
-  //   {title: "Home Decor", img: HomeDecor, link: '#'},
-  //   {title: "Outlet", img: Outlet, link: '#'},
-  // ]
 
   const [isVisible, setIsVisible] = useState(false);
   const handleScroll = () => {

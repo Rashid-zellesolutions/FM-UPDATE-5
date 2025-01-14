@@ -1,16 +1,13 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState} from 'react'
 import './Cart.css'
 import CartMainImage from '../../Components/Cart-Components/CartMainImage/CartMainImage'
 import CartProducts from '../../Components/Cart-Components/Cart-Products/CartProducts'
-import CartProductsSuggestion from '../../Components/Cart-Components/CartProductsSuggestion/CartProductsSuggestion'
 import { IoIosArrowDown } from "react-icons/io";
-import { IoIosArrowDropleft } from "react-icons/io";
-import { IoIosArrowDropright } from "react-icons/io";
 import axios from 'axios'
 import ProductCard from '../../Components/ProductCard/ProductCard'
 import heart from '../../../Assets/icons/heart-vector.png';
 import star from '../../../Assets/icons/black-star.png'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import leftArrow from '../../../Assets/icons/arrow-left-charcol.png'
 import rightArrow from '../../../Assets/icons/arrow-right-charcol.png'
 import Slider from 'react-slick'
@@ -19,9 +16,6 @@ import ProductCardShimmer from '../../Components/Loaders/productCardShimmer/prod
 import { useList } from '../../../context/wishListContext/wishListContext'
 import { toast } from 'react-toastify'
 import { useGlobalContext } from '../../../context/GlobalContext/globalContext'
-import Breadcrumb from '../../../Global-Components/BreadCrumb/BreadCrumb'
-
-
 
 const SamplePrevArrow = (props) => {
   const { className, style, onClick } = props;
@@ -41,38 +35,51 @@ function SampleNextArrow(props) {
   )
 }
 
-
-
-
-
 const Cart = () => {
-  // const [selectedShippingMethods,setSelectedShippingMethods] = useState([]);
   const [isZipUpdateOpen, setIsZipUpdateOpen] = useState(false)
   const [isCouponOpen, setIsCouponOpen] = useState(false);
   const [isCheck, setIsCheck] = useState({});
   const [isStarted, setIsStarted] = useState(false);
 
-  const { setAllShippingMethods, shippingMethods, setShippingMethods, shippingLoader, setShippingLoader, info, updateLocationData, zipCode, setZipCode, handleInputChange, handleButtonClick, totalTax, calculateTotalTax, getShippingInfo, selectedOption, setSelectedOption, handleChange, getShippingMethods, selectedShippingMethods, setSelectedShippingMethods, CalculateGrandTotal } = useGlobalContext();
+  const {  
+    shippingMethods,
+    info, 
+    zipCode, 
+    handleInputChange, 
+    handleButtonClick, 
+    totalTax, 
+    calculateTotalTax,
+    selectedOption, 
+    handleChange, 
+    getShippingMethods, 
+    selectedShippingMethods, 
+    setSelectedShippingMethods, 
+    CalculateGrandTotal 
+  } = useGlobalContext();
 
-  const handleCheckboxCheck = (index) => {
-    setIsCheck((prev) => ({
-      ...prev,
-      [index]: !prev[index], // Toggle the checked state
-    }));
-    // setIsCheck(index);
-    console.log("checked value", isCheck)
-  }
+  // const handleCheckboxCheck = (index) => {
+  //   setIsCheck((prev) => ({
+  //     ...prev,
+  //     [index]: !prev[index], // Toggle the checked state
+  //   }));
+  //   // setIsCheck(index);
+  //   console.log("checked value", isCheck)
+  // }
 
 
-  const { cart, calculateTotalPrice, subTotal, savings, isCartProtected, cartProducts,
+  const { 
+    cart, 
+    subTotal, 
+    savings, 
+    isCartProtected, 
+    cartProducts,
     isProfessionalAssembly,
     handleCartProtected,
     handleCartAssembly,
   } = useCart();
+
   const subTotalOfAllProducts = cart.map(item => item.product.sub_total);
-  // console.log("sub total of products", subTotalOfAllProducts)
   const subtotal = subTotalOfAllProducts.reduce((acc, value) => acc + value, 0)
-  // console.log("sub tot ", subtotal)
 
   const formatePrice = (price) => {
     return new Intl.NumberFormat('en-us', {
@@ -88,7 +95,7 @@ const Cart = () => {
   const discountPrice = 123;
   const taxPrice = 322;
 
-  const grandTotal = subtotal + protectionPrice + assemblyPrice + shipping + taxPrice - discountPrice
+  const grandTotal = subtotal + protectionPrice + assemblyPrice + shipping + taxPrice - discountPrice;
 
   const handleZipInput = () => {
     setIsZipUpdateOpen(!isZipUpdateOpen)
@@ -103,26 +110,19 @@ const Cart = () => {
     try {
       const response = await axios.get(api);
       setLatestProducts(response.data.products)
-      // console.log("response from cart products lates cards", response.data.products);
     } catch (error) {
       console.error("error", error);
     }
   }
 
-
-
-
   useEffect(() => {
-    // Always fetch latest products when the component mounts
     getLatestProducts();
-    // Fetch shipping methods if they are available
     if (shippingMethods) {
       getShippingMethods(subTotal, shippingMethods['shippingMethods']);
     }
   }, []); // Empty dependency array ensures this runs once when the component mounts
 
   useEffect(() => {
-    // Call getShippingMethods whenever subTotal or shippingMethods changes
     if (shippingMethods) {
       getShippingMethods(subTotal, shippingMethods['shippingMethods']);
       setIsStarted(!isStarted);
@@ -133,15 +133,12 @@ const Cart = () => {
     if (shippingMethods) {
       getShippingMethods(subTotal, shippingMethods['shippingMethods']);
     }
-
   }, [isStarted])
 
   useEffect(() => { setSelectedShippingMethods(null) }, [info])
 
-
   const productsUids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const newProducts = latestProducts.filter((product) => productsUids.includes(product.uid));
-  // console.log("new filtered product", newProducts)
 
   const maxLength = 30;
   const truncateTitle = (title, maxLength) => {
@@ -162,7 +159,7 @@ const Cart = () => {
     navigate("/check-out");
   }
 
-  const handleQuickViewClose = () => { setQuickView(false) }
+  // const handleQuickViewClose = () => { setQuickView(false) }
 
   const handleProductClick = (item) => {
     navigate(`/product/${item.slug}`, { state: item })
@@ -178,8 +175,6 @@ const Cart = () => {
     slidesToScroll: 1,
     initialSlide: 0,
     arrows: true,
-    // nextArrow: true,
-    // prevArrow: true,
     nextArrow: <SampleNextArrow to="next" />,
     prevArrow: <SamplePrevArrow to="prev" />,
     responsive: [
@@ -211,12 +206,18 @@ const Cart = () => {
   };
 
 
-  const handleCardClick = (item) => {
-    navigate(`/product/${item.slug}`, { state: { products: item } })
-  }
+  // const handleCardClick = (item) => {
+  //   navigate(`/product/${item.slug}`, { state: { products: item } })
+  // }
 
   // wish list
-  const { addToList, removeFromList, isInWishList } = useList()
+  
+  const { 
+    addToList, 
+    removeFromList, 
+    isInWishList 
+  } = useList()
+
   const notify = (str) => toast.success(str);
   const notifyRemove = (str) => toast.error(str)
   const handleWishList = (item) => {
@@ -234,16 +235,10 @@ const Cart = () => {
     }
   }
 
-
-  // const {CartProducts} = useCart()
-  console.log("Cart product length", cartProducts)
-
-
   const orderPriceDetails = [
     { title: 'Subtotal', price: formatePrice(subTotal) },
     { title: 'Protection plan', price: formatePrice(protectionPrice) },
     { title: 'Professional Assembly', price: formatePrice(assemblyPrice) },
-    // { title: `Shipping ${selectedOption? getShippingInfo(selectedOption)?.taxIncluded : ""}`, price: selectedOption? getShippingInfo(selectedOption).result:""},
     { title: `Tax (${totalTax?.tax_name})`, price: totalTax ? formatePrice(calculateTotalTax(subTotal, parseFloat(totalTax?.tax_value))) : 0 }
   ]
 
@@ -254,13 +249,10 @@ const Cart = () => {
     return true; // Always include other items
   });
 
-  console.log("selected shipping methor", selectedShippingMethods)
-
   const [deliveryOptionIndex, setDeliveryOptionIndex] = useState(null);
   const handleDeliveryOptionndex = (index) => {
     setDeliveryOptionIndex(index)
   }
-
 
   return (
     <div className='cart-main-container'>
@@ -274,7 +266,6 @@ const Cart = () => {
         <div className={`cart-order-summery-section ${cartProducts?.products?.length === 0 ? 'hide-order-summary' : ''}`}>
           <div className='cart-order-summery-inner-section'>
             <h3 className='cart-order-summary-heading'>Order Summary</h3>
-            {/* <p className='cart-order-summary-sub-title'>This order qualifies for free shipping</p> */}
 
             <div className='proffesional-assembly-check-sec'>
               <label className='order-summary-proffesional-check-item-label'>
@@ -288,7 +279,8 @@ const Cart = () => {
               </label>
               <p className='order-summary-proffesional-check-item-detail'>Use professional assembly for all products and save up to $80</p>
             </div>
-            {cartProducts.products.length > 1 ? (
+
+            {/* {cartProducts.products.length > 1 ? ( */}
               <div className='proffesional-assembly-check-sec'>
                 <label className='order-summary-proffesional-check-item-label'>
                   <input
@@ -301,13 +293,9 @@ const Cart = () => {
                 </label>
                 <p className='order-summary-proffesional-check-item-detail'>Use professional assembly for all products and save up to $80</p>
               </div>
-            ) : (
-              <></>
-            )}
-
-
-
-
+            {/* // ) : (
+            //   <></>
+            // )} */}
 
             <div className='cart-order-summary-price-details'>
               {filteredOrderPriceDetails.map((price, index) => (
@@ -316,6 +304,7 @@ const Cart = () => {
                   <p className='cart-order-summary-price-detail-single-item-price'>{price.price}</p>
                 </div>
               ))}
+
               <div className='cart-order-summary-zip-code'>
                 <span className='cart-order-summary-zip-code-heading'>
                   <p>Deliver to:</p>
@@ -337,8 +326,7 @@ const Cart = () => {
 
               <div className="delivery-option-container">
                 <span className='order-summary-deliver-to'>
-                  <p className='delivery-opt-heading' >Delivery Options :</p>
-                  {/* <p className='deliver-to-price'>{formatePrice(selectedShippingMethods?.[deliveryOptionIndex]?.cost)}</p> */}
+                  <p className='delivery-opt-heading' >Delivery Options :</p>{/* <p className='deliver-to-price'>{formatePrice(selectedShippingMethods?.[deliveryOptionIndex]?.cost)}</p> */}
                 </span>
                 {selectedShippingMethods &&
                   selectedShippingMethods.map((option, index) => (
@@ -403,7 +391,6 @@ const Cart = () => {
             </div>
 
             <button
-              //  to={'/check-out'} 
               onClick={navigateToCheckout}
               className='cart-summary-proceed-btn'>
                 Proceed to checkout
@@ -411,22 +398,8 @@ const Cart = () => {
 
           </div>
         </div>
-      </div>
 
-      <div className='mobile-total-save-and-checkout-button'>
-        <div className='mobile-total-and-save'>
-          <p>Total</p>
-          <p>{formatePrice(CalculateGrandTotal())}</p>
-        </div>
-        <div className='mobile-total-and-save'>
-          <p>You Saved</p>
-          <p>{formatePrice(savings)}</p>
-        </div>
-        <button onClick={navigateToCheckout} className='mobile-proceed-to-checkout-button'>
-          Proceed to checkout
-        </button>
       </div>
-
 
       <div className='cart-related-products-display-section'>
         <h3>You May Also Like</h3>
@@ -479,48 +452,27 @@ const Cart = () => {
                 <ProductCardShimmer />
               ))
             )}
-            {/* newProducts.map((item, index) => (
-              <div key={index} className='cart-latest-product-cards-container'>
-                <ProductCard
-                  key={index}
-                  slug={item.slug}
-                  singleProductData={item}
-                  maxWidthAccordingToComp="98%"
-                  // justWidth={'320px'}
-                  tagIcon={item.productTag ? item.productTag : heart}
-                  tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
-                  mainImage={`${item.image.image_url}`}
-                  productCardContainerClass="product-card"
-                  ProductSku={item.sku}
-                  tags={item.tags}
-                  ProductTitle={truncateTitle(item.name, maxLength)}
-                  stars={[
-                    { icon: star, title: 'filled' },
-                    { icon: star, title: 'filled' },
-                    { icon: star, title: 'filled' },
-                    { icon: star, title: 'filled' },
-                    { icon: star, title: 'filled' },
-                  ]}
-                  reviewCount={item.reviewCount}
-                  lowPriceAddvertisement={item.lowPriceAddvertisement}
-                  priceTag={item.regular_price}
-                  sale_price={item.sale_price}
-                  financingAdd={item.financingAdd}
-                  learnMore={item.learnMore}
-                  mainIndex={index}
-                  deliveryTime={item.deliveryTime}
-                  stock={item.manage_stock}
-                  attributes={item.attributes}
-                  handleCardClick={() => handleProductClick(item)}
-                  handleQuickView={() => handleQuickViewOpen(item)}
-                  type={item.type}
-                  variation={item.variations}
-                />
-              </div>
-            )) */}
+
           </Slider>
         </div>
       </div>
+
+      <div className='space-between-checkout-and-related-products'></div>
+
+      <div className='mobile-total-save-and-checkout-button'>
+        <div className='mobile-total-and-save'>
+          <p className='mobile-total-text'>Total</p>
+          <p className='mobile-total-text-ammount'>{formatePrice(CalculateGrandTotal())}</p>
+        </div>
+        <div className='mobile-total-and-save'>
+          <p className='mobile-you-save-text'>You Saved</p>
+          <p className='mobile-you-save-text'>{formatePrice(savings)}</p>
+        </div>
+        <button onClick={navigateToCheckout} className='mobile-proceed-to-checkout-button'>
+          Proceed to checkout
+        </button>
+      </div>
+
     </div>
   )
 }

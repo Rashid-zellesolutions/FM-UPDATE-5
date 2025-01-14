@@ -16,10 +16,6 @@ export const GlobalContextProvider = ({ children }) => {
 
   const [isWarrantyModalOpen,setWarrantyModalState] = useState(false);
 
-
-
-  // console.log("All Stores", stores)
-
   const [info, setInfo] = useState(() => {
     const savedInfo = localStorage.getItem('other_info');
     return savedInfo ? JSON.parse(savedInfo) : {
@@ -48,7 +44,6 @@ export const GlobalContextProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('other_info', JSON.stringify(info));
     fetchAllstores();
-    // console.log(subTotal,"here is")
   }, [info])
 
   const [zipCode, setZipCode] = useState("");
@@ -281,7 +276,7 @@ export const GlobalContextProvider = ({ children }) => {
   function CalculateGrandTotal() {
     const subTotal1 = parseFloat(subTotal|| 0); // Ensure subTotal is parsed as a number
     const taxValue = parseFloat(totalTax?.tax_value || 0); // Ensure tax_value is parsed as a number
-    console.log(subTotal1,taxValue,getShippingInfo(selectedOption)?.cost,"here are subtotal & tax")
+    // console.log(subTotal1,taxValue,getShippingInfo(selectedOption)?.cost,"here are subtotal & tax")
     return subTotal + calculateTotalTax(subTotal1, taxValue) + getShippingInfo(selectedOption)?.cost;
   }
   
@@ -290,11 +285,33 @@ export const GlobalContextProvider = ({ children }) => {
       info,
       setInfo,
       updateLocationData,
-      zipCode, setZipCode, handleInputChange, handleButtonClick,
-      fetchAllstores, stores, setStores, setAllShippingMethods, shippingMethods, setShippingMethods, shippingLoader, setShippingLoader,
-      totalTax, calculateTotalTax, getShippingInfo, setTaxValues, selectedOption, setSelectedOption, handleChange,getShippingMethods,selectedShippingMethods, setSelectedShippingMethods,grandTotal,CalculateGrandTotal,
+      zipCode, 
+      setZipCode, 
+      handleInputChange, 
+      handleButtonClick,
+      fetchAllstores, 
+      stores, 
+      setStores, 
+      setAllShippingMethods, 
+      shippingMethods, 
+      setShippingMethods, 
+      shippingLoader, 
+      setShippingLoader,
+      totalTax, 
+      calculateTotalTax, 
+      getShippingInfo, 
+      setTaxValues, 
+      selectedOption, 
+      setSelectedOption, 
+      handleChange,
+      getShippingMethods,
+      selectedShippingMethods, 
+      setSelectedShippingMethods,
+      grandTotal,
+      CalculateGrandTotal,
       mainLoader,setMainLoader,
-      isWarrantyModalOpen,setWarrantyModalState
+      isWarrantyModalOpen,
+      setWarrantyModalState
     }}>
       {children}
     </GlobalContext.Provider>

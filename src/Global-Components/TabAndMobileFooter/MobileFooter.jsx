@@ -19,6 +19,7 @@ import RatingReview from '../../UI/Components/starRating/starRating';
 import { useGlobalContext } from '../../context/GlobalContext/globalContext';
 
 const MobileFooter = () => {
+    const footerHide = window.location.pathname
 
     const [googleRating, setGoogleRating] = useState(null);
 
@@ -117,7 +118,7 @@ const MobileFooter = () => {
     ]
 
     return (
-        <div className='mobile-view-footer-main-container'>
+        <div className={`mobile-view-footer-main-container ${footerHide === '/cart' ? 'hide-mobile-footer' : ''}`}>
            
             {
                 googleRating &&

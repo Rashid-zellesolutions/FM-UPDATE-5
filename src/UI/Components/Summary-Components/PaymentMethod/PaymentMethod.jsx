@@ -58,7 +58,7 @@ const PaymentMethod = ({handleSubmitOrder}) => {
               </div>
               <div className={`procced-btn-div ${selectedLabel === 'Paypal' ? 'hide-proced' : ''}`}  onClick={handleSubmitOrder} >
                 <button>
-                  Procced with {selectedLabel}
+                  Proceed {selectedLabel}
                 </button>
               </div>
               <div className={`paypal-btns-option ${selectedLabel === 'Paypal' ? 'show-paypal-btns' : ''}`}>

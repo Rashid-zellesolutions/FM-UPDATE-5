@@ -31,14 +31,14 @@ import { useGlobalContext } from '../../context/GlobalContext/globalContext';
 
 const Footer = ({ notLandingPage, checkoutPage }) => {
 
-     const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const uid = localStorage.getItem('uuid');
     const navigateToRoute = (link) => {
         if (link === '/user-dashboard/:uid') {
-           navigate(`/user-dashboard/${uid}`);
+            navigate(`/user-dashboard/${uid}`);
         } else {
-          navigate(link);
+            navigate(link);
         }
     };
 
@@ -107,24 +107,24 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
         }
     };
 
-    const [googleRating,setGoogleRating] = useState(null);
+    const [googleRating, setGoogleRating] = useState(null);
 
     const fetchGoogleRating = async () => {
         const api = `${url}/api/v1/stores/get-top-rated`;
-      
+
         try {
-          let response;
-          response = await axios.get(api);
-          const stores = response.data.data;
-          setGoogleRating(stores)
+            let response;
+            response = await axios.get(api);
+            const stores = response.data.data;
+            setGoogleRating(stores)
         } catch (error) {
-          console.error("Error fetching stores data", error);
+            console.error("Error fetching stores data", error);
         }
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchGoogleRating();
-    },[])
+    }, [])
 
 
     const footerNavLinks = [
@@ -282,7 +282,7 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
         },
     ]
 
-    const {stores} = useGlobalContext()
+    const { stores } = useGlobalContext()
     const findDefaultStore = () => {
         const defaultStore = stores.find(store => store.postal_code === '19134')
         return defaultStore;
@@ -294,21 +294,22 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
     const defaultStoreTimings = defaultStore?.timings?.find(day => day.day === currentDay);
 
     const nearStoreDetails = [
-        { 
-            icon: location, 
-            details: defaultStore?.name },
-        { 
-            icon: call, 
-            details: defaultStore?.phone
- 
+        {
+            icon: location,
+            details: defaultStore?.name
         },
-        { 
-            icon: clock, 
+        {
+            icon: call,
+            details: defaultStore?.phone
+
+        },
+        {
+            icon: clock,
             details: defaultStoreTimings?.time
         },
-        { 
-            icon: calander, 
-            details: 'Monday - Sunday' 
+        {
+            icon: calander,
+            details: 'Monday - Sunday'
         },
     ]
 
@@ -352,7 +353,7 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
                                 {locationPhoneMail.map((item, index) => (
                                     <span key={index}>
                                         <img src={item.icon} alt='icon' />
-                                        <p>{item.name === '215 352 1600' ? <a  href='tel:2153521600'>{item.name}</a> :item.name}</p>
+                                        <p>{item.name === '215 352 1600' ? <a href='tel:2153521600'>{item.name}</a> : item.name}</p>
                                     </span>
                                 ))}
                             </div>
@@ -393,12 +394,12 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
                             {!isSubscribed ? <form style={{ width: "100%" }} onSubmit={handleSubmit}>
                                 <div className='footer-get-scoop-and-conditions'>
                                     <div className='footer-get-scoop-input-search'>
-                                        <div style={{display:"flex",flexDirection:"column",alignItems:"flex-start",justifyContent:"flex-start"}}>
-                                        <input type='text'
-                                            placeholder='Email Address'
-                                            value={email}
-                                            onChange={handleEmailChange} />
-                                        {error && <p style={{ color: 'red', fontSize: "13px", margin: "10px 0 0 0 ", padding: "0", lineHeight: "10px" }}>{error}</p>}
+                                        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-start" }}>
+                                            <input type='text'
+                                                placeholder='Email Address'
+                                                value={email}
+                                                onChange={handleEmailChange} />
+                                            {error && <p style={{ color: 'red', fontSize: "13px", margin: "10px 0 0 0 ", padding: "0", lineHeight: "10px" }}>{error}</p>}
                                         </div>
                                         {isSubmitting ? <img className='scoop_loader' src={LoaderAnimation} alt="" /> : <button type='submit' disabled={isSubmitting}>
                                             Sign me up
@@ -413,13 +414,13 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
                                     <p className=''>Your Subscription Has Been Done Successfully.</p>
                                 </div>}
                         </div>
-                        
+
                         <div className='right-section-care-and-about'>
                             {footerCustomerCareAndAbout.map((item, index) => (
                                 <div key={index} className='footer-costumer-care-and-about'>
                                     <h3>{item.heading}</h3>
                                     {item.navLinks.map((navItem, inn) => (
-                                        <div key={inn} onClick={()=>{navigateToRoute(navItem.link)}} className='about-and-care-link'>
+                                        <div key={inn} onClick={() => { navigateToRoute(navItem.link) }} className='about-and-care-link'>
                                             {navItem.name}
                                         </div>
                                     ))}

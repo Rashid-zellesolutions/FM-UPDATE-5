@@ -32,6 +32,8 @@ export const CartProvider = ({ children }) => {
             ...prevCart,
             is_all_protected: prevCart.is_all_protected === 0 ? 1 : 0,
         }));
+        console.log("cart protection data", cartProducts)
+        console.log("cart protection", isCartProtected)
     }
 
     const handleCartAssembly = () => {
@@ -388,10 +390,14 @@ export const CartProvider = ({ children }) => {
                 handleCartAssembly,
                 addToCart0,
                 cartProducts,
-                eachProtectionValue, setEachProtectionValue,
-                savings, setSavings,
-                totalProtectionValue, setTotalProtectionValue,
-                professionalAssemblyValue, setProfessionalAssemblyValue
+                eachProtectionValue, 
+                setEachProtectionValue,
+                savings, 
+                setSavings,
+                totalProtectionValue, 
+                setTotalProtectionValue,
+                professionalAssemblyValue, 
+                setProfessionalAssemblyValue
             }
         }>
             {children}

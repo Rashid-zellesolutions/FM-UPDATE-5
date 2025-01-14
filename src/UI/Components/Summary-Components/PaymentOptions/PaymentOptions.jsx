@@ -67,9 +67,9 @@ const PaymentOptions = ({ onSelectedLabel }) => {
 
             {activePaymentMethods && checkPaymentMethodById("9879079j7mummjh") ? <>
 
-                <div className='select-payment-method credit-card' onClick={() => handlePaymentToggle('credit-card', 'Credit Card')}>
+                <div className='select-payment-method credit-card' onClick={() => handlePaymentToggle('credit-card', 'With Credit Card')}>
                     <input type="radio" id='credit-card' name="payment" value="credit-card" checked={selectPaymentMethod === 'credit-card'} readOnly />
-                    <label for='credit-card' class="radio-label">Credit Card</label>
+                    <label for='credit-card' class="radio-label">With Credit Card</label>
                 </div>
 
                 <div className={`credit-card-data ${selectPaymentMethod === 'credit-card' ? 'show-credit-card' : ''}`}>
@@ -192,19 +192,19 @@ const PaymentOptions = ({ onSelectedLabel }) => {
 
 
             {activePaymentMethods && checkPaymentMethodById("961803160m79delmiw") ? <>
-                <div className='select-payment-method paypal' onClick={() => handlePaymentToggle('paypal', 'Paypal')}>
+                <div className='select-payment-method paypal' onClick={() => handlePaymentToggle('paypal', 'With Paypal')}>
                     <input type="radio" id='paypal' name="payment" value="paypal" checked={selectPaymentMethod === 'paypal'} readOnly />
-                    <label for='paypal' class="radio-label">Paypal</label>
+                    <label for='paypal' class="radio-label">With Paypal</label>
                 </div>
 
                 <div className={`paypal-data ${selectPaymentMethod === 'paypal' ? 'show-paypal' : ''}`}>
-                    <p>Pay via Paypal</p>
+                    <p>With Pay via Paypal</p>
                 </div>
             </> : <></>}
 
 
             {activePaymentMethods && checkPaymentMethodById("19783168sagsk879") ? <>
-                <div className='select-payment-method' onClick={() => handlePaymentToggle('acima', 'Acima Leasing')}>
+                <div className='select-payment-method' onClick={() => handlePaymentToggle('acima', 'With Acima Leasing')}>
                     <input type="radio" id='acima' name="payment" value="acima" checked={selectPaymentMethod === 'acima'} readOnly />
                     <label for='acima' class="radio-label">Acima Leasing</label>
                     <p>The no credit option</p>
@@ -213,16 +213,8 @@ const PaymentOptions = ({ onSelectedLabel }) => {
 
                 <div className={`acima-payment-method acima ${selectPaymentMethod === 'acima' ? 'acima-payment-toggle' : ''}`}>
                     <img src={acimoLogo} alt='logo' />
-                    <p>Pay via acima</p>
+                    <p>With Pay via acima</p>
                 </div></> : <></>}
-
-
-
-            {/* 
-            <div className='select-payment-method checkout' onClick={() => handlePaymentToggle('checkout', 'Checkout Financing')}>
-                <input type="radio" id='checkout' name="payment" value="checkout" checked={selectPaymentMethod === 'checkout'} readOnly />
-                <label for='checkout' class="radio-label">Checkout Financing</label>
-            </div> */}
         </div>
     )
 }

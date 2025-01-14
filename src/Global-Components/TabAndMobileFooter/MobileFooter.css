@@ -9,6 +9,10 @@
     gap: 30px;
 }
 
+.mobile-view-footer-main-container.hide-mobile-footer{
+    display: none;
+}
+
 .footer-banner{
     background: #1F2123;
     display: flex;
