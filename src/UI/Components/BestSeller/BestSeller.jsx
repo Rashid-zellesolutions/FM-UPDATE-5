@@ -20,6 +20,7 @@ import { useSingleProductContext } from '../../../context/singleProductContext/s
 import { useCart } from '../../../context/cartContext/cartContext';
 import { useList } from '../../../context/wishListContext/wishListContext';
 import { toast } from 'react-toastify';
+import BestSellerShimmer from '../BestSellerSlider/BestSellerShimmer/BestSellerShimmer';
 
 
 const BestSellerPrevArrow = (props) => {
@@ -203,7 +204,9 @@ const BestSeller = ({ categoryData }) => {
     }
 
     return (
-        <div className={`category-besst-seller-main-container `}>
+        <>
+        {products && products.length > 0 ? (
+            <div className={`category-besst-seller-main-container `}>
             {/* {loading && <Loader />} */}
             <div className='category-best-seller-and-banner-container'>
 
@@ -322,7 +325,10 @@ const BestSeller = ({ categoryData }) => {
                 ))}
             </div>
         </div>
-
+        ) : (
+            <BestSellerShimmer />
+        )}
+    </>
     )
 }
 

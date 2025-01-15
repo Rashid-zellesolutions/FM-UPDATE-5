@@ -1,4 +1,4 @@
-.feature-products-main-container{
+.feature-products-main-container-shimmer {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -6,22 +6,24 @@
     padding: var(--global-padding);
 }
 
-.feature-product-main-heading{
+.feature-product-main-heading-shimmer {
     width: 250px;
     height: 20px;
     border-radius: 10px;
     background-color: #f0f0f0;
 }
 
-.feature-product-cards{
+.feature-product-cards-shimmer {
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: start;
     gap: 15px;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
-.feature-product-card{
+.feature-product-card-shimmer {
     z-index: 999999;
     display: flex;
     flex-direction: column;
@@ -37,34 +39,57 @@
     height: auto;
 }
 
-.feature-card-product-image-shimmer{
+.feature-card-product-image-shimmer {
     height: 302px;
     width: 100%;
     background-color: #f0f0f0;
     position: relative;
 }
 
-.feature-card-product-image-shimmer::before{
+.feature-card-product-image-shimmer::before {
     content: "";
     position: absolute;
     top: 0;
-    left: -150%; /* Start off-screen */
+    left: -150%;
+    /* Start off-screen */
     height: 100%;
-    width: 150%; /* Width of the shimmer gradient */
+    width: 150%;
+    /* Width of the shimmer gradient */
     background: linear-gradient(90deg, rgba(240, 240, 240, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(240, 240, 240, 0) 100%);
     animation: shimmer 1.5s infinite;
 }
 
-.feature-product-title-shimmer{
+.feature-product-title-shimmer {
     width: 180px;
     height: 20px;
     border-radius: 10px;
     background-color: #f0f0f0;
 }
 
-.feature-product-button-shimmer{
+.feature-product-button-shimmer {
     width: 180px;
     height: 20px;
     border-radius: 10px;
     background-color: #f0f0f0;
+}
+
+@media only screen and (max-width: 480px) {
+    .feature-products-main-container-shimmer {
+        padding: 20px 10px;
+        gap: 15px;
+    }
+
+    .feature-product-main-heading-shimmer {
+        width: 150px;
+        height: 20px;
+    }
+
+    .feature-card-product-image-shimmer {
+        height: 210px;
+        width: 100%;
+        background-color: #f0f0f0;
+        position: relative;
+    }
+
+    
 }

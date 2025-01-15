@@ -146,7 +146,7 @@
         display: flex;
         flex-direction: column;
         width: auto;
-        min-width: 100%;
+        min-width: 75%;
         height: auto !important;
     }
 
@@ -163,6 +163,10 @@
         line-height: 14px;
         font-weight: 400;
         text-align: center;
+    }
+
+    .budget-furniture-card-details{
+        padding: 15px 0 40px 0;
     }
 
     .budget-furniture-card-details p{

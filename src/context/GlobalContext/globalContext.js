@@ -12,9 +12,9 @@ export const GlobalContextProvider = ({ children }) => {
   const [shippingLoader, setShippingLoader] = useState(false);
   const [taxLoader, setTaxLoader] = useState(false);
   const { subTotal, cartProducts } = useCart();
-  const [mainLoader,setMainLoader] = useState(false);
+  const [mainLoader, setMainLoader] = useState(false);
 
-  const [isWarrantyModalOpen,setWarrantyModalState] = useState(false);
+  const [isWarrantyModalOpen, setWarrantyModalState] = useState(false);
 
   const [info, setInfo] = useState(() => {
     const savedInfo = localStorage.getItem('other_info');
@@ -70,15 +70,15 @@ export const GlobalContextProvider = ({ children }) => {
     }
   }
 
-  async function getStoresByDistance1(using,zip,lat,lng) {
+  async function getStoresByDistance1(using, zip, lat, lng) {
     var apiUrl = ``;
     // const url ="http://localhost:8080";
-    using === "code"?
-      apiUrl = `${url}/api/v1/stores/get-distant?zipcode=${zip}`:
-    using === "latlng"?
-     apiUrl = `${url}/api/v1/stores/get-distant?latitude=${lat}&longitude=${lng}`:
-    apiUrl = `${url}/api/v1/stores/get-distant`;
-   
+    using === "code" ?
+      apiUrl = `${url}/api/v1/stores/get-distant?zipcode=${zip}` :
+      using === "latlng" ?
+        apiUrl = `${url}/api/v1/stores/get-distant?latitude=${lat}&longitude=${lng}` :
+        apiUrl = `${url}/api/v1/stores/get-distant`;
+
     try {
       const response = await fetch(apiUrl);
 
@@ -141,9 +141,9 @@ export const GlobalContextProvider = ({ children }) => {
     }
   }
 
-  const fetchAllstores = async (using,zip,lat,lng) => {
+  const fetchAllstores = async (using, zip, lat, lng) => {
 
-    var data = using === "code" ? await getStoresByDistance1("code",zip) : using === "latlng"? await getStoresByDistance1("latlng","",lat,lng) : await getStoresByDistance1();
+    var data = using === "code" ? await getStoresByDistance1("code", zip) : using === "latlng" ? await getStoresByDistance1("latlng", "", lat, lng) : await getStoresByDistance1();
 
     // console.log("near store data", data)
     if (data) {
@@ -179,6 +179,7 @@ export const GlobalContextProvider = ({ children }) => {
   }
 
   const [selectedOption, setSelectedOption] = useState(null);
+  console.log("selected options", selectedOption);
 
   const handleChange = (e, option) => {
     setSelectedOption(option);
@@ -193,14 +194,25 @@ export const GlobalContextProvider = ({ children }) => {
     const method1 = shippingMethods.find((method) => method.id === "METHOD-1");
     if (method1 && subtotal >= method1.min_cost) {
       selectedMethods.push(method1);
+
+      const method3 = shippingMethods.find((method) => method.id === "METHOD-3");
+      if (method3 && method3.cost === 0) {
+        selectedMethods.push(method3);
+      }
+      console.log("selected methods with method 1 ", selectedMethods)
+      setSelectedOption(method1);
+      setSelectedShippingMethods(selectedMethods)
+      return;
+
     }
+    console.log("medhot 1 shipping", method1)
 
     // If METHOD-1 is applied, no other methods will be shown
-    if (selectedMethods.length === 1) {
-      setSelectedOption(method1); // Automatically select METHOD-1
-      setSelectedShippingMethods(selectedMethods);
-      return;
-    }
+    // if (selectedMethods.length === 1) {
+    //   setSelectedOption(method1); // Automatically select METHOD-1
+    //   setSelectedShippingMethods(selectedMethods);
+    //   return;
+    // }
 
     // Case 2: METHOD-2 (Flat Rate Shipping)
     const method2 = shippingMethods.find((method) => method.id === "METHOD-2");
@@ -251,7 +263,7 @@ export const GlobalContextProvider = ({ children }) => {
     let result = "";
     let taxIncluded = "";
     let cost = option?.cost || 0; // Default to 0 if cost is not defined
-  
+
     if (option?.id === "METHOD-2") {
       result = option.cost ? `${option.cost} (Standard Shipping)` : "Standard Shipping";
       taxIncluded = option.tax !== 0 ? "Tax Included" : "No Tax";
@@ -267,49 +279,49 @@ export const GlobalContextProvider = ({ children }) => {
       result = "Identifying";
       taxIncluded = "";
     }
-  
+
     return { result, taxIncluded, cost };
   }
-  
+
   const [grandTotal, setGrandTotal] = useState(0);
 
   function CalculateGrandTotal() {
-    const subTotal1 = parseFloat(subTotal|| 0); // Ensure subTotal is parsed as a number
+    const subTotal1 = parseFloat(subTotal || 0); // Ensure subTotal is parsed as a number
     const taxValue = parseFloat(totalTax?.tax_value || 0); // Ensure tax_value is parsed as a number
     // console.log(subTotal1,taxValue,getShippingInfo(selectedOption)?.cost,"here are subtotal & tax")
     return subTotal + calculateTotalTax(subTotal1, taxValue) + getShippingInfo(selectedOption)?.cost;
   }
-  
+
   return (
     <GlobalContext.Provider value={{
       info,
       setInfo,
       updateLocationData,
-      zipCode, 
-      setZipCode, 
-      handleInputChange, 
+      zipCode,
+      setZipCode,
+      handleInputChange,
       handleButtonClick,
-      fetchAllstores, 
-      stores, 
-      setStores, 
-      setAllShippingMethods, 
-      shippingMethods, 
-      setShippingMethods, 
-      shippingLoader, 
+      fetchAllstores,
+      stores,
+      setStores,
+      setAllShippingMethods,
+      shippingMethods,
+      setShippingMethods,
+      shippingLoader,
       setShippingLoader,
-      totalTax, 
-      calculateTotalTax, 
-      getShippingInfo, 
-      setTaxValues, 
-      selectedOption, 
-      setSelectedOption, 
+      totalTax,
+      calculateTotalTax,
+      getShippingInfo,
+      setTaxValues,
+      selectedOption,
+      setSelectedOption,
       handleChange,
       getShippingMethods,
-      selectedShippingMethods, 
+      selectedShippingMethods,
       setSelectedShippingMethods,
       grandTotal,
       CalculateGrandTotal,
-      mainLoader,setMainLoader,
+      mainLoader, setMainLoader,
       isWarrantyModalOpen,
       setWarrantyModalState
     }}>

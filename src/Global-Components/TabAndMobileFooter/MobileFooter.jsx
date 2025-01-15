@@ -195,7 +195,7 @@ const MobileFooter = () => {
                         <h3 className='mobile-footer-nav-links-heading'>{item.heading}</h3>
                         <div className='mobile-footer-nav-items'>
                             {item.navLinks.map((innerItems, innerIndex) => (
-                                <Link className='footer-nav-span' key={innerIndex} link={innerItems.link}>
+                                <Link className='footer-nav-span' key={innerIndex} to={innerItems.link}>
                                     <img src={arrowRightWhite} alt='arrow right' />
                                     {innerItems.name}
                                 </Link>

@@ -67,7 +67,7 @@
         flex-wrap: nowrap;
         overflow-x: auto;
         overflow-y: hidden;
-        gap: 20px;
+        /* gap: 30px; */
     }
 }
 

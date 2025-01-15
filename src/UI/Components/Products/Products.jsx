@@ -13,8 +13,10 @@ import star from "../../../Assets/icons/Star 19.png"
 import heart from '../../../Assets/icons/heart-vector.png'
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
-import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
-import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+// import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
+// import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { FaRegArrowAltCircleLeft } from "react-icons/fa";
+import { FaRegArrowAltCircleRight } from "react-icons/fa";
 
 // Components
 
@@ -74,7 +76,7 @@ const Products = ({ productArchiveHading }) => {
     const [relevanceTrue, setRelevanceTrue] = useState(false)
     const navigate = useNavigate();
     const [showAllFilters, setShowAllFilters] = useState(false);
-    const [addToCartClicked, setAddToCartClicked] = useState(false)
+    const [addToCartClicked, setAddToCartClicked] = useState(false);
     const [quickViewClicked, setQuickView] = useState(false);
     const [products, setProducts] = useState([]);
     const [colors, setColors] = useState([]);
@@ -140,13 +142,12 @@ const Products = ({ productArchiveHading }) => {
     useEffect(() => {
         fetchFilters();
     }, []);
-    console.log("main product page filters", allFilters);
 
     useEffect(() => {
         fetchProductData()
     }, [query]);
 
-    useEffect(() => { console.log("filtered data", products) }, [products])
+    useEffect(() => {  }, [products])
 
     const handleCartSectionClose = () => {
         setAddToCartClicked(false)
@@ -344,7 +345,6 @@ const Products = ({ productArchiveHading }) => {
         }
     }
 
-
     useEffect(() => {
 
         if (debounceTimeout.current) {
@@ -382,14 +382,15 @@ const Products = ({ productArchiveHading }) => {
     }
 
     const handleColorCheck = (value) => {
-        // console.log("value selected from mobile filter", value)
+        console.log("value selected from mobile filter", value)
         const updatedColorValue = colorValue.includes(value) ?
             colorValue.filter((item) => item !== value) :
             [...colorValue, value]
 
         setColorValue(updatedColorValue);
-
+        console.log("color value from mobile filter", colorValue);
         const params = new URLSearchParams(searchParams);
+        console.log("updated value from mobile", updatedColorValue)
         if (updatedColorValue.length > 0) {
             params.set('color', updatedColorValue.join(','))
         } else {
@@ -403,11 +404,6 @@ const Products = ({ productArchiveHading }) => {
         setSearchParams(queryString)
         filterProducts(queryString)
     }
-
-    // useEffect(() => {
-    //     handleColorCheck(colorValue)
-    //     console.log("color filter apply from mobile", colorValue)
-    // }, [colorValue])
 
     const handleRatingFilter = (value) => {
         const updatedRating = ratingValue.includes(value) ?
@@ -453,11 +449,15 @@ const Products = ({ productArchiveHading }) => {
         setSearchParams(categoryString)
     }
 
+    const [activePageIndex, setActivePageIndex] = useState(0);
+    const handleActivePage = (index) => {
+        setActivePageIndex((prevPage) => prevPage === index ? null : index)
+    }
 
 
     useEffect(() => {
-
     }, [colorValue, categoryValue, ratingValue])
+
 
     return (
         <div className='products-main-container'>
@@ -530,7 +530,7 @@ const Products = ({ productArchiveHading }) => {
                                             <input
                                                 type='checkbox'
                                                 placeholder='checkbox'
-                                                value={item}
+                                                value={item + 1}
                                                 onChange={(e) => handleRatingFilter(e.target.value)}
                                                 className='custom-checkbox'
                                                 id={`filter-${5 - item}`}
@@ -664,7 +664,7 @@ const Products = ({ productArchiveHading }) => {
                             View 15 more
                         </button> */}
 
-                        <div className='view-more-products-pagination-main'>
+                        {/* <div className='view-more-products-pagination-main'>
                             <button
                                 className='view-more-product-pagination-button'
                                 onClick={handlePrevPage}>
@@ -687,6 +687,17 @@ const Products = ({ productArchiveHading }) => {
                                 onClick={handleNextPage}>
                                 <MdOutlineKeyboardArrowRight size={30} />
                             </button>
+                        </div> */}
+                        <div className='view-more-products-pagination-main'>
+                            <div className='pagination-buttons-container'>
+                                <span> <FaRegArrowAltCircleLeft style={{color: '#4487C5'}} size={18} /> Previous </span>
+                                {Array.from({length: 3}).map((_, index) => (
+                                    <span 
+                                        className={activePageIndex === index ? 'active-page-span' : ''}
+                                        onClick={() => handleActivePage(index)}>{index + 1}</span>
+                                ))}
+                                <span>Next <FaRegArrowAltCircleRight style={{color: '#4487C5'}} size={18} /></span>
+                            </div>
                         </div>
 
                     </div>
@@ -724,9 +735,9 @@ const Products = ({ productArchiveHading }) => {
                     {products.length === 0 ? (
                         selectedGrid === 'single-col' ?
                         Array.from({ length: 1 }).map((_, index) => (
-                            <ProductCardShimmer key={index} />
+                            <ProductCardShimmer width={'100%'} key={index} />
                         )) : Array.from({length: 2}).map((_, index) => (
-                            <ProductCardShimmer key={index} />
+                            <ProductCardShimmer width={'100%'} key={index} />
                         ))
                     ) : (
                         products.map((item, index) => {
@@ -767,11 +778,24 @@ const Products = ({ productArchiveHading }) => {
                         })
                     )}
                 </div>
-                <div className='mobile-view-pagination'>
-                    <p>1</p>
-                    <p>2</p>
-                    <img src={paginationArrow} alt='arrow' />
-                </div>
+                {/* <div className='mobile-view-pagination'> */}
+                    <div className='view-more-products-pagination-main'>
+                            <div className='pagination-buttons-container'>
+                                <span> 
+                                    <FaRegArrowAltCircleLeft style={{color: '#4487C5'}} size={18} />
+                                    <p className='hide-on-mob'> Previous </p>
+                                </span>
+                                {Array.from({length: 3}).map((_, index) => (
+                                    <span 
+                                        className={activePageIndex === index ? 'active-page-span' : ''}
+                                        onClick={() => handleActivePage(index)}>{index + 1}</span>
+                                ))}
+                                <span>
+                                    <p className='hide-on-mob'> Next </p> 
+                                    <FaRegArrowAltCircleRight style={{color: '#4487C5'}} size={18} /></span>
+                            </div>
+                        </div>
+                {/* </div> */}
             </div>
             {/* Related Categories Code */}
             <div className='related-categories-div'>
@@ -794,15 +818,15 @@ const Products = ({ productArchiveHading }) => {
             />
 
             {/* Quick View Section */}
-            <div className={`quick-view-section ${quickViewClicked ? 'show-quick-view-section' : ''}`} onClick={handleQuickViewClose}>
+            {/* <div className={`quick-view-section ${quickViewClicked ? 'show-quick-view-section' : ''}`} onClick={handleQuickViewClose}>
                 <button className={`quick-view-close`} onClick={handleQuickViewClose}>
-                    {/* <img src={closeBtn} alt='close' /> */}
+                    {/* <img src={closeBtn} alt='close' /> 
                     <IoMdClose size={25} style={{ color: '#595959' }} />
                 </button>
-                <div className={`quickview-containt ${quickViewClicked ? 'show-quick-view-containt' : ''}`} onClick={(e) => e.stopPropagation()}>
-                    <QuickView setQuickViewProduct={quickViewProduct} />
-                </div>
-            </div>
+                <div className={`quickview-containt ${quickViewClicked ? 'show-quick-view-containt' : ''}`} onClick={(e) => e.stopPropagation()}> */}
+                    <QuickView setQuickViewProduct={quickViewProduct} quickViewShow={quickViewClicked} quickViewClose={handleQuickViewClose} />
+                {/* </div>
+            </div> */}
 
             {/*Mobile view filters  */}
             <MobileViewProductFilters

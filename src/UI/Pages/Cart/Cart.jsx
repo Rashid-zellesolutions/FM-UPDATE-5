@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import './Cart.css'
 import CartMainImage from '../../Components/Cart-Components/CartMainImage/CartMainImage'
 import CartProducts from '../../Components/Cart-Components/Cart-Products/CartProducts'
@@ -16,11 +16,14 @@ import ProductCardShimmer from '../../Components/Loaders/productCardShimmer/prod
 import { useList } from '../../../context/wishListContext/wishListContext'
 import { toast } from 'react-toastify'
 import { useGlobalContext } from '../../../context/GlobalContext/globalContext'
+import { formatedPrice } from '../../../utils/api';
+import { IoMdClose } from "react-icons/io";
+import QuickView from '../../Components/QuickView/QuickView';
 
-const SamplePrevArrow = (props) => {
+function SamplePrevArrow(props) {
   const { className, style, onClick } = props;
   return (
-    <div onClick={onClick} className={`cart-latest-products-slider-arrow cart-latest-products-slider-arrow-left ${className}`} >
+    <div onClick={onClick} className={`cart-latest-products-slider-arrow cart-latest-products-slider-arrow-left `} >
       <img src={leftArrow} alt='arrow' />
     </div>
   )
@@ -29,7 +32,7 @@ const SamplePrevArrow = (props) => {
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
-    <div onClick={onClick} className={`cart-latest-products-slider-arrow cart-latest-products-slider-arrow-right ${className}`} >
+    <div onClick={onClick} className={`cart-latest-products-slider-arrow cart-latest-products-slider-arrow-right `} >
       <img src={rightArrow} alt='arrow' />
     </div>
   )
@@ -41,20 +44,20 @@ const Cart = () => {
   const [isCheck, setIsCheck] = useState({});
   const [isStarted, setIsStarted] = useState(false);
 
-  const {  
+  const {
     shippingMethods,
-    info, 
-    zipCode, 
-    handleInputChange, 
-    handleButtonClick, 
-    totalTax, 
+    info,
+    zipCode,
+    handleInputChange,
+    handleButtonClick,
+    totalTax,
     calculateTotalTax,
-    selectedOption, 
-    handleChange, 
-    getShippingMethods, 
-    selectedShippingMethods, 
-    setSelectedShippingMethods, 
-    CalculateGrandTotal 
+    selectedOption,
+    handleChange,
+    getShippingMethods,
+    selectedShippingMethods,
+    setSelectedShippingMethods,
+    CalculateGrandTotal
   } = useGlobalContext();
 
   // const handleCheckboxCheck = (index) => {
@@ -67,11 +70,11 @@ const Cart = () => {
   // }
 
 
-  const { 
-    cart, 
-    subTotal, 
-    savings, 
-    isCartProtected, 
+  const {
+    cart,
+    subTotal,
+    savings,
+    isCartProtected,
     cartProducts,
     isProfessionalAssembly,
     handleCartProtected,
@@ -154,6 +157,14 @@ const Cart = () => {
 
   }
 
+  const handleQuickViewClose = () => {
+    setQuickView(false);
+  }
+
+  // const handleQuickViewClose = () => {
+  //   setQuickView(false)
+  // }
+
   const navigateToCheckout = () => {
 
     navigate("/check-out");
@@ -211,11 +222,11 @@ const Cart = () => {
   // }
 
   // wish list
-  
-  const { 
-    addToList, 
-    removeFromList, 
-    isInWishList 
+
+  const {
+    addToList,
+    removeFromList,
+    isInWishList
   } = useList()
 
   const notify = (str) => toast.success(str);
@@ -254,6 +265,8 @@ const Cart = () => {
     setDeliveryOptionIndex(index)
   }
 
+  console.log("selected methods", selectedShippingMethods)
+
   return (
     <div className='cart-main-container'>
       <CartMainImage />
@@ -281,21 +294,18 @@ const Cart = () => {
             </div>
 
             {/* {cartProducts.products.length > 1 ? ( */}
-              <div className='proffesional-assembly-check-sec'>
-                <label className='order-summary-proffesional-check-item-label'>
-                  <input
-                    type="checkbox"
-                    className='order-summary-checkbox'
-                    checked={isCartProtected}
-                    onChange={() => handleCartProtected()}
-                  />
-                  Elite Platinum Furniture Protection(+ $199)
-                </label>
-                <p className='order-summary-proffesional-check-item-detail'>Use professional assembly for all products and save up to $80</p>
-              </div>
-            {/* // ) : (
-            //   <></>
-            // )} */}
+            <div className='proffesional-assembly-check-sec'>
+              <label className='order-summary-proffesional-check-item-label'>
+                <input
+                  type="checkbox"
+                  className='order-summary-checkbox'
+                  checked={isCartProtected}
+                  onChange={() => handleCartProtected()}
+                />
+                Elite Platinum Furniture Protection(+ $199)
+              </label>
+              <p className='order-summary-proffesional-check-item-detail'>Use professional assembly for all products and save up to $80</p>
+            </div>
 
             <div className='cart-order-summary-price-details'>
               {filteredOrderPriceDetails.map((price, index) => (
@@ -326,7 +336,8 @@ const Cart = () => {
 
               <div className="delivery-option-container">
                 <span className='order-summary-deliver-to'>
-                  <p className='delivery-opt-heading' >Delivery Options :</p>{/* <p className='deliver-to-price'>{formatePrice(selectedShippingMethods?.[deliveryOptionIndex]?.cost)}</p> */}
+                  <p className='delivery-opt-heading' >Delivery Options :</p>
+                  {selectedOption?.id === 'METHOD-2' ? <p className='delivery-opt-heading'>{formatedPrice(selectedOption?.cost)}</p> : <></>}
                 </span>
                 {selectedShippingMethods &&
                   selectedShippingMethods.map((option, index) => (
@@ -393,7 +404,7 @@ const Cart = () => {
             <button
               onClick={navigateToCheckout}
               className='cart-summary-proceed-btn'>
-                Proceed to checkout
+              Proceed to checkout
             </button>
 
           </div>
@@ -439,7 +450,7 @@ const Cart = () => {
                     deliveryTime={item.deliveryTime}
                     stock={item.manage_stock}
                     attributes={item.attributes}
-                    handleCardClick={() => handleProductClick(item)}
+                    handleCardClick={() => handleQuickViewOpen(item)}
                     handleQuickView={() => handleQuickViewOpen(item)}
                     type={item.type}
                     variation={item.variations}
@@ -449,7 +460,7 @@ const Cart = () => {
               ))
             ) : (
               Array.from({ length: 4 }).map((_, index) => (
-                <ProductCardShimmer />
+                <ProductCardShimmer width={'100%'} />
               ))
             )}
 
@@ -473,6 +484,14 @@ const Cart = () => {
         </button>
       </div>
 
+      {/* <div className={`quick-view-section ${quickViewClicked ? 'show-quick-view-section' : ''}`} onClick={handleQuickViewClose}>
+        <button className={`quick-view-close`} onClick={handleQuickViewClose}>
+          <IoMdClose size={25} style={{ color: '#595959' }} />
+        </button>
+        <div className={`quickview-containt ${quickViewClicked ? 'show-quick-view-containt' : ''}`} onClick={(e) => e.stopPropagation()}> */}
+          <QuickView setQuickViewProduct={quickViewProduct} quickViewShow={quickViewClicked} quickViewClose={handleQuickViewClose} />
+        {/* </div>
+      </div> */}
     </div>
   )
 }

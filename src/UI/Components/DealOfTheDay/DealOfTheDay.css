@@ -71,6 +71,22 @@
     justify-content: start;
 }
 
+.desktop-view-shimmer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: auto;
+}
+
+.mobile-view-shimmer{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+}
+
 .slick-list{
     width: 100% !important;
 }
@@ -133,12 +149,12 @@ position: absolute;
     display: none;
     background-color: #C61B1A;
     width: max-content;
-    padding: 10px 25px;
+    padding: 10px 42px;
     border-radius: 20px;
 }
 
 .mobile-view-timer p{
-    font-size: 11px;
+    font-size: 14px;
     line-height: 17px;
     font-weight: 600;
     color: #fff;
@@ -155,8 +171,9 @@ position: absolute;
         display: flex;
         align-items: center;
         position: absolute;
-        top: 5px;
-        left: 20px;
+        top: 7px;
+        left: 40px;
+        padding: 5px;
     }
 
     .deal-of-the-day-border-heading p{
@@ -190,4 +207,11 @@ position: absolute;
     .mobile-view-deal-of-the-day-product-count{
         display: flex;
     }
+    .desktop-view-shimmer{
+    display: none;
+}
+
+.mobile-view-shimmer{
+    display: flex;
+}
 }

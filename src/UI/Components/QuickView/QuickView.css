@@ -1,16 +1,71 @@
-.quick-view-main{
+.quick-view-main-container{
     display: flex;
     width: 100%;
     flex-direction: column;
+    overflow: hidden;
+    visibility: hidden;
+    opacity: 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 9999999999999999999999999999999999999;
+    /* position: relative; */
+}
+
+.quick-view-main-container.show-quick-view-modal{
+    visibility: visible;
     overflow-x: hidden;
     overflow-y: auto;
-    z-index: 99999999999999999999999999999;
-    position: relative;
+    opacity: 1;
 }
 
 
-.quick-view-main::-webkit-scrollbar{
+
+
+.quick-view-main-container::-webkit-scrollbar{
     display: none;
+}
+
+.quick-view-close-modal-button{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 22px;
+    height: 22px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    z-index: 999;
+}
+
+.quick-view-close-modal-button img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+
+.quick-view-main{
+    display: flex;
+    position: absolute;
+    width: 0;
+    max-width: 430px;
+    top: 0;
+    right: 0;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    padding: 15px;
+    background-color: #FFFFFF;
+    transition: all 0.3s ease-in-out;
+}
+
+.quick-view-main.slide-quick-view-inner-modal{
+    width: 100%;
+
 }
 
 .quick-view-heading-and-rating{

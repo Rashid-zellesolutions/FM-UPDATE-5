@@ -292,6 +292,7 @@
 .mobile-view-get0the-scoop-overlay{
     display: flex;
     width: 100%;
+    min-height: 360px;
     flex-direction: column;
     align-items: center;
     justify-content: center;

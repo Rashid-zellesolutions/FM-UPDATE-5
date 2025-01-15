@@ -15,21 +15,17 @@ const MobileViewProductFilters = (
         filtersData = [],
         priceRange,
         setPriceRange,
-        colorValue,
-        setColorValue,
         handleColor,
         handleRating,
-        handleCategory
+        handleCategory,
+        colorValue,
+        setColorValue,
     }) => {
 
-
-    // console.log("all filters data category", allFilters);
-    // const [priceRange, setPriceRange] = useState([130, 900]);
+    console.log("filters on data", filtersData)
     const handleFiltersClose = () => {
         setMobileFilters(false)
     }
-
-    // console.log("main mobile page filters", filtersData);
 
     const [colorFilter, setColorFilter] = useState('');
     const [ratingFilter, setRatingFilter] = useState('')
@@ -45,29 +41,27 @@ const MobileViewProductFilters = (
         setShowAllFilters(!showAllFilters)
     }
 
-
-
     const [tempRange, setTampRange] = useState([300, 900])
     const [tempColorValue, setTempColorValue] = useState([]);
     const [tempRatingValue, setTempRatingValue] = useState([]);
     const [tempCategoryValue, setTempCategoryValue] = useState([])
+
+    useEffect(() => {
+        setTampRange(priceRange);
+    }, [])
 
     const handleMobileRangeChange = (newRange) => {
         setTampRange(newRange)
         // console.log("price range filter call", newRange)
     }
 
-
-
-    
-
     const handleMobileColorCheck = (value) => {
-        // console.log("color value", value)
         const updatedColorValue = tempColorValue.includes(value) ?
             tempColorValue.filter((item) => item !== value) :
-            [...tempColorValue, value]
+            [...colorValue, value]
 
         setTempColorValue(updatedColorValue)
+        console.log("temp color on mob filter", tempColorValue)
     }
 
     const handleMobileRatingFilter = (value) => {
@@ -76,7 +70,6 @@ const MobileViewProductFilters = (
             [...tempRatingValue, value];
 
         setTempRatingValue(updatedRating)
-        console.log("rating click", value)
     }
 
     const handleMobileCategorySelect = (value) => {
@@ -103,6 +96,7 @@ const MobileViewProductFilters = (
         }
 
         setMobileFilters(false)
+
     }
 
     return (
@@ -181,7 +175,7 @@ const MobileViewProductFilters = (
                                     <input
                                         type='checkbox'
                                         placeholder='checkbox'
-                                        value={item.name}
+                                        value={item + 1}
                                         onChange={(e) => handleMobileRatingFilter(e.target.value)}
                                         className='custom-checkbox'
                                         id={`filter-${index}`}

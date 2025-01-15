@@ -160,6 +160,12 @@
         top: 5px;
         right: 5px;
         padding: 5px;
+        width: 80px;
+    }
+
+    .top_rated_head{
+        font-size: 8px;
+        height: 20px;
     }
 
     .product-img-detail h3 {
@@ -213,8 +219,8 @@
         font-size: 12px;
         line-height: 16px;
         font-weight: 500;
-        margin-top: 30px;
+        margin-top: 20px;
         margin-left: 5px;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
 }

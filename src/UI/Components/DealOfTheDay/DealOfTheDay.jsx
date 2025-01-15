@@ -250,7 +250,12 @@ const DealOfTheDay = () => {
           {/* <Slider {...settings}> */}
             {allProducts.length === 0 ? (
               <div className='deal-of-the-day-cards-shimmer-container'>
+                <div className='desktop-view-shimmer'>
                 {Array.from({ length: 4 }).map((_, index) => <DealOfTheMonthShimmer key={index} />)}
+                </div>
+                <div className='mobile-view-shimmer'>
+                  <DealOfTheMonthShimmer />
+                </div>
               </div>
             ) : (
               <Slider {...settings}>

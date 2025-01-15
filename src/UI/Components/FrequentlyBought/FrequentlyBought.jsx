@@ -147,6 +147,7 @@ const FrequentlyBought = ({ relatedProducts }) => {
                         learnMore={item.learnMore}
                         colorVariation={item.colorVariation}
                         mainIndex={index}
+                        percent={'12%'}
                         deliveryTime={item.deliveryTime}
                         selectedColorIndices={selectedColorIndices}
                         handleVariantColor={() => handleVariantImageClick(index, colorIndex)}
@@ -187,6 +188,7 @@ const FrequentlyBought = ({ relatedProducts }) => {
                         learnMore={item.learnMore}
                         colorVariation={item.colorVariation}
                         mainIndex={index}
+                        percent={'12%'}
                         deliveryTime={item.deliveryTime}
                         selectedColorIndices={selectedColorIndices}
                         handleVariantColor={() => handleVariantImageClick(index, colorIndex)}

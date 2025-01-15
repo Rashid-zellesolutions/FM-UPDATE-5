@@ -11,7 +11,7 @@
     visibility: hidden;
     gap: 40px;
     opacity: 0;
-    z-index: 99999;
+    z-index: 9999999;
     transition: all 0.3s ease;
 }
 

@@ -1,9 +1,9 @@
 import React from "react";
 import "./productCardShimmer.css"
 
-export default function ProductCardShimmer() {
+export default function ProductCardShimmer({width}) {
     return(
-        <div className="productCardShimmer">
+        <div className="productCardShimmer" style={{width: width ? width : '310px'}}>
             <div className="card_shimmer_image">
 
             </div>

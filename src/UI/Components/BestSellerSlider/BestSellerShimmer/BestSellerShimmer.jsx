@@ -24,7 +24,7 @@ const BestSellerShimmer = () => {
         </div>
       </div>
 
-      <div className='mobile-view-shimmer'>
+      <div className='mobile-view-best-seller-shimmer'>
         <div className='mobile-view-best-seller-nav-container'>
           <div className='mobile-view-best-seller-nav-row'>
             <div className='mobile-view-nav-item'></div>
