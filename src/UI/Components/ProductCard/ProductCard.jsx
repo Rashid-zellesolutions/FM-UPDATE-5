@@ -1,14 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import './ProductCard.css';
-import { Link } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux';
-import { setColorIndex } from '../../../Redux/ColorIndex/ColorINdexSlicer';
-import cartIcon from '../../../Assets/icons/cart-white.png'
-import cartBlack from '../../../Assets/icons/cart-black.png';
-import eyeBlack from '../../../Assets/icons/eye-black.png';
-import eyeWhite from '../../../Assets/icons/eye-white.png';
 import { url } from '../../../utils/api';
-// import { LazyLoadImage } from 'react-lazy-load-image-component';
+import RatingReview from '../starRating/starRating';
+import { IoEyeOutline } from "react-icons/io5";
+import { BsCart3 } from "react-icons/bs";
 import { useList } from '../../../context/wishListContext/wishListContext';
 import { VscHeartFilled } from "react-icons/vsc";
 import ProductCardImageShimmer from '../Loaders/CardImageShimmer/cardImageShimmer';
@@ -26,6 +21,7 @@ const ProductCard = ({
     percent,
     singleProductData,
     stock,
+    allow_back_order,
     handleQuickView,
     maxWidthAccordingToComp,
     borderLeft,
@@ -38,20 +34,6 @@ const ProductCard = ({
     const [isImageLoaded,setImageLoaded] = useState(false);
 
     const [cartClicked, setCartClicked] = useState(true);
-    // console.log("product ", singleProductData);
-
-    // const dispatch = useDispatch();
-    // const selectedColorIndex = useSelector((state) => state.colorIndex.colorIndex);
-    // const handleColorVariationIndex = (colorIndex) => {
-    //     dispatch(setColorIndex(colorIndex))
-    // }
-
-    // const handleClick = (colorIndex, color) => {
-    //     dispatch(setColorIndex(colorIndex));
-    //     if (handleVariantColor) {
-    //         handleVariantColor();
-    //     }
-    // };
 
     const [cardHovered, setCardHovered] = useState(false);
     const handleMouseEnter = () => {
@@ -79,25 +61,13 @@ const ProductCard = ({
 
     const priorityAttribute = getPriorityAttribute(attributes);
 
-    // const [selectedColorVariableindex, setSelectedColorVariableIndex] = useState(1)
-    // const handleVariationImageSelect = (index) => {
-    //     setSelectedColorVariableIndex(index)
-    // }
-
-
-    // Select color
-    
     const [hoveredImage, setHoveredImage] = useState()
     const [selectedColor, setSelectedColor] = useState();
     const [selectedImage, setSelectedImage] = useState();
     const [selectedColorImage, setSelectedColorImage] = useState();
 
     const handleColorSelect = (color) => {
-        // e.stopPropagation()
-        // console.log("change variation click")
         setSelectedColor(color)
-        // console.log("selected color", color)
-        // console.log('single product', singleProductData)
         const matchingAttribute = singleProductData?.variations?.find(variation =>
             variation?.attributes?.some(attribute =>
                 attribute?.type === "color" &&
@@ -107,16 +77,11 @@ const ProductCard = ({
 
         setSelectedColorImage(matchingAttribute?.images[0]?.image_url)
         setHoveredImage(matchingAttribute?.images[1]?.image_url)
-        // console.log("matching attribute", matchingAttribute)
         return matchingAttribute;
     }
 
     const handleImageSelect = (image) => {
-        // console.log("image", image)
-        // e.stopPropagation()
-        // console.log("change variation click")
         setSelectedImage(image)
-        // console.log('single product', singleProductData)
         const matchingAttribute = singleProductData?.variations?.find(variation =>
             variation?.attributes?.some(attribute =>
                 attribute?.type === "image" &&
@@ -126,7 +91,6 @@ const ProductCard = ({
 
         setSelectedColorImage(matchingAttribute?.images[0]?.image_url)
         setHoveredImage(matchingAttribute?.images[1]?.image_url)
-        // console.log("matching attribute", matchingAttribute)
         return matchingAttribute;
     }
 
@@ -136,18 +100,16 @@ const ProductCard = ({
         if(index > 0){
             const [priorityItem] = array.splice(index, 1);
             array.unshift(priorityItem)
-            // console.log("set with default array", array)
         }
         setPriorArray(array)
         return array;
     }
-    // console.log("dsdgsd", priorArray)
+
     useEffect(() => {
 
         const defAttImage = singleProductData?.variations?.find(attr => 
             attr?.uid === singleProductData.default_variation
         )
-        // console.log("selected attribute", defAttImage)
         const defAttrColor = defAttImage?.attributes?.find(attribute => 
             attribute?.type === 'color' &&
             attribute?.options?.some(option => option?.value)
@@ -159,29 +121,14 @@ const ProductCard = ({
         const attribute = defAttImage?.attributes;
         if(attribute){
             const defaultAttribute = getPriorityAttribute(attribute)
-            // console.log("pririty attribute", defaultAttribute)
             if(defaultAttribute){
                 const updatedAttributes = moveToFirst(attribute, defaultAttribute)
-                // console.log("Updated attributes with priority first:", updatedAttributes);
             }
         }
-
     }, []);
 
 
     const [mainImageHoverIndex, setMainImageHoverIndex] = useState(null)
-
-    // const handleMouseOnMainImage = (id) => {
-    //     setMainImageHoverIndex(id);
-    //     // console.log("on mouse enter",mainImageHoverIndex);
-    // }
-
-    // const handleMouseLeaveOnMainImage = () => {
-    //     setMainImageHoverIndex(null)
-    //     // console.log("on mouse leave",mainImageHoverIndex);
-    // }
-
-    // console.log("type check", priorityAttribute)
 
     const {isInWishList} = useList();
 
@@ -189,18 +136,16 @@ const ProductCard = ({
         <>
             <div 
                 className={`${productCardContainerClass} ${borderLeft ? 'hide-after' : ''} `} 
-                style={{ maxWidth: maxWidthAccordingToComp, width: justWidth }}
-                
-                
+                style={{ maxWidth: maxWidthAccordingToComp, width: justWidth }}   
             >
                 <div className='product-card-data' 
                 onClick={() => handleCardClick(singleProductData)}
                 >
 
-
-                    <div className='product-main-image-container' /* onMouseEnter={() => handleMouseOnMainImage(singleProductData?.uid)} onMouseLeave={handleMouseLeaveOnMainImage} */>
+                    <div className='product-main-image-container'>
+                        
                         <div className='tag-and-heart'>
-                            <h3 className={`stock-label ${stock?.is_stock_manage === 1 ? 'show-stock-tag' : ''}`}>{stock?.is_stock_manage === 1 ? "In Stock" : "Out of Stock"}</h3>
+                            {stock?.is_stock_manage === 0 && <h4 className={allow_back_order === 1 ? "stock-label back" : "stock-label out"}>{allow_back_order === 1 ? "Back Order" : "Out of Stock"}</h4>}
                             <p className='percent-label'>{percent}</p>
                             {
                                 isInWishList(singleProductData.uid) ? 
@@ -217,6 +162,7 @@ const ProductCard = ({
                             }
                             
                         </div>
+
                         <img src={`${url}${
                             selectedColorImage 
                             ? mainImageHoverIndex === singleProductData.uid
@@ -226,34 +172,49 @@ const ProductCard = ({
                         }`}
                             alt='product img' 
                             className='product-main-img'
-                            // onMouseEnter={mouseEnter}
-                            // onMouseLeave={mouseLeave} 
                             effect='blur'
                             onLoad={()=>{setImageLoaded(true)}}
                         />
                         {
                             !isImageLoaded && <div className="image_shimmer_loader">
-                                
                                 <ProductCardImageShimmer/>
                             </div>
                         }
+
                         <div className='overlay-buttons'>
-                            <button className={`overlay-button ${cartClicked ? 'loading' : ''}`} onClick={(e) => { e.stopPropagation() ; handleQuickView()}} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                                <img src={cardHovered ? cartIcon : cartBlack} alt='cart' />
+                            <button 
+                                className={`overlay-button 
+                                    ${cartClicked ? 'loading' : ''}
+                                    `
+                                } 
+                                onClick={(e) => { 
+                                    e.stopPropagation() ; 
+                                    handleQuickView()}
+                                } 
+                                onMouseEnter={handleMouseEnter} 
+                                onMouseLeave={handleMouseLeave}
+                            >
+                                <BsCart3/>
                                 Add to cart
                             </button>
-                            <button onClick={(e) => {
-                                e.preventDefault();
-                                handleCardClick(singleProductData);
-                            }
-                            } className='overlay-button' onMouseEnter={handleQuickViewHover} onMouseLeave={handlQuickViewLeave}>
-                                <img src={quickViewHovered ? eyeWhite : eyeBlack} alt='cart' />
+                            <button 
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleCardClick(singleProductData);
+                                    }
+                                } 
+                                className='overlay-button' 
+                                onMouseEnter={handleQuickViewHover} 
+                                onMouseLeave={handlQuickViewLeave}
+                            >
+                                <IoEyeOutline/>
                                 View Product
                             </button>
                         </div>
+
                     </div>
 
-                    {tags && <div className="product-tagging">
+                    {tags?.length > 0 && <div className="product-tagging">
                         {
                             tags[0] && tags[0].type.toLowerCase() === "text" ?
                                 <div className='text-tag' style={{ backgroundColor: tags[0].bg_color, color: tags[0].text_color }} >
@@ -265,12 +226,9 @@ const ProductCard = ({
                         }
                     </div>}
                     <p className='product-sku' onClick={handleCardClick}>SKU : {ProductSku}</p>
-                    <Link className='product-title' > {ProductTitle} </Link>
+                    <h3 className='product-title' > {ProductTitle} </h3>
                     <div className='product-rating-stars-div'>
-                        {/* {stars.map((stars, starIndex) => {
-                            return <img src={stars.icon} alt='star' />
-                        })} */}
-                        <p>{reviewCount}</p>
+                        <RatingReview rating={parseFloat(reviewCount)} size={"12px"} disabled={true}/>
                     </div>
 
 

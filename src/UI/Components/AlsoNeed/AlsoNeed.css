@@ -86,6 +86,13 @@
     justify-content: start;
 }
 
+.might-need-product-del-price{
+    font-size: 12px !important;
+    line-height: 22px !important;
+    font-weight: 500 !important;
+    opacity: 0.5 !important;
+}
+
 .might-need-product-price{
     font-size: 15px !important;
     line-height: 22px !important;

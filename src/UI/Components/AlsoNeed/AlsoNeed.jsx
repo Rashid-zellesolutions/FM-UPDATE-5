@@ -39,7 +39,7 @@ const AlsoNeed = ({productsUid}) => {
         fetchRelatedProducts();
     }, [])
 
-    const maxLength = 25;
+    const maxLength = 20;
     const truncateTitle = (title, maxLength) => {
         if(!title) return '';
         return title.length > maxLength ? title.slice(0, maxLength) + '...' : title;
@@ -60,7 +60,7 @@ const AlsoNeed = ({productsUid}) => {
                         <h3>{truncateTitle(item.name, maxLength)}</h3>
                         <p>White, Queen</p>
                         <div className='also-need-prices-div'>
-                            {item.sale_price ? <del className='might-need-product-price'>{formatedPrice(item.regular_price)}</del> : <></>}
+                            {item.sale_price ? <del className='might-need-product-del-price'>{formatedPrice(item.regular_price)}</del> : <></>}
                             <p className='might-need-product-price'>{item.sale_price ? formatedPrice(item.sale_price) : formatedPrice(item.regular_price)}</p>
                         </div>
                         <span className='might-need-product-rating'>

@@ -8,7 +8,7 @@ import thumb from "../../../Assets/thumbs-up.png"
 import { url } from "../../../utils/api";
 
 
-export default function WriteReview({ product_id, product_name, product_permalink }) {
+export default function WriteReview({ product_id, review_enable, product_name, product_permalink }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [review, setReview] = useState('');
@@ -92,7 +92,7 @@ export default function WriteReview({ product_id, product_name, product_permalin
 
     return (
        <div className="write_review_main">
-         {!showReviewSection ? <button onClick={()=>{setReviewSectionState(true)}} className="write_review_btn">Write a Review</button>
+         {!showReviewSection && review_enable === 1 ? <button onClick={()=>{setReviewSectionState(true)}} className="write_review_btn">Write a Review</button>
         : <div className={`write_review ${showReviewSection ? "open" : ""}`}>
             
             <h3>Write a Review</h3>

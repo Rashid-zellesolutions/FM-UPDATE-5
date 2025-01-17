@@ -179,7 +179,7 @@ export const GlobalContextProvider = ({ children }) => {
   }
 
   const [selectedOption, setSelectedOption] = useState(null);
-  console.log("selected options", selectedOption);
+  // console.log("selected options", selectedOption);
 
   const handleChange = (e, option) => {
     setSelectedOption(option);
@@ -199,13 +199,13 @@ export const GlobalContextProvider = ({ children }) => {
       if (method3 && method3.cost === 0) {
         selectedMethods.push(method3);
       }
-      console.log("selected methods with method 1 ", selectedMethods)
+      // console.log("selected methods with method 1 ", selectedMethods)
       setSelectedOption(method1);
       setSelectedShippingMethods(selectedMethods)
       return;
 
     }
-    console.log("medhot 1 shipping", method1)
+    // console.log("medhot 1 shipping", method1)
 
     // If METHOD-1 is applied, no other methods will be shown
     // if (selectedMethods.length === 1) {

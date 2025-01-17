@@ -191,7 +191,7 @@ const MobileFooter = () => {
 
             <div className='mobile-view-terms-and-rights'>
                 {footerCustomerCareAndAbout.map((item, index) => (
-                    <div className='mobile-footer-nav-links'>
+                    <div key={index} className='mobile-footer-nav-links'>
                         <h3 className='mobile-footer-nav-links-heading'>{item.heading}</h3>
                         <div className='mobile-footer-nav-items'>
                             {item.navLinks.map((innerItems, innerIndex) => (

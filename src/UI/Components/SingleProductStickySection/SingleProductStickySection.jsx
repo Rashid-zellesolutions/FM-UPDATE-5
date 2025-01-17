@@ -9,6 +9,11 @@ import filledHeart from '../../../Assets/icons/filled-heart.png';
 import minus from '../../../Assets/icons/minus.png';
 import heartIcon from '../../../Assets/icons/red-heart.png'
 import plus from '../../../Assets/icons/plus.png';
+import locationIcon from '../../../Assets/icons/location-blue.png';
+import deliveryTruck from '../../../Assets/icons/truck-blue.png'
+import { MdLocalShipping } from "react-icons/md";
+import { IoLocation } from "react-icons/io5";
+import { IoShareOutline } from "react-icons/io5";
 
 // Components
 import WhatWeOffer from '../WhatWeOffer/WhatWeOffer';
@@ -33,6 +38,8 @@ import { useList } from '../../../context/wishListContext/wishListContext';
 import { useProductPage } from '../../../context/ProductPageContext/productPageContext';
 import { IoChevronForward } from "react-icons/io5";
 import { IoChevronBack } from "react-icons/io5";
+import { useGlobalContext } from '../../../context/GlobalContext/globalContext';
+import ShareProduct from '../ShareProduct/ShareProduct';
 
 const SingleProductStickySection = ({ productData }) => {
 
@@ -77,26 +84,26 @@ const SingleProductStickySection = ({ productData }) => {
   );
   useEffect(() => {
 
-     if (
-    Object.keys(productData || {}).length > 0 &&
-    productData.images !== undefined &&
-    productData !== product
-  ) {
-    setProduct(productData);
-  } else if (!productData || Object.keys(productData).length === 0 || !productData.images) {
-    setProduct(getBySlug);
-  }
+    if (
+      Object.keys(productData || {}).length > 0 &&
+      productData.images !== undefined &&
+      productData !== product
+    ) {
+      setProduct(productData);
+    } else if (!productData || Object.keys(productData).length === 0 || !productData.images) {
+      setProduct(getBySlug);
+    }
   }, [productData, slug, getBySlug, product])
 
-  useEffect(() => {  }, [product])
+  useEffect(() => { }, [product])
 
-  const { 
-    addToCart, 
-    decreamentQuantity, 
-    increamentQuantity, 
-    removeFromCart, 
-    addToCart0, 
-    cartProducts 
+  const {
+    addToCart,
+    decreamentQuantity,
+    increamentQuantity,
+    removeFromCart,
+    addToCart0,
+    cartProducts
   } = useCart();
 
   const [cartSection, setCartSection] = useState(false);
@@ -120,7 +127,7 @@ const SingleProductStickySection = ({ productData }) => {
     setActiveIndex(index);
     carouselRef.current.slideTo(index); // Slide to the selected thumbnail
   };
-  
+
   const handleMobThumbnailClickk = (index) => {
     setMobileActiveIndex(index);
     mobCarouselRef.current.slideTo(index); // Slide to the selected thumbnail
@@ -217,7 +224,7 @@ const SingleProductStickySection = ({ productData }) => {
   const handleCartClose = () => {
     setCartSection(false)
     setQuantity(1)
-    
+
   }
   const [variationData, setVariationData] = useState([])
 
@@ -252,11 +259,49 @@ const SingleProductStickySection = ({ productData }) => {
     }
   }
 
+  const deliveryOptions = [
+    {
+      icon: deliveryTruck,
+      title: 'Free Shipping Free Up to $2000',
+      shortDesc: 'This product does not qualify for free shipping'
+    },
+    {
+      icon: deliveryTruck,
+      title: 'Flat Rate Shipping',
+      shortDesc: 'Get it in 3 to 7 day. Schedule delivery in checkout '
+    },
+    {
+      icon: locationIcon,
+      title: 'Local Pickup',
+      shortDesc: 'Get it in 3 to 7 day. Schedule delivery in checkout '
+    },
+  ]
+
+  const { info, shippingMethods } = useGlobalContext();
+  useEffect(() => {
+    // console.log(shippingMethods,"haerae are")
+  }, [shippingMethods])
+
+
+  const [isSharePopup, setIsSharePopup] = useState(null);
+  const [selectedProduct, SetSelectedProduct] = useState()
+  const handleShareModal = (item) => {
+    setIsSharePopup(item.uid)
+    SetSelectedProduct(item)
+    // console.log("selected product uid", item.uid)
+    // console.log("selected product uid", item)
+  }
+
   return (
     <>
       <div className='sticky-main-container-0'>
-        {/* <Breadcrumb /> */} 
-        <Breadcrumb sku={productData?.sku} productName={productData?.name} category={productData?.categories?.[0]?.name} categorySlug={productData?.categories?.[0]?.slug} />
+        {/* <Breadcrumb /> */}
+        <Breadcrumb
+          sku={productData?.sku}
+          productName={productData?.name}
+          // category={productData?.categories?.[0]?.name}
+          category={productData?.categories}
+          categorySlug={productData?.categories?.[0]?.slug} />
         <div className="sticky-main-container">
           <div className='left-section'>
             <div className='single-product-alice-slider'>
@@ -322,11 +367,38 @@ const SingleProductStickySection = ({ productData }) => {
                 <IoChevronForward />
               </button>
             </div>
+
+            <div className='left-section-delivery-options-main-container'>
+              <span className='left-section-delivery-main-heading'>
+                <p className='left-section-delivery-option'>Delivery options for: </p>
+                <h3 className='left-section-delivery-zip'>{info.locationData.zipCode} {info.locationData.stateCode}</h3>
+              </span>
+              <div className='left-section-delivery-options-cards'>
+                {shippingMethods && shippingMethods['shippingMethods'].map((item, index) => (
+                  <div className='left-section-delivery-option-card'>
+                    <div className='left-section-card-icon-container'>
+                      {/* <img src={item.icon} alt='icon' /> */}
+                      {item.id === "METHOD-3" ? <IoLocation size={32} /> : <MdLocalShipping size={32} />}
+                    </div>
+                    <div className='left-section-card-detail-container'>
+                      <h3 className='left-section-card-heading'>{item.name}</h3>
+                      <p className='left-section-card-short-description'>{item.description}</p>
+                    </div>
+                  </div>
+                ))}
+
+              </div>
+            </div>
+
           </div>
 
           <div className='right-section'>
             <div className='single-product-detail-container'>
               <div className='single-page-product-name-anddetails'>
+                <span className='single-product-share' onClick={() => handleShareModal(productData)}>
+                  <IoShareOutline size={20} color='#595959' />
+                  <p className='single-product-share-text'>Share</p>
+                </span>
                 <h3 className='single-product-heading'>{product.name}</h3>
                 <p className='single-product-sku'>
                   SKU : {product.sku}
@@ -335,7 +407,7 @@ const SingleProductStickySection = ({ productData }) => {
                   <RatingReview rating={(product?.average_rating)} disabled={true} size={"20px"} />
                 </div>
                 {product.type === "simple" ? <>
-                {/* {console.log("product data on midle", productData)} */}
+                  {/* {console.log("product data on midle", productData)} */}
                   {product?.sale_price !== "" ? <div className='single-product-prices'>
                     <del className='single-product-old-price'>{formatedPrice(productData.regular_price)}</del>
                     <h3 className='single-product-new-price'>{formatedPrice(productData?.sale_price)}</h3>
@@ -386,7 +458,7 @@ const SingleProductStickySection = ({ productData }) => {
                     className={`add-to-cart-btn ${isLoading ? 'loading' : ''}`}
                     onClick={() => {
                       handleClick();
-                      addToCart0(product, variationData, !isProtectionCheck ? 1 : 0,quantity)
+                      addToCart0(product, variationData, !isProtectionCheck ? 1 : 0, quantity)
                       handleAddToCartProduct(product);
                     }
                     }>
@@ -398,7 +470,7 @@ const SingleProductStickySection = ({ productData }) => {
               {product.may_also_need && product.may_also_need.length > 0 ? <AlsoNeed productsUid={product.may_also_need} /> : <></>}
 
               <WhatWeOffer key={"single-protection"} isProtected={isProtectionCheck} setIsProtected={setIsProtectionCheck} />
-              <DeliveryOptions />
+              {/* <DeliveryOptions /> */}
               <SingleProductFAQ description={product.description} />
             </div>
           </div>
@@ -518,7 +590,7 @@ const SingleProductStickySection = ({ productData }) => {
                     className={`single-product-slider-thumbnail ${mobileActiveIndex === index ? '' : 'single-product-slider-thumbnail-inactive'}`}
                     onClick={() => handleMobThumbnailClickk(index)}
                   >
-                    <img  src={`${url}${simpleImg.image_url}`} alt={`Thumbnail ${index}`} />
+                    <img src={`${url}${simpleImg.image_url}`} alt={`Thumbnail ${index}`} />
                   </div>
                 ))
               )}
@@ -574,6 +646,14 @@ const SingleProductStickySection = ({ productData }) => {
           </div>
           <FinancingOptions />
           <SingleProductFAQ />
+
+          <ShareProduct
+            isSharePopup={isSharePopup}
+            setIsSharePopup={setIsSharePopup}
+            // selectedUid={shareProductUid}
+            // setSelectedUid={setShareProductUid}
+            selectedProduct={selectedProduct}
+          />
         </div>
       </div>
     </>

@@ -155,8 +155,8 @@ const SingleProduct = () => {
       <RatingAndReview rating={product?.average_rating} data={reviews} reviews={reviews} loading={loading} error={error} />
       {loading && <div>Loading reviews...</div>}
       {error && <div>{error}</div>}
-      <WriteReview product_id={product?.uid} product_name={product?.name} product_permalink={"https://"} />
-      <ProductComments data={reviews} />
+      <WriteReview product_id={product?.uid} review_enable={product?.enable_review} product_name={product?.name} product_permalink={"https://"} />
+      <ProductComments review_enable={product?.enable_review} data={reviews} />
       <OutdoorFaves />
     </div>
   );

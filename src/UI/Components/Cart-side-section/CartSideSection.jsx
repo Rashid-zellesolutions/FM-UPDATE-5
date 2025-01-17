@@ -44,7 +44,7 @@ const CartSideSection = (
                         <p>SKU: {sku}</p>
                         {attributes && attributes.map((item, index) => {
                             return (
-                                <p>{item?.options[0].name}</p>
+                                <p key={index}>{item?.options[0].name}</p>
                             )
                         })}
                         <div className='cart-side-section-price-and-count'>

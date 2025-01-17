@@ -15,8 +15,6 @@ import QuickViewVariations from '../SizeVariant/QuickViewVariations';
 
 const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, quickViewclose }) => {
 
-    console.log("quick view data", setQuickViewProduct)
-    console.log("quick view show", quickViewShow)
     // console.log("quick view set show", setQuickViewShow)
 
     const {
@@ -71,8 +69,6 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, quickVi
     const handleAddToCartProduct = (product) => {
         setCartSection(true);
         addToCart0(product, variableProductData, 0, quantity)
-
-
     }
 
     const imagesLenght = setQuickViewProduct.images && setQuickViewProduct.images.length;
@@ -97,11 +93,6 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, quickVi
         setVariableData(searchProductInVariation);
     }, [selectedVariationUid])
 
-    // const handleQuckViewClose = () => {
-    //     setQuickViewShow(false)
-    //     console.log("quick view set show", setQuickViewShow)
-    // }
-
     return (
         <div className={`quick-view-main-container ${quickViewShow ? 'show-quick-view-modal' : ''}`}>
             <button className='quick-view-close-modal-button' onClick={quickViewClose}>
@@ -113,8 +104,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, quickVi
                     <div className='quick-view-rating'>
                         <div className='quick-view-start'>
                             {Array.from({ length: 5 }).map((star, index) => (
-                                // <img key={index} src={star.icon} alt='star' />
-                                <FaStar size={15} className='quick-view-star-icon' />
+                                <FaStar key={index} size={15} className='quick-view-star-icon' />
                             ))}
                             <p>4.1</p>
                         </div>
@@ -148,14 +138,12 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, quickVi
                         <QuickViewVariations default_uid={setQuickViewProduct.default_uid} attributes={setQuickViewProduct.attributes} productData={setQuickViewProduct} variations={setQuickViewProduct.variations} onChangeVar={handleVariationSelected} />
                     </div>
                 </div>
-                {/* <h3 className='quick-view-price'>{formatedQuickViewProductPrice}</h3> */}
                 {setQuickViewProduct.type === "simple" ? <>
                     {
                         setQuickViewProduct.sale_price === "0" ?
                             <h3 className='-quick-view-product-price-tag'>{formatePrice(setQuickViewProduct.regular_price)}</h3> :
                             <h3 className='quick-view-product-price-tag'> <del>{formatePrice(setQuickViewProduct.regular_price)}</del>  {formatePrice(setQuickViewProduct.sale_price)}</h3>
                     }
-
                 </> :
                     <>
                         {
@@ -163,7 +151,6 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, quickVi
                                 <h3 className='-quick-view-product-price-tag'>{formatePrice(variableProductData?.regular_price)}</h3> :
                                 <h3 className='quick-view-product-price-tag'> <del>{formatePrice(variableProductData?.regular_price)}</del>  {formatePrice(variableProductData?.sale_price)}</h3>
                         }
-
                     </>}
                 <div className='quick-view-add-item-or-cart-btn'>
                     <div className='quick-view-add-or-minus-item'>

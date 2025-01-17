@@ -26,7 +26,7 @@ const Comments = ({ data ,order }) => {
                         </div>
                         <div className="cemmented-product-images">
                             {item?.images &&
-                                item.images.map((image, index) => (
+                                item.images.slice(0, 3).map((image, index) => (
                                     <img key={index} src={`${url}${image}`} alt={`img-${index}`} />
                                 ))}
                         </div>

@@ -299,6 +299,12 @@
     width: 100%;
 }
 
+.mobile-delivery-headings{
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 600;
+}
+
 .mobile-view-city-and-zip{
     display: flex;
     width: 100%;
@@ -312,6 +318,13 @@
     padding: 30px 20px;
     background-color: #F9FAFA;
     gap: 20px;
+}
+
+.mobile-delivery-options-heading{
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 500;
+    color: var(--text-color);
 }
 
 .mobile-delivery-option-details{

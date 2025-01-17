@@ -279,25 +279,6 @@ const DealOfTheDay = () => {
             ))}
               </Slider>  
             )}
-            {/* {getPublishedProducts().map((items, index) => (
-              <DealOfTheDayCard
-                key={index}
-                isDiscountable={items.discount.is_discountable === 1 ? true : false}
-                productImage={items?.images?.[0]?.image_url}
-                dealDayData={items}
-                name={items.name}
-                star={starIcons}
-                review={'200'}
-                price={items.regular_price}
-                newPrice={items.newPrice}
-                descount={items.disc}
-                handleDealCardClick={() => handleDealCardClick(items)}
-                handleWishListClick={() => handleWishList(items)}
-                handleCartSection={() => handleCartPanel(items)}
-                handleShareProduct={() => handleShareProduct(items)}
-              />
-            ))} */}
-          {/* </Slider> */}
         </div>
       </div>
       <ShareProduct

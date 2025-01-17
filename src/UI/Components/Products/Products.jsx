@@ -13,10 +13,9 @@ import star from "../../../Assets/icons/Star 19.png"
 import heart from '../../../Assets/icons/heart-vector.png'
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
-// import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
-// import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { FaRegArrowAltCircleLeft } from "react-icons/fa";
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa6";
 
 // Components
 
@@ -37,7 +36,9 @@ import DoubleRangeSlider from '../../../Global-Components/MultiRangeBar/MultiRan
 import RatingReview from '../starRating/starRating';
 import { debounce } from 'lodash';
 
-const Products = ({ productArchiveHading }) => {
+const Products = () => {
+
+    // States and Variables
 
     const {
         cartProducts,
@@ -68,9 +69,6 @@ const Products = ({ productArchiveHading }) => {
         }
     }, [searchParams, setSearchParams]);
 
-
-
-
     // state variables
     const [hideFilters, setHideFilters] = useState(false);
     const [relevanceTrue, setRelevanceTrue] = useState(false)
@@ -85,20 +83,35 @@ const Products = ({ productArchiveHading }) => {
 
     const [totalPages, setTotalPages] = useState()
     const [activePage, setActivePage] = useState(1);
-    const [paginatonLoading, setPaginationLoading] = useState(false);
 
+    const [priceRange, setPriceRange] = useState([130, 900]);
 
+    const [allFilters, setAllFilters] = useState();
 
-    const fetchProductData = async () => {
-        const page = searchParams.get("page") || "1"; // Get the current page from searchParams or default to 1
+    const [quickViewProduct, setQuickViewProduct] = useState({})
+
+    // Related Categories Data
+    const relatedCategoriesData = [
+        { categoryName: 'Leather Living Room sets', link: '#' },
+        { categoryName: 'Reclining Living Room Sets', link: '#' },
+        { categoryName: 'Small space Living Room sets', link: '#' },
+        { categoryName: 'Sleeper Sofa Living Room sets', link: '#' },
+        { categoryName: 'Sofa & Loveseat sets', link: '#' },
+        { categoryName: 'Sofa & chair sets', link: '#' },
+    ]
+
+    // API Calls
+    // Fetch Product data by query and page select
+    const fetchProductData = async (page) => {
         const queryApi = `/api/v1/products/by-name?name`;
 
         try {
+            setProducts([])
             let response;
             if (query) {
                 response = await axios.get(`${url}${queryApi}=${query}`);
             } else {
-                setPaginationLoading(true)
+                // setPaginationLoading(true)
                 response = await axios.get(
                     `${url}/api/v1/products/by-category?categorySlug=${subCategorySlug}&page=${activePage}`
                 );
@@ -111,16 +124,13 @@ const Products = ({ productArchiveHading }) => {
 
             setSearchParams({ page: activePage })
         } catch (error) {
-            setPaginationLoading(false)
+            // setPaginationLoading(false)
             console.error("Error fetching data:", error);
         }
-        setPaginationLoading(false)
+        // setPaginationLoading(false)
     };
 
-    const [priceRange, setPriceRange] = useState([130, 900]);
-
-    const [allFilters, setAllFilters] = useState();
-
+    // Fetch Filters
     const fetchFilters = async () => {
         const api = `/api/v1/products/by-category/filters?categorySlug=${subCategorySlug}`
         try {
@@ -139,25 +149,40 @@ const Products = ({ productArchiveHading }) => {
         }
     }
 
+    const filterProducts = async (filter) => {
+        const api = `/api/v1/products/by-category?categorySlug=${subCategorySlug}&page=${activePage}&${filter}`;
+        try {
+            setProducts([])
+            const response = await axios.get(`${url}${api}`)
+            setProducts(response.data.products)
+            setTotalPages(response.data.pagination)
+        } catch (error) {
+            console.error("Internal Server Error");
+        }
+    }
+
+    // useEffects
     useEffect(() => {
+        // Fetch Products initially when page load
+        setProducts([])
         fetchFilters();
     }, []);
 
     useEffect(() => {
+        // Re-Fetch Products when user enter Query
         fetchProductData()
     }, [query]);
 
-    useEffect(() => {  }, [products])
+
+    useEffect(() => { }, [products])
 
     const handleCartSectionClose = () => {
         setAddToCartClicked(false)
     }
 
-    const [quickViewProduct, setQuickViewProduct] = useState({})
     const handleQuickViewOpen = (item) => {
         setQuickView(true);
         setQuickViewProduct(item)
-
     }
     const handleQuickViewClose = () => { setQuickView(false) }
 
@@ -165,104 +190,19 @@ const Products = ({ productArchiveHading }) => {
         navigate(`/product/${item.slug}`, { state: item });
     };
 
-    const filtersData = [
-        {
-            name: 'Product Type', icon: AddBtn, filters: [
-                { type: 'checkbox', name: 'Dining Room Sets' },
-                { type: 'checkbox', name: 'Bar Sets' },
-                { type: 'checkbox', name: 'Kitchen Islands' },
-                { type: 'checkbox', name: 'Kitchen Islands' },
-            ]
-        },
-        {
-            name: 'Color', icon: AddBtn, filters: [
-                { type: 'checkbox', name: 'Blue' },
-                { type: 'checkbox', name: 'Green' },
-                { type: 'checkbox', name: 'Orange' },
-                { type: 'checkbox', name: 'Red' },
-            ]
-        },
-        {
-            name: 'Material', icon: AddBtn, filters: [
-                { type: 'checkbox', name: 'Dining Room Sets' },
-                { type: 'checkbox', name: 'Bar Sets' },
-                { type: 'checkbox', name: 'Kitchen Islands' },
-                { type: 'checkbox', name: 'Kitchen Islands' },
-            ]
-        },
-        {
-            name: 'Collection', icon: AddBtn, filters: [
-                { type: 'checkbox', name: 'Dining Room Sets' },
-                { type: 'checkbox', name: 'Bar Sets' },
-                { type: 'checkbox', name: 'Kitchen Islands' },
-                { type: 'checkbox', name: 'Kitchen Islands' },
-            ]
-        },
-        {
-            name: 'Style', icon: AddBtn, filters: [
-                { type: 'checkbox', name: 'Dining Room Sets' },
-                { type: 'checkbox', name: 'Bar Sets' },
-                { type: 'checkbox', name: 'Kitchen Islands' },
-                { type: 'checkbox', name: 'Kitchen Islands' },
-            ]
-        },
-        {
-            name: 'Features', icon: AddBtn, filters: [
-                { type: 'checkbox', name: 'Dining Room Sets' },
-                { type: 'checkbox', name: 'Bar Sets' },
-                { type: 'checkbox', name: 'Kitchen Islands' },
-                { type: 'checkbox', name: 'Kitchen Islands' },
-            ]
-        },
-        {
-            name: 'Price', icon: AddBtn, filters: [
-                { type: 'checkbox', name: 'Dining Room Sets' },
-                { type: 'checkbox', name: 'Bar Sets' },
-                { type: 'checkbox', name: 'Kitchen Islands' },
-                { type: 'checkbox', name: 'Kitchen Islands' },
-            ]
-        },
-        {
-            name: 'Collection', icon: AddBtn, filters: [
-                { type: 'checkbox', name: 'Dining Room Sets' },
-                { type: 'checkbox', name: 'Bar Sets' },
-                { type: 'checkbox', name: 'Kitchen Islands' },
-                { type: 'checkbox', name: 'Kitchen Islands' },
-            ]
-        },
-        {
-            name: 'Shipping Type', icon: AddBtn, filters: [
-                { type: 'checkbox', name: 'Dining Room Sets' },
-                { type: 'checkbox', name: 'Bar Sets' },
-                { type: 'checkbox', name: 'Kitchen Islands' },
-                { type: 'checkbox', name: 'Kitchen Islands' },
-            ]
-        },
-        {
-            name: 'Review Rating', icon: AddBtn, filters: [
-                { type: 'checkbox', name: 'Dining Room Sets' },
-                { type: 'checkbox', name: 'Bar Sets' },
-                { type: 'checkbox', name: 'Kitchen Islands' },
-                { type: 'checkbox', name: 'Kitchen Islands' },
-            ]
-        },
-
-    ]
-
-    // Related Categories Data
-    const relatedCategoriesData = [
-        { categoryName: 'Leather Living Room sets', link: '#' },
-        { categoryName: 'Reclining Living Room Sets', link: '#' },
-        { categoryName: 'Small space Living Room sets', link: '#' },
-        { categoryName: 'Sleeper Sofa Living Room sets', link: '#' },
-        { categoryName: 'Sofa & Loveseat sets', link: '#' },
-        { categoryName: 'Sofa & chair sets', link: '#' },
-    ]
-
     const handleFilterSection = () => {
         setHideFilters(!hideFilters)
     }
 
+    const relevanceData = [
+        { name: 'By Price (Low to High)' },
+        { name: 'By Price (High to Low)' },
+        { name: 'Alphabetic (A to Z)' },
+        { name: 'Alphabetic (Z to A)' },
+        { name: 'By Ratings (Low to High)' },
+        { name: 'By Ratings (High to Low)' },
+    ]
+    const [selectedRelevanceValue, setSelectedRelevanceValue] = useState('')
     const handleRelevance = () => {
         setRelevanceTrue(!relevanceTrue);
     }
@@ -310,21 +250,6 @@ const Products = ({ productArchiveHading }) => {
         }
     }
 
-    // Product Show Pagination
-    const handlePAgeClick = (index) => {
-        setProducts([])
-        setActivePage(index)
-    }
-
-    const handleNextPage = () => {
-        setProducts([])
-        setActivePage(activePage + 1)
-    }
-    const handlePrevPage = () => {
-        setProducts([])
-        setActivePage(activePage - 1);
-    }
-
     const [isOpen, setIsOpen] = useState(false);
     const [ratingOpen, setRatingOpen] = useState(false)
     const [categoryOpen, setCategoryOpen] = useState(false);
@@ -341,56 +266,34 @@ const Products = ({ productArchiveHading }) => {
 
     const handleRangeChange = (newRange) => {
         if (newRange[0] !== priceRange[0] || newRange[1] !== priceRange[1]) {
+
             setPriceRange(newRange);
-        }
-    }
 
-    useEffect(() => {
 
-        if (debounceTimeout.current) {
-            clearTimeout(debounceTimeout.current)
+
         }
 
-        debounceTimeout.current = setTimeout(() => {
-            const params = new URLSearchParams(searchParams);
-            params.set('price', priceRange.join(','));
+        const params = new URLSearchParams(searchParams);
+        params.set('price', priceRange.join(','));
 
-            const currentPage = searchParams.get('page');
-            params.set('page', currentPage);
+        const currentPage = searchParams.get('page');
+        params.set('page', currentPage);
 
-            let priceString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
-            setSearchParams(priceString)
-            filterProducts(priceString)
-        }, 500);
+        let priceString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
 
-        return () => {
-            clearTimeout(debounceTimeout.current)
-        }
+        setSearchParams(priceString)
+        filterProducts(priceString)
 
-    }, [priceRange])
-
-    const filterProducts = async (filter) => {
-        const api = `/api/v1/products/by-category?categorySlug=${subCategorySlug}&page=${activePage}&${filter}`;
-        try {
-            setProducts([])
-            const response = await axios.get(`${url}${api}`)
-            setProducts(response.data.products)
-            setTotalPages(response.data.pagination)
-        } catch (error) {
-            console.error("Internal Server Error");
-        }
+        // console.log("new price range", priceRange)
     }
 
     const handleColorCheck = (value) => {
-        console.log("value selected from mobile filter", value)
         const updatedColorValue = colorValue.includes(value) ?
             colorValue.filter((item) => item !== value) :
             [...colorValue, value]
 
         setColorValue(updatedColorValue);
-        console.log("color value from mobile filter", colorValue);
         const params = new URLSearchParams(searchParams);
-        console.log("updated value from mobile", updatedColorValue)
         if (updatedColorValue.length > 0) {
             params.set('color', updatedColorValue.join(','))
         } else {
@@ -447,16 +350,31 @@ const Products = ({ productArchiveHading }) => {
         let categoryString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
 
         setSearchParams(categoryString)
+        filterProducts(categoryString)
     }
-
-    const [activePageIndex, setActivePageIndex] = useState(0);
-    const handleActivePage = (index) => {
-        setActivePageIndex((prevPage) => prevPage === index ? null : index)
-    }
-
 
     useEffect(() => {
     }, [colorValue, categoryValue, ratingValue])
+
+    // Pagination
+    const [activePageIndex, setActivePageIndex] = useState(1);
+    const handleActivePage = (index) => {
+        setActivePage(index);
+        setActivePageIndex(index)
+    }
+
+    const handlePrevPage = () => {
+        setActivePage(activePage - 1);
+        setActivePageIndex(activePageIndex - 1)
+    }
+    const handleNextPage = () => {
+        setActivePage(activePage + 1);
+        setActivePageIndex(activePageIndex + 1)
+    }
+
+    useEffect(() => {
+        fetchProductData(activePage)
+    }, [activePageIndex]);
 
 
     return (
@@ -497,8 +415,11 @@ const Products = ({ productArchiveHading }) => {
                             {/* Color Filter */}
                             <div className='single-filter'>
                                 <span onClick={() => handleColorFilterOpenClose('color-filter')}>
-                                    <h3>{allFilters?.colors?.[0]?.name}</h3>
-                                    <img src={AddBtn} alt='btn' className={isOpen ? 'rotate' : ''} />
+                                    <h3 className='filters-heading'>{allFilters?.colors?.[0]?.name}</h3>
+                                    {/* <img src={AddBtn} alt='btn' className={isOpen === 'color-filter' ? 'rotate' : ''} /> */}
+                                    <i className='add-button-round'>
+                                        <FaPlus color='#595959' className={isOpen === 'color-filter' ? 'rotate' : ''} />
+                                    </i>
                                 </span>
                                 <div className={`single-filter-items-container ${isOpen === 'color-filter' ? 'show-single-filter-icons' : ''}`}>
                                     {allFilters?.colors?.[0]?.options.map((item, index) => (
@@ -512,7 +433,7 @@ const Products = ({ productArchiveHading }) => {
                                                 className='color-custom-checkbox'
                                                 id={`filter-${index}`}
                                             />
-                                            <label htmlFor={`filter-${index}`}>{item.name}</label>
+                                            <label className='filter-inner-text' htmlFor={`filter-${index}`}>{item.name}</label>
                                         </span>
                                     ))}
                                 </div>
@@ -521,8 +442,11 @@ const Products = ({ productArchiveHading }) => {
                             {/* Rating Filter */}
                             <div className='single-filter'>
                                 <span onClick={() => handleColorFilterOpenClose('rating-filter')}>
-                                    <h3>Ratings</h3>
-                                    <img src={AddBtn} alt='btn' className={ratingOpen ? 'rotate' : ''} />
+                                    <h3 className='filters-heading'>Ratings</h3>
+                                    {/* <img src={AddBtn} alt='btn' className={ratingOpen === 'rating-filter' ? 'rotate' : ''} /> */}
+                                    <i className='add-button-round'>
+                                        <FaPlus color='#595959' className={isOpen === 'rating-filter' ? 'rotate' : ''} />
+                                    </i>
                                 </span>
                                 <div className={`single-filter-items-container ${ratingOpen === 'rating-filter' ? 'show-single-filter-icons' : ''}`}>
                                     {[...Array(5).keys()].reverse().map((item, index) => (
@@ -546,8 +470,11 @@ const Products = ({ productArchiveHading }) => {
                             {/* Category Filter */}
                             <div className='single-filter'>
                                 <span onClick={() => handleColorFilterOpenClose('category-filter')}>
-                                    <h3>Categories</h3>
-                                    <img src={AddBtn} alt='btn' className={categoryOpen ? 'rotate' : ''} />
+                                    <h3 className='filters-heading'>Categories</h3>
+                                    {/* <img src={AddBtn} alt='btn' className={categoryOpen === 'category-filter' ? 'rotate' : ''} /> */}
+                                    <i className='add-button-round'>
+                                        <FaPlus color='#595959' className={isOpen === 'category-filter' ? 'rotate' : ''} />
+                                    </i>
                                 </span>
                                 <div className={`single-filter-items-container ${categoryOpen === 'category-filter' ? 'show-single-filter-icons' : ''}`}>
                                     {allFilters?.categories?.map((item, index) => (
@@ -560,7 +487,7 @@ const Products = ({ productArchiveHading }) => {
                                                 value={item.name}
                                                 onChange={(e) => handleCategorySelect(e.target.value)}
                                             />
-                                            <label htmlFor={`filter-${index}`}>{item.name}</label>
+                                            <label className='filter-inner-text' htmlFor={`filter-${index}`}>{item.name}</label>
                                         </span>
                                     ))}
                                 </div>
@@ -568,11 +495,11 @@ const Products = ({ productArchiveHading }) => {
 
                         </div>
 
-                        <div className='less-or-all-filters-btn'>
+                        {/* <div className='less-or-all-filters-btn'>
                             <button onClick={toggleFiltersVisibility}>
                                 {showAllFilters ? 'Show Less Filters' : 'View All Filters'}
                             </button>
-                        </div>
+                        </div> */}
 
                     </div>
                 </div>
@@ -589,19 +516,17 @@ const Products = ({ productArchiveHading }) => {
                             <p>{totalPages?.totalProducts} Items starting at {formatedPrice(allFilters?.priceRange?.minPrice)}</p>
                         </div>
                         <div className='relevance-container'>
-                            <div className='relevance-heading'>
-                                <h3>Sort by:</h3>
-                                <span onClick={handleRelevance}>
-                                    <p>Relevance</p>
+                            <div className='relevance-heading' onClick={handleRelevance}>
+                                <h3 className='filters-heading'>Sort by:</h3>
+                                <span >
+                                    <p>{selectedRelevanceValue.length > 0 ? selectedRelevanceValue : 'Default'}</p>
                                     <MdKeyboardArrowDown size={20} className={`relevance-arrow ${relevanceTrue ? 'rotate-relevance-arrow' : ''}`} />
                                 </span>
-                                <div className={`relevance-dropdown ${relevanceTrue ? 'show-relevance' : ''}`}>
-                                    <p>By Price (Low To High)</p>
-                                    <p>By Price (HIght To Low)</p>
-                                    <p>Alphabetic Level</p>
-                                    <p>Rating (Low To Hight)</p>
-                                    <p>Rating (High To Low)</p>
-                                </div>
+                            </div>
+                            <div className={`relevance-dropdown ${relevanceTrue ? 'show-relevance' : ''}`}>
+                                {relevanceData.map((item, index) => (
+                                    <p className='filter-inner-text' key={index} onClick={() => { setSelectedRelevanceValue(item.name); setRelevanceTrue(false) }}>{item.name}</p>
+                                ))}
                             </div>
 
                         </div>
@@ -622,6 +547,7 @@ const Products = ({ productArchiveHading }) => {
                                     productCardContainerClass="product-card"
                                     ProductSku={item.sku}
                                     tags={item.tags}
+                                    allow_back_order={item?.allow_back_order}
                                     ProductTitle={truncateTitle(item.name, maxLength)}
                                     stars={[
                                         { icon: star, title: 'filled' },
@@ -646,57 +572,60 @@ const Products = ({ productArchiveHading }) => {
                                 />
                             })
                         ) : (
-                            Array.from({ length: totalPages?.totalPages }).map((_, index) => (
+                            Array.from({ length: 3 }).map((_, index) => (
                                 <ProductCardShimmer />
                             ))
                         )}
 
                     </div>
                     {/* Product Card Code End */}
-                    <div className='view-more-products-button-div'>
-                        {/* <button
-                            className="view-more-btn"
-                            onClick={() => {
-                                const currentPage = parseInt(searchParams.get("page") || "1", 10);
-                                setSearchParams({ page: (currentPage + 1).toString() });
-                            }}
-                        >
-                            View 15 more
-                        </button> */}
 
-                        {/* <div className='view-more-products-pagination-main'>
-                            <button
-                                className='view-more-product-pagination-button'
-                                onClick={handlePrevPage}>
-                                <MdOutlineKeyboardArrowLeft size={30} />
-                            </button>
-                            <div className='view-more-product-pages-count'>
-                                {
-                                    Array.from({ length: totalPages?.totalPages }).map((_, index) => (
-                                        <p
-                                            className={`view-more-product-page-number ${activePage === index + 1 ? 'active-page-selected' : ''}`}
-                                            onClick={() => handlePAgeClick(index + 1,)}
-                                        >
-                                            {index + 1}
-                                        </p>
-                                    ))
-                                }
-                            </div>
-                            <button
-                                className='view-more-product-pagination-button'
-                                onClick={handleNextPage}>
-                                <MdOutlineKeyboardArrowRight size={30} />
-                            </button>
-                        </div> */}
+                    <div className='view-more-products-button-div'>
+
                         <div className='view-more-products-pagination-main'>
                             <div className='pagination-buttons-container'>
-                                <span> <FaRegArrowAltCircleLeft style={{color: '#4487C5'}} size={18} /> Previous </span>
-                                {Array.from({length: 3}).map((_, index) => (
-                                    <span 
-                                        className={activePageIndex === index ? 'active-page-span' : ''}
-                                        onClick={() => handleActivePage(index)}>{index + 1}</span>
+                                <span
+                                    className={activePageIndex === 1 ? 'disabled' : ''}
+                                    onClick={handlePrevPage}
+                                    style={{
+                                        pointerEvents: activePageIndex === 1 ? 'none' : 'auto',
+                                        color: activePageIndex === 1 ? '#ccc' : '#4487C5',
+                                    }}
+                                >
+                                    <FaRegArrowAltCircleLeft
+                                        size={18}
+                                        style={{
+                                            pointerEvents: activePageIndex === 1 ? 'none' : 'auto',
+                                            color: activePageIndex === 1 ? '#ccc' : '#4487C5',
+                                        }}
+                                    />
+                                    Prev
+                                </span>
+                                {Array.from({ length: totalPages?.totalPages }).map((_, index) => (
+                                    <span
+                                        onClick={() => handleActivePage(index + 1)}
+                                        className={activePageIndex === index + 1 ? 'active-page-span' : ''}
+                                    >
+                                        {index + 1}
+                                    </span>
                                 ))}
-                                <span>Next <FaRegArrowAltCircleRight style={{color: '#4487C5'}} size={18} /></span>
+                                <span
+                                    className={activePageIndex === totalPages?.totalPages ? 'disabled' : ''}
+                                    onClick={handleNextPage}
+                                    style={{
+                                        pointerEvents: activePageIndex === totalPages?.totalPages ? 'none' : 'auto',
+                                        color: activePageIndex === totalPages?.totalPages ? '#ccc' : '#4487C5',
+                                    }}
+                                >
+                                    Next
+                                    <FaRegArrowAltCircleRight
+                                        size={18}
+                                        style={{
+                                            pointerEvents: activePageIndex === totalPages?.totalPages ? 'none' : 'auto',
+                                            color: activePageIndex === totalPages?.totalPages ? '#ccc' : '#4487C5',
+                                        }}
+                                    />
+                                </span>
                             </div>
                         </div>
 
@@ -734,11 +663,11 @@ const Products = ({ productArchiveHading }) => {
 
                     {products.length === 0 ? (
                         selectedGrid === 'single-col' ?
-                        Array.from({ length: 1 }).map((_, index) => (
-                            <ProductCardShimmer width={'100%'} key={index} />
-                        )) : Array.from({length: 2}).map((_, index) => (
-                            <ProductCardShimmer width={'100%'} key={index} />
-                        ))
+                            Array.from({ length: 1 }).map((_, index) => (
+                                <ProductCardShimmer width={'100%'} key={index} />
+                            )) : Array.from({ length: 2 }).map((_, index) => (
+                                <ProductCardShimmer width={'100%'} key={index} />
+                            ))
                     ) : (
                         products.map((item, index) => {
                             return <ProductCard
@@ -778,24 +707,54 @@ const Products = ({ productArchiveHading }) => {
                         })
                     )}
                 </div>
-                {/* <div className='mobile-view-pagination'> */}
-                    <div className='view-more-products-pagination-main'>
-                            <div className='pagination-buttons-container'>
-                                <span> 
-                                    <FaRegArrowAltCircleLeft style={{color: '#4487C5'}} size={18} />
-                                    <p className='hide-on-mob'> Previous </p>
-                                </span>
-                                {Array.from({length: 3}).map((_, index) => (
-                                    <span 
-                                        className={activePageIndex === index ? 'active-page-span' : ''}
-                                        onClick={() => handleActivePage(index)}>{index + 1}</span>
-                                ))}
-                                <span>
-                                    <p className='hide-on-mob'> Next </p> 
-                                    <FaRegArrowAltCircleRight style={{color: '#4487C5'}} size={18} /></span>
-                            </div>
-                        </div>
-                {/* </div> */}
+
+                <div className='view-more-products-pagination-main'>
+                    <div className='pagination-buttons-container'>
+                        <span
+                            className={activePageIndex === 1 ? 'disabled' : ''}
+                            onClick={handlePrevPage}
+                            style={{
+                                pointerEvents: activePageIndex === 1 ? 'none' : 'auto',
+                                color: activePageIndex === 1 ? '#ccc' : '#4487C5',
+                            }}
+                        >
+                            <FaRegArrowAltCircleLeft
+                                size={18}
+                                style={{
+                                    pointerEvents: activePageIndex === 1 ? 'none' : 'auto',
+                                    color: activePageIndex === 1 ? '#ccc' : '#4487C5',
+                                }}
+                            />
+                            <p className='hide-on-mob'> Previous </p>
+                        </span>
+                        {Array.from({ length: totalPages?.totalPages }).map((_, index) => (
+                            <span
+                                onClick={() => handleActivePage(index + 1)}
+                                className={activePageIndex === index + 1 ? 'active-page-span' : ''}
+                            >
+                                {index + 1}
+                            </span>
+                        ))}
+                        <span
+                            className={activePageIndex === totalPages?.totalPages ? 'disabled' : ''}
+                            onClick={handleNextPage}
+                            style={{
+                                pointerEvents: activePageIndex === totalPages?.totalPages ? 'none' : 'auto',
+                                color: activePageIndex === totalPages?.totalPages ? '#ccc' : '#4487C5',
+                            }}
+                        >
+                            <p className='hide-on-mob'> Next </p>
+                            <FaRegArrowAltCircleRight
+                                size={18}
+                                style={{
+                                    pointerEvents: activePageIndex === totalPages?.totalPages ? 'none' : 'auto',
+                                    color: activePageIndex === totalPages?.totalPages ? '#ccc' : '#4487C5',
+                                }}
+                            />
+                        </span>
+                    </div>
+                </div>
+
             </div>
             {/* Related Categories Code */}
             <div className='related-categories-div'>
@@ -817,16 +776,7 @@ const Products = ({ productArchiveHading }) => {
                 increamentQuantity={increamentQuantity}
             />
 
-            {/* Quick View Section */}
-            {/* <div className={`quick-view-section ${quickViewClicked ? 'show-quick-view-section' : ''}`} onClick={handleQuickViewClose}>
-                <button className={`quick-view-close`} onClick={handleQuickViewClose}>
-                    {/* <img src={closeBtn} alt='close' /> 
-                    <IoMdClose size={25} style={{ color: '#595959' }} />
-                </button>
-                <div className={`quickview-containt ${quickViewClicked ? 'show-quick-view-containt' : ''}`} onClick={(e) => e.stopPropagation()}> */}
-                    <QuickView setQuickViewProduct={quickViewProduct} quickViewShow={quickViewClicked} quickViewClose={handleQuickViewClose} />
-                {/* </div>
-            </div> */}
+            <QuickView setQuickViewProduct={quickViewProduct} quickViewShow={quickViewClicked} quickViewClose={handleQuickViewClose} />
 
             {/*Mobile view filters  */}
             <MobileViewProductFilters
@@ -835,14 +785,15 @@ const Products = ({ productArchiveHading }) => {
                 filtersData={allFilters}
                 subCategorySlug={subCategorySlug}
                 priceRange={priceRange}
+                tempRange={priceRange}
+                setTampRange={setPriceRange}
                 setPriceRange={setPriceRange}
                 colorValue={colorValue}
                 setColorValue={setColorValue}
                 handleColor={handleColorCheck}
                 handleRating={handleRatingFilter}
                 handleCategory={handleCategorySelect}
-                // handleFilter={handleRatingFilter}
-                // handleCategory={handleCategorySelect}
+                handlePriceRange={handleRangeChange}
             />
         </div>
     )

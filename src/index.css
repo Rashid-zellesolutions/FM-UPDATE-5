@@ -70,3 +70,27 @@ input{
 h3{
   color: var(--text-color);
 }
+
+.filters-heading{
+  font-size: 16px !important;
+  line-height: 19px !important;
+  font-weight: 600 !important;
+  color: var(--text-color) !important;
+}
+
+.filter-inner-text{
+  font-size: 14px !important;
+  line-height: 18px !important;
+  font-weight: 500 !important;
+  color: var(--text-color) !important;
+  opacity: 0.8 !important;
+}
+
+.add-button-round{
+    border: 1px solid var(--text-color);
+    border-radius: 50%;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

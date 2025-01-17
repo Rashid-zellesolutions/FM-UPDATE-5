@@ -46,15 +46,15 @@ const SingleProductFAQ = ({description}) => {
             lose sleep over whether that loveseat you have your eye on is an ideal fit with your existing 
             furniture. Buy a sofa set instead!`,
         },
-        {
-            question: 'Specifications', 
-            icon: arrowDown, answereOne:
-                `Well, let's face it. Coordinating living room furniture – including fabrics, pillows, colors, 
-            and sizes – can be exhausting! A living room set is an effective and convenient way to complete 
-            your living space, while eliminating the stress of matching sofas, chairs and ottomans. Don’t 
-            lose sleep over whether that loveseat you have your eye on is an ideal fit with your existing 
-            furniture. Buy a sofa set instead!`,
-        }
+        // {
+        //     question: 'Specifications', 
+        //     icon: arrowDown, answereOne:
+        //         `Well, let's face it. Coordinating living room furniture – including fabrics, pillows, colors, 
+        //     and sizes – can be exhausting! A living room set is an effective and convenient way to complete 
+        //     your living space, while eliminating the stress of matching sofas, chairs and ottomans. Don’t 
+        //     lose sleep over whether that loveseat you have your eye on is an ideal fit with your existing 
+        //     furniture. Buy a sofa set instead!`,
+        // }
 
     ]
 
@@ -86,35 +86,7 @@ const SingleProductFAQ = ({description}) => {
                         style={{ height: activeIndex === index ? `${answerRef.current.scrollHeight}px` : '0px' }}
                     >
                         <div dangerouslySetInnerHTML={{ __html: item.answereOne }} ></div>
-                        {/* <p>{isExpanded ? item.answereOne : truncatedText}</p>
-                            {item.answereOne.length > 150 && (
-                                <button onClick={() => handleShowMore(index)} className='show-more-btn'>
-                                    {isExpanded ? 'Show Less' : 'Show More'}
-                                </button>
-                            )} */}
-                        {/* <div className='single-product-hiden-details'>
-                            <button className='show-more-btn' onClick={() => handleShowMore(index)}>
-                                {isExpanded ? 'Show Less' : 'Show More'}
-                            </button>
-                            <div className={`single-product-show-more ${expandedIndex === index ? 'show-more-options' : ''}`}>
-                                <h3 className='single-product-inclded-heading'>{item.include}</h3>
-                                {item.includeOptions && item.includeOptions.map((included, index) => (
-                                    <div className='included-options'>
-                                        <img src={included.tickIcon} alt='tick icon' />
-                                        <p>{included.name}</p>
-                                    </div>
-                                ))}
-                                <h3 className='single-product-inclded-heading'>{item.features}</h3>
-                            <ul className='single-product-feature'>
-                                {item.featureInclude && item.featureInclude.map((feature, ind) => (
-                                    <li>
-                                        {feature}
-                                    </li>
-                                ))}
-                            </ul>
-                            </div>
-                            
-                        </div> */}
+                        
                     </div>
                 </div>
             })}

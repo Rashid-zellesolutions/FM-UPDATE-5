@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import './MultiRange.css'
 import { formatedPrice } from "../../utils/api";
 
@@ -14,6 +14,8 @@ const DoubleRangeSlider = (
   }) => {
   // const [range, setRange] = useState(initialRange); // Initial min and max values
 
+  const isDragging = useRef(false);
+
   const handleChange = (e, thumb) => {
     const newValue = Number(e.target.value);
     const updatedRange = [...initialRange];
@@ -26,20 +28,34 @@ const DoubleRangeSlider = (
     setInitialRange(updatedRange);
   };
 
-  const handleMouseLeave = () => {
-    onRangeChange(initialRange)
-    console.log("mouse up func call")
+  const handlePointerDown = () => {
+    isDragging.current = true;
   }
 
-  useEffect(() => {
+  const handlePointerUp = () => {
+    if(isDragging.current) {
+      onRangeChange(initialRange);
+      isDragging.current = false;
+    }
+  }
+
+  // const handleMouseLeave = useCallback(() => {
+  //   onRangeChange(initialRange)
+  //   console.log("mouse up func call")
+  // }, [initialRange, onRangeChange]);
+
+  // useEffect(() => {
     
-  }, [handleMouseLeave])
+  // }, [handleMouseLeave])
 
   return (
     <div className="slider-container">
+      <div className="price-filter-heading-container">
+        <h3 className="filters-heading">Price</h3>
+      </div>
       <div className="values">
-        <span>{formatedPrice(initialRange[0])}</span>
-        <span>{formatedPrice(initialRange[1])}</span>
+        <span className='filter-inner-text'>{formatedPrice(initialRange[0])}</span>
+        <span className='filter-inner-text'>{formatedPrice(initialRange[1])}</span>
       </div>
       <div className="range-slider">
         {/* First thumb (Min) */}
@@ -48,7 +64,8 @@ const DoubleRangeSlider = (
           min={min}
           max={max}
           value={initialRange[0]}
-          onPointerUp={handleMouseLeave}
+          onPointerDown={handlePointerDown}
+          onPointerUp={handlePointerUp}
           onChange={(e) => handleChange(e, 0)}
           className="range-input"
         />
@@ -58,16 +75,15 @@ const DoubleRangeSlider = (
           min={min}
           max={max}
           value={initialRange[1]}
+          onPointerDown={handlePointerDown}
+          onPointerUp={handlePointerUp}
           onChange={(e) => handleChange(e, 1)}
-          onPointerUp={handleMouseLeave}
           className="range-input"
         />
         {/* Track */}
         <div
           className="range-track"
           style={{
-            // left: `${range[0]}%`,
-            // right: `${100 - range[1]}%`,
             left: `${(initialRange[0] - min) / (max - min) * 100}%`,
             right: `${100 - (initialRange[1] - min) / (max - min) * 100}%`,
           }}

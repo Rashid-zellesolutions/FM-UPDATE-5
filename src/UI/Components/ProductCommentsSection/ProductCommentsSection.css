@@ -23,6 +23,15 @@
     color: var(--text-color);
 }
 
+.input-select-container{
+    display: none;
+    overflow: hidden;
+}
+
+.input-select-container.show-input-select-container{
+    display: flex;
+}
+
 .select-container {
     border: 1px solid black;
     width: 400px;
@@ -108,12 +117,16 @@
 }
 
 .comments-main-container{
-    display: flex;
+    display: none;
     flex-direction: column;
     width: 100%;
     background-color: #fff;
     padding: 16px 24px;
     border-radius: 10px;
+}
+
+.comments-main-container.show-comments-main-container{
+    display: flex;
 }
 
 @media only screen and (max-width: 480px){

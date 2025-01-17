@@ -12,7 +12,7 @@ const MobileViewProductFilters = (
     {
         showMobileFilters,
         setMobileFilters,
-        filtersData = [],
+        filtersData,
         priceRange,
         setPriceRange,
         handleColor,
@@ -20,9 +20,12 @@ const MobileViewProductFilters = (
         handleCategory,
         colorValue,
         setColorValue,
+        handlePriceRange,
+        // tempRange, setTampRange
     }) => {
 
-    console.log("filters on data", filtersData)
+    // console.log("FILTERS DATA", filtersData)
+
     const handleFiltersClose = () => {
         setMobileFilters(false)
     }
@@ -41,19 +44,25 @@ const MobileViewProductFilters = (
         setShowAllFilters(!showAllFilters)
     }
 
-    const [tempRange, setTampRange] = useState([300, 900])
+    // const [tempRange, setTampRange] = useState([])
     const [tempColorValue, setTempColorValue] = useState([]);
     const [tempRatingValue, setTempRatingValue] = useState([]);
     const [tempCategoryValue, setTempCategoryValue] = useState([])
 
-    useEffect(() => {
-        setTampRange(priceRange);
-    }, [])
+    // useEffect(() => {
+    //     setTampRange([filtersData?.priceRange?.minPrice, filtersData?.priceRange?.maxPrice])
+    //     console.log("price range on effect", tempRange)
+    // }, [])
 
-    const handleMobileRangeChange = (newRange) => {
-        setTampRange(newRange)
-        // console.log("price range filter call", newRange)
-    }
+
+    // const handleMobileRangeChange = (newRange) => {
+
+    //     setTampRange(newRange)
+    //     // handlePriceRange(tempRange)
+    //     console.log("temp range", newRange)
+    //     // console.log("price range filter call", newRange)
+    // }
+
 
     const handleMobileColorCheck = (value) => {
         const updatedColorValue = tempColorValue.includes(value) ?
@@ -61,7 +70,6 @@ const MobileViewProductFilters = (
             [...colorValue, value]
 
         setTempColorValue(updatedColorValue)
-        console.log("temp color on mob filter", tempColorValue)
     }
 
     const handleMobileRatingFilter = (value) => {
@@ -81,9 +89,9 @@ const MobileViewProductFilters = (
     }
 
     const handlePriceRangeClick = () => {
-        if (tempRange[0] !== priceRange[0] || tempRange[1] !== priceRange[1]) {
-            setPriceRange(tempRange);
-        }
+        // if (tempRange[0] !== priceRange[0] || tempRange[1] !== priceRange[1]) {
+            handlePriceRange(priceRange)
+        // }
 
         if(tempColorValue.length > 0) {
             handleColor(tempColorValue)
@@ -120,9 +128,9 @@ const MobileViewProductFilters = (
                     <DoubleRangeSlider
                         min={filtersData?.priceRange?.minPrice}
                         max={filtersData?.priceRange?.maxPrice}
-                        initialRange={tempRange}
-                        setInitialRange={setTampRange}
-                        onRangeChange={handleMobileRangeChange}
+                        initialRange={priceRange}
+                        setInitialRange={setPriceRange}
+                        onRangeChange={handlePriceRange}
                         minLabel='Min Price:'
                         maxLabel='Max Price:'
                     />

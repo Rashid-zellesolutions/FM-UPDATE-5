@@ -9,6 +9,7 @@ const ProductCommentsSection = ({ data }) => {
     const [sortedData, setSortedData] = useState(data); // State to store sorted reviews
     const dropdownRef = useRef(null); // To reference the dropdown
     const selectRef = useRef(null); // To reference the select container
+    console.log("sorted data", sortedData)
 
     const handleClicked = () => {
         setIsClicked(!isClicked);
@@ -40,7 +41,7 @@ const ProductCommentsSection = ({ data }) => {
         }
         setSortedData(sortedReviews); // Update the state with sorted data
     };
-    
+
 
     // Re-sort the reviews when the selected option changes
     useEffect(() => {
@@ -74,8 +75,8 @@ const ProductCommentsSection = ({ data }) => {
     return (
         <div className="product-comment-section-main-container">
             <div className="sort-by-related">
-                <p>Showing {sortedData?.length} {sortedData?.length > 1 ? "reviews":"review"}</p>
-                <div className="input-select-container">
+                <p>Showing {sortedData?.length} {sortedData?.length > 1 ? "reviews" : "review"}</p>
+                <div className={`input-select-container ${sortedData.length > 0 ? 'show-input-select-container' : ''}`}>
                     <fieldset className="select-container" ref={selectRef}>
                         <legend htmlFor="sort-by" className="select-label">
                             Sort by
@@ -99,9 +100,10 @@ const ProductCommentsSection = ({ data }) => {
                     </div>
                 </div>
             </div>
-            <div className="comments-main-container">
+            <div className={`comments-main-container ${sortedData.length > 0 ? 'show-comments-main-container' : ''}`}>
                 <Comments data={sortedData} order={selectedOption} />
             </div>
+
         </div>
     );
 };

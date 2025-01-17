@@ -507,9 +507,9 @@ const ShippingForm = () => {
                 </div>
             </form>
             <div className='form-continue-to-payment-button'>
-                <button type='button' onClick={handleSubmit} className='desktop-billing-details-send-button'>
+                {/* <button type='button' onClick={handleSubmit} className='desktop-billing-details-send-button'>
                     Continue
-                </button>
+                </button> */}
             </div>
 
             <form className='mobile-view-shipping-details-form'>
@@ -520,7 +520,7 @@ const ShippingForm = () => {
                     <SummaryInputFields type={'text'} label={'Email'} fieldRequired={true} placeholder={'Email'} required={true} />
                 </div>
                 <div className='mobile-delivery-details'>
-                    <h3>Delivery Options</h3>
+                    <h3 className='mobile-delivery-headings'>Delivery Address</h3>
                     <SummaryInputFields type={'text'} label={'Address'} fieldRequired={true} placeholder={'Address'} required={true} />
                     <SummaryInputFields type={'text'} label={'Apt, Suite (Optional)'} fieldRequired={false} placeholder={'Apt, Suite'} required={true} />
                     {/* <SummaryInputFields type={'text'} label={'Phone'} fieldRequired={true} placeholder={'Phone'} required={true} /> */}
@@ -532,7 +532,7 @@ const ShippingForm = () => {
                     </div>
                 </div>
                 <div className='mobile-delivery-options-sections'>
-                    <h3>Delivery Options:</h3>
+                    <h3 className='mobile-delivery-options-heading'>Delivery Options:</h3>
                     <div className='mobile-delivery-option-details'>
                         <input type='radio' />
                         <div className='mobile-delivery-option-single-detail'>
