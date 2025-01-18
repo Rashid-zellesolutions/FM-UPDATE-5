@@ -749,7 +749,7 @@ label {
     flex-direction: column;
     width: 270px;
     align-items: center;
-    z-index: 99999999999;
+    z-index: 99;
     position: relative;
 }
 

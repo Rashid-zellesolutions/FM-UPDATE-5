@@ -1,8 +1,10 @@
 import React from 'react'
 import './RelatedCategories.css'
-import { Link } from 'react-router-dom'
+import { Link, useParams, useLocation } from 'react-router-dom'
 
 const RelatedCategories = () => {
+    // const {parentCategory} = window.location
+    // console.log("product archive parent category", parentCategory)
     const relatedCategoriesData = [
         {categoryName: 'Leather Living Room Sets', link: '#'},
         {categoryName: 'Reclining Living Room Sets', link: '#'},
@@ -14,6 +16,11 @@ const RelatedCategories = () => {
         {categoryName: 'Sofa & Chair Sets', link: '#'},
         {categoryName: 'Sofa & Chair Sets', link: '#'},
     ]
+
+    const fetchSubCategories = () => {
+        // const api = `/api/v1/sub-category/get/${categoryData.slug}`
+    }
+
   return (
     <div className='related-categories-main-div'>
             <h3>Related Categories</h3>

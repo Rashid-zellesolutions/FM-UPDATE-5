@@ -1,16 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import './SimillerProducts.css'
-import { useRef } from 'react'
 import { useSelector } from 'react-redux'
 import ProductCard from '../ProductCard/ProductCard'
-import arrowLeftRed from '../../../Assets/icons/arrow-left-red.png';
-import arrowRightRed from '../../../Assets/icons/arrow-right-red.png';
-import { useProducts } from '../../../context/productsContext/productContext'
 import { useNavigate } from 'react-router-dom'
-import { useSingleProductContext } from '../../../context/singleProductContext/singleProductContext'
 import axios from 'axios'
 import { url } from '../../../utils/api'
-import ProductCardTwo from '../ProductCard/ProductCard'
 import heart from '../../../Assets/icons/heart-vector.png'
 import ProductCardShimmer from '../Loaders/productCardShimmer/productCardShimmer'
 import { useList } from '../../../context/wishListContext/wishListContext'
@@ -49,7 +43,6 @@ const SimillerProducts = ({collection}) => {
             });
             const myCollections = await Promise.all(request);
             const filteredMyCollection = myCollections.flat();
-            // console.log("filtered similer data", filteredMyCollection)
             return filteredMyCollection;
         } catch (error) {
             console.error("error geting data", error)
@@ -66,10 +59,6 @@ const SimillerProducts = ({collection}) => {
         getchMyCollectionProducts()
     }, [])
 
-    const showArrowOnCardLength = data && data.length
-
-    const [hoveredIndex, setHoveredIndex] = useState(null);
-    const [hideFilters, setHideFilters] = useState(false);
 
     // Card title words limit
     const maxLength = 30;
@@ -79,7 +68,6 @@ const SimillerProducts = ({collection}) => {
     };
 
     // product color variation index from redux
-    const colorIndex = useSelector((state) => state.colorIndex.colorIndex)
 
         // const navigate = useNavigate()
         const [quickViewProduct, setQuickViewProduct] = useState({})

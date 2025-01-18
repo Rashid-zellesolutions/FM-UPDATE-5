@@ -53,13 +53,14 @@
 
 import React, { useState, useEffect } from 'react'
 import './PromotionalBanner.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import deliverTo from '../../../Assets/icons/delivery.png'
 // import locationModalIcon from '../../Assets/icons/location.png'
 import locationIcon from '../../../Assets/icons/location-red.png';
 
 const PromotionalBanner = ({ handleLanguageModal, handleDeliverModal, currentSelectedCountryFlag, usaFlag, currentSelectedCountry }) => {
 
+  const navigate = useNavigate()
   const [currentIndex, setCurrentIndex] = useState(0);
   const dynamicHeading = [0, 1, 2]
   useEffect(() => {
@@ -68,6 +69,18 @@ const PromotionalBanner = ({ handleLanguageModal, handleDeliverModal, currentSel
     }, 5000)
     return () => clearInterval(intervelId);
   }, [])
+
+  const [loginMessage, setLoginMessage] = useState(false)
+  const handleClickOnOrders = () => {
+    const token = localStorage.getItem('userToken');
+    const userId = localStorage.getItem('uuid');
+    console.log("user id", userId)
+    console.log('user token on order click', token)
+    if(!token){
+      setLoginMessage(true)
+    }
+      navigate(`/user-dashboard`);
+  }
 
   return (
     <div className='furniture-mecca-promotional-banner'>
@@ -94,7 +107,7 @@ const PromotionalBanner = ({ handleLanguageModal, handleDeliverModal, currentSel
       <div className='header-links-and-select-language'>
         <div className='banner-link-container'>
           <Link to={'/store-locator'}>Stores</Link>
-          <Link to={'#'}>Orders</Link>
+          <Link to={'#'} onClick={handleClickOnOrders}>Orders</Link>
           <Link to={'/financing'}>Financing</Link>
           <Link to={'#'}>Help</Link>
         </div>

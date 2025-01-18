@@ -37,7 +37,7 @@ const RatingAndReview = ({ rating, data }) => {
         <div className='rating-and-customers-photos'>
             <div className='rating-and-review-main-container'>
                 <h3>Rating & Reviews</h3>
-                <p>Our <Link>Community Guidelines </Link> help customers write honest reviews.</p>
+                {/* <p>Our <Link>Community Guidelines </Link> help customers write honest reviews.</p> */}
                 <div className='rating-and-review-div'>
                     <div className='rating-div'>
                         <h3>{rating}</h3>

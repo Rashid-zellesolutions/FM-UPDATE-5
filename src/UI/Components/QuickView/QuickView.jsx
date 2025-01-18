@@ -13,7 +13,7 @@ import { FaStar } from "react-icons/fa";
 import { url } from '../../../utils/api';
 import QuickViewVariations from '../SizeVariant/QuickViewVariations';
 
-const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, quickViewclose }) => {
+const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
 
     // console.log("quick view set show", setQuickViewShow)
 
@@ -94,11 +94,15 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, quickVi
     }, [selectedVariationUid])
 
     return (
-        <div className={`quick-view-main-container ${quickViewShow ? 'show-quick-view-modal' : ''}`}>
-            <button className='quick-view-close-modal-button' onClick={quickViewClose}>
-                <img src={crossBtn} alt='close' />
-            </button>
-            <div className={`quick-view-main ${quickViewShow ? 'slide-quick-view-inner-modal' : ''}`}>
+        // <div className={`quick-view-outer-overlay-container ${quickViewShow ? 'show-quick-view-outer-overlay' : ''}`}>
+        <div className={`quick-view-main-container ${quickViewShow ? 'show-quick-view-modal' : ''}`} onClick={quickViewClose}>
+            <div 
+                className={`quick-view-main ${quickViewShow ? 'slide-quick-view-inner-modal' : ''}`}
+                onClick={(e) => e.stopPropagation()}
+            >
+                <button className='quick-view-close-modal-button' onClick={quickViewClose}>
+                    <img src={crossBtn} alt='close' />
+                </button>
                 <div className='quick-view-heading-and-rating'>
                     <h3>{setQuickViewProduct.name}</h3>
                     <div className='quick-view-rating'>
@@ -183,17 +187,19 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, quickVi
                     ))}
 
                 </div>
-                <CartSidePannel
-                    cartData={cartProducts}
-                    addToCartClicked={cartSection}
-                    handleCartSectionClose={handleCartSectionClose}
-                    setAddToCartClick={setCartSection}
-                    removeFromCart={removeFromCart}
-                    decreamentQuantity={decreamentQuantity}
-                    increamentQuantity={increamentQuantity}
-                />
             </div>
+            <CartSidePannel
+                cartData={cartProducts}
+                addToCartClicked={cartSection}
+                handleCartSectionClose={handleCartSectionClose}
+                setAddToCartClick={setCartSection}
+                removeFromCart={removeFromCart}
+                decreamentQuantity={decreamentQuantity}
+                increamentQuantity={increamentQuantity}
+            />
         </div>
+        // </div>
+
 
     )
 }

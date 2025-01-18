@@ -42,7 +42,7 @@
     border: none;
     top: 50%;
     cursor: pointer;
-    z-index: 1;
+    z-index: 9;
     position: absolute;
     background-color: var(--text-color);
     border-radius: 26px;

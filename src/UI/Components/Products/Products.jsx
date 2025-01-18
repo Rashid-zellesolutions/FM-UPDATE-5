@@ -468,7 +468,7 @@ const Products = () => {
                             {/* Category Filter */}
                             <div className='single-filter'>
                                 <span onClick={() => handleColorFilterOpenClose('category-filter')}>
-                                    <h3 className='filters-heading'>Categories</h3>
+                                    <h3 className='filters-heading'>Product Type</h3>
                                     {/* <img src={AddBtn} alt='btn' className={categoryOpen === 'category-filter' ? 'rotate' : ''} /> */}
                                     <i className='add-button-round'>
                                         <FaPlus color='#595959' className={isOpen === 'category-filter' ? 'rotate' : ''} />

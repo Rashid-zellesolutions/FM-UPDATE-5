@@ -91,6 +91,7 @@
     line-height: 22px !important;
     font-weight: 500 !important;
     opacity: 0.5 !important;
+    z-index: -9;
 }
 
 .might-need-product-price{

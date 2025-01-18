@@ -564,16 +564,7 @@ const Header = ({checkoutPage}) => {
                   </span>
                 </>
               )}
-              {/* <div className='near-by-city-time' onClick={handleNearStorePopUp}>
-                <p>Nearest Store</p>
-                <span>
-                  <Link> {nearState} </Link><p> (Opens at 09:30 AM)</p>
-                </span>
-              </div>
-              <span className='deliver-to' onClick={handleSearchModal}>
-                <p>Deliver to</p>
-                <span>{info.locationData.zipCode} {info.locationData.stateCode}</span>
-              </span> */}
+              
             </div>
           </div>
         </div>

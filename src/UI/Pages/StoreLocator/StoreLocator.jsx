@@ -358,7 +358,7 @@ const StoreLocator = () => {
             />
           ) : (
             <div className="loading-map-container">
-              <p>Loading map...</p>
+              <div className='loading-map-shimmer'></div>
             </div>
           )}
 

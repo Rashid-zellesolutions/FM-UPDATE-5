@@ -30,40 +30,7 @@
     align-items: center;
     /* border-bottom: 1px solid var(--border-color); */
     border-radius: 5px;
-}
-
-/* .customCheckbox{
-    appearance: none;
-  -webkit-appearance: none;
-  outline: none;
-  border: 2px solid #ccc; 
-  width: 24px; 
-  height: 24px;
-  cursor: pointer;
-  position: relative;
-  background-color: white; 
-  border-radius: 4px;
-}
-
-.customCheckbox:checked::before {
-    content: '';
-    display: block;
-    width: 8px;
-    height: 8px;
-    background-color: gray; 
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    border-radius: 2px;
-  }
-  
-  .customCheckbox:checked {
-    border-color: gray;
-  } */
-
-
-
-  
+} 
 
   .checkbox-wrapper-1 *,
   .checkbox-wrapper-1 ::after,
@@ -84,6 +51,7 @@
     display: inline-block;
     vertical-align: top;
     height: 1.15em;
+    z-index: -9;
     width: 1.15em;
     margin-right: 0.6em;
     color: rgba(0, 0, 0, 0.275);

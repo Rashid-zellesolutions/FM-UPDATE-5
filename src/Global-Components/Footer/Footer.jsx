@@ -374,7 +374,7 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
                                     ))}
                                 </div>
                                 <div className='appointment-and-outlet-div'>
-                                    <Link to={'#'}>
+                                    <Link to={'/store-locator'}>
                                         <p>Outlet</p>
                                     </Link>
                                     <Link to={'#'}>

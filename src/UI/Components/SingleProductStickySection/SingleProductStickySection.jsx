@@ -40,6 +40,7 @@ import { IoChevronForward } from "react-icons/io5";
 import { IoChevronBack } from "react-icons/io5";
 import { useGlobalContext } from '../../../context/GlobalContext/globalContext';
 import ShareProduct from '../ShareProduct/ShareProduct';
+import LocationPopUp from '../LocationPopUp/LocationPopUp';
 
 const SingleProductStickySection = ({ productData }) => {
 
@@ -118,11 +119,10 @@ const SingleProductStickySection = ({ productData }) => {
   }
 
   const handleQuantityChange = (e) => {
-    const {value} = e.target;
+    const { value } = e.target;
     setQuantity(value)
   }
 
-  // useEffect(() => {console.log("quantity val", quantity)}, [quantity])
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
@@ -277,17 +277,40 @@ const SingleProductStickySection = ({ productData }) => {
     SetSelectedProduct(item)
   }
 
+  const [searchLocation, setSearchLocation] = useState(false);
+  const handleSearchModal = () => {
+    setSearchLocation(true)
+    console.log("handle Location modal")
+    console.log("value of searchLocation", searchLocation)
+  }
+
+  const handleCloseSearch = () => {
+    setSearchLocation(false)
+  }
+  const [locationDetails, setLocationDetails] = useState({
+      zipCode: '',
+      city: '',
+      state: '',
+      country: ''
+    });
+
   return (
     <>
       <div className='sticky-main-container-0'>
+        <LocationPopUp
+            searchLocation={searchLocation}
+            handleCloseSearch={handleCloseSearch}
+            setLocationDetails={setLocationDetails}
+            locationDetails={locationDetails}
+          />
         <div className="sticky-main-container">
-          
+
           <div className='left-section'>
             <Breadcrumb
               sku={productData?.sku}
               productName={productData?.name}
               category={productData?.categories}
-              categorySlug={productData?.categories?.[0]?.slug} 
+              categorySlug={productData?.categories?.[0]?.slug}
             />
 
             <div className='single-product-alice-slider'>
@@ -358,7 +381,7 @@ const SingleProductStickySection = ({ productData }) => {
             <div className='left-section-delivery-options-main-container'>
               <span className='left-section-delivery-main-heading'>
                 <p className='left-section-delivery-option'>Delivery options for: </p>
-                <h3 className='left-section-delivery-zip'>{info.locationData.zipCode} {info.locationData.stateCode}</h3>
+                <h3 className='left-section-delivery-zip' onClick={handleSearchModal}>{info.locationData.zipCode} {info.locationData.stateCode}</h3>
               </span>
               <div className='left-section-delivery-options-cards'>
                 {shippingMethods && shippingMethods['shippingMethods'].map((item, index) => (
@@ -376,13 +399,14 @@ const SingleProductStickySection = ({ productData }) => {
 
               </div>
             </div>
+            
 
           </div>
 
           <div className='right-section'>
             <div className='single-product-detail-container'>
               <div className='single-page-product-name-anddetails'>
-                
+
                 <h3 className='single-product-heading'>{product.name}</h3>
                 <p className='single-product-sku'>
                   SKU : {product.sku}
@@ -437,9 +461,9 @@ const SingleProductStickySection = ({ productData }) => {
                       <FaWindowMinimize size={18} className='minus-icon' />
                     </button>
 
-                    <input 
-                      type='number'  
-                      value={quantity} 
+                    <input
+                      type='number'
+                      value={quantity}
                       onChange={handleQuantityChange}
                     />
                     <button className='plus-btn' onClick={increaseLocalQuantity}>
@@ -515,7 +539,7 @@ const SingleProductStickySection = ({ productData }) => {
 
           <div className='mobile-view-single-product-rating'>
             <RatingReview rating={(product?.average_rating)} disabled={true} size={"12px"} />
-            
+
           </div>
 
           <div className='mobile-view-single-product-slider-main-section'>
@@ -642,13 +666,18 @@ const SingleProductStickySection = ({ productData }) => {
           <FinancingOptions />
           <SingleProductFAQ />
 
-          <ShareProduct
+          
+
+          
+
+
+        </div>
+      </div>
+        <ShareProduct
             isSharePopup={isSharePopup}
             setIsSharePopup={setIsSharePopup}
             selectedProduct={selectedProduct}
           />
-        </div>
-      </div>
     </>
   );
 };

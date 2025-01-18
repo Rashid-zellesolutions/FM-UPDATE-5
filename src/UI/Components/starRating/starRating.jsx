@@ -48,6 +48,8 @@ function RatingReview({ rating, setRating, disabled,size,bgColor,bgColor2 }) {
               cursor: disabled ? "not-allowed" : "pointer",
               fontSize: size? size : `25px`,
               lineHeight:size? size : `25px`,
+              zIndex: -9
+
             }}
             onClick={(e) => handleClick(e, star)}
             onMouseEnter={(e) => handleMouseEnter(e, star)}
@@ -57,6 +59,7 @@ function RatingReview({ rating, setRating, disabled,size,bgColor,bgColor2 }) {
             <FaStar
               style={{
                 color: bgColor2? bgColor2 : "#d4d4d4",
+                
               }}
             />
             {/* Filled star */}
@@ -67,6 +70,7 @@ function RatingReview({ rating, setRating, disabled,size,bgColor,bgColor2 }) {
                 top: "0px",
                 left: 0,
                 clipPath: `inset(0 ${100 - fillLevel * 100}% 0 0)`,
+                
               }}
             />
           </span>
