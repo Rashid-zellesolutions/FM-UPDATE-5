@@ -17,58 +17,16 @@ const SizeVariant = ({
     const [selectedImageName, setSelectedImageName] = useState();
     const [selectedColorName, setSelectedColorName] = useState();
     const [selectedSelectAttrs, setSelectedSelectAttrs] = useState({}); // For multiple select attributes
-    // console.log("product data on variations", productData)
-    // console.log("product type on variations", productType)
-    // console.log("product attributes on variations", attributes.length)
-    // const handleSelectVariations = () => {
-    //     if (attributes && attributes.length > 0 && productData?.length > 0) {
-    //         const defaultSelections = {};
-    //         console.log("attributes in if condionon", attributes)
-    //         if (productType === 'simple') {
-    //             // Automatically select all variations for simple products
-    //             attributes.forEach(attr => {
-    //                 defaultSelections[attr.name] = attr.options?.[0]?.value;
-    //             });
-    //             console.log("simple variation type attributed", defaultSelections)
-    //             setSelectedSelectAttrs(defaultSelections); // Set all attributes selected
-    //             const defaultVariation = productData[0]; // Default to the first variation
-    //             if (defaultVariation) {
-    //                 handleSelectedVariationData(defaultVariation.uid); // Notify parent
-    //                 setSelectedVariationData(defaultVariation); // Set the first variation
-    //             }
-    //         } else {
-    //             let initialVariation = selectedVariationData;
-
-    //             if (!initialVariation && productData?.length > 0) {
-    //                 initialVariation = productData[0]; // Default to the first variation
-    //             }
-
-    //             if (initialVariation) {
-    //                 // Initialize attributes from the default variation
-    //                 initialVariation.attributes.forEach(attr => {
-    //                     defaultSelections[attr.name] = attr.options?.[0]?.value;
-    //                 });
-                    
-    //                 setSelectedVariationData(initialVariation); // Set context
-    //                 handleSelectedVariationData(initialVariation.uid); // Notify parent
-    //             }
-    //         }
-    //         console.log("selected variation data", selectedVariationData)
-    //         console.log("def variations", defaultSelections);
-    //         setSelectedSelectAttrs(defaultSelections); // Initialize selected attributes
-    //     }
-    // }
+    
     let defaultSelections = {};
     useEffect(() => {
         if (attributes && attributes.length > 0 && productData?.length > 0) {
             let defaultSelections = {};
-            console.log("attributes in if condionon", attributes)
             if (productType === 'simple') {
                 // Automatically select all variations for simple products
                 attributes.forEach(attr => {
                     defaultSelections[attr.name] = attr.options?.[0]?.value;
                 });
-                console.log("simple variation type attributed", defaultSelections)
                 setSelectedSelectAttrs(defaultSelections); // Set all attributes selected
                 const defaultVariation = productData[0]; // Default to the first variation
                 if (defaultVariation) {
@@ -93,8 +51,6 @@ const SizeVariant = ({
                     handleSelectedVariationData(initialVariation.uid); // Notify parent
                 }
             }
-            console.log("selected variation data", selectedVariationData)
-            console.log("def variations", defaultSelections);
             setSelectedSelectAttrs(defaultSelections); // Initialize selected attributes
         }else{
              if (productType === 'simple') {
@@ -102,7 +58,6 @@ const SizeVariant = ({
                 attributes.forEach(attr => {
                     defaultSelections[attr.name] = attr.options?.[0]?.value;
                 });
-                console.log("simple variation type attributed", defaultSelections)
                 setSelectedSelectAttrs(defaultSelections); // Set all attributes selected
                 const defaultVariation = productData[0]; // Default to the first variation
                 if (defaultVariation) {
@@ -119,7 +74,6 @@ const SizeVariant = ({
     const handleImageVariation = (attributeName, index, name, value) => {
         setImageVariation(index); // Update image variation
         setSelectedImageName(name); // Optionally store image name
-        console.log(name, index, "Image variation selected");
 
         // Update selected attributes to include the selected image
         setSelectedSelectAttrs((prevState) => {
@@ -127,20 +81,17 @@ const SizeVariant = ({
                 ...prevState,
                 [attributeName]: value, // Update selected value for the attribute
             };
-            console.log(productData, "variations")
 
             // Now try to find the matching variation with all selected attributes
             const matchedVariation = productData.find((variation) => {
                 return variation.attributes.every((attr) => {
                     const selectedValue = updatedAttrs[attr.name];
                     // Ensure you're comparing the value correctly based on the attribute type
-                    console.log(updatedAttrs[attr.name], "atr nme")
                     return selectedValue === attr.options?.[0]?.value;
                 });
             });
 
             if (matchedVariation) {
-                console.log("Matched UID:", matchedVariation.uid);
                 handleSelectedVariationData(matchedVariation.uid); // Pass the matched UID
                 setSelectedVariationData(matchedVariation); // Set the context with matched variation
             } else {
@@ -159,20 +110,17 @@ const SizeVariant = ({
                 ...prevState,
                 [attributeName]: value, // Update selected value for the attribute
             };
-            console.log(productData, "variations")
 
             // Now try to find the matching variation with all selected attributes
             const matchedVariation = productData.find((variation) => {
                 return variation.attributes.every((attr) => {
                     const selectedValue = updatedAttrs[attr.name];
                     // Ensure you're comparing the value correctly based on the attribute type
-                    console.log(updatedAttrs[attr.name], "atr nme")
                     return selectedValue === attr.options?.[0]?.value;
                 });
             });
 
             if (matchedVariation) {
-                console.log("Matched UID:", matchedVariation.uid);
                 handleSelectedVariationData(matchedVariation.uid); // Pass the matched UID
                 setSelectedVariationData(matchedVariation); // Set the context with matched variation
             } else {
@@ -187,30 +135,24 @@ const SizeVariant = ({
 
     // Handle Select Attribute Selection
     const handleSelectClick = (attributeName, value, name) => {
-        console.log("attribute name", attributeName);
-        console.log("attribute value", value);
+
         setSelectedSelectAttrs((prevState) => {
             const updatedAttrs = {
                 ...prevState,
                 [attributeName]: value, // Update selected value for the attribute
             };
-            console.log("updated Attribute", updatedAttrs)
-            console.log(productData, "variations")
 
             // Now try to find the matching variation with all selected attributes
             const matchedVariation = productData.find((variation) => {
                 return variation.attributes.every((attr) => {
                     const selectedValue = updatedAttrs[attr.name];
                     // Ensure you're comparing the value correctly based on the attribute type
-                    console.log(updatedAttrs[attr.name], "atr nme")
                     return selectedValue === attr.options?.[0]?.value;
                 });
             });
 
-            console.log("matched variation", matchedVariation)
 
             if (matchedVariation) {
-                console.log("Matched UID:", matchedVariation.uid);
                 handleSelectedVariationData(matchedVariation.uid); // Pass the matched UID
                 setSelectedVariationData(matchedVariation); // Set the context with matched variation
             } else {
@@ -221,7 +163,6 @@ const SizeVariant = ({
         });
 
         handleSelectVariation(value); // Pass the selected value to the parent if needed
-        console.log(selectedSelectAttrs, "Selected aattr");
     };
 
     
@@ -282,9 +223,6 @@ const SizeVariant = ({
                     ) : attribute.type === 'select' ? (
                         <div className="attribute-type">
                             <h3 className="attribute-heading">
-                                {/* {selectedSelectAttrs[attribute.name]
-                                    ? attribute.options.find(option => option.value === selectedSelectAttrs[attribute.name])?.name
-                                    : attribute.name} */}
                                 {attribute.name}
                             </h3>
                             <div className="attribute-variations">

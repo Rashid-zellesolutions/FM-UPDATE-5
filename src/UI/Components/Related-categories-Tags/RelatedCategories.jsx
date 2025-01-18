@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom'
 
 const RelatedCategories = () => {
     const relatedCategoriesData = [
-        {categoryName: 'Leather Living Room sets', link: '#'},
+        {categoryName: 'Leather Living Room Sets', link: '#'},
         {categoryName: 'Reclining Living Room Sets', link: '#'},
-        {categoryName: 'Small space Living Room sets', link: '#'},
-        {categoryName: 'Sleeper Sofa Living Room sets', link: '#'},
-        {categoryName: 'Sofa & Loveseat sets', link: '#'},
-        {categoryName: 'Sofa & chair sets', link: '#'},
-        {categoryName: 'Sofa & chair sets', link: '#'},
-        {categoryName: 'Sofa & chair sets', link: '#'},
-        {categoryName: 'Sofa & chair sets', link: '#'},
+        {categoryName: 'Small Space Living Room Sets', link: '#'},
+        {categoryName: 'Sleeper Sofa Living Room Sets', link: '#'},
+        {categoryName: 'Sofa & Loveseat Sets', link: '#'},
+        {categoryName: 'Sofa & Chair Sets', link: '#'},
+        {categoryName: 'Sofa & Chair Sets', link: '#'},
+        {categoryName: 'Sofa & Chair Sets', link: '#'},
+        {categoryName: 'Sofa & Chair Sets', link: '#'},
     ]
   return (
     <div className='related-categories-main-div'>

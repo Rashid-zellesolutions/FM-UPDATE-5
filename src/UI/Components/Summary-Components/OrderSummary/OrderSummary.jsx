@@ -1,41 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import './OrderSummary.css'
 import { useCart } from '../../../../context/cartContext/cartContext';
-import { url } from '../../../../utils/api';
+import { formatedPrice, truncateTitle, url } from '../../../../utils/api';
 import { useGlobalContext } from '../../../../context/GlobalContext/globalContext';
+
 
 const OrderSummary = () => {
 
-    // Card title words limit
-    const maxLength = 50;
-    const truncateTitle = (title, maxLength) => {
-        if (title.length > maxLength) {
-            return title.slice(0, maxLength) + '...';
-        }
-        return title;
-    };
-
-    const formatePrices = (price) => {
-        return Intl.NumberFormat('en-us', {
-            style: 'currency',
-            currency: 'USD'
-        }).format(price)
-    }
+    
 
     const {
         cartProducts,
         subTotal,
     } = useCart()
-
-    console.log("cart products", cartProducts)
-
-
-
-    // const { 
-    //     orderPayload, 
-    //     setOrderPayload, 
-    //     addProducts 
-    // } = useMyOrders();
 
     const {
         shippingMethods,
@@ -51,7 +28,6 @@ const OrderSummary = () => {
         CalculateGrandTotal
     } = useGlobalContext()
 
-    console.log("shipping info", getShippingInfo);
 
     const [isStarted, setIsStarted] = useState(false);
 
@@ -96,13 +72,13 @@ const OrderSummary = () => {
                                 <img src={`${url}${items.image.image_url}`} alt='img' />
                                 <div className='selected-product-containt'>
                                     <span className='selected-product-name-and-price'>
-                                        <h3>{truncateTitle(items.name, maxLength)}</h3>
+                                        <h3>{truncateTitle(items.name, 50)}</h3>
                                         {items.sale_price === '' ? (
-                                            <p>{formatePrices(items.regular_price)}</p>
+                                            <p>{formatedPrice(items.regular_price)}</p>
                                         ) : (
                                             <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                                <del>{formatePrices(items.regular_price)}</del>
-                                                <p>{formatePrices(items.sale_price)}</p>
+                                                <del>{formatedPrice(items.regular_price)}</del>
+                                                <p>{formatedPrice(items.sale_price)}</p>
                                             </div>
                                         )}
 
@@ -123,7 +99,7 @@ const OrderSummary = () => {
                 <div className='products-tax-and-total'>
                     <span>
                         <p>Sub Total: </p>
-                        <p>{formatePrices(subTotal)}</p>
+                        <p>{formatedPrice(subTotal)}</p>
                     </span>
                     <span>
                         <p>{`Shipping ${selectedOption ? getShippingInfo(selectedOption)?.taxIncluded : ""}`}</p>
@@ -131,7 +107,7 @@ const OrderSummary = () => {
                     </span>
                     <span>
                         <p>{`Tax (${totalTax?.tax_name})`}</p>
-                        <p>{totalTax ? formatePrices(calculateTotalTax(subTotal, parseFloat(totalTax?.tax_value))) : 0}</p>
+                        <p>{totalTax ? formatedPrice(calculateTotalTax(subTotal, parseFloat(totalTax?.tax_value))) : 0}</p>
                     </span>
                     <div className="delivery-option-container">
                         <p className='delivery-opt-heading' >Delivery Options :</p>
@@ -168,7 +144,7 @@ const OrderSummary = () => {
                                         }}
                                     >
                                         <p className="delivery-option-container-label">{option.name}</p>
-                                        {option.cost === 0 ? <></> : <p className="delivery-option-container-description">{formatePrices(option.cost)}</p>}
+                                        {option.cost === 0 ? <></> : <p className="delivery-option-container-description">{formatedPrice(option.cost)}</p>}
                                         
                                     </div>
                                 </label>
@@ -178,7 +154,7 @@ const OrderSummary = () => {
                 <div className='selected-product-total'>
                     <span>
                         <h3>Total</h3>
-                        <p>{formatePrices(CalculateGrandTotal())}</p>
+                        <p>{formatedPrice(CalculateGrandTotal())}</p>
                     </span>
                 </div>
             </div>

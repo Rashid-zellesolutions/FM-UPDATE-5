@@ -46,15 +46,6 @@ const SingleProductFAQ = ({description}) => {
             lose sleep over whether that loveseat you have your eye on is an ideal fit with your existing 
             furniture. Buy a sofa set instead!`,
         },
-        // {
-        //     question: 'Specifications', 
-        //     icon: arrowDown, answereOne:
-        //         `Well, let's face it. Coordinating living room furniture – including fabrics, pillows, colors, 
-        //     and sizes – can be exhausting! A living room set is an effective and convenient way to complete 
-        //     your living space, while eliminating the stress of matching sofas, chairs and ottomans. Don’t 
-        //     lose sleep over whether that loveseat you have your eye on is an ideal fit with your existing 
-        //     furniture. Buy a sofa set instead!`,
-        // }
 
     ]
 
@@ -76,12 +67,13 @@ const SingleProductFAQ = ({description}) => {
         <div className='single-product-detailed-section-container'>
             {productDetails.map((item, index) => {
                 // const isExpanded = expandedIndex === index;
-                return <div key={index} className='details-toggler'>
-                    <div className='single-product-details-section' onClick={() => handleToggle(index)}>
+                return <div key={index} className='details-toggler' onClick={() => handleToggle(index)}>
+                    <div className='single-product-details-section'>
                         <p>{item.question}</p>
                         <img src={item.icon} alt='add btn' className={`${activeIndex === index ? 'single-product-arrow-rotate' : ''}`} />
                     </div>
                     <div className={`single-product-details-answered-section ${activeIndex === index ? 'show-answere' : ''}`}
+                        onClick={(e) => e.stopPropagation()}
                         ref={el => answerRef.current[index] = el}
                         style={{ height: activeIndex === index ? `${answerRef.current.scrollHeight}px` : '0px' }}
                     >

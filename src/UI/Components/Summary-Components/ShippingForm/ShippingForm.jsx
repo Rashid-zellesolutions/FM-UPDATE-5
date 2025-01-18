@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './ShippingForm.css';
 import SummaryInputFields from '../InputField/SummaryInputFields';
-import { useOrder } from '../../../../context/orderContext/orderContext';
 import { useMyOrders } from '../../../../context/orderContext/ordersContext';
 import crossBtn from '../../../../Assets/icons/close-btn.png'
 import { url } from '../../../../utils/api';
@@ -17,9 +16,7 @@ const ShippingForm = () => {
         handleNestedValueChange,
         setOrderPayload,
         handleNestedValueChangeShipping,
-        handleNestedShippingBool,
         loading,
-        handleValueChange,
         handleClickTop,
         handleTabOpen
     } = useMyOrders();
@@ -34,7 +31,6 @@ const ShippingForm = () => {
                 newErrorObj[field] = `required`
             }
         }
-        console.log(billing, "here is billing detsile")
         setEmptyField(newErrorObj);
         return Object.keys(newErrorObj).length === 0;
     };
@@ -42,10 +38,8 @@ const ShippingForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (areBillingFieldsFilled()) {
-            // Proceed with form submission
             handleTabOpen(1);
             handleClickTop()
-            console.log("Order submitted:", orderPayload);
         }
     };
 
@@ -65,14 +59,9 @@ const ShippingForm = () => {
 
     const [tokenValid, setTokenValid] = useState(true)
     const [userAddress, setUserAddress] = useState({})
-    // useEffect(() => {
-    //     setUserToken(localStorage.getItem('userToken'))
-    // } , [])
-
-    // console.log("user token", userToken)
+    
     const verifyToken = async () => {
         const token = localStorage.getItem('userToken');
-        console.log("user token", token)
         try {
             const response = await fetch(`${url}/api/v1/web-users/verify-token`, {
                 method: 'GET',
@@ -92,13 +81,10 @@ const ShippingForm = () => {
                     if (userResponse.ok) {
                         const data = await userResponse.json();
                         setUserAddress(data.data.billing_address);
-                        // console.log("user address", userAddress)
-                        console.log("user data on checkout", data.data);
                     }
                 } catch (error) {
 
                 }
-                console.log("verification response", response)
                 setTokenValid(true);
             } else {
                 localStorage.removeItem('userToken')
@@ -127,7 +113,6 @@ const ShippingForm = () => {
         let locationData;
         if (zip) {
             locationData = JSON.parse(zip)
-            console.log("zip and city", locationData?.locationData)
             setOrderPayload((prevPayload) => ({
             ...prevPayload,
             billing: {
@@ -138,7 +123,6 @@ const ShippingForm = () => {
             }
         }))
         } else {
-            console.log("not getting")
         }
     }
 

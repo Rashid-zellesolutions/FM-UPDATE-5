@@ -1,15 +1,10 @@
 import React from 'react';
-import Slider from "react-slick";
 import './CategoriesGetScop.css';
-import imgOne from '../../../Assets/Furniture Mecca/Landing Page/get the scope/Rectangle 917.png'
-import imgTwo from '../../../Assets/Furniture Mecca/category page/get the scope/Rectangle 921.png'
-import imgThree from '../../../Assets/Furniture Mecca/category page/get the scope/Rectangle 925.png'
 import { Link } from 'react-router-dom';
 import { url } from '../../../utils/api';
 
 const CategoriesGetScop = ({ isTrue, text, contentImages }) => {
 
-    console.log("content images", contentImages)
     const mobileProductText = [
         {
             heading: 'Furniture Mecca’s Affordable Living Room Furniture',
@@ -34,25 +29,6 @@ const CategoriesGetScop = ({ isTrue, text, contentImages }) => {
             always like to throw in decorative pillows into the price wherever I can!`
         }
     ]
-    const sliderImages = [imgOne, imgTwo, imgThree]
-    // console.log('contentImages', contentImages)
-
-    // const settings = {
-    //     dots: false,
-    //     infinite: true,
-    //     slidesToShow: 4,
-    //     slidesToScroll: 1,
-    //     vertical: true,
-    //     verticalSwiping: true,
-    //     swipeToSlide: true,
-    //     arrows: false,
-    //     beforeChange: function (currentSlide, nextSlide) {
-    //         console.log("before change", currentSlide, nextSlide);
-    //     },
-    //     afterChange: function (currentSlide) {
-    //         console.log("after change", currentSlide);
-    //     }
-    // };
 
     return (
         <div className='scop-main-container'>
@@ -115,33 +91,6 @@ const CategoriesGetScop = ({ isTrue, text, contentImages }) => {
                 </div>
 
                 <div className='mobile-view-image-gallery-slider'>
-                    {/* <div className='mobile-view-slider-one'>
-                        {contentImages && contentImages.slice(0, 4).map((item, index) => (
-                            <img src={`${url}${item.image_url}`} alt='img' className={index % 2 === 0 ? 'large' : 'small'} />
-                        ))}
-                        {contentImages && contentImages.slice(0, 4).map((item, index) => (
-                            <img src={`${url}${item.image_url}`} alt='img' className={index % 2 === 0 ? 'large' : 'small'} />
-                        ))}
-                    </div>
-                    <div className='mobile-view-slider-two'>
-                        {contentImages && contentImages.slice(4, 8).map((item, index) => (
-                            <img src={`${url}${item.image_url}`} alt='img' className={index % 2 === 0 ? 'small' : 'large'} />
-                        ))}
-                        {contentImages && contentImages.slice(4, 8).map((item, index) => (
-                            <img src={`${url}${item.image_url}`} alt='img' className={index % 2 === 0 ? 'large' : 'small'} />
-                        ))}
-                    </div> */}
-                    {/* <div className='mobile-view-slider-one'>
-                        {contentImages && contentImages.slice(0, 4).map((item, index) => (
-                            <img key={index} className='mobile-view-img-one' src={`${url}${item.image_url}`} alt='img' />
-
-                        ))}
-                    </div>
-                    <div className='mobile-view-slider-two'>
-                        {contentImages && contentImages.slice(4, 8).map((item, index) => (
-                            <img key={index} className='mobile-view-img-two' src={`${url}${item.image_url}`} alt='img' />
-                        ))}
-                    </div> */}
                     <div className='mobile-view-vertical-slider'>
                         {contentImages && contentImages.slice(0, 4).map((item, index) => (
                             <img key={index} className='vertical-slider-one-images' src={`${url}${item.image_url}`} alt='vertical slider' />

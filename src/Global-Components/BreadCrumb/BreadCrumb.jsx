@@ -6,7 +6,6 @@ import { FaHouseChimney } from 'react-icons/fa6';
 import rightArrow from "../../Assets/right-arrow.png";
 
 const Breadcrumb = ({ category, productName, sku, categorySlug }) => {
-    // console.log("breadcrumb name ", productName)
     const [parentCategory, setParentCategory] = useState(null)
     const location = useLocation();
     useEffect(() => {
@@ -19,7 +18,7 @@ const Breadcrumb = ({ category, productName, sku, categorySlug }) => {
             setParentCategory(null);
         }
     }, [category, location.pathname]);
-    
+
     const { navigationHistory } = useNavigation();
     const pathnames = location.pathname.split('/').filter(x => x);
 
@@ -52,20 +51,24 @@ const Breadcrumb = ({ category, productName, sku, categorySlug }) => {
                     const name = isProductPage && productName
                         ? productName // Use SKU if on product page
                         : pathname === 'product' && parentCategory
-                        ? parentCategory
-                        : isCategory
-                            ? category // Replace "single-product" with category
-                            : pathname.charAt(0).toUpperCase() + pathname.slice(1).replace(/-/g, ' '); // Default name
+                            ? parentCategory
+                            : isCategory
+                                ? category // Replace "single-product" with category
+                                : pathname
+                                    .split('-') // Split slug into words
+                                    .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
+                                    .join(' '); // Join words with spaces
+                    // : pathname.charAt(0).toUpperCase() + pathname.slice(1).replace(/-/g, ' '); // Default name
                     const routeTo = isProductPage && categorySlug && index === fullPathNames.length - 1
                         ? `/product/${sku}`  // Ensure that SKU does not redirect to the category page
                         : isCategory
                             ? `/${categorySlug}` // Go to categorySlug for category links
-                            : `/${fullPathNames.slice(0, index + 1).join('/')}`; // Default behavior
-
+                            : `/${fullPathNames.slice(0, index + 1).join('/')}`; // Default behavior */}
+                    //  Dynamic Breadcrumb Links 
 
                     return (
                         <li
-                            className={`bread_links`} 
+                            className={`bread_links`}
                             style={
                                 {
                                     display: "flex",

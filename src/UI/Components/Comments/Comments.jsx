@@ -11,9 +11,6 @@ import { formatTime } from '../../../utils/api';
 
 const Comments = ({ data ,order }) => {
 
-    console.log("comment data", data)
-    
-
     return (
         <div>
             {data?.map((item, index) => {
@@ -64,18 +61,8 @@ const Comments = ({ data ,order }) => {
                             <div className='mobile-comment-verified-and-rating-stars'>
                                 <p>{item.verified ? "Verified" : "Not Verifiled"}</p>
                                 <RatingReview disabled={true} rating={item.rating} />
-                                {/* <span>
-                                    {item.starIcon.map((item, ind) => (
-                                        <img key={ind} src={item.star} alt='star' />
-                                    ))}
-                                </span> */}
+                                
                             </div>
-                            {/* <p>{item.verified}</p> */}
-                            {/* <span>
-                                {item.starIcon.map((item, ind) => (
-                                    <img key={ind} src={item.star} alt='star' />
-                                ))}
-                            </span> */}
                         </div>
                         <p className='mobile-comment'>{item.review}</p>
                         <button className='mobile-comment-show-more-btn'>show more</button>

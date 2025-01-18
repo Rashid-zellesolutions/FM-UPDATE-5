@@ -19,7 +19,7 @@ const FAQ = () => {
     }, [activeIndex])
 
     const Qna = [
-        {question: 'Why should i buy a living room sets?', icon: AddBtn, answereOne: 
+        {question: 'Why should I Buy a Living Room Sets?', icon: AddBtn, answereOne: 
             `Well, let's face it. Coordinating living room furniture – including fabrics, pillows, colors, 
             and sizes – can be exhausting! A living room set is an effective and convenient way to complete 
             your living space, while eliminating the stress of matching sofas, chairs and ottomans. Don’t 
@@ -29,7 +29,7 @@ const FAQ = () => {
             than buying individual pieces, too! You can save time and money, and gain peace of mind as you make the 
             living room of your dreams a reality. What could be better than that!?`
         },
-        {question: 'Why should i buy a living room sets?', icon: AddBtn, answereOne: 
+        {question: 'Why Should I Buy a Living Room Sets?', icon: AddBtn, answereOne: 
             `Well, let's face it. Coordinating living room furniture – including fabrics, pillows, colors, 
             and sizes – can be exhausting! A living room set is an effective and convenient way to complete 
             your living space, while eliminating the stress of matching sofas, chairs and ottomans. Don’t 
@@ -39,7 +39,7 @@ const FAQ = () => {
             than buying individual pieces, too! You can save time and money, and gain peace of mind as you make the 
             living room of your dreams a reality. What could be better than that!?`
         },
-        {question: 'Why should i buy a living room sets?', icon: AddBtn, answereOne: 
+        {question: 'Why Should I Buy a Living Room Sets?', icon: AddBtn, answereOne: 
             `Well, let's face it. Coordinating living room furniture – including fabrics, pillows, colors, 
             and sizes – can be exhausting! A living room set is an effective and convenient way to complete 
             your living space, while eliminating the stress of matching sofas, chairs and ottomans. Don’t 
@@ -49,7 +49,7 @@ const FAQ = () => {
             than buying individual pieces, too! You can save time and money, and gain peace of mind as you make the 
             living room of your dreams a reality. What could be better than that!?`
         },
-        {question: 'Why should i buy a living room sets?', icon: AddBtn, answereOne: 
+        {question: 'Why Should I Buy a Living Room Sets?', icon: AddBtn, answereOne: 
             `Well, let's face it. Coordinating living room furniture – including fabrics, pillows, colors, 
             and sizes – can be exhausting! A living room set is an effective and convenient way to complete 
             your living space, while eliminating the stress of matching sofas, chairs and ottomans. Don’t 
@@ -98,7 +98,7 @@ const FAQ = () => {
         </div>
         <div className='f-a-q-main-container'>
             <div className='faq-details'>
-                <p>Stress-free furnishing with living room furniture sets</p>
+                <p>Stress-free Furnishing with Living Room Furniture Sets</p>
                 <p>
                     Unlock your living room’s full potential with a complete living room furniture set.
                     Sofas and loveseats, ottomans and accent chairs, plus more.All perfectly paired to 
@@ -106,7 +106,7 @@ const FAQ = () => {
                 </p>
             </div>
             <div className='questions-answeres'>
-                <p className='faq-heading'>Living Room Set FAQs</p>
+                <p className='faq-heading'>Living Room Set FAQ's</p>
                 {Qna.map((item, index) => {
                     return <div key={index} className='question-toggler'>
                         <div className='question-section' onClick={() => handleToggle(index)}>

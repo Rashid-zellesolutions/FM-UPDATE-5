@@ -28,8 +28,7 @@ const WhatWeOffer = ({isProtected, setIsProtected}) => {
         <h3>What we Offer</h3>
         <div className='offer-cards-div'>
             {servisesData.map((item, index) => {
-                return <div className='servise-card'>
-                    {/* <input type="checkbox" className="customCheckbox" /> */}
+                return <div key={index} className='servise-card'>
                     <div class="checkbox-wrapper-1">
                         <input 
                             id={`example-${index}`} 

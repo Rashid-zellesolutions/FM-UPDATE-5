@@ -55,7 +55,7 @@ const ShareProduct = ({ isSharePopup, setIsSharePopup, selectedUid, selectedProd
                         <h3>{selectedProduct?.name}</h3>
                         <div className='share-product-selected-product-rating'>
                             {Array.from({ length: 5 }).map((itm, indx) => (
-                                <img src={star} alt='star icon' />
+                                <img key={indx} src={star} alt='star icon' />
                             ))}
                             <p>(200)</p>
                         </div>

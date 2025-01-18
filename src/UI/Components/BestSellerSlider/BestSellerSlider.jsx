@@ -72,7 +72,6 @@ const BestSellerSlider = () => {
         try {
             setLoading(true);
             const response = await axios.get(`${url}${api}`)
-            // console.log("response best seller", response.data.products.length)
             setAllProducts(response.data.products);
             setLoading(false);
 
@@ -141,7 +140,6 @@ const BestSellerSlider = () => {
     }
 
     const handleWishlisted = (item) => {
-        console.log("to delete uid", item.uid)
         if (isInWishList(item.uid)) {
             removeFromList(item.uid);
             notifyRemove('Removed from wish list', {
@@ -175,13 +173,10 @@ const BestSellerSlider = () => {
             if (product.discount && product.discount.is_discountable === 1) {
                 const oldPrice = parseFloat(product.regular_price); // Convert regular_price to a number
                 const discountValue = parseFloat(product.discount.discount_value);
-                // console.log("discount value", discountValue, parseFloat(product.regular_price))
 
                 // Calculate the new price based on the discount type
                 if (product.discount.discount_type === 'percentage' && !isNaN(discountValue)) {
                     newPrice = parseFloat(product.regular_price) - (parseFloat(product.regular_price) * (discountValue / 100));
-                    // console.log("new price", oldPrice * (discountValue / 100));
-                    // console.log("old price", oldPrice)
                     newPrice = parseFloat(newPrice.toFixed(2));
                 } else if (product.discount.discount_type === 'currency' && !isNaN(discountValue)) {
                     newPrice = oldPrice - discountValue;
@@ -380,7 +375,7 @@ const BestSellerSlider = () => {
 
                 </div>
             ) : (
-                <BestSellerShimmer />
+                <BestSellerShimmer rowDirection={'row'} />
             )}
 
         </>

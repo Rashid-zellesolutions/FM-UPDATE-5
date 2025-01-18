@@ -115,7 +115,6 @@ const SingleProduct = () => {
     try {
       const response = await axios.get(`${url}/api/v1/products/get-by-slug/${slug}`);
       const fetchedProduct = response.data.products[0] || {};
-      console.log("fetched product", fetchedProduct)
       setProduct(fetchedProduct);
     } catch (error) {
       console.error('Error fetching product by slug:', error);
@@ -142,6 +141,8 @@ const SingleProduct = () => {
   useEffect(() => {
     handleClickTop();
   }, [product]);
+
+  console.log("products data", product)
 
   if (!product) {
     return <div>Loading product...</div>;

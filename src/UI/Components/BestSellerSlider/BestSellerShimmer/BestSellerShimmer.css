@@ -1,5 +1,4 @@
 .best-seller-shimmer-main-container{
-    display: flex;
     width: 100%;
     gap: 20px;
     padding: var(--global-padding);

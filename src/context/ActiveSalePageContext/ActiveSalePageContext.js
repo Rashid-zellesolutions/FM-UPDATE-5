@@ -78,8 +78,7 @@ export const ActiveSalePageProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        fetchData(); // Fetch sales data on component mount
-        
+        fetchData(); // Fetch sales data on component mount       
     }, []);
 
     return (

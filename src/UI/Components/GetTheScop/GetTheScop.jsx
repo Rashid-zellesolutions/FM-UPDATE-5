@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import './GetTheScop.css';
-import banner from '../../../Assets/global-images/flyre-image.jpg'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import checked from "../../../Assets/checked.png"
@@ -73,14 +72,12 @@ const GetTheScop = () => {
     }
   };
 
-
-
   return (
     <>
       <div className='get-the-scop-main-container'>
         <div className='get-the-scop-form-container'>
           {!isSubscribed ? <div className='get-the-scop-form'>
-            <h3>Get the scoop</h3>
+            <h3>Get the Scoop</h3>
             <span className='get-the-scop-offers'>
               <Link> Discounts</Link> |
               <Link> Offers</Link> |
@@ -104,7 +101,7 @@ const GetTheScop = () => {
               {error && <p style={{ color: 'red' }}>{error}</p>}
 
             </form>
-            <p>By Signing Up you agree to our <Link to={'/terms-and-conditions'} className='desktop-get-the-scoop-terms'> Terms of Use </Link> and <Link to={'/privacy-policy'} className='desktop-get-the-scoop-terms'> Privacy Policy </Link></p>
+            <p>By Signing Up You Agree To Our <Link to={'/terms-and-conditions'} className='desktop-get-the-scoop-terms'> Terms of Use </Link> and <Link to={'/privacy-policy'} className='desktop-get-the-scoop-terms'> Privacy Policy </Link></p>
 
           </div> :
             <div className="subscription_done">
@@ -114,11 +111,6 @@ const GetTheScop = () => {
               <p className='done_message_3'>Check your email</p>
             </div>}
         </div>
-        {/* <div className='get-the-scop-banner'>
-          <h3>Furniture Mecca Promotions</h3>
-          <p>Get Exclusive Promotions For The Year 2024</p>
-          <button> <Link to={`https://flyer.myfurnituremecca.com/`} target='_blank'> Click To See FLyer </Link> </button>
-        </div> */}
       </div>
 
       {/* Mobile view */}
@@ -157,16 +149,6 @@ const GetTheScop = () => {
               <p className='done_message_3'>Check your email</p>
             </div>}
           <p className='mobile-view-conditions'>By signing up, you agree to our <Link to={'/privacy-policy'} className='mobile-view-get-the-scoop-conditions'> Privacy Policy </Link> and <Link to={'/terms-and-conditions'} className='mobile-view-get-the-scoop-conditions'> Terms of Use </Link>.</p>
-          
-          {/* <div className='mobile-view-flyre-view'>
-            <h3>Furniture Mecca Promotions</h3>
-            <p>Get exclusive promotions for the year 2024</p>
-            <button>
-              <a href='https://flyer.myfurnituremecca.com/'>
-                Click to see flyer
-              </a>
-            </button>
-          </div> */}
 
         </div>
       </div>

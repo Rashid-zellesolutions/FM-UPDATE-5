@@ -24,13 +24,13 @@
 }
 
 .input-select-container{
-    display: none;
+    display: flex;
     overflow: hidden;
 }
 
-.input-select-container.show-input-select-container{
+/* .input-select-container.show-input-select-container{
     display: flex;
-}
+} */
 
 .select-container {
     border: 1px solid black;

@@ -174,7 +174,10 @@ const Products = () => {
     }, [query]);
 
 
-    useEffect(() => { }, [products])
+    useEffect(() => { 
+    }, [products])
+
+    useEffect(() => {fetchProductData()}, [subCategorySlug])
 
     const handleCartSectionClose = () => {
         setAddToCartClicked(false)
@@ -195,6 +198,7 @@ const Products = () => {
     }
 
     const relevanceData = [
+        { name: 'Recent' },
         { name: 'By Price (Low to High)' },
         { name: 'By Price (High to Low)' },
         { name: 'Alphabetic (A to Z)' },
@@ -202,7 +206,7 @@ const Products = () => {
         { name: 'By Ratings (Low to High)' },
         { name: 'By Ratings (High to Low)' },
     ]
-    const [selectedRelevanceValue, setSelectedRelevanceValue] = useState('')
+    const [selectedRelevanceValue, setSelectedRelevanceValue] = useState(0)
     const handleRelevance = () => {
         setRelevanceTrue(!relevanceTrue);
     }
@@ -266,11 +270,7 @@ const Products = () => {
 
     const handleRangeChange = (newRange) => {
         if (newRange[0] !== priceRange[0] || newRange[1] !== priceRange[1]) {
-
             setPriceRange(newRange);
-
-
-
         }
 
         const params = new URLSearchParams(searchParams);
@@ -284,7 +284,6 @@ const Products = () => {
         setSearchParams(priceString)
         filterProducts(priceString)
 
-        // console.log("new price range", priceRange)
     }
 
     const handleColorCheck = (value) => {
@@ -379,7 +378,7 @@ const Products = () => {
 
     return (
         <div className='products-main-container'>
-            <Breadcrumb />
+            <Breadcrumb category={products.categories} />
 
             <div className='products-and-filter-container'>
                 {/* Filters side bar section code */}
@@ -416,9 +415,8 @@ const Products = () => {
                             <div className='single-filter'>
                                 <span onClick={() => handleColorFilterOpenClose('color-filter')}>
                                     <h3 className='filters-heading'>{allFilters?.colors?.[0]?.name}</h3>
-                                    {/* <img src={AddBtn} alt='btn' className={isOpen === 'color-filter' ? 'rotate' : ''} /> */}
                                     <i className='add-button-round'>
-                                        <FaPlus color='#595959' className={isOpen === 'color-filter' ? 'rotate' : ''} />
+                                        <FaPlus color='#595959' className={isOpen === 'color-filter' ? 'rotate' : 'rotate-back'} />
                                     </i>
                                 </span>
                                 <div className={`single-filter-items-container ${isOpen === 'color-filter' ? 'show-single-filter-icons' : ''}`}>
@@ -513,11 +511,11 @@ const Products = () => {
                                 <img src={arrowBlack} alt='arrow black' className={`show-filter-btn-arrow ${hideFilters ? 'rotate-show-filter-arrow-icon' : ''}`} />
                                 Show Filters
                             </button>
-                            <p>{totalPages?.totalProducts} Items starting at {formatedPrice(allFilters?.priceRange?.minPrice)}</p>
+                            <p>{totalPages?.totalProducts} Items Starting at {formatedPrice(allFilters?.priceRange?.minPrice)}</p>
                         </div>
                         <div className='relevance-container'>
                             <div className='relevance-heading' onClick={handleRelevance}>
-                                <h3 className='filters-heading'>Sort by:</h3>
+                                <h3 className='filters-heading'>Sort By:</h3>
                                 <span >
                                     <p>{selectedRelevanceValue.length > 0 ? selectedRelevanceValue : 'Default'}</p>
                                     <MdKeyboardArrowDown size={20} className={`relevance-arrow ${relevanceTrue ? 'rotate-relevance-arrow' : ''}`} />
@@ -579,7 +577,7 @@ const Products = () => {
 
                     </div>
                     {/* Product Card Code End */}
-
+                    
                     <div className='view-more-products-button-div'>
 
                         <div className='view-more-products-pagination-main'>

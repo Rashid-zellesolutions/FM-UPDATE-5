@@ -87,10 +87,19 @@ h3{
 }
 
 .add-button-round{
-    border: 1px solid var(--text-color);
+    border: 1px solid var(--border-color);
     border-radius: 50%;
     padding: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.alice-carousel > div {
+  width: 100% !important;
+}
+
+.alice-carousel__stage-item{
+  max-width: 100% !important;
+  width: 1055px !important;
 }

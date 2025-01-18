@@ -8,11 +8,9 @@ export const useNavigation = () => {
 
 export const NavigationProvider = ({ children }) => {
     const [navigationHistory, setNavigationHistory] = useState([]);
-
     const addToHistory = (path) => {
         setNavigationHistory((prev) => [...prev, path]);
     };
-
     
 
     return (

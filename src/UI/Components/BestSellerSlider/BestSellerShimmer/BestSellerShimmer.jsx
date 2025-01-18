@@ -2,10 +2,16 @@ import React from 'react'
 import './BestSellerShimmer.css';
 import BestSellerProductCardShimmer from '../../BestSellerProductCard/BestSellerProductCardShimmer';
 
-const BestSellerShimmer = () => {
+const BestSellerShimmer = ({rowDirection}) => {
   return (
     <>
-      <div className='best-seller-shimmer-main-container'>
+      <div 
+        className='best-seller-shimmer-main-container' 
+        style={{
+          display: 'flex', 
+          flexDirection: rowDirection,
+
+        }}>
         <div className='best-seller-cover-image-shimmer'></div>
         <div className='best-seller-products-main-container'>
           <div className='best-seller-product-head'>

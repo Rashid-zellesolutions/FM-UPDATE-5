@@ -9,11 +9,11 @@ import filledHeart from '../../../Assets/icons/filled-heart.png';
 import minus from '../../../Assets/icons/minus.png';
 import heartIcon from '../../../Assets/icons/red-heart.png'
 import plus from '../../../Assets/icons/plus.png';
-import locationIcon from '../../../Assets/icons/location-blue.png';
-import deliveryTruck from '../../../Assets/icons/truck-blue.png'
 import { MdLocalShipping } from "react-icons/md";
 import { IoLocation } from "react-icons/io5";
-import { IoShareOutline } from "react-icons/io5";
+import { FaShareSquare } from "react-icons/fa";
+import { TiArrowSortedDown } from "react-icons/ti";
+import { FaPlus, FaWindowMinimize } from "react-icons/fa6";
 
 // Components
 import WhatWeOffer from '../WhatWeOffer/WhatWeOffer';
@@ -43,7 +43,6 @@ import ShareProduct from '../ShareProduct/ShareProduct';
 
 const SingleProductStickySection = ({ productData }) => {
 
-  console.log("product data", productData);
   const {
     setSingleProductData,
     setSelectedVariationUid,
@@ -62,7 +61,7 @@ const SingleProductStickySection = ({ productData }) => {
       const temporaryProduct = response.data.products[0] || {};
       setGetBySlug(temporaryProduct)
     } catch (error) {
-      console.log("Error Fetching fetching data with slug", error);
+      console.error("Error Fetching fetching data with slug", error);
     }
   }
 
@@ -117,6 +116,13 @@ const SingleProductStickySection = ({ productData }) => {
   const decreaseLocalQuantity = () => {
     setQuantity((prevQuantity) => Math.max(1, prevQuantity - 1));
   }
+
+  const handleQuantityChange = (e) => {
+    const {value} = e.target;
+    setQuantity(value)
+  }
+
+  // useEffect(() => {console.log("quantity val", quantity)}, [quantity])
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
@@ -259,27 +265,8 @@ const SingleProductStickySection = ({ productData }) => {
     }
   }
 
-  const deliveryOptions = [
-    {
-      icon: deliveryTruck,
-      title: 'Free Shipping Free Up to $2000',
-      shortDesc: 'This product does not qualify for free shipping'
-    },
-    {
-      icon: deliveryTruck,
-      title: 'Flat Rate Shipping',
-      shortDesc: 'Get it in 3 to 7 day. Schedule delivery in checkout '
-    },
-    {
-      icon: locationIcon,
-      title: 'Local Pickup',
-      shortDesc: 'Get it in 3 to 7 day. Schedule delivery in checkout '
-    },
-  ]
-
   const { info, shippingMethods } = useGlobalContext();
   useEffect(() => {
-    // console.log(shippingMethods,"haerae are")
   }, [shippingMethods])
 
 
@@ -288,22 +275,21 @@ const SingleProductStickySection = ({ productData }) => {
   const handleShareModal = (item) => {
     setIsSharePopup(item.uid)
     SetSelectedProduct(item)
-    // console.log("selected product uid", item.uid)
-    // console.log("selected product uid", item)
   }
 
   return (
     <>
       <div className='sticky-main-container-0'>
-        {/* <Breadcrumb /> */}
-        <Breadcrumb
-          sku={productData?.sku}
-          productName={productData?.name}
-          // category={productData?.categories?.[0]?.name}
-          category={productData?.categories}
-          categorySlug={productData?.categories?.[0]?.slug} />
         <div className="sticky-main-container">
+          
           <div className='left-section'>
+            <Breadcrumb
+              sku={productData?.sku}
+              productName={productData?.name}
+              category={productData?.categories}
+              categorySlug={productData?.categories?.[0]?.slug} 
+            />
+
             <div className='single-product-alice-slider'>
               <p className='single-product-slider-main-image-stock-tag' >In Stock</p>
               <button className='single-product-arrow single-product-arrow-left' onClick={handlePrevSlide} >{/* <img src={arrowLeft} alt='left' /> */}
@@ -347,6 +333,7 @@ const SingleProductStickySection = ({ productData }) => {
                       className={`single-product-slider-thumbnail ${activeIndex === ind ? '' : 'single-product-slider-thumbnail-inactive'}`}
                       onClick={() => handleThumbnailClickk(ind)}
                     >
+                      <TiArrowSortedDown size={30} color='#4478C5' className={activeIndex === ind ? 'show-arrow' : 'hide-arrow'} />
                       <img src={`${url}${img.image_url}`} alt={`Thumbnail ${ind}`} />
                     </div>
                   ))
@@ -395,19 +382,20 @@ const SingleProductStickySection = ({ productData }) => {
           <div className='right-section'>
             <div className='single-product-detail-container'>
               <div className='single-page-product-name-anddetails'>
-                <span className='single-product-share' onClick={() => handleShareModal(productData)}>
-                  <IoShareOutline size={20} color='#595959' />
-                  <p className='single-product-share-text'>Share</p>
-                </span>
+                
                 <h3 className='single-product-heading'>{product.name}</h3>
                 <p className='single-product-sku'>
                   SKU : {product.sku}
                 </p>
                 <div className='single-product-rating'>
                   <RatingReview rating={(product?.average_rating)} disabled={true} size={"20px"} />
+
+                  <span className='single-product-share' onClick={() => handleShareModal(productData)}>
+                    <FaShareSquare className='single-product-share-icon' size={20} />
+                  </span>
+
                 </div>
                 {product.type === "simple" ? <>
-                  {/* {console.log("product data on midle", productData)} */}
                   {product?.sale_price !== "" ? <div className='single-product-prices'>
                     <del className='single-product-old-price'>{formatedPrice(productData.regular_price)}</del>
                     <h3 className='single-product-new-price'>{formatedPrice(productData?.sale_price)}</h3>
@@ -445,12 +433,18 @@ const SingleProductStickySection = ({ productData }) => {
                 <div className='add-cart-or-add-items-div'>
                   <div className='item-count'>
                     <button className={`minus-btn ${product.quantity === 1 ? 'disabled' : ''}`} onClick={decreaseLocalQuantity} disabled={product.quantity === 1}>
-                      <img src={minus} alt='minus btn' />
+                      {/* <img src={minus} alt='minus btn' /> */}
+                      <FaWindowMinimize size={18} className='minus-icon' />
                     </button>
 
-                    <input type='number' value={quantity} />
+                    <input 
+                      type='number'  
+                      value={quantity} 
+                      onChange={handleQuantityChange}
+                    />
                     <button className='plus-btn' onClick={increaseLocalQuantity}>
-                      <img src={plus} alt='plus btn' />
+                      {/* <img src={plus} alt='plus btn' /> */}
+                      <FaPlus size={18} className='plus-icon' />
                     </button>
                   </div>
                   <img src={isInWishList(product.uid) ? filledHeart : redHeart} alt='red-heart-icon' className='red-heart-icon' onClick={(e) => { e.stopPropagation(); handleWishList(product) }} />
@@ -521,8 +515,7 @@ const SingleProductStickySection = ({ productData }) => {
 
           <div className='mobile-view-single-product-rating'>
             <RatingReview rating={(product?.average_rating)} disabled={true} size={"12px"} />
-            {/* <p>4.1</p> */}
-            {/* <Link>{product.reviewCount} Reviews</Link> */}
+            
           </div>
 
           <div className='mobile-view-single-product-slider-main-section'>
@@ -580,7 +573,9 @@ const SingleProductStickySection = ({ productData }) => {
                     className={`single-product-slider-thumbnail ${mobileActiveIndex === ind ? '' : 'single-product-slider-thumbnail-inactive'}`}
                     onClick={() => handleMobThumbnailClickk(ind)}
                   >
+
                     <img src={`${url}${img.image_url}`} alt={`Thumbnail ${ind}`} />
+
                   </div>
                 ))
               ) : (
@@ -650,8 +645,6 @@ const SingleProductStickySection = ({ productData }) => {
           <ShareProduct
             isSharePopup={isSharePopup}
             setIsSharePopup={setIsSharePopup}
-            // selectedUid={shareProductUid}
-            // setSelectedUid={setShareProductUid}
             selectedProduct={selectedProduct}
           />
         </div>

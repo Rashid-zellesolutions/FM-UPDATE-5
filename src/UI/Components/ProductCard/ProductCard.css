@@ -603,11 +603,15 @@
 
 
 
-.product-card-data:hover .overlay-buttons {
+.product-main-image-container:hover .overlay-buttons {
     transform: translateY(-0px);
     visibility: visible;
-    /* Ensure buttons are visible */
 }
+
+/* .product-card-data:hover .overlay-buttons {
+    transform: translateY(-0px);
+    visibility: visible;
+} */
 
 .product-tagging {
     margin-top: 10px;
@@ -633,7 +637,7 @@
     cursor: pointer;
     color: var(--text-color);
     text-decoration: none;
-    height: 38px !important;
+    height: 40px !important;
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box;

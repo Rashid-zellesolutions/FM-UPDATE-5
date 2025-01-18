@@ -11,7 +11,7 @@ const FinancingOptions = () => {
         <div className='financing-options-main-container'>
             <div className='payment-method-cards-container'>
                 {payOptionObj.map((item, index) => (
-                    <img src={item} alt='pay option' />
+                    <img key={index} src={item} alt='pay option' />
                 ))}
 
             </div>

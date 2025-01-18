@@ -1,11 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react'
 import './CustomerPhotos.css';
 
-import arrowLeft from '../../../Assets/icons/arrow-left-red.png';
-import arrowRight from '../../../Assets/icons/arrow-right-red.png';
 import { url } from '../../../utils/api';
-import { IoChevronForward } from "react-icons/io5";
-import { IoChevronBack } from "react-icons/io5";
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 

@@ -17,7 +17,6 @@ import { useList } from '../../../context/wishListContext/wishListContext'
 import { toast } from 'react-toastify'
 import { useGlobalContext } from '../../../context/GlobalContext/globalContext'
 import { formatedPrice } from '../../../utils/api';
-import { IoMdClose } from "react-icons/io";
 import QuickView from '../../Components/QuickView/QuickView';
 
 function SamplePrevArrow(props) {
@@ -60,16 +59,6 @@ const Cart = () => {
     CalculateGrandTotal
   } = useGlobalContext();
 
-  // const handleCheckboxCheck = (index) => {
-  //   setIsCheck((prev) => ({
-  //     ...prev,
-  //     [index]: !prev[index], // Toggle the checked state
-  //   }));
-  //   // setIsCheck(index);
-  //   console.log("checked value", isCheck)
-  // }
-
-
   const {
     cart,
     subTotal,
@@ -84,12 +73,12 @@ const Cart = () => {
   const subTotalOfAllProducts = cart.map(item => item.product.sub_total);
   const subtotal = subTotalOfAllProducts.reduce((acc, value) => acc + value, 0)
 
-  const formatePrice = (price) => {
-    return new Intl.NumberFormat('en-us', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(price)
-  }
+  // const formatePrice = (price) => {
+  //   return new Intl.NumberFormat('en-us', {
+  //     style: 'currency',
+  //     currency: 'USD'
+  //   }).format(price)
+  // }
 
 
   const protectionPrice = isCheck[0] ? 210 : 0;
@@ -161,16 +150,11 @@ const Cart = () => {
     setQuickView(false);
   }
 
-  // const handleQuickViewClose = () => {
-  //   setQuickView(false)
-  // }
-
   const navigateToCheckout = () => {
 
     navigate("/check-out");
   }
 
-  // const handleQuickViewClose = () => { setQuickView(false) }
 
   const handleProductClick = (item) => {
     navigate(`/product/${item.slug}`, { state: item })
@@ -217,12 +201,6 @@ const Cart = () => {
   };
 
 
-  // const handleCardClick = (item) => {
-  //   navigate(`/product/${item.slug}`, { state: { products: item } })
-  // }
-
-  // wish list
-
   const {
     addToList,
     removeFromList,
@@ -247,10 +225,10 @@ const Cart = () => {
   }
 
   const orderPriceDetails = [
-    { title: 'Subtotal', price: formatePrice(subTotal) },
-    { title: 'Protection plan', price: formatePrice(protectionPrice) },
-    { title: 'Professional Assembly', price: formatePrice(assemblyPrice) },
-    { title: `Tax (${totalTax?.tax_name})`, price: totalTax ? formatePrice(calculateTotalTax(subTotal, parseFloat(totalTax?.tax_value))) : 0 }
+    { title: 'Subtotal', price: formatedPrice(subTotal) },
+    { title: 'Protection plan', price: formatedPrice(protectionPrice) },
+    { title: 'Professional Assembly', price: formatedPrice(assemblyPrice) },
+    { title: `Tax (${totalTax?.tax_name})`, price: totalTax ? formatedPrice(calculateTotalTax(subTotal, parseFloat(totalTax?.tax_value))) : 0 }
   ]
 
   // Define conditional visibility logic
@@ -264,8 +242,6 @@ const Cart = () => {
   const handleDeliveryOptionndex = (index) => {
     setDeliveryOptionIndex(index)
   }
-
-  console.log("selected methods", selectedShippingMethods)
 
   return (
     <div className='cart-main-container'>
@@ -393,11 +369,11 @@ const Cart = () => {
             <div className='cart-order-summary-total'>
               <div className='cart-order-summary-price-detail-single-item'>
                 <p className='cart-order-summary-price-detail-single-item-title'>Total</p>
-                <p className='cart-order-summary-price-detail-single-item-price'>{formatePrice(CalculateGrandTotal())}</p>
+                <p className='cart-order-summary-price-detail-single-item-price'>{formatedPrice(CalculateGrandTotal())}</p>
               </div>
               <div className='cart-order-summary-price-detail-save-discount'>
                 <p>You Save</p>
-                <p>{formatePrice(savings)}</p>
+                <p>{formatedPrice(savings)}</p>
               </div>
             </div>
 
@@ -473,25 +449,19 @@ const Cart = () => {
       <div className='mobile-total-save-and-checkout-button'>
         <div className='mobile-total-and-save'>
           <p className='mobile-total-text'>Total</p>
-          <p className='mobile-total-text-ammount'>{formatePrice(CalculateGrandTotal())}</p>
+          <p className='mobile-total-text-ammount'>{formatedPrice(CalculateGrandTotal())}</p>
         </div>
         <div className='mobile-total-and-save'>
           <p className='mobile-you-save-text'>You Saved</p>
-          <p className='mobile-you-save-text'>{formatePrice(savings)}</p>
+          <p className='mobile-you-save-text'>{formatedPrice(savings)}</p>
         </div>
         <button onClick={navigateToCheckout} className='mobile-proceed-to-checkout-button'>
           Proceed to checkout
         </button>
       </div>
-
-      {/* <div className={`quick-view-section ${quickViewClicked ? 'show-quick-view-section' : ''}`} onClick={handleQuickViewClose}>
-        <button className={`quick-view-close`} onClick={handleQuickViewClose}>
-          <IoMdClose size={25} style={{ color: '#595959' }} />
-        </button>
-        <div className={`quickview-containt ${quickViewClicked ? 'show-quick-view-containt' : ''}`} onClick={(e) => e.stopPropagation()}> */}
-          <QuickView setQuickViewProduct={quickViewProduct} quickViewShow={quickViewClicked} quickViewClose={handleQuickViewClose} />
-        {/* </div>
-      </div> */}
+      
+      <QuickView setQuickViewProduct={quickViewProduct} quickViewShow={quickViewClicked} quickViewClose={handleQuickViewClose} />
+        
     </div>
   )
 }
