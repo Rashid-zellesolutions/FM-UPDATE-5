@@ -313,6 +313,22 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
         },
     ]
 
+    const handleNavigateStores = () => {
+        navigate(`/store-locator`, {state: defaultStore})
+    }
+   
+
+    const handleClick = () => {
+    if (defaultStore?.latitude && defaultStore?.longitude) {
+      // Construct the Google Maps URL with the latitude and longitude
+      const googleMapsUrl = `https://www.google.com/maps?q=${defaultStore?.latitude},${defaultStore?.longitude}`;
+      // Open the URL in a new tab
+      window.open(googleMapsUrl, "_blank");
+    } else {
+      alert("Latitude and Longitude are not available.");
+    }
+  };
+
     return (
         <>
             <div className={`footer-main-container ${checkoutPage ? 'hide-whole-footer' : ''}`}>
@@ -374,11 +390,11 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
                                     ))}
                                 </div>
                                 <div className='appointment-and-outlet-div'>
-                                    <Link to={'/store-locator'}>
-                                        <p>Outlet</p>
-                                    </Link>
+                                    <span>
+                                        <p onClick={handleNavigateStores}>Outlet</p>
+                                    </span>
                                     <Link to={'#'}>
-                                        <p>Directions</p>
+                                        <p onClick={handleClick}>Directions</p>
                                     </Link>
                                     <Link to={'/book-an-appointment'}>
                                         <p>Book an Appointment</p>

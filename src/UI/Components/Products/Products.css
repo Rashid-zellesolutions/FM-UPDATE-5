@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 0 60px 70px 60px;
+    padding: 15px 60px 70px 60px;
     gap: 5px;
 }
 
@@ -760,13 +760,17 @@ label {
     justify-content: space-between;
     gap: 5px;
     position: relative;
-    border-bottom: 1px solid var(--border-color);
+    /* border-bottom: 1px solid var(--border-color); */
     cursor: pointer;
 }
 
 .relevance-heading span{
     display: flex;
+    width: 100%;
     align-items: center;
+    justify-content: space-between;
+    padding: 0 5px;
+    border: 1px solid var(--border-color);
     /* margin-top: 5px; */
     gap: 2px;
     cursor: pointer;
@@ -789,10 +793,11 @@ label {
     transition: all 0.3s ease;
 }
 
-.relevance-heading h3{
+.relevance-heading-sort-by{
     font-size: 16px;
     line-height: 24px;
     font-weight: 600;
+    flex-shrink: 0;
 }
 
 .relevance-dropdown{
@@ -803,7 +808,7 @@ label {
     overflow: hidden;
     /* border: 1px solid #D7D7D7; */
     position: absolute;
-    top: 30px;
+    top: 25px;
     background-color: #fff;
     z-index: 999;
     transition: all 0.3s ease;

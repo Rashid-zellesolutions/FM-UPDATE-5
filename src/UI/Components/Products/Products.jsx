@@ -48,7 +48,6 @@ const Products = () => {
     } = useCart();
 
     const { subCategorySlug } = useParams();
-    const debounceTimeout = useRef(null);
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const query = params.get('query');
@@ -102,7 +101,7 @@ const Products = () => {
 
     // API Calls
     // Fetch Product data by query and page select
-    const fetchProductData = async (page) => {
+    const fetchProductData = async () => {
         const queryApi = `/api/v1/products/by-name?name`;
 
         try {
@@ -171,13 +170,13 @@ const Products = () => {
     useEffect(() => {
         // Re-Fetch Products when user enter Query
         fetchProductData()
-    }, [query]);
+    }, [query, subCategorySlug]);
 
 
-    useEffect(() => { 
-    }, [products])
+    // useEffect(() => { 
+    // }, [products])
 
-    useEffect(() => {fetchProductData()}, [subCategorySlug])
+    // useEffect(() => {fetchProductData()}, [subCategorySlug])
 
     const handleCartSectionClose = () => {
         setAddToCartClicked(false)
@@ -362,18 +361,35 @@ const Products = () => {
         setActivePageIndex(index)
     }
 
+    // const handlePrevPage = () => {
+
+    //     setActivePage(activePage - 1);
+    //     setActivePageIndex(activePageIndex - 1)
+    // }
+    // const handleNextPage = () => {
+    //     setActivePage(activePage + 1);
+    //     setActivePageIndex(activePageIndex + 1)
+    // }
+
     const handlePrevPage = () => {
-        setActivePage(activePage - 1);
-        setActivePageIndex(activePageIndex - 1)
-    }
+        if (activePage > 1) {
+            setActivePage(activePage - 1);
+            setActivePageIndex(activePageIndex - 1);
+        }
+    };
+
     const handleNextPage = () => {
-        setActivePage(activePage + 1);
-        setActivePageIndex(activePageIndex + 1)
-    }
+        if (activePage < totalPages) {
+            setActivePage(activePage + 1);
+            setActivePageIndex(activePageIndex + 1);
+        }
+    };
 
     useEffect(() => {
         fetchProductData(activePage)
     }, [activePageIndex]);
+
+    console.log("render page")
 
 
     return (
@@ -515,7 +531,7 @@ const Products = () => {
                         </div>
                         <div className='relevance-container'>
                             <div className='relevance-heading' onClick={handleRelevance}>
-                                <h3 className='filters-heading'>Sort By:</h3>
+                                <h3 className='relevance-heading-sort-by'>Sort By:</h3>
                                 <span >
                                     <p>{selectedRelevanceValue.length > 0 ? selectedRelevanceValue : 'Default'}</p>
                                     <MdKeyboardArrowDown size={20} className={`relevance-arrow ${relevanceTrue ? 'rotate-relevance-arrow' : ''}`} />
@@ -577,7 +593,7 @@ const Products = () => {
 
                     </div>
                     {/* Product Card Code End */}
-                    
+
                     <div className='view-more-products-button-div'>
 
                         <div className='view-more-products-pagination-main'>

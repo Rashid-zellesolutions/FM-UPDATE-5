@@ -71,7 +71,6 @@ const UserDashboard = () => {
 
 
   const moveToLoginDash = async () => {
-    console.log("worker")
     await checkToken();
   }
 
@@ -91,7 +90,7 @@ const UserDashboard = () => {
       <div className='user-dashboard-main-heading'>
         <h3>My Account</h3>
       </div>
-      <DashboardTabs data={userData} />
+      <DashboardTabs data={userData}  />
     </div>
   )
 }

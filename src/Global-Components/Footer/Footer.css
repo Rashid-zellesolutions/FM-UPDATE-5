@@ -577,6 +577,26 @@
     color: #dfdfdf !important;
 }
 
+.appointment-and-outlet-div span{
+    color: var(--text-white);
+    cursor: pointer;
+}
+
+.appointment-and-outlet-div span p{
+    font-size: 14px !important;
+    line-height: 21px !important;
+    font-weight: 600 !important;
+    color: var(--text-white) !important;
+}
+
+.appointment-and-outlet-div span:hover{
+    color: #dfdfdf;
+}
+
+.appointment-and-outlet-div span p:hover{
+    color: #dfdfdf !important;
+}
+
 /* Right Section Styling */
 .footer-right-section{
     display: flex;

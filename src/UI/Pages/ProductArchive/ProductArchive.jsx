@@ -35,9 +35,9 @@ const ProductArchive = ({productArchiveHading}) => {
 
   return (
     <div>
-        <BreadCrumWithProduct 
+        {/* <BreadCrumWithProduct 
           breadcrumRecentData={breadcrumRecentData}  
-        />
+        /> */}
         <Products 
           productArchiveHading={productArchiveHading}
         />

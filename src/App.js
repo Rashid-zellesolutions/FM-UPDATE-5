@@ -85,14 +85,14 @@ function App() {
   const {mainLoader,isWarrantyModalOpen,setWarrantyModalState} = useGlobalContext();
 
   const [isVisible, setIsVisible] = useState(false);
-  const handleScroll = () => {
-    const scrollTop = window.scrollY;
-    if(scrollTop > 200){
-      setIsVisible(true);
-    }else{
-      setIsVisible(false)
-    }
-  }
+  // const handleScroll = () => {
+  //   const scrollTop = window.scrollY;
+  //   if(scrollTop > 200){
+  //     setIsVisible(true);
+  //   }else{
+  //     setIsVisible(false)
+  //   }
+  // }
 
   const handleClickTop = () => {
     window.scrollTo({
@@ -100,12 +100,12 @@ function App() {
       behavior: 'smooth'
     })
   }
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+  // useEffect(() => {
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll)
+  //   }
+  // }, [])
 
 
   return (

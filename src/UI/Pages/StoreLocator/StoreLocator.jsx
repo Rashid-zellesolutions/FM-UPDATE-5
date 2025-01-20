@@ -24,6 +24,7 @@ import { FaPhone } from "react-icons/fa6";
 import { IoIosMailOpen } from "react-icons/io";
 import loader from "../../../Assets/Loader-animations/loader-check-two.gif"
 import Loader from '../../Components/Loader/Loader';
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -33,7 +34,9 @@ import Loader from '../../Components/Loader/Loader';
 const StoreLocator = () => {
   const API_KEY = `AIzaSyB9nW_l7Dw8WnnSCOJyJSGjtTYyF9ct3qk&amp;libraries=maps,marker,places,geometry`
   const [storesApiData, setStoresApiData] = useState()
-  const [isFetching,setFetching] = useState(false)
+  const [isFetching, setFetching] = useState(false)
+  const location = useLocation()
+  const showStore = location.state || {}
 
   const commentData = [
     {
@@ -51,6 +54,19 @@ const StoreLocator = () => {
   const [zipCode, setZipCode] = useState('');
 
   const [showModal, setShowModal] = useState(null)
+
+
+
+  useEffect(() => {
+    setShowModal(Object.keys(showStore).length > 0
+    ? storesApiData?.findIndex(
+        (store) => store.latitude === showStore.latitude && store.longitude === showStore.longitude
+      )
+    : null)
+  }, [])
+
+  console.log("Default Store Index:", showModal);
+
   const handleLocationDetails = async (item, index) => {
     setShowModal((prevIndex) => prevIndex === index ? null : index)
     setSelectedLatitude(null)
@@ -63,10 +79,9 @@ const StoreLocator = () => {
     console.log("selected store", item)
   }
 
-  console.log("show modal index", showModal)
-  console.log("show modal current index", currentIndex)
 
-  
+  console.log("selected store", showStore)
+
 
   const [sliderIndex, setSliderIndex] = useState(0);
 
@@ -113,7 +128,7 @@ const StoreLocator = () => {
     const api = `${url}/api/v1/stores/get`;
     const zipApi = `${url}/api/v1/stores/get-distant?zipcode=${zip}`;
     const locApi = `${url}/api/v1/stores/get-distant?latitude=${lat}&longitude=${lng}`;
-  
+
     try {
       setFetching(true)
       let response;
@@ -125,7 +140,7 @@ const StoreLocator = () => {
       } else {
         response = await axios.get(api); // Use api for all other cases
       }
-  
+
       const stores = response.data.data;
       console.log("response stores", stores);
       setStoresApiData(stores); // Store the data in your state
@@ -139,9 +154,9 @@ const StoreLocator = () => {
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-       async (position) => {
+        async (position) => {
           const { latitude, longitude } = position.coords;
-          await fetchStoresData("latlng",null,latitude,longitude)
+          await fetchStoresData("latlng", null, latitude, longitude)
           setFetching(false)
         },
       );
@@ -149,7 +164,7 @@ const StoreLocator = () => {
       alert('Geolocation is not supported by this browser.');
     }
   }
-  
+
 
   useEffect(() => {
     fetchStoresData("all");
@@ -166,7 +181,7 @@ const StoreLocator = () => {
   // };
 
   // Load Google Maps API
-  
+
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: API_KEY, // Replace with your actual API key
     libraries: libraries
@@ -187,7 +202,7 @@ const StoreLocator = () => {
   const fetchStoreUsingZipCode = async (e) => {
     e.preventDefault(); // Prevent page reload
     if (zipCode) {
-      await fetchStoresData("zipcode",zipCode,null,null)
+      await fetchStoresData("zipcode", zipCode, null, null)
       console.log(`Searching for stores in zip code: ${zipCode}`);
     } else {
       alert('Please enter a valid zip code');
@@ -224,7 +239,7 @@ const StoreLocator = () => {
               </form>
             </div>
             <div className='all-store-location-button-div'>
-              <button className='all-store-location-button' onClick={()=>{getCurrentLocation()}}>
+              <button className='all-store-location-button' onClick={() => { getCurrentLocation() }}>
                 <SlLocationPin />
                 Current Location
               </button>
@@ -299,8 +314,8 @@ const StoreLocator = () => {
                 <RatingReview rating={googleReviewDetails?.data?.rating} disabled={true} size={"20px"} />
               </div>
               <button className='single-location-direction-button' onClick={() => {
-                setSelectedLatitude(showLocationDetails.latitude);
-                setSelectedLongitude(showLocationDetails.longitude);
+                setSelectedLatitude(showStore?.length > 0 ? showStore?.latitude : showLocationDetails.latitude);
+                setSelectedLongitude(showStore?.length > 0 ? showStore?.longitude : showLocationDetails.longitude);
               }}>
                 <MdOutlineDirections />
               </button>
@@ -346,8 +361,8 @@ const StoreLocator = () => {
           </div >
 
           {isFetching && <div className="loader">
-              <img src={loader} alt='animation' />
-              <p>Finding Stores...</p>
+            <img src={loader} alt='animation' />
+            <p>Finding Stores...</p>
           </div>}
         </div >
         <div className="all-store-map">

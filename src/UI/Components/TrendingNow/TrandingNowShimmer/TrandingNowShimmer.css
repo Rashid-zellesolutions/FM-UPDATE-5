@@ -65,7 +65,7 @@
 
 /* Mobile */
 .mobile-view-shimmer-main-container{
-    display: flex;
+    display: none;
     flex-direction: column;
     width: 100%;
     height: auto;
@@ -138,5 +138,9 @@
 @media only screen and (max-width: 480px){
     .trending-now-shimmer-main{
         display: none;
+    }
+
+    .mobile-view-shimmer-main-container{
+        display: flex;
     }
 }

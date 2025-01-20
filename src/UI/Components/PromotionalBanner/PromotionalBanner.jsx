@@ -57,6 +57,10 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import deliverTo from '../../../Assets/icons/delivery.png'
 // import locationModalIcon from '../../Assets/icons/location.png'
 import locationIcon from '../../../Assets/icons/location-red.png';
+import { useUserDashboardContext } from '../../../context/userDashboardContext/userDashboard';
+import { useGlobalContext } from '../../../context/GlobalContext/globalContext';
+import axios from 'axios';
+import { url } from '../../../utils/api';
 
 const PromotionalBanner = ({ handleLanguageModal, handleDeliverModal, currentSelectedCountryFlag, usaFlag, currentSelectedCountry }) => {
 
@@ -70,16 +74,42 @@ const PromotionalBanner = ({ handleLanguageModal, handleDeliverModal, currentSel
     return () => clearInterval(intervelId);
   }, [])
 
-  const [loginMessage, setLoginMessage] = useState(false)
-  const handleClickOnOrders = () => {
+
+  // const { setMainLoader } = useGlobalContext();
+  const { setUserToken } = useUserDashboardContext();
+  const [isTokenValid, setIsTokenValid] = useState(false);
+
+  const handleClickOnOrders = async () => {
     const token = localStorage.getItem('userToken');
-    const userId = localStorage.getItem('uuid');
-    console.log("user id", userId)
-    console.log('user token on order click', token)
-    if(!token){
-      setLoginMessage(true)
+    const id = localStorage.getItem('uuid');
+
+    console.log("user token and uid", token, id);
+    try {
+      if (token) {
+        const response = await fetch(`${url}/api/v1/web-users/verify-token`, {
+          method: "GET",
+          headers: {
+            authorization: `${token}`,
+          },
+        });
+        if (response.ok) {
+          navigate(`/user-dashboard/${id}`, {state: 'orders'});
+          console.log("Valid token, navigating with ID:", id);
+          console.log("Response ok", response)
+        }
+      } else {
+        localStorage.removeItem('userToken');
+        setUserToken(null);
+        setIsTokenValid(true);
+        console.log("catch block run")
+      }
+    } catch (error) {
+      console.error("Unexpected Error", error)
     }
-      navigate(`/user-dashboard`);
+  }
+
+  const handleCloseLoginMessageModal = () => {
+    setIsTokenValid(false)
   }
 
   return (
@@ -107,7 +137,7 @@ const PromotionalBanner = ({ handleLanguageModal, handleDeliverModal, currentSel
       <div className='header-links-and-select-language'>
         <div className='banner-link-container'>
           <Link to={'/store-locator'}>Stores</Link>
-          <Link to={'#'} onClick={handleClickOnOrders}>Orders</Link>
+          <p onClick={handleClickOnOrders}>Orders</p>
           <Link to={'/financing'}>Financing</Link>
           <Link to={'#'}>Help</Link>
         </div>
@@ -123,6 +153,12 @@ const PromotionalBanner = ({ handleLanguageModal, handleDeliverModal, currentSel
         <div className='mobile-view-delever-to'>
           <p>Deliver to : </p>
           <Link> PA 19134</Link>
+        </div>
+      </div>
+
+      <div className={`login-warning-modal-main-container ${isTokenValid ? 'show-login-warning-modal' : ''}`} onClick={handleCloseLoginMessageModal}>
+        <div className={`login-warning-modal-inner-container ${isTokenValid ? 'zoom-login-inner-modal' : ''}`} onClick={(e) => e.stopPropagation()}>
+          <h3>Login Modal</h3>
         </div>
       </div>
     </div>
