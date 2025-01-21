@@ -60,9 +60,11 @@ const StoreLocator = () => {
   useEffect(() => {
     setShowModal(Object.keys(showStore).length > 0
     ? storesApiData?.findIndex(
-        (store) => store.latitude === showStore.latitude && store.longitude === showStore.longitude
+        (store) => store.store_id === showStore.store_id
       )
     : null)
+
+    handleLocationDetails(showStore, showModal)
   }, [])
 
   console.log("Default Store Index:", showModal);

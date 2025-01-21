@@ -1,7 +1,7 @@
 import React from 'react'
 import './TrandingBlogs.css'
 import { url } from '../../../../utils/api'
-import {useNavigate, useParams } from 'react-router-dom'
+import {useNavigate } from 'react-router-dom'
 
 const TrandingBlogs = ({blogs}) => {
     const navigate = useNavigate();

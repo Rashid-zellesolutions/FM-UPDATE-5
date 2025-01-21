@@ -276,9 +276,11 @@ const BestSellerSlider = () => {
                                     ))}
                                 </div>
                             </div>
+                            
                             <div className='best-seller-slider-main-banner-mobile-view'>
                                 <img src={url + bestSellerNav1[activeItem].image.image_url} alt='main banner' />
                             </div>
+
                             <div className='products-slider-container'>
 
                                 <div className='best-seller-slider-wrapper' style={{ overflow: 'hidden' }}>

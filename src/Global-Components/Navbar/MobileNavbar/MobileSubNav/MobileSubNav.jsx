@@ -3,7 +3,7 @@ import './MobileSubNav.css'
 import mainLogo from '../../../../Assets/Logo/m_logo_360 2.png'
 import ordersIcon from '../../../../Assets/icons/order.png';
 import { IoMdArrowBack } from "react-icons/io";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const MobileSubNav = ({ 
     openSubNav, 
@@ -12,11 +12,18 @@ const MobileSubNav = ({
     subNavData
 }) => {
 
+    const navigate = useNavigate()
     const handleCloseSubNav = () => {
         setOpenSubNav(false)
     }
 
     const handleCloseAllNav = () => {
+        setMobileNavVisible(false);
+        setOpenSubNav(false);
+    }
+
+    const handleNavigateToHome = () => {
+        navigate('/');
         setMobileNavVisible(false);
         setOpenSubNav(false);
     }
@@ -28,7 +35,7 @@ const MobileSubNav = ({
                     <IoMdArrowBack size={25} />
                 </Link>
             </button>
-            <div className='mobile-sub-nav-head'>
+            <div onClick={handleNavigateToHome} className='mobile-sub-nav-head'>
                 <img src={mainLogo} alt='main-logo' />
             </div>
             <div className='mobile-sub-nav-body'>

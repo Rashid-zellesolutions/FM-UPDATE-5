@@ -12,7 +12,6 @@ const TabMenu = ({navLinks}) => {
   const handleTabSubMenu = (index) => {
     setIsTabClicked(index)
     setIsTabSubNavOpen(true)
-    
   }
 
   const handleCloseSubMenu = () => {
@@ -22,7 +21,6 @@ const TabMenu = ({navLinks}) => {
 
   const handleActiveIndex = (index) => {
     setActiveIndex(index)
-    
   }
   
   return (

@@ -393,7 +393,7 @@
     align-items: center;
     justify-content: center;
     padding: 5px;
-    background-color: var(--active-nav-item-color);
+    background-color: #4487C5;
     border: 1px solid var(--active-nav-item-color);
     border-radius: 5px;
     cursor: pointer;

@@ -65,13 +65,14 @@
   font-weight: 600;
   line-height: 22px;
   color: var(--text-color);
+  opacity: 0.5;
 }
 
 .deal-of-the-day-price p{
   font-size: 18px;
   font-weight: 600;
   line-height: 27px;
-  color: #C61B1A;
+  color: var(--text-color);
 }
 
 .deal-of-the-day-product-image{

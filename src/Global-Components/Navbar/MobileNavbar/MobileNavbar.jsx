@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import './MobileNavbar.css'
-import favoriteIcon from '../../../Assets/icons/favorite.png';
-import ordersIcon from '../../../Assets/icons/order.png';
-import livingRoomIcon from '../../../Assets/icons/living-room.png';
-import bedroomIcon from '../../../Assets/icons/bedroom.png';
-import diningRoomIcon from '../../../Assets/icons/dining-room.png';
 import navArrow from '../../../Assets/icons/nav-arrow.png';
 import crossBtn from '../../../Assets/icons/close-btn.png';
 import mainLogo from '../../../Assets/Logo/m_logo_360 2.png';
@@ -59,7 +54,6 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible }) => {
   const handleOpenSubNav = (item) => {
     setOpenSubNav(true);
     setSubNavData(item)
-
   }
 
   return (

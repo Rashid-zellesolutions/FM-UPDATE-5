@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import './Footer.css';
 import { Link } from 'react-router-dom';
 
-// import { url } from '../../utils/api';
 import { useNavigate } from 'react-router-dom'
 
 // Assets
@@ -314,20 +313,20 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
     ]
 
     const handleNavigateStores = () => {
-        navigate(`/store-locator`, {state: defaultStore})
+        navigate(`/store-locator`, { state: defaultStore })
     }
-   
+
 
     const handleClick = () => {
-    if (defaultStore?.latitude && defaultStore?.longitude) {
-      // Construct the Google Maps URL with the latitude and longitude
-      const googleMapsUrl = `https://www.google.com/maps?q=${defaultStore?.latitude},${defaultStore?.longitude}`;
-      // Open the URL in a new tab
-      window.open(googleMapsUrl, "_blank");
-    } else {
-      alert("Latitude and Longitude are not available.");
-    }
-  };
+        if (defaultStore?.latitude && defaultStore?.longitude) {
+            // Construct the Google Maps URL with the latitude and longitude
+            const googleMapsUrl = `https://www.google.com/maps?q=${defaultStore?.latitude},${defaultStore?.longitude}`;
+            // Open the URL in a new tab
+            window.open(googleMapsUrl, "_blank");
+        } else {
+            alert("Latitude and Longitude are not available.");
+        }
+    };
 
     return (
         <>
@@ -453,7 +452,7 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
                 </div>
             </div>
             <div className='mobile-view-footer-main-div'>
-                <MobileFooter />
+                <MobileFooter checkoutPage={checkoutPage} />
             </div>
         </>
     )

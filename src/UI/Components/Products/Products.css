@@ -285,13 +285,8 @@
 /* Products Section Styling */
 .products-and-filter-container{
     display: flex;
-    /* border-top: 2px solid var(--border-color); */
     padding: 15px 0 0px 0;
     gap: 15px;
-    /* height: 580px;
-    background-color: orange;
-    overflow-x: hidden;
-    overflow-y: auto; */
 }
 
 .products-and-filter-container::-webkit-scrollbar{
@@ -306,13 +301,18 @@
     gap: 30px;
     padding-right: 15px;
     border-right: 1px solid var(--border-color);
-    transition: height 0.3s ease-in-out;
+    /* transition: height 0.5s ease-in-out; */
     overflow-y: auto;
     overflow-x: hidden;
+    transition: all 0.5s ease-in-out;
 }
 
 .filters-section.hide-filter{
-    display: none;
+    width: 0;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    padding: 0;
+    border-right: none;
 }
 
 .hide-filters-btn{
@@ -663,14 +663,14 @@ label {
     flex-direction: column;
     height: max-content;
     width: 100%;
-    flex-grow: 1;
+    /* flex-grow: 1; */
     gap: 15px;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.5s ease-in-out;
 }
 
 .products-section.full-width{
     width: 100%;
-    flex-grow: 1;
+    /* flex-grow: 1; */
 }
 
 
@@ -727,15 +727,13 @@ label {
 }
 
 .show-filter-btn.hide-show-filter-btn{
-    /* display: flex;
-    visibility: visible; */
     width: max-content;
     padding: 10px;
     opacity: 1;
 }
 
 .show-filter-btn-arrow{
-    transition: all 0.3s ease-in-out;
+    transition: all 0.5s ease-in-out;
 }
 
 .show-filter-btn-arrow.rotate-show-filter-arrow-icon{
@@ -835,25 +833,39 @@ label {
 /* main products card */
 .product-main{
     padding: 10px 0 25px 0; 
-    /* display: flex;
-    flex-direction: row;
-    flex-wrap: wrap; */
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    /* display: flex;
+    flex-direction: row; */
     width: 100%;
-    /* background-color: orange; */
-    /* overflow-y: auto; */
+    /* height: 400px; */
     overflow-x: hidden;
-    /* height: 100vh; */
     height: auto;
     padding: 10px 5px;
     gap: 15px;
     padding-bottom: 20px;
-    transition: all 0.3s ease-in-out;
+    transition: transform 0.5s ease, grid-template-columns 0.5s ease-in-out;
 }
 
 .product-main.increase-columns{
     grid-template-columns: repeat(4, 1fr);
+    /* display: flex;
+    flex-direction: row;
+    gap: 15px;
+    padding: 10px 5px;
+    padding-bottom: 20px;
+    align-items: center;
+    justify-content: start; */
+}
+
+.product-card{
+    transition: transform 0.5s ease-in-out;
+    /* height: 380px !important;
+    overflow: hidden; */
+}
+
+.product-main.increase-columns .product-card{
+    transform: translateX(-15px);
 }
 
 .product-main::-webkit-scrollbar{display: none;}

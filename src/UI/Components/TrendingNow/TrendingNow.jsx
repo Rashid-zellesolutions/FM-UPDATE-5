@@ -115,23 +115,6 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const TrendingNow = ({data}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
-    // const [data, setData] = useState(null); // Set data to null initially
-    const sliderItems = [ /* Images for static items */ ];
-
-    // const getTrandingProductsData = async () => {
-    //     try {
-    //         const response = await axios.get(`${url}/api/v1/pages/home/trending-now/get`);
-    //         setData(response.data?.data);
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     if (data===null) {
-    //         getTrandingProductsData(); // Only fetch if data is not already fetched
-    //     }
-    // }, []); // This will run only when data is initially null or undefined
 
     useEffect(() => {
         if (data && data?.sliders) {

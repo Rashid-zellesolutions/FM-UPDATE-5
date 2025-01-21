@@ -3,14 +3,13 @@ import './BestSellerProductCard.css';
 import heartIcon from '../../../Assets/icons/like.png'
 import { VscHeartFilled } from "react-icons/vsc";
 import { useList } from '../../../context/wishListContext/wishListContext';
-import { FaStar } from "react-icons/fa";
 import RatingReview from '../starRating/starRating';
+import { formatedPrice, truncateTitle } from '../../../utils/api';
 
 const BestSellerProductCard = (
     { 
         productMainImage, 
         handleWishListClicked, 
-        isDiscountable, 
         productData, 
         productName, 
         oldPrice, 
@@ -24,17 +23,9 @@ const BestSellerProductCard = (
 
     // Functions
     const maxLength = 40;
-    const truncateTitle = (title, maxLength) => {
-        if(!title) return '';
-        return title.length > maxLength ? title.slice(0, maxLength) + '...' : title;
-    };
+    
 
-    const formatedPrice = (price) => {
-        return new Intl.NumberFormat('en-us', {
-            style: 'currency',
-            currency: 'USD'
-        }).format(price)
-    }
+    
 
     
 

@@ -11,8 +11,6 @@ const Nav = ({ navLinks, sale_data }) => {
     const [activeIndex, setActiveIndex] = useState(null)
     const location = useLocation()
 
-    // console.log("sale data", navLinks)
-
     // Functions
     const handleMouseEnter = (index) => {
         setDropdownOpen(index)
@@ -63,6 +61,7 @@ const Nav = ({ navLinks, sale_data }) => {
                 </h3>
 
             </nav>
+            
             <div className='mobile-navbar'>
 
                 {navLinks.map((item, index) => {
@@ -71,7 +70,7 @@ const Nav = ({ navLinks, sale_data }) => {
                         className={`mobile-nav-link ${activeIndex === item.link ? 'active' : ''}`}>
                         <Link to={`/${item.category_slug}`} > {item.category} </Link>
 
-                        {dropdownOpen === index && (
+                        {/* {dropdownOpen === index && (
                             <div className='dropdown'>
                                 <DropdownMenu
                                     parentCategorySlug={item.category_slug}
@@ -80,7 +79,7 @@ const Nav = ({ navLinks, sale_data }) => {
                                     products={item.products}
                                 />
                             </div>
-                        )}
+                        )} */}
                     </h3>
                 })}
             </div>

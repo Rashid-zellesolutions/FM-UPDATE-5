@@ -48,6 +48,13 @@ import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 const containerStyle = {
   width: "580px",
   height: "290px",
+  // width: '100%',
+  // height: '450px'
+};
+
+const mobileContainerStyle = {
+  width: "100%",
+  height: "250px",
 };
 
 const mapOptions = {
@@ -101,14 +108,28 @@ function DeliveryLocationMap({ address_info }) {
   if (!isLoaded) return <div>Loading...</div>;
 
   return (
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      center={location || { lat: 37.7749, lng: -122.4194 }} // Default center if location is not available
-      zoom={location ? 15 : 7}
-      options={mapOptions}
-    >
-      {location && <Marker position={ {lat: 37.7749, lng: -122.4194} } />}
-    </GoogleMap>
+    <>
+      <div className="google-map-desktop">
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={location || { lat: 37.7749, lng: -122.4194 }} // Default center if location is not available
+          zoom={location ? 15 : 7}
+          options={mapOptions}
+        >
+          {location && <Marker position={{ lat: 37.7749, lng: -122.4194 }} />}
+        </GoogleMap>
+      </div>
+      <div className="google-map-mobile">
+        <GoogleMap
+          mapContainerStyle={mobileContainerStyle}
+          center={location || { lat: 37.7749, lng: -122.4194 }} // Default center if location is not available
+          zoom={location ? 15 : 7}
+          options={mapOptions}
+        >
+          {location && <Marker position={{ lat: 37.7749, lng: -122.4194 }} />}
+        </GoogleMap>
+      </div>
+    </>
   );
 }
 

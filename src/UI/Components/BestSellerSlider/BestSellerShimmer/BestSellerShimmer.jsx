@@ -7,10 +7,8 @@ const BestSellerShimmer = ({rowDirection}) => {
     <>
       <div 
         className='best-seller-shimmer-main-container' 
-        style={{
-          display: 'flex', 
+        style={{ 
           flexDirection: rowDirection,
-
         }}>
         <div className='best-seller-cover-image-shimmer'></div>
         <div className='best-seller-products-main-container'>

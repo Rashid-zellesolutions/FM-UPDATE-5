@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, {useRef } from "react";
 import './MultiRange.css'
 import { formatedPrice } from "../../utils/api";
 
@@ -12,7 +12,6 @@ const DoubleRangeSlider = (
     minLabel = "Min Price",
     maxLabel = "Max Price"
   }) => {
-  // const [range, setRange] = useState(initialRange); // Initial min and max values
 
   const isDragging = useRef(false);
 

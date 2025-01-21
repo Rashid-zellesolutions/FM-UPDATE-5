@@ -3,7 +3,9 @@
     gap: 20px;
     padding: var(--global-padding);
     height: auto;
+    display: flex;
     align-items: start;
+    overflow: hidden;
     justify-content: start;
 }
 

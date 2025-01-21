@@ -2,13 +2,11 @@ import React, { useState, useEffect } from 'react'
 import './Header.css';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-// import { useGlobalContext } from '../../context/GlobalContext/globalContext';
 import { useUserDashboardContext } from '../../context/userDashboardContext/userDashboard';
 
 // Assets
 import logo from '../../Assets/Logo/m_logo_360 2.png'
 import searchIcon from '../../Assets/icons/search-icon-charcol.png';
-import NearStoreIcon from '../../Assets/icons/home.png';
 import HeartIcon from '../../Assets/icons/like.png';
 import cartIcon from '../../Assets/icons/shopping-bag.png';
 import profileIcon from '../../Assets/icon/profile-icon.svg'
@@ -35,15 +33,12 @@ import MobileNavbar from '../Navbar/MobileNavbar/MobileNavbar';
 
 // Context and functions
 import { useCart } from '../../context/cartContext/cartContext';
-import { useProducts } from '../../context/productsContext/productContext';
 import { getCurrentDay, getCurrentTimeForNewYork, url } from '../../utils/api';
 import { useGlobalContext } from '../../context/GlobalContext/globalContext';
 
 import 'react-toastify/dist/ReactToastify.css';
-import Weekdays from 'react-calendar/dist/cjs/MonthView/Weekdays.js';
-import { use } from 'react';
 
-const Header = ({checkoutPage}) => {
+const Header = ({ checkoutPage }) => {
 
   // States and variables
   const [isTabMenuOpen, setIsTabMenuOpen] = useState(false);
@@ -65,7 +60,6 @@ const Header = ({checkoutPage}) => {
   const navigate = useNavigate()
 
   const {
-    cart,
     increamentQuantity,
     decreamentQuantity,
     removeFromCart,
@@ -175,7 +169,7 @@ const Header = ({checkoutPage}) => {
   }
 
 
-  const [searchedQuery, setSearchedQuery] = useState('');
+  // const [searchedQuery, setSearchedQuery] = useState('');
   const handleSearchInput = (e) => {
     const value = e.target.value;
     setSearchQuery(value);
@@ -188,19 +182,12 @@ const Header = ({checkoutPage}) => {
 
   const handleSearchInputFocus = () => setIsSearchInputFocused(true);
 
-  const handleBlur = () => {
+  // const handleBlur = () => {
 
-    setSearchedProducts([])
-    setSearchQuery('')
-    setIsSearchInputFocused(false)
-
-    // if(isSearchInputFocused === false) {
-    //   setSearchQuery('')
-    // setSearchedProducts([])
-    // }
-
-    
-  }
+  //   setSearchedProducts([])
+  //   setSearchQuery('')
+  //   setIsSearchInputFocused(false)
+  // }
 
   // Card title words limit
   const maxLength = 15;
@@ -277,12 +264,6 @@ const Header = ({checkoutPage}) => {
     country: ''
   });
 
-  const nearZip = locationDetails.zipCode || 'PA 19134';
-  const nearState = locationDetails.state || 'E Venango - ST';
-
-  // mobile view search modal
-
-  // const [mobileSearchedQuery, setMobileSearchedQuery] = useState('');
   const [mobileProductSearch, setMobileSearchProduct] = useState('')
   const handleMobileSearchModal = () => {
     setIsMobileSearched(true)
@@ -317,15 +298,9 @@ const Header = ({checkoutPage}) => {
 
   // Nearest Stores
   const { stores } = useGlobalContext();
-  // const getCurrentDay = (dateStr, local) => {
-  //   let date = new Date(dateStr);
-  //   return date.toLocaleDateString(local, {weekday: 'long'})
-  // }
+
   const currentDay = getCurrentDay(getCurrentTimeForNewYork(), 'en-us')
 
-
-
-  // console.log("stores", stores)
   useState(() => {
   }, [stores])
 
@@ -336,13 +311,6 @@ const Header = ({checkoutPage}) => {
   }
   const defaultStore = findDefaultStore()
   const defaultStoreTimings = defaultStore?.timings?.find(day => day.day === currentDay)
-  // console.log("def store time", defaultStoreTimings)
-
-  // console.log("def str", defaultStore)
-
-
-
-
 
   const [timings, setTimings] = useState();
 
@@ -371,17 +339,13 @@ const Header = ({checkoutPage}) => {
             authorization: `${token}`,
           },
         });
-        console.log("here is data", response)
         if (response.ok) {
           const data = await response.json();
           setUserToken(token);
           setIsTokenValid(true);
-          console.log("Token is valid:", data);
           setMainLoader(false);
           navigate(`/user-dashboard/${uid}`)
-          console.log("here is data", data)
         } else {
-          console.warn("Token is invalid or expired. Removing it.");
           localStorage.removeItem('userToken');
           setUserToken(null);
           setIsTokenValid(false);
@@ -390,7 +354,6 @@ const Header = ({checkoutPage}) => {
           console.log("")
         }
       } catch (error) {
-        console.error("Error verifying token:", error);
         localStorage.removeItem('userToken');
         setUserToken(null);
         setIsTokenValid(false);
@@ -400,30 +363,17 @@ const Header = ({checkoutPage}) => {
       setMainLoader(false);
     }
     else if (token === undefined) {
-      console.log("working55 is here")
-      // setMainLoader(false);
-      // navigate("/my-account")
       navigate("/my-account", { state: { message: "decided" } });
     }
     else {
-      console.log("working55 is here")
       setMainLoader(false);
       navigate("/my-account")
     }
-
-
-
   }
 
   const moveToLoginDash = async () => {
     await checkToken();
   }
-
-
-
-
-
-  // console.log("store open day values", getCurrentStoreOpenDay())
 
   return (
     <div className={`haider-main-container ${checkoutPage ? 'hide-header' : ''}`}>
@@ -454,7 +404,6 @@ const Header = ({checkoutPage}) => {
               value={searchQuery}
               placeholder='Search Furniture Mecca'
               onFocus={handleSearchInputFocus}
-              // onBlur={handleBlur}
               onChange={handleSearchInput}
             />
             {isLoading ? <div className='input-loader'></div> : <></>}
@@ -534,9 +483,7 @@ const Header = ({checkoutPage}) => {
               >
                 <path d="M59.5177 0C59.733 0.000356785 59.9448 0.0544467 60.1336 0.157315C60.3224 0.260183 60.4823 0.408542 60.5985 0.5888L60.7015 0.7808L63.8976 8.2688C63.9738 8.4474 64.0083 8.6409 63.9983 8.83469C63.9883 9.02848 63.9342 9.21747 63.84 9.38738C63.7458 9.55729 63.614 9.70368 63.4546 9.81546C63.2951 9.92725 63.1122 10.0015 62.9197 10.0326L62.7138 10.048H56.458V47.36C56.4581 47.6596 56.3526 47.9497 56.1598 48.1799C55.967 48.41 55.6991 48.5656 55.4029 48.6195L55.1713 48.64H8.83273C8.53158 48.6401 8.23994 48.5351 8.00859 48.3433C7.77724 48.1515 7.62084 47.8851 7.56664 47.5904L7.54605 47.36L7.53833 10.048H1.28763C1.09252 10.0481 0.899938 10.0041 0.724444 9.91933C0.54895 9.83452 0.395143 9.71111 0.274657 9.55845C0.154171 9.40579 0.0701612 9.22787 0.0289833 9.03815C-0.0121947 8.84843 -0.00946265 8.65188 0.0369727 8.46336L0.101307 8.2688L3.3 0.7808C3.38406 0.583138 3.51673 0.409676 3.68581 0.276368C3.85488 0.14306 4.05494 0.0541859 4.26758 0.01792L4.48375 0H59.5177ZM53.8846 10.048H10.1194V46.0774H17.1215V20.2035C17.1214 19.9039 17.227 19.6138 17.4198 19.3837C17.6126 19.1535 17.8804 18.9979 18.1766 18.944L18.4082 18.9235H45.5958C45.8965 18.924 46.1876 19.0293 46.4184 19.221C46.6492 19.4128 46.8052 19.6789 46.8593 19.9731L46.8825 20.2035L46.8799 46.0774H53.8898V10.048H53.8846ZM30.7115 29.7114H19.6949L19.6923 46.0774H30.7141L30.7115 29.7114ZM44.3014 29.7114H33.2874V46.0774H44.304L44.3014 29.7114ZM30.7141 21.481H19.6923V27.1514H30.7089V21.481H30.7141ZM44.3014 21.481H33.2874V27.1514H44.3014V21.481ZM58.6634 2.56H5.33296L3.23052 7.488H60.7658L58.6634 2.56Z" fill="#C61B1A" />
               </svg>
-              {/* <img src={NearStoreIcon} alt='near by' onClick={handleNearStorePopUp} /> */}
               <NearStorePopUp isOpen={nearStorePopUp} handleCloseNearBy={handleCloseNearStoreModal} />
-              {/* {Object.keys(nearStore).some(item => item.distance === 'distance')} */}
               {stores && stores?.[0]?.distance ? (
                 <>
                   <div className='near-by-city-time' onClick={handleNearStorePopUp}>
@@ -564,13 +511,13 @@ const Header = ({checkoutPage}) => {
                   </span>
                 </>
               )}
-              
+
             </div>
           </div>
         </div>
 
         <div className='header-icons-container'>
-          <div onClick={() => { moveToLoginDash() }}>
+          <div style={{paddingTop: '4px'}} onClick={() => { moveToLoginDash() }}>
             <img src={profileIcon} alt="profile" />
           </div>
 
@@ -640,6 +587,7 @@ const Header = ({checkoutPage}) => {
         </div>
 
       </div>
+
       <div className={`mobile-view-search-products-modal ${searchedProducts.length > 0 || isMobileSearched ? 'mobile-view-search-products-modal-visible' : ''}`}>
 
         <div className={`mobile-view-search-products-modal-header ${isMobileSearched ? 'add-border-bottom' : ''}`}>
@@ -688,7 +636,7 @@ const Header = ({checkoutPage}) => {
               </div>
             ))
           }
-          <button 
+          <button
             className={`mobile-view-see-all-products ${searchedProducts.length === 0 ? 'hide-see-all-product-button' : ''}`}
             onClick={handleNavigateToMobileViewSearchedProducts}
           >

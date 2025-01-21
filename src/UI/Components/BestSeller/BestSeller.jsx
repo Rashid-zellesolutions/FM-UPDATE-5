@@ -85,8 +85,8 @@ const BestSeller = ({ categoryData }) => {
 
     const handleActiveItem = (index, item) => {
         setActiveItem(index);
-        setMainBanner(item.image)
-        setCurrentSlug(item.slug)
+        setMainBanner(item?.image)
+        setCurrentSlug(item?.slug)
     };
 
     const handleProductClick = (item) => {

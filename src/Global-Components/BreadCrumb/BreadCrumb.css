@@ -10,7 +10,6 @@
     align-items: center;
     justify-content: start;
     gap: 10px;
-    /* padding: 0 10px; */
     list-style: none;
 
 }
@@ -39,7 +38,6 @@
 }
 
 .bread_links_sub {
-    /* padding: 15px 10px; */
     padding: 6px 10px;
     border-radius: 5px;
 }

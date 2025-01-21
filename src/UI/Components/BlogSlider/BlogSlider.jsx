@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import BlogCardShimmer from './BlogCardShimmer/BlogCardShimmer';
 import { IoChevronForward } from "react-icons/io5";
 import { IoChevronBack } from "react-icons/io5";
+import { truncateTitle } from '../../../utils/api';
 
 const SamplePrevArrow = (props) => {
   const { className, style, onClick } = props;
@@ -42,12 +43,6 @@ const BlogSlider = () => {
   const {blogs} = useBlog()
 
   const maxLength = 50;
-  const truncateTitle = (title, maxLength) => {
-    if (title.length > maxLength) {
-      return title.slice(0, maxLength) + '...';
-    }
-    return title;
-  };
 
   const handleNavigateToSingleBlog = (item) => {
     navigate(`/single-blog/${item.id}`, { state: item })

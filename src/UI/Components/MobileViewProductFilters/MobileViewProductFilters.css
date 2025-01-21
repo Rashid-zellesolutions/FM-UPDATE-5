@@ -63,7 +63,10 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 30px;
+    gap: 20px;
+    /* height: 315px; */
+    /* overflow-x: hidden;
+    overflow-y: auto; */
 }
 
 .mobile-view-filters-body-head{
@@ -150,9 +153,9 @@
 
 .mobile-single-type-filters.show-filter-type{
     visibility: visible;
-    height: 190px;
+    height: 150px;
     opacity: 1;
-    padding: 25px 10px;
+    padding: 10px;
 }
 
 .single-filter-label{

@@ -3,7 +3,13 @@ import './DropdownMenu.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { url } from '../../../utils/api';
 
-const DropdownMenu = ({ parentCategorySlug, navHeading, dropDownNavData, products }) => {
+const DropdownMenu = (
+    {
+        parentCategorySlug,
+        navHeading,
+        dropDownNavData,
+        products
+    }) => {
     // State and variables
     const [activeIndex, setActiveIndex] = useState(null);
     const navigate = useNavigate();
@@ -32,20 +38,23 @@ const DropdownMenu = ({ parentCategorySlug, navHeading, dropDownNavData, product
                     </div>
                 </div>
             </div>
-            {products && <div className='mattresses-images-div'>
-                {products?.map((item, index) => {
-                    return <div key={index} className='mattress-image' onClick={() => handleNavigate(item)}>
-                        <img src={url + item.image} alt={item.name} />
-                        <p className='image-title'><Link to={item.slug}>{item.name}</Link> </p>
-                        <div className='pricing'>
-                            {item.sale_price === "" ? 
-                            <p className='price'>${item.regular_price}</p> 
-                            : <del><p className='price'>${item.regular_price}</p></del>
-                            }
-                            <p className='price new'>${item.sale_price}</p></div>
-                    </div>
-                })}
-            </div>}
+            {
+                products && <div className='mattresses-images-div'>
+                    {products?.map((item, index) => {
+                        return <div key={index} className='mattress-image' onClick={() => handleNavigate(item)}>
+                            <img src={url + item.image} alt={item.name} />
+                            <p className='image-title'><Link to={item.slug}>{item.name}</Link> </p>
+                            <div className='pricing'>
+                                {item.sale_price === "" ?
+                                    <p className='price'>${item.regular_price}</p>
+                                    : <del><p className='price'>${item.regular_price}</p></del>
+                                }
+                                <p className='price new'>${item.sale_price}</p>
+                            </div>
+                        </div>
+                    })}
+                </div>
+            }
         </div>
     )
 }

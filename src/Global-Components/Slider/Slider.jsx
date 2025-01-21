@@ -3,10 +3,6 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './Slider.css';
-import ArrowLeft from '../../Assets/icons/arrow-left.png';
-import ArrowRight from '../../Assets/icons/arrow-right.png';
-import arrowLeftRed from '../../Assets/icons/arrow-left-red.png';
-import arrowRightRed from '../../Assets/icons/arrow-right-red.png';
 
 import sliderImageOne from '../../Assets/Furniture Mecca/Landing Page/Slider/mobile-view-banner.png';
 import sliderImageThree from '../../Assets/Furniture Mecca/Landing Page/Slider/sofa4.png';

@@ -123,16 +123,18 @@
 }
 
 .category-product-price del{
-    font-size: 14px;
+    font-size: 15px;
     line-height: 21px;
     font-weight: 600;
+    color: var(--text-color);
+    opacity: 0.5;
 }
 
 .category-product-price p{
     font-size: 18px;
     line-height: 27px;
     font-weight: 600;
-    color: var(--active-nav-item-color);
+    color: var(--text-color);
 }
 
 .category-product-price-and-heart img{
@@ -233,7 +235,7 @@
     content: "";
     position: absolute;
     top: 0;
-    left: -150%; /* Start off-screen */
+    left: 0%; /* Start off-screen */
     height: 100%;
     width: 150%; /* Width of the shimmer gradient */
     background: linear-gradient(90deg, rgba(240, 240, 240, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(240, 240, 240, 0) 100%);

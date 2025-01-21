@@ -3,9 +3,15 @@ import './TabMenuTabLinks.css'
 import { FaChevronLeft } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 
-const TabMenuTabLinks = ({name, closeSubMenuLinks, ind, innerInd, tabSublinksData}) => {
+const TabMenuTabLinks = (
+  {
+    name, 
+    closeSubMenuLinks, 
+    ind, 
+    innerInd, 
+    tabSublinksData
+  }) => {
 
-  console.log("index is : ", ind , "Inner INdex is : ", innerInd)
   return (
     <div className='tab-sub-menu-links'>
       <div className={`sub-nav-header `}>

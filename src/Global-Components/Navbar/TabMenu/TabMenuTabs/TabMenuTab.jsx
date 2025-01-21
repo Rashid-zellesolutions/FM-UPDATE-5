@@ -615,8 +615,6 @@ const TabMenuTab = ({name, ind, closeMenu, headingLink}) => {
         setIsSubNavOpen(false)
     }
 
-    
-    
   return (
     <div className='tab-sub-menu'>
       <div className={`sub-nav-header ${isSubNavOpen ? 'hide-sub-nav-header' : ''}`}>

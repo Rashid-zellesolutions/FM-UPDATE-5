@@ -3,6 +3,7 @@
     flex-direction: column;
     width: 100%;
     gap: 20px;
+    overflow: hidden;
     padding: var(--global-padding);
 }
 
@@ -21,6 +22,10 @@
     gap: 15px;
     overflow-x: auto;
     overflow-y: hidden;
+}
+
+.feature-product-cards-shimmer::-webkit-scrollbar{
+    display: none;
 }
 
 .feature-product-card-shimmer {

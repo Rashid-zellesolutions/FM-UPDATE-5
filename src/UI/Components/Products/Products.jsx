@@ -1,18 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Products.css';
 import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 // Assets
-import AddBtn from '../../../Assets/icons/add-bold-btn.png'
 import filterHumberger from '../../../Assets/icons/humberger-icon.png'
 import arrowUpDown from '../../../Assets/icons/arrow-up-donw.png'
 import arrowBlack from '../../../Assets/icons/hide-arrow-black.png'
-import paginationArrow from '../../../Assets/icons/arrow-right-large.png'
 import star from "../../../Assets/icons/Star 19.png"
 import heart from '../../../Assets/icons/heart-vector.png'
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { IoMdClose } from "react-icons/io";
 import { FaRegArrowAltCircleLeft } from "react-icons/fa";
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
@@ -27,19 +24,17 @@ import MobileViewProductFilters from '../MobileViewProductFilters/MobileViewProd
 import Breadcrumb from '../../../Global-Components/BreadCrumb/BreadCrumb';
 
 // Functions and Context
-import { formatedPrice, url } from '../../../utils/api';
+import { formatedPrice, truncateTitle, url } from '../../../utils/api';
 import axios from 'axios';
 import { useCart } from '../../../context/cartContext/cartContext';
 import { useList } from '../../../context/wishListContext/wishListContext';
 import { toast } from 'react-toastify';
 import DoubleRangeSlider from '../../../Global-Components/MultiRangeBar/MultiRange';
 import RatingReview from '../starRating/starRating';
-import { debounce } from 'lodash';
 
 const Products = () => {
 
     // States and Variables
-
     const {
         cartProducts,
         increamentQuantity,
@@ -172,12 +167,6 @@ const Products = () => {
         fetchProductData()
     }, [query, subCategorySlug]);
 
-
-    // useEffect(() => { 
-    // }, [products])
-
-    // useEffect(() => {fetchProductData()}, [subCategorySlug])
-
     const handleCartSectionClose = () => {
         setAddToCartClicked(false)
     }
@@ -205,22 +194,19 @@ const Products = () => {
         { name: 'By Ratings (Low to High)' },
         { name: 'By Ratings (High to Low)' },
     ]
+
     const [selectedRelevanceValue, setSelectedRelevanceValue] = useState(0)
     const handleRelevance = () => {
         setRelevanceTrue(!relevanceTrue);
     }
 
     // show max 5 filters default and on click all
-    const toggleFiltersVisibility = () => {
-        setShowAllFilters(prevState => !prevState);
-    };
+    // const toggleFiltersVisibility = () => {
+    //     setShowAllFilters(prevState => !prevState);
+    // };
 
     // Card title words limit
     const maxLength = 50;
-    const truncateTitle = (title, maxLength) => {
-        if (!title) return '';
-        return title.length > maxLength ? title.slice(0, maxLength) + '...' : title
-    };
 
     // Mobile view Script
 
@@ -238,6 +224,7 @@ const Products = () => {
     const { addToList, removeFromList, isInWishList } = useList()
     const notify = (str) => toast.success(str);
     const notifyRemove = (str) => toast.error(str)
+
     const handleWishList = (item) => {
         if (isInWishList(item.uid)) {
             removeFromList(item.uid);
@@ -361,16 +348,6 @@ const Products = () => {
         setActivePageIndex(index)
     }
 
-    // const handlePrevPage = () => {
-
-    //     setActivePage(activePage - 1);
-    //     setActivePageIndex(activePageIndex - 1)
-    // }
-    // const handleNextPage = () => {
-    //     setActivePage(activePage + 1);
-    //     setActivePageIndex(activePageIndex + 1)
-    // }
-
     const handlePrevPage = () => {
         if (activePage > 1) {
             setActivePage(activePage - 1);
@@ -388,9 +365,6 @@ const Products = () => {
     useEffect(() => {
         fetchProductData(activePage)
     }, [activePageIndex]);
-
-    console.log("render page")
-
 
     return (
         <div className='products-main-container'>
@@ -509,12 +483,6 @@ const Products = () => {
 
                         </div>
 
-                        {/* <div className='less-or-all-filters-btn'>
-                            <button onClick={toggleFiltersVisibility}>
-                                {showAllFilters ? 'Show Less Filters' : 'View All Filters'}
-                            </button>
-                        </div> */}
-
                     </div>
                 </div>
 
@@ -522,6 +490,7 @@ const Products = () => {
                 <div className={`products-section ${hideFilters ? 'full-width' : ''}`}>
                     {/* product heading */}
                     <div className={`products-heading ${query ? 'query-hide-search-heading' : ''}`}>
+
                         <div className='show-filter-btn-and-product-count'>
                             <button className={`show-filter-btn ${hideFilters ? 'hide-show-filter-btn' : ''}`} onClick={handleFilterSection}>
                                 <img src={arrowBlack} alt='arrow black' className={`show-filter-btn-arrow ${hideFilters ? 'rotate-show-filter-arrow-icon' : ''}`} />
@@ -529,6 +498,8 @@ const Products = () => {
                             </button>
                             <p>{totalPages?.totalProducts} Items Starting at {formatedPrice(allFilters?.priceRange?.minPrice)}</p>
                         </div>
+
+                        {/* Relevance Dropdown */}
                         <div className='relevance-container'>
                             <div className='relevance-heading' onClick={handleRelevance}>
                                 <h3 className='relevance-heading-sort-by'>Sort By:</h3>
@@ -544,7 +515,9 @@ const Products = () => {
                             </div>
 
                         </div>
+
                     </div>
+
                     <div className={`product-main ${hideFilters ? 'increase-columns' : ''}`}>
 
                         {products && products?.length > 0 ? (
@@ -554,7 +527,7 @@ const Products = () => {
                                     slug={item.slug}
                                     singleProductData={item}
                                     maxWidthAccordingToComp={"100%"}
-                                    justWidth={'100%'}
+                                    justWidth={hideFilters ? '310px' : '100%'}
                                     tagIcon={item.productTag ? item.productTag : heart}
                                     tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
                                     mainImage={`${item.image.image_url}`}

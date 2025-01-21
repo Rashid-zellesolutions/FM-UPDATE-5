@@ -283,7 +283,7 @@
 }
 
 .product-del-price-with-sale-price {
-    font-size: 18px;
+    font-size: 15px;
     line-height: 21px;
     font-weight: 500;
     color: var(--text-color);
@@ -448,11 +448,11 @@
         padding: 8px;
     }
 
-    .product-price-tag {
+    /* .product-price-tag {
         font-size: 12px !important;
         line-height: 18px !important;
         font-weight: 600 !important;
         margin-top: 5px;
         margin-bottom: 5px;
-    }
+    } */
 }

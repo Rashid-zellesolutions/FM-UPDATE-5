@@ -232,7 +232,7 @@ const ProductCard = ({
                     </div>
 
 
-                    <p className='mobile-view-low-price'>{lowPriceAddvertisement}</p>
+                    {/* <p className='mobile-view-low-price'>{lowPriceAddvertisement}</p> */}
 
 
                     {

@@ -104,18 +104,6 @@ const Breadcrumb = ({ category, productName, sku, categorySlug }) => {
                                 </Link>
                             )}
 
-                            {/* <Link
-                                className={
-                                    index === fullPathNames.length - 1 ?
-                                        "bread_links_sub active" : "bread_links_sub"
-                                }
-                                style={
-                                    { marginLeft: "5px", fontSize: "16px", marginBottom: "1px" }
-                                }
-                                to={index === fullPathNames.length - 1 ? '' : routeTo}
-                            >
-                                {name}
-                            </Link> */}
                         </li>
                     );
                 })}
