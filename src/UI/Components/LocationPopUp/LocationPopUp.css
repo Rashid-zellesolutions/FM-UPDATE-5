@@ -1,13 +1,14 @@
 /* Delivery Location Modal */
 .show-location-modal{
     display: flex;
-    /* width: 0; */
     width: 100%;
     overflow: hidden;
     position: fixed;
     top: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-left: 1px solid var(--text-color);
+    backdrop-filter: blur(5px);
     height: 100vh;
     z-index: 99999999999;
     visibility: hidden;
@@ -16,7 +17,6 @@
 }
 
 .show-location-modal.increase-width-location-modal{
-    /* width: 100%; */
     visibility: visible;
     opacity: 1;
 }
@@ -58,8 +58,6 @@
     height: 100%;
     object-fit: contain;
 }
-
-
 
 .location-heading-and-search-bar-section{
     display: flex;
@@ -154,7 +152,6 @@
     cursor: pointer;
     padding: 0 10px;
     color: var(--text-color);
-    /* background-color: #C61B1A; */
     background-color: #FFFFFF;
 }
 
@@ -198,13 +195,6 @@
     .location-modal-containt-div{
         width: 100%;
     }
-    /* .location-heading-and-search-bar-section {
-        padding: 30px 50px 20px 50px;
-    } */
-
-    /* .location-search-input {
-        width: 115px;
-    } */
 
     .update-zip-btn {
         background-color: var(--active-nav-item-color);

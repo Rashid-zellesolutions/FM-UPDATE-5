@@ -21,7 +21,7 @@ const SamplePrevArrow = (props) => {
   return (
     <div onClick={onClick} className={`blog-slider-arrow blog-slider-arrow-left ${className}`} >
       {/* <img src={leftArrow} alt='arrow' /> */}
-      <IoChevronBack/>
+      <IoChevronBack />
     </div>
   )
 }
@@ -31,7 +31,7 @@ function SampleNextArrow(props) {
   return (
     <div onClick={onClick} className={`blog-slider-arrow blog-slider-arrow-right ${className}`} >
       {/* <img src={rightArrow} alt='arrow' /> */}
-      <IoChevronForward/>
+      <IoChevronForward />
     </div>
   )
 }
@@ -40,7 +40,7 @@ function SampleNextArrow(props) {
 const BlogSlider = () => {
 
   const navigate = useNavigate()
-  const {blogs} = useBlog()
+  const { blogs } = useBlog()
 
   const maxLength = 50;
 
@@ -98,32 +98,32 @@ const BlogSlider = () => {
       </p>
       <div className='blogs-slider-main-container'>
         {blogs && blogs.length > 0 ? (
-            <Slider {...settings}>
-          {blogs.map((item, index) => (
-            <div key={index} className='blog-cards-container'>
-              <BlogCard 
-                key={index} 
-                navigateToSingleBlog={() => handleNavigateToSingleBlog(item)} 
-                img={item.img} 
-                category={item.category} 
-                title={truncateTitle(item.title, maxLength)} 
-                createdBy={item.createdBy} 
-                comments={item.comments}
-                date={item.date}
-                month={item.month} 
-                start={item.start}
-              />
-            </div>
-          ))}
-        </Slider>
+          <Slider {...settings}>
+            {blogs.map((item, index) => (
+              <div key={index} className='blog-cards-container'>
+                <BlogCard
+                  key={index}
+                  navigateToSingleBlog={() => handleNavigateToSingleBlog(item)}
+                  img={item.img}
+                  category={item.category}
+                  title={truncateTitle(item.title, maxLength)}
+                  createdBy={item.createdBy}
+                  comments={item.comments}
+                  date={item.date}
+                  month={item.month}
+                  start={item.start}
+                />
+              </div>
+            ))}
+          </Slider>
         ) : (
           <div className='blog-card-shimmer-container'>
-            {Array.from({length: 3}).map((_, index) => (
+            {Array.from({ length: 3 }).map((_, index) => (
               <BlogCardShimmer />
             ))}
           </div>
         )}
-        
+
       </div>
     </div>
   );

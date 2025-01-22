@@ -106,7 +106,6 @@ const BestSellerSlider = () => {
     const [activeItem, setActiveItem] = useState(0)
     const [MobileActiveIndex, setMobileActiveIndex] = useState(0)
     const [mobIndex, setMobIndex] = useState(0)
-    // const [cardIndex, setCardIndex] = useState(0)
     const { addSingleProduct } = useSingleProductContext();
     const { addToCart } = useCart()
     const { addToList, isInWishList, removeFromList } = useList()

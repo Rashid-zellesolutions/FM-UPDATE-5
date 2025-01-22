@@ -149,7 +149,7 @@
     font-size: 18px;
     line-height: 27px;
     font-weight: 600;
-    color: var(--active-nav-item-color);
+    color: var(--text-color);
 }
 
 .category-product-price-and-heart img{

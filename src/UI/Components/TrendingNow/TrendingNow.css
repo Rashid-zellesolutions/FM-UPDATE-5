@@ -227,3 +227,7 @@
         object-fit: cover;
     }
 }
+
+.tranding-slides .slick-slider{
+    margin-bottom: 0px !important;
+}

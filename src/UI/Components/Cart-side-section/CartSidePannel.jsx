@@ -44,8 +44,6 @@ const CartSidePannel = (
     navigate("/check-out");
   }
 
-
-  // console.log("single cart state: ", singleCart)
   return (
     <div
       className={`cart-side-main-section ${addToCartClicked ? 'show-side-cart' : ''} `}
@@ -92,10 +90,6 @@ const CartSidePannel = (
           })}
         </div>
 
-
-
-
-
         <div className='cart-side-section-buttons'>
 
           {cartProducts.products.length > 0 ? (
@@ -112,7 +106,6 @@ const CartSidePannel = (
               <p className='order-summary-proffesional-check-item-detail'>Use professional assembly for all products and save up to $80</p>
             </div>
           ) : (<></>)}
-
 
           {cartProducts.products.length > 1 ? (
             <div className='proffesional-assembly-check-sec'>

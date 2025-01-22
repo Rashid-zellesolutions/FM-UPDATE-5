@@ -67,7 +67,7 @@ const Products = () => {
     const [hideFilters, setHideFilters] = useState(false);
     const [relevanceTrue, setRelevanceTrue] = useState(false)
     const navigate = useNavigate();
-    const [showAllFilters, setShowAllFilters] = useState(false);
+    // const [showAllFilters, setShowAllFilters] = useState(false);
     const [addToCartClicked, setAddToCartClicked] = useState(false);
     const [quickViewClicked, setQuickView] = useState(false);
     const [products, setProducts] = useState([]);
@@ -116,6 +116,7 @@ const Products = () => {
             setProducts(data);
             setColors(colors)
 
+            fetchFilters();
             setSearchParams({ page: activePage })
         } catch (error) {
             // setPaginationLoading(false)
@@ -123,6 +124,31 @@ const Products = () => {
         }
         // setPaginationLoading(false)
     };
+
+
+    const sortProducts = (criteria) => {
+        switch (criteria) {
+            case 'Recent':
+                return setProducts(products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+            case 'By Price (Low to High)':
+                return setProducts(products.sort((a, b) => a.sale_price - b.sale_price));
+            case 'By Price (High to Low)':
+                return setProducts(products.sort((a, b) => b.sale_price - a.sale_price));
+            case 'Alphabetic (A to Z)':
+                return setProducts(products.sort((a, b) => a.name.localeCompare(b.name)));
+            case 'Alphabetic (Z to A)':
+                return setProducts(products.sort((a, b) => b.name.localeCompare(a.name)));
+            case 'By Ratings (Low to High)':
+                return setProducts(products.sort((a, b) => parseFloat(a.average_rating) - parseFloat(b.average_rating)));
+            case 'By Ratings (High to Low)':
+                return setProducts(products.sort((a, b) => parseFloat(b.average_rating) - parseFloat(a.average_rating)));
+
+            default:
+                return setProducts(products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+        }
+        
+    }
+
 
     // Fetch Filters
     const fetchFilters = async () => {
@@ -135,7 +161,7 @@ const Products = () => {
                     setPriceRange([response.data.priceRange.minPrice, response.data.priceRange.maxPrice]);
                 }
             } else {
-                console.log(`UnExpected ${response.status} Error`)
+                console.error(`UnExpected ${response.status} Error`)
             }
 
         } catch (error) {
@@ -157,8 +183,6 @@ const Products = () => {
 
     // useEffects
     useEffect(() => {
-        // Fetch Products initially when page load
-        setProducts([])
         fetchFilters();
     }, []);
 
@@ -198,12 +222,8 @@ const Products = () => {
     const [selectedRelevanceValue, setSelectedRelevanceValue] = useState(0)
     const handleRelevance = () => {
         setRelevanceTrue(!relevanceTrue);
+        setSelectedRelevanceValue(relevanceData[0].name)
     }
-
-    // show max 5 filters default and on click all
-    // const toggleFiltersVisibility = () => {
-    //     setShowAllFilters(prevState => !prevState);
-    // };
 
     // Card title words limit
     const maxLength = 50;
@@ -240,6 +260,7 @@ const Products = () => {
         }
     }
 
+    // Filters Section
     const [isOpen, setIsOpen] = useState(false);
     const [ratingOpen, setRatingOpen] = useState(false)
     const [categoryOpen, setCategoryOpen] = useState(false);
@@ -338,6 +359,15 @@ const Products = () => {
         filterProducts(categoryString)
     }
 
+    const handleClearFilters = () => {
+        setPriceRange([300, 900])
+        setColorValue([]);
+        setRatingValue([]);
+        setCategoryValue([]);
+        fetchProductData();
+        fetchFilters();
+    }
+
     useEffect(() => {
     }, [colorValue, categoryValue, ratingValue])
 
@@ -345,7 +375,7 @@ const Products = () => {
     const [activePageIndex, setActivePageIndex] = useState(1);
     const handleActivePage = (index) => {
         setActivePage(index);
-        setActivePageIndex(index)
+        setActivePageIndex(index);
     }
 
     const handlePrevPage = () => {
@@ -366,6 +396,8 @@ const Products = () => {
         fetchProductData(activePage)
     }, [activePageIndex]);
 
+    useEffect(() => {console.log("check rendering")}, [])
+
     return (
         <div className='products-main-container'>
             <Breadcrumb category={products.categories} />
@@ -385,7 +417,7 @@ const Products = () => {
 
                         <div className='filters-heading-section'>
                             <h3>Filters</h3>
-                            <p>Clear Filters</p>
+                            <p onClick={handleClearFilters}>Clear Filters</p>
                         </div>
 
                         <div className='all-filters-section'>
@@ -416,6 +448,7 @@ const Products = () => {
                                                 type='checkbox'
                                                 placeholder='checkbox'
                                                 value={item.name}
+                                                checked={colorValue.includes(item.name)}
                                                 onChange={(e) => handleColorCheck(e.target.value)}
                                                 style={{ backgroundColor: item.value, border: `2px solid ${item.value}` }}
                                                 className='color-custom-checkbox'
@@ -443,6 +476,7 @@ const Products = () => {
                                                 type='checkbox'
                                                 placeholder='checkbox'
                                                 value={item + 1}
+                                                checked={ratingValue.includes((item + 1).toString())}
                                                 onChange={(e) => handleRatingFilter(e.target.value)}
                                                 className='custom-checkbox'
                                                 id={`filter-${5 - item}`}
@@ -473,6 +507,7 @@ const Products = () => {
                                                 className='custom-checkbox'
                                                 id={`filter-${index}`}
                                                 value={item.name}
+                                                checked={categoryValue.includes(item.name)}
                                                 onChange={(e) => handleCategorySelect(e.target.value)}
                                             />
                                             <label className='filter-inner-text' htmlFor={`filter-${index}`}>{item.name}</label>
@@ -504,13 +539,17 @@ const Products = () => {
                             <div className='relevance-heading' onClick={handleRelevance}>
                                 <h3 className='relevance-heading-sort-by'>Sort By:</h3>
                                 <span >
-                                    <p>{selectedRelevanceValue.length > 0 ? selectedRelevanceValue : 'Default'}</p>
+                                    <p>{selectedRelevanceValue.length > 0 ? selectedRelevanceValue : 'Recent'}</p>
                                     <MdKeyboardArrowDown size={20} className={`relevance-arrow ${relevanceTrue ? 'rotate-relevance-arrow' : ''}`} />
                                 </span>
                             </div>
                             <div className={`relevance-dropdown ${relevanceTrue ? 'show-relevance' : ''}`}>
                                 {relevanceData.map((item, index) => (
-                                    <p className='filter-inner-text' key={index} onClick={() => { setSelectedRelevanceValue(item.name); setRelevanceTrue(false) }}>{item.name}</p>
+                                    <p className='filter-inner-text' key={index} onClick={() => { 
+                                        setSelectedRelevanceValue(item.name); 
+                                        setRelevanceTrue(false); 
+                                        sortProducts(item.name) 
+                                    }}>{item.name}</p>
                                 ))}
                             </div>
 
@@ -560,7 +599,7 @@ const Products = () => {
                             })
                         ) : (
                             Array.from({ length: 3 }).map((_, index) => (
-                                <ProductCardShimmer />
+                                <ProductCardShimmer key={index} />
                             ))
                         )}
 
@@ -590,6 +629,7 @@ const Products = () => {
                                 </span>
                                 {Array.from({ length: totalPages?.totalPages }).map((_, index) => (
                                     <span
+                                        key={index}
                                         onClick={() => handleActivePage(index + 1)}
                                         className={activePageIndex === index + 1 ? 'active-page-span' : ''}
                                     >
@@ -716,6 +756,7 @@ const Products = () => {
                         </span>
                         {Array.from({ length: totalPages?.totalPages }).map((_, index) => (
                             <span
+                                key={index}
                                 onClick={() => handleActivePage(index + 1)}
                                 className={activePageIndex === index + 1 ? 'active-page-span' : ''}
                             >

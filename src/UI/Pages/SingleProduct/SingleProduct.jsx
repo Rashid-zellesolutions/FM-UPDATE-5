@@ -51,16 +51,16 @@ const SingleProduct = () => {
 
   useEffect(() => {fetchProductBySlug(slug)}, [slug])
 
-  const handleClickTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
+  // const handleClickTop = () => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     behavior: 'smooth',
+  //   });
+  // };
 
-  useEffect(() => {
-    handleClickTop();
-  }, [product]);
+  // useEffect(() => {
+  //   handleClickTop();
+  // }, [product]);
 
   // console.log("products data", product)
 

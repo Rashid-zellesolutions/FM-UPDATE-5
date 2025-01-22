@@ -18,9 +18,6 @@ import usaFlag from '../../Assets/icons/usa-flage.png';
 import crossIcon from '../../Assets/icons/close-btn.png';
 import { FaArrowLeftLong } from "react-icons/fa6";
 
-
-
-
 // Components
 import Nav from '../Navbar/Nav';
 import TabMenu from '../Navbar/TabMenu/TabMenu';

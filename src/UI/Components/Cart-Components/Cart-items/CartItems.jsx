@@ -125,7 +125,7 @@ const CartItems = ({
                             </div>
                         </div>
                         <div className='cart-item-actual-price'>
-                            <p>{productTotalPrice} </p>
+                            <p>{productTotalPrice}</p>
                         </div>
                     </div>
                 </div>

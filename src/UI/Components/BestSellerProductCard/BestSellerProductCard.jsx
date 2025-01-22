@@ -36,7 +36,7 @@ const BestSellerProductCard = (
     >
         {/* <img src={heartIcon} alt='heart' className='show-on-mobile' /> */}
         <div className='category-product-image'>
-            <img src={`${url}${productMainImage}`} alt='product image' effect='blur' />
+            <img src={`${url}${productMainImage}`} alt='product' effect='blur' />
         </div>
         <div className='category-containt-section'>
             <div className='category-product-rating-and-name'>

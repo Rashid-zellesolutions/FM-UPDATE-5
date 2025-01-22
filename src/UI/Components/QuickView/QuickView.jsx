@@ -10,8 +10,12 @@ import CartSidePannel from '../Cart-side-section/CartSidePannel';
 import { useCart } from '../../../context/cartContext/cartContext';
 import crossBtn from '../../../Assets/icons/close-btn.png'
 import { FaStar } from "react-icons/fa";
-import { url } from '../../../utils/api';
+import { formatedPrice, url } from '../../../utils/api';
 import QuickViewVariations from '../SizeVariant/QuickViewVariations';
+import { VscHeartFilled } from "react-icons/vsc";
+import { VscHeart } from "react-icons/vsc";
+import { useList } from '../../../context/wishListContext/wishListContext';
+import { toast } from 'react-toastify';
 
 const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
 
@@ -58,13 +62,6 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
         },
     ]
 
-    const formatePrice = (price) => {
-        return new Intl.NumberFormat('en-us', {
-            style: 'currency',
-            currency: 'USD',
-        }).format(price)
-    }
-
 
     const handleAddToCartProduct = (product) => {
         setCartSection(true);
@@ -93,10 +90,32 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
         setVariableData(searchProductInVariation);
     }, [selectedVariationUid])
 
+    // wish list 
+    const { addToList, removeFromList, isInWishList } = useList()
+    const notify = (str) => toast.success(str);
+    const notifyRemove = (str) => toast.error(str)
+
+    const handleWishList = (item) => {
+        console.log("item", item)
+        if (isInWishList(item.uid)) {
+            removeFromList(item.uid);
+            notifyRemove('Removed from wish list', {
+                autoClose: 10000,
+                className: "toast-message",
+            })
+
+        } else {
+            addToList(item)
+            notify("added to wish list", {
+                autoClose: 10000,
+            })
+        }
+    }
+
     return (
         // <div className={`quick-view-outer-overlay-container ${quickViewShow ? 'show-quick-view-outer-overlay' : ''}`}>
         <div className={`quick-view-main-container ${quickViewShow ? 'show-quick-view-modal' : ''}`} onClick={quickViewClose}>
-            <div 
+            <div
                 className={`quick-view-main ${quickViewShow ? 'slide-quick-view-inner-modal' : ''}`}
                 onClick={(e) => e.stopPropagation()}
             >
@@ -145,15 +164,15 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                 {setQuickViewProduct.type === "simple" ? <>
                     {
                         setQuickViewProduct.sale_price === "0" ?
-                            <h3 className='-quick-view-product-price-tag'>{formatePrice(setQuickViewProduct.regular_price)}</h3> :
-                            <h3 className='quick-view-product-price-tag'> <del>{formatePrice(setQuickViewProduct.regular_price)}</del>  {formatePrice(setQuickViewProduct.sale_price)}</h3>
+                            <h3 className='-quick-view-product-price-tag'>{formatedPrice(setQuickViewProduct.regular_price)}</h3> :
+                            <h3 className='quick-view-product-price-tag'> <del>{formatedPrice(setQuickViewProduct.regular_price)}</del>  {formatedPrice(setQuickViewProduct.sale_price)}</h3>
                     }
                 </> :
                     <>
                         {
                             variableProductData?.sale_price === "0" ?
-                                <h3 className='-quick-view-product-price-tag'>{formatePrice(variableProductData?.regular_price)}</h3> :
-                                <h3 className='quick-view-product-price-tag'> <del>{formatePrice(variableProductData?.regular_price)}</del>  {formatePrice(variableProductData?.sale_price)}</h3>
+                                <h3 className='-quick-view-product-price-tag'>{formatedPrice(variableProductData?.regular_price)}</h3> :
+                                <h3 className='quick-view-product-price-tag'> <del>{formatedPrice(variableProductData?.regular_price)}</del>  {formatedPrice(variableProductData?.sale_price)}</h3>
                         }
                     </>}
                 <div className='quick-view-add-item-or-cart-btn'>
@@ -161,12 +180,34 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                         <button onClick={decreaseLocalQuantity}>
                             <img src={minusBtn} alt='minus' />
                         </button>
-                        <p>{quantity}</p>
+                        <input type='number' value={quantity} onChange={(e) => setQuantity(e.target.value)} />
                         <button onClick={increaseLocalQuantity}>
                             <img src={plusBtn} alt='plus' />
                         </button>
                     </div>
-                    <img src={redHeart} alt='heart' className='quickview-heart-icon' />
+                    <div className='quick-view-wish-list-container'>
+                        {
+                            isInWishList(setQuickViewProduct.uid) ?
+                                <VscHeartFilled
+                                    size={25}
+                                    style={{ color: '#C61B1A' }}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleWishList(setQuickViewProduct)
+                                    }}
+                                />
+                                :
+                                <VscHeart
+                                    size={25}
+                                    style={{ color: '#C61B1A' }}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleWishList(setQuickViewProduct)
+                                    }}
+                                />
+                        }
+                    </div>
+                    {/* <img src={redHeart} alt='heart' className='quickview-heart-icon' /> */}
                     <button className='quick-view-add-to-cart' onClick={() => handleAddToCartProduct(setQuickViewProduct)}>
                         Add To Cart
                     </button>

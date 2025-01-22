@@ -812,7 +812,7 @@ label {
     transition: all 0.3s ease;
 }
 .relevance-dropdown.show-relevance{
-    height: 170px;
+    height: 198px;
     border: 1px solid var(--border-color);
 }
 

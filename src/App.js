@@ -31,15 +31,15 @@ function App() {
 
 
   const {
-      title,
-      description,
-      image,
-    } = useSEOContext();
+    title,
+    description,
+    image,
+  } = useSEOContext();
 
   const {
-      mainLoader,
-      isWarrantyModalOpen,
-    } = useGlobalContext();
+    mainLoader,
+    isWarrantyModalOpen,
+  } = useGlobalContext();
 
   const [isVisible, setIsVisible] = useState(false);
 
@@ -51,27 +51,28 @@ function App() {
   }
 
   return (
-      <div  className="main_body">
-        <ToastContainer 
-          style={{zIndex: 99999999}}
-          position="top-center"
-          transition={Zoom}
-          autoClose={1000}
-        />
-        <Header checkoutPage={checkoutPage} />
-        <Shopvia />
-        <Routes>
-            {routes}
-        </Routes>
-        <Footer checkoutPage={checkoutPage} notLandingPage={currentUrl === '/' ? false : true} />
-        <button onClick={handleClickTop} className={`scroll-to-top-button ${isVisible ? 'show-scrollTop' : ''}`}>
-          <IoIosArrowUp size={30} className='lead-to-top-btn' />
-        </button>
-        <DynamicMetaTags title={title} description={description} image={image} url={""} />
-        {mainLoader && <Loader/>}
-        {isWarrantyModalOpen && <WarrantyModal/>}
-        <Snowfall />
-      </div>
+    <div className="main_body">
+      <ToastContainer
+        style={{ zIndex: 99999 }}
+        position="top-center"
+        transition={Zoom}
+        autoClose={1000}
+      />
+      <Header checkoutPage={checkoutPage} />
+      <Shopvia />
+        {/* <ScrollRestoration /> */}
+      <Routes>
+          {routes}
+      </Routes>
+      <Footer checkoutPage={checkoutPage} notLandingPage={currentUrl === '/' ? false : true} />
+      <button onClick={handleClickTop} className={`scroll-to-top-button ${isVisible ? 'show-scrollTop' : ''}`}>
+        <IoIosArrowUp size={30} className='lead-to-top-btn' />
+      </button>
+      <DynamicMetaTags title={title} description={description} image={image} url={""} />
+      {mainLoader && <Loader />}
+      {isWarrantyModalOpen && <WarrantyModal />}
+      <Snowfall />
+    </div>
   );
 }
 

@@ -139,7 +139,7 @@
 .cart-item-actual-price p{
     font-size: 0.94rem;
     font-weight: 600;
-    color: #C61B1A;
+    color: var(--text-color);
 }
 
 /* Large Screen cart styling */
@@ -221,6 +221,21 @@
     line-height: 14px !important;
     font-weight: 400 !important;
     color: #595959 !important;
+}
+
+.cart-side-section-price-and-count p{
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    line-height: 18px !important;
+    color: var(--text-color) !important;
+}
+
+.cart-side-section-price-and-count p:nth-child(1){
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    line-height: 18px !important;
+    color: var(--text-color) !important;
+    opacity: 0.5;
 }
 
 
@@ -502,7 +517,7 @@
     font-size: 18px;
     font-weight: 700;
     line-height: 27px;
-    color: #C61B1A;
+    color: var(--text-color);
     margin-right: 20px;
 }
 

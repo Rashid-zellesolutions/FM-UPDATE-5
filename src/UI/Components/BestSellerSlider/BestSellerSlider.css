@@ -325,6 +325,7 @@
     width: 85% !important;
     display: flex !important;
     align-items: center;
+    /* padding: 5px 0; */
     justify-content: start;
 }
 
@@ -348,7 +349,7 @@
     transition: transform 0.5s ease;
 }
 
-.mobile-pagination-dots {
+/* .mobile-pagination-dots {
     display: flex;
     justify-content: center;
     margin-top: 10px;
@@ -365,8 +366,8 @@
 }
 
 .mobile-dot.mobile-active {
-    background-color: #333; /* Active dot color */
-}
+    background-color: #333; 
+} */
 
 @media only screen and (max-width: 780px){
     .best-seller-slider-container{

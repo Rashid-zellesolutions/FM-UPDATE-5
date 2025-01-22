@@ -76,7 +76,7 @@ const OrderSummary = () => {
                                         {items.sale_price === '' ? (
                                             <p>{formatedPrice(items.regular_price)}</p>
                                         ) : (
-                                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                            <div className='order-summary-prices-container' style={{ display: 'flex', flexDirection: 'column' }}>
                                                 <del>{formatedPrice(items.regular_price)}</del>
                                                 <p>{formatedPrice(items.sale_price)}</p>
                                             </div>

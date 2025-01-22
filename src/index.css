@@ -90,7 +90,7 @@ h3{
 .add-button-round{
     border: 1px solid var(--border-color);
     border-radius: 50%;
-    padding: 5px;
+    /* padding: 5px; */
     display: flex;
     align-items: center;
     justify-content: center;

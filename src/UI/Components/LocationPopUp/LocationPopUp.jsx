@@ -3,20 +3,20 @@ import './LocationPopUp.css';
 import deliverTo from '../../../Assets/icons/delivery.png'
 import closeBtn from '../../../Assets/icons/close-btn-black.png';
 import locationModalIcon from '../../../Assets/icons/location-charcol-icon.png'
-import { json } from 'react-router-dom';
 import { useGlobalContext } from '../../../context/GlobalContext/globalContext';
 
 
 const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, locationDetails }) => {
 
-  const { setInfo, updateLocationData, zipCode, setZipCode, handleInputChange, handleButtonClick } = useGlobalContext();
+  const { 
+    updateLocationData, 
+    zipCode,
+    handleInputChange, 
+    handleButtonClick 
+  } = useGlobalContext();
+
   const [userLocation, setUserLocation] = useState(null);
-  //  const [locationDetails, setLocationDetails] = useState({
-  //   zipCode: '',
-  //   city: '',
-  //   state: '',
-  //   country: ''
-  // });
+  
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -24,7 +24,6 @@ const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, 
           const { latitude, longitude } = position.coords;
           setUserLocation({ latitude, longitude });
           getLocationDetainsFromCoordinations('41.3976361', '-80.0684789');
-          console.log("user location", { latitude, longitude })
         },
       );
     } else {
@@ -66,13 +65,10 @@ const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, 
             locationData.country = component.long_name;
           }
 
-          console.log("full details", component)
         });
-        console.log("address component full details", data.results)
         updateLocationData(locationData);
         setLocationDetails(locationData);
         handleCloseSearch()
-        console.log('Location Details:', locationData);
       } else {
         alert('Location details could not be retrieved.');
       }

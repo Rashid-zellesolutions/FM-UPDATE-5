@@ -616,7 +616,7 @@
     font-size: 18px;
     line-height: 27px;
     font-weight: 500;
-    z-index: -9;
+    z-index: 9;
     color: var(--text-color);
     opacity: 0.5;
     /* margin-bottom: 16px; */

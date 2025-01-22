@@ -6,6 +6,7 @@ import { IoEyeOutline } from "react-icons/io5";
 import { BsCart3 } from "react-icons/bs";
 import { useList } from '../../../context/wishListContext/wishListContext';
 import { VscHeartFilled } from "react-icons/vsc";
+import { VscHeart } from "react-icons/vsc";
 import ProductCardImageShimmer from '../Loaders/CardImageShimmer/cardImageShimmer';
 
 const ProductCard = ({
@@ -144,7 +145,7 @@ const ProductCard = ({
 
                     <div className='product-main-image-container'>
                         
-                        <div className='tag-and-heart'>
+                        <div className='tag-and-heart' onClick={(e) => e.stopPropagation()}>
                             {stock?.is_stock_manage === 0 && <h4 className={allow_back_order === 1 ? "stock-label back" : "stock-label out"}>{allow_back_order === 1 ? "Back Order" : "Out of Stock"}</h4>}
                             <p className='percent-label'>{percent}</p>
                             {
@@ -158,7 +159,14 @@ const ProductCard = ({
                                         }} 
                                     /> 
                             : 
-                                <></>
+                                <VscHeart 
+                                    size={25} 
+                                    style={{float: 'right', color: '#C61B1A'}} 
+                                    onClick={(e) => {
+                                            e.stopPropagation(); 
+                                            handleWishListclick(singleProductData)
+                                        }}
+                                />
                             }
                             
                         </div>

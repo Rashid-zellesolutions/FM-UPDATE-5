@@ -284,13 +284,15 @@
   font-size: 12px;
   line-height: 18px;
   font-weight: 600;
+  color: var(--text-color);
+  opacity: 0.5;
 }
 
 .mobile-view-deal-of-the-day-price p{
   font-size: 15px;
   line-height: 22px;
   font-weight: 600;
-  color: var(--active-nav-item-color);
+  color: var(--text-color);
 }
 
 @media only screen and (max-width: 480px){

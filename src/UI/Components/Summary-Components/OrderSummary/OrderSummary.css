@@ -93,6 +93,21 @@
     font-weight: 400;
 }
 
+.order-summary-prices-container del{
+    font-size: 10px;
+    line-height: 15px;
+    font-weight: 400;
+    color: var(--text-color);
+    opacity: 0.5;
+}
+
+.order-summary-prices-container p{
+    font-size: 13px;
+    line-height: 15px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
 .selected-product-color{
     display: flex;
     width: 100%;

@@ -23,13 +23,7 @@ import UserComment from './userComment';
 import { FaPhone } from "react-icons/fa6";
 import { IoIosMailOpen } from "react-icons/io";
 import loader from "../../../Assets/Loader-animations/loader-check-two.gif"
-import Loader from '../../Components/Loader/Loader';
 import { useLocation } from 'react-router-dom';
-
-
-
-
-
 
 const StoreLocator = () => {
   const API_KEY = `AIzaSyB9nW_l7Dw8WnnSCOJyJSGjtTYyF9ct3qk&amp;libraries=maps,marker,places,geometry`
@@ -55,8 +49,6 @@ const StoreLocator = () => {
 
   const [showModal, setShowModal] = useState(null)
 
-
-
   useEffect(() => {
     setShowModal(Object.keys(showStore).length > 0
     ? storesApiData?.findIndex(
@@ -67,8 +59,6 @@ const StoreLocator = () => {
     handleLocationDetails(showStore, showModal)
   }, [])
 
-  console.log("Default Store Index:", showModal);
-
   const handleLocationDetails = async (item, index) => {
     setShowModal((prevIndex) => prevIndex === index ? null : index)
     setSelectedLatitude(null)
@@ -78,12 +68,7 @@ const StoreLocator = () => {
     setShowLocationDetails(item);
     setSelectedStore(item)
     setGoogleReviewDetails(await getGoogleStoreDetails(item.placeId))
-    console.log("selected store", item)
   }
-
-
-  console.log("selected store", showStore)
-
 
   const [sliderIndex, setSliderIndex] = useState(0);
 
@@ -110,20 +95,16 @@ const StoreLocator = () => {
     setStoreSelected(type);
     altitude.latitude = lat
     altitude.longitude = long
-    console.log("longitude and latitude", altitude)
     if (type === 'map') {
       setTimeout(() => {
         setShowBottomModal(true)
-        console.log("time out run")
       }, 1000);
     } else {
       setShowBottomModal(false)
-      console.log("false bottom modal")
     }
   }
   const handleCloseBottomModal = () => {
     setShowBottomModal(false)
-    // setStoreSelected('store-list')
   }
 
   const fetchStoresData = async (using, zip, lat, lng) => {
@@ -144,7 +125,6 @@ const StoreLocator = () => {
       }
 
       const stores = response.data.data;
-      console.log("response stores", stores);
       setStoresApiData(stores); // Store the data in your state
       setFetching(false)
     } catch (error) {
@@ -173,14 +153,6 @@ const StoreLocator = () => {
   }, [])
 
   const libraries = ["places"];
-  // const mapContainerStyle = {
-  //   width: "100%",
-  //   height: "100%", // Set appropriate height for the map container
-  // };
-  // const center = {
-  //   lat: altitude.latitude,
-  //   lng: altitude.longitude, // Default longitude
-  // };
 
   // Load Google Maps API
 
@@ -193,10 +165,6 @@ const StoreLocator = () => {
     return <div>Error loading maps</div>;
   }
 
-
-  // const [zipCode, setZipCode] = useState('');
-  // const [zipCode, setZipCode] = useState('');
-
   const handleInputChange = (e) => {
     setZipCode(e.target.value);
   };
@@ -205,14 +173,10 @@ const StoreLocator = () => {
     e.preventDefault(); // Prevent page reload
     if (zipCode) {
       await fetchStoresData("zipcode", zipCode, null, null)
-      console.log(`Searching for stores in zip code: ${zipCode}`);
     } else {
       alert('Please enter a valid zip code');
     }
   };
-
-
-
 
   return (
     <div className='store-locator-main-container'>
@@ -249,7 +213,7 @@ const StoreLocator = () => {
           </div>
 
           <div className='all-stores-cards'>
-            {storesApiData && storesApiData.map((item, index) => (
+            {storesApiData && storesApiData?.map((item, index) => (
               <div key={index} className='store-single-card'>
                 <div className='single-store-head'>
                   <h3>{item.name}</h3>
@@ -290,7 +254,7 @@ const StoreLocator = () => {
                   >
                     {showLocationDetails?.images.map((image, index) => (
                       <div className="single-location-slide" key={index}>
-                        <img src={url + image.image_url} alt="stores" />
+                        <img src={url + image?.image_url} alt="stores" />
                         {/* <p>...</p> */}
                       </div>
                     ))}
@@ -316,8 +280,8 @@ const StoreLocator = () => {
                 <RatingReview rating={googleReviewDetails?.data?.rating} disabled={true} size={"20px"} />
               </div>
               <button className='single-location-direction-button' onClick={() => {
-                setSelectedLatitude(showStore?.length > 0 ? showStore?.latitude : showLocationDetails.latitude);
-                setSelectedLongitude(showStore?.length > 0 ? showStore?.longitude : showLocationDetails.longitude);
+                setSelectedLatitude(showStore?.length > 0 ? showStore?.latitude : showLocationDetails?.latitude);
+                setSelectedLongitude(showStore?.length > 0 ? showStore?.longitude : showLocationDetails?.longitude);
               }}>
                 <MdOutlineDirections />
               </button>
@@ -428,7 +392,7 @@ const StoreLocator = () => {
                   <p>{item.phone}</p>
                   <p>{item.timings[0].time}</p>
                   <div className='mobile-view-single-card-days'>
-                    {item.timings.map((day, dayIndex) => (
+                    {item.timings?.map((day, dayIndex) => (
                       <p>{day.day},</p>
                     ))}
                   </div>
@@ -457,7 +421,7 @@ const StoreLocator = () => {
                 className="mobile-view-slider-track"
                 style={{ transform: `translateX(-${sliderIndex * 140}px)` }}
               >
-                {images.map((image, index) => (
+                {images?.map((image, index) => (
                   <div className="mobile-view-single-location-slide" key={index}>
                     <img src={image} alt="stores" />
                     {/* <p>...</p> */}
@@ -466,7 +430,7 @@ const StoreLocator = () => {
               </div>
             </div>
             <div className="mobile-view-slider-dots">
-              {images.map((_, index) => (
+              {images?.map((_, index) => (
                 <button
                   key={index}
                   className={`dot ${sliderIndex === index ? "active" : ""}`}
@@ -499,7 +463,7 @@ const StoreLocator = () => {
             <p>(1707 Reviews)</p>
           </div>
           {
-            commentData.map((item, index) => (
+            commentData?.map((item, index) => (
               <div className='single-location-comment-card'>
                 <div className='comment-user-section'>
                   <img src={item.profile} alt='profile' className='user-profile-picture' />

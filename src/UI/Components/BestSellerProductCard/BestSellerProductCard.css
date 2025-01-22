@@ -28,6 +28,7 @@
     justify-content: center;
 }
 
+
 .category-product-image img{
     width: 90%;
     height: 100%;
@@ -193,7 +194,7 @@
         font-size: 15px;
         line-height: 18px;
         font-weight: 600;
-        color: var(--active-nav-item-color);
+        color: var(--text-color);
     }
 }
 
