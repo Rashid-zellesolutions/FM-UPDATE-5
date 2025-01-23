@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import './Header.css';
+import './Header.css'; 
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useUserDashboardContext } from '../../context/userDashboardContext/userDashboard';
@@ -245,14 +245,12 @@ const Header = ({ checkoutPage }) => {
   }
 
   const closeSearchModal = () => {
-    console.log("close overlay")
     setSearchQuery('');
     setIsSearchInputFocused(false);
     setSearchedProducts([])
   }
 
   useEffect(() => { }, [searchedProducts])
-  // console.log("searched products", searchedProducts)
 
   const [locationDetails, setLocationDetails] = useState({
     zipCode: '',
@@ -270,7 +268,6 @@ const Header = ({ checkoutPage }) => {
   const handleMobileSearchValue = (e) => {
     const value = e.target.value;
     setMobileSearchProduct(value);
-    console.log("value", value)
     if (value.length > 2) {
       searchForProducts(value);
     } else {
@@ -303,7 +300,6 @@ const Header = ({ checkoutPage }) => {
 
   const findDefaultStore = () => {
     const defaultStore = stores.find(store => store.postal_code === '19134')
-    // console.log("default store", defaultStore);
     return defaultStore;
   }
   const defaultStore = findDefaultStore()
@@ -348,7 +344,6 @@ const Header = ({ checkoutPage }) => {
           setIsTokenValid(false);
           setMainLoader(false);
           navigate("/my-account", { state: { message: "decided" } })
-          console.log("")
         }
       } catch (error) {
         localStorage.removeItem('userToken');

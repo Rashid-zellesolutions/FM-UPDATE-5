@@ -65,6 +65,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    gap: 3px;
     padding: 5px 0;
 }
 .top_rated_price_cont p{
@@ -157,9 +158,9 @@
     }
 
     .product-img-detail{
-        top: 5px;
-        right: 5px;
-        padding: 5px;
+        top: 0px;
+        right: 0px;
+        padding: 0px;
         width: 80px;
     }
 
@@ -169,9 +170,9 @@
     }
 
     .product-img-detail h3 {
-        font-size: 8px;
-        font-weight: 400;
-        line-height: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 14px;
     }
 
     .product-img-detail span {
@@ -182,6 +183,7 @@
     .product-img-detail p {
         font-size: 8px;
         line-height: 10px;
+        font-weight: 400;
     }
     
     .product-img img {

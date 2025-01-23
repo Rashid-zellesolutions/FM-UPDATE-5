@@ -152,6 +152,7 @@ const ProductCard = ({
                                 isInWishList(singleProductData.uid) ? 
                                     <VscHeartFilled 
                                         size={25}
+                                        className='wishlist-heart'
                                         style={{color: '#C61B1A'}} 
                                         onClick={(e) => {
                                             e.stopPropagation(); 
@@ -161,6 +162,7 @@ const ProductCard = ({
                             : 
                                 <VscHeart 
                                     size={25} 
+                                    className='wishlist-heart'
                                     style={{float: 'right', color: '#C61B1A'}} 
                                     onClick={(e) => {
                                             e.stopPropagation(); 

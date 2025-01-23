@@ -169,32 +169,14 @@
     justify-content: center;
     position: absolute;
     width: 100%;
-    overflow-y: show;
+    overflow-y: hidden;
     overflow-x: auto;
     bottom: 10px;
 }
 
 .single-product-slider-thumbnails::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
+    display: none;
     /* Width of the scrollbar */
-}
-
-.single-product-slider-thumbnails::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    /* Track background */
-}
-
-.single-product-slider-thumbnails::-webkit-scrollbar-thumb {
-    background: #888;
-    /* Scrollbar thumb */
-    border-radius: 4px;
-    /* Rounded corners */
-}
-
-.single-product-slider-thumbnails::-webkit-scrollbar-thumb:hover {
-    background: #555;
-    /* Thumb on hover */
 }
 
 .single-product-slider-thumbnail {
@@ -210,7 +192,6 @@
     border-bottom: 2px solid #4478C5;
     overflow-y: auto;
     position: relative;
-    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
 }
 
 

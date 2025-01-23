@@ -9,12 +9,15 @@
     display: none;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 99999;
+    z-index: 999;
 }
 
 .share-product-link-pop-up-main.show-product-share-pop-up{
     display: flex;
+    backdrop-filter: blur(5px);
+    background-color: transparent;
+    /* box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); */
+
 }
 
 .share-product-link-pop-up-inner{
@@ -25,18 +28,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 9999;
     justify-content: space-between;
-    background-color: #fff;
-    box-shadow: 0px 0px 10px 0px #00000026;
+    backdrop-filter: blur(50px); /* Subtle background blur */
+    background: rgba(255, 255, 255, 0.1); /* Light white overlay with transparency */
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+    -webkit-backdrop-filter: blur(50px); /* For Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.5);
     position: relative;
+    /* color: #FFFFFF !important; */
 }
 
 .share-product-link-pop-up-close-btn{
     position: absolute;
     top: 20px;
     right: 20px;
-    width: 32px;
-    height: 32px;
+    width: 22px;
+    height: 22px;
     background-color: transparent;
     border: none;
     outline: none;
@@ -53,10 +61,33 @@
 .share-product-selected-product-details{
     display: flex;
     flex-direction: column;
+    gap: 5px;
     align-items: start;
     justify-content: space-between;
     height: 100%;
 }
+
+.shared-products-product-name{
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.shared-product-sku{
+    font-size: 11px;
+    line-height: 12px;
+    font-weight: 400;
+    color: var(--text-color);
+}
+
+.shared-product-brand-name{
+    font-size: 11px;
+    line-height: 12px;
+    font-weight: 400;
+    color: var(--text-color);
+}
+
 .share-product-popup-product-div{
     display: flex;
     width: 100%;
@@ -76,7 +107,8 @@
     font-size: 18px;
     line-height: 27px;
     font-weight: 600;
-    color: var(--active-nav-item-color);
+    /* color: var(--text-color); */
+    color: #FFFFFF !important;
 }
 
 .share-product-selected-product-rating{
@@ -109,15 +141,16 @@
 .share-product-selected-product-regular-and-sale-price del{
     font-size: 15px;
     line-height: 22px;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--text-color);
+    opacity: 0.5;
 }
 
 .share-product-selected-product-regular-and-sale-price h3{
     font-size: 18px;
     line-height: 27px;
-    font-weight: 600;
-    color: var(--active-nav-item-color);;
+    font-weight: 500;
+    color: var(--text-color);
 }
 
 /* selected product social share flat forms */
@@ -196,7 +229,7 @@
 
 .share-product-link-generator-btn.share-products-copy-btn{
     background: #77DE8A33;
-    color: #77DE8A;
+    color: #4CAF50;
 ;
 }
 

@@ -24,6 +24,7 @@
     position: absolute;
     width: 100%;
     z-index: 9;
+    /* position: relative; */
     justify-content: space-between;
     padding: 0 2px;
 }
@@ -45,11 +46,18 @@
 .stock-label.back{
     background-color: #FFC107 !important;
 }
-.tag-and-heart img {
+
+.wishlist-heart{
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 0px;
+}
+/* .tag-and-heart img {
     width: auto;
     height: auto;
     object-fit: contain;
-}
+} */
 
 .heart-icon-div {
     display: flex;
@@ -141,8 +149,8 @@
 }
 
 .overlay-buttons .overlay-button:hover {
-    background-color: var(--active-nav-item-color);
-    border: 1px solid var(--active-nav-item-color);
+    background-color: var(--text-color);
+    border: 1px solid var(--text-color);
     color: var(--text-white);
 }
 

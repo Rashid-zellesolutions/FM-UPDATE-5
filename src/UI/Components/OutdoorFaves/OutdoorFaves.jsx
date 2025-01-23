@@ -6,16 +6,14 @@ import { Link, useNavigate } from 'react-router-dom';
 const OutdoorFaves = ({categories}) => {
     const navigate = useNavigate()
 
-    console.log("related categories", categories)
     const notMain = categories?.filter((isMain) => isMain?.is_main === 0 );
-    console.log("is main or not", notMain)
-    const relatedCategoryData = [
-        {category: 'brown wicker patio furniture'},
-        {category: 'deep seating patio furniture'},
-        {category: 'heavy duty patio furniture'},
-        {category: 'I shaped outdoor seating'},
-        {category: 'outside patio'},
-    ]
+    // const relatedCategoryData = [
+    //     {category: 'brown wicker patio furniture'},
+    //     {category: 'deep seating patio furniture'},
+    //     {category: 'heavy duty patio furniture'},
+    //     {category: 'I shaped outdoor seating'},
+    //     {category: 'outside patio'},
+    // ]
 
     const handleNavigate = (item) => {
         const mainCategory = categories.filter((isMain) => isMain?.is_main === 1 )

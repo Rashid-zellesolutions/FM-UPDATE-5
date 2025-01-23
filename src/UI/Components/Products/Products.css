@@ -695,6 +695,13 @@ label {
     justify-content: start;
 }
 
+.total-product-count-shimmer{
+    width: 280px;
+    height: 20px;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+}
+
 .show-filter-btn-and-product-count p{
     font-size: 16px;
     line-height: 24px;

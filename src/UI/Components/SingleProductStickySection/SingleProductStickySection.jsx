@@ -82,6 +82,7 @@ const SingleProductStickySection = ({ productData }) => {
       ? productData
       : getBySlug
   );
+
   useEffect(() => {
 
     if (
@@ -280,29 +281,28 @@ const SingleProductStickySection = ({ productData }) => {
   const [searchLocation, setSearchLocation] = useState(false);
   const handleSearchModal = () => {
     setSearchLocation(true)
-    console.log("handle Location modal")
-    console.log("value of searchLocation", searchLocation)
   }
 
   const handleCloseSearch = () => {
     setSearchLocation(false)
   }
   const [locationDetails, setLocationDetails] = useState({
-      zipCode: '',
-      city: '',
-      state: '',
-      country: ''
-    });
+    zipCode: '',
+    city: '',
+    state: '',
+    country: ''
+  });
+
 
   return (
     <>
       <div className='sticky-main-container-0'>
         <LocationPopUp
-            searchLocation={searchLocation}
-            handleCloseSearch={handleCloseSearch}
-            setLocationDetails={setLocationDetails}
-            locationDetails={locationDetails}
-          />
+          searchLocation={searchLocation}
+          handleCloseSearch={handleCloseSearch}
+          setLocationDetails={setLocationDetails}
+          locationDetails={locationDetails}
+        />
         <div className="sticky-main-container">
 
           <div className='left-section'>
@@ -361,13 +361,14 @@ const SingleProductStickySection = ({ productData }) => {
                     </div>
                   ))
                 ) : (
-                  product.images?.map((simpleImg, index) => (
+                  product?.images?.map((simpleImg, index) => (
                     <div
                       key={index}
                       className={`single-product-slider-thumbnail ${activeIndex === index ? '' : 'single-product-slider-thumbnail-inactive'}`}
                       onClick={() => handleThumbnailClickk(index)}
                     >
-                      <imag src={`${url}${simpleImg.image_url}`} alt={`Thumbnail ${index}`} />
+                      <TiArrowSortedDown size={30} color='#4478C5' className={activeIndex === index ? 'show-arrow' : 'hide-arrow'} />
+                      <img src={`${url}${simpleImg.image_url}`} alt={`Thumbnail ${index}`} />
                     </div>
                   ))
                 )}
@@ -399,7 +400,7 @@ const SingleProductStickySection = ({ productData }) => {
 
               </div>
             </div>
-            
+
 
           </div>
 
@@ -666,18 +667,18 @@ const SingleProductStickySection = ({ productData }) => {
           <FinancingOptions />
           <SingleProductFAQ />
 
-          
 
-          
+
+
 
 
         </div>
       </div>
-        <ShareProduct
-            isSharePopup={isSharePopup}
-            setIsSharePopup={setIsSharePopup}
-            selectedProduct={selectedProduct}
-          />
+      <ShareProduct
+        isSharePopup={isSharePopup}
+        setIsSharePopup={setIsSharePopup}
+        selectedProduct={selectedProduct}
+      />
     </>
   );
 };

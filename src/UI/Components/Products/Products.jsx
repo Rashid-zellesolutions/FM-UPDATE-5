@@ -386,6 +386,7 @@ const Products = () => {
     };
 
     const handleNextPage = () => {
+        console.log("next clicked")
         if (activePage < totalPages) {
             setActivePage(activePage + 1);
             setActivePageIndex(activePageIndex + 1);
@@ -395,8 +396,6 @@ const Products = () => {
     useEffect(() => {
         fetchProductData(activePage)
     }, [activePageIndex]);
-
-    useEffect(() => {console.log("check rendering")}, [])
 
     return (
         <div className='products-main-container'>
@@ -531,7 +530,13 @@ const Products = () => {
                                 <img src={arrowBlack} alt='arrow black' className={`show-filter-btn-arrow ${hideFilters ? 'rotate-show-filter-arrow-icon' : ''}`} />
                                 Show Filters
                             </button>
-                            <p>{totalPages?.totalProducts} Items Starting at {formatedPrice(allFilters?.priceRange?.minPrice)}</p>
+                            {products && products?.length > 0 ? (
+                                <p>{totalPages?.totalProducts} Items Starting at {formatedPrice(allFilters?.priceRange?.minPrice)}</p>
+                            ) : (
+                                <p className='total-product-count-shimmer'></p>
+                            ) 
+                            }
+                            {/* <p>{totalPages?.totalProducts} Items Starting at {formatedPrice(allFilters?.priceRange?.minPrice)}</p> */}
                         </div>
 
                         {/* Relevance Dropdown */}

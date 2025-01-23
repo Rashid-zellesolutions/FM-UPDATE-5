@@ -22,7 +22,6 @@ import { useList } from '../../../context/wishListContext/wishListContext';
 import { toast } from 'react-toastify';
 import BestSellerShimmer from '../BestSellerSlider/BestSellerShimmer/BestSellerShimmer';
 
-
 const BestSellerPrevArrow = (props) => {
     const { className, style, onClick } = props;
     return (

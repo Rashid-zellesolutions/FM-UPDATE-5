@@ -70,20 +70,7 @@ import axios from "axios";
 import { url } from "../../../utils/api";
 
 
-function FinanceBannerSlider({images}) {
-    // const [images, setIMages] = useState([])
-    // const getFinanceBannerImagesFRomApi = async () => {
-    //     try {
-    //         const response = await axios.get(`${url}/api/v1/pages/home/finance-slider/get`);
-    //         // console.log("finance images", response.data.homeSliders)
-    //         setIMages(response.data.homeSliders)
-    //     } catch (error) {
-    //         console.log("error", error);
-    //     }
-    // }
-    // useEffect(() => {
-    //     getFinanceBannerImagesFRomApi()
-    // }, [])
+function FinanceBannerSlider({ images }) {
 
     const settings = {
         dots: false, // Show navigation dots
@@ -97,8 +84,6 @@ function FinanceBannerSlider({images}) {
         pauseOnHover: false, // Pause autoplay on hover
         arrows: false, // Show left/right navigation arrows
     };
-
-  
 
     return (
         <div className="carousel-container">
