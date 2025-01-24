@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import './SingleProductStickySection.css';
+import './SingleProductShimmer.css'
 import { Link, useParams } from 'react-router-dom';
 // Sticky Slider Images
 
@@ -41,6 +42,7 @@ import { IoChevronBack } from "react-icons/io5";
 import { useGlobalContext } from '../../../context/GlobalContext/globalContext';
 import ShareProduct from '../ShareProduct/ShareProduct';
 import LocationPopUp from '../LocationPopUp/LocationPopUp';
+import { isArray } from 'lodash';
 
 const SingleProductStickySection = ({ productData }) => {
 
@@ -123,7 +125,6 @@ const SingleProductStickySection = ({ productData }) => {
     const { value } = e.target;
     setQuantity(value)
   }
-
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
@@ -250,7 +251,6 @@ const SingleProductStickySection = ({ productData }) => {
 
   };
 
-
   const [selectedColor, setSelectedColor] = useState();
   const handleSelectColor = (value) => {
     setSelectedColor(value);
@@ -269,7 +269,6 @@ const SingleProductStickySection = ({ productData }) => {
   const { info, shippingMethods } = useGlobalContext();
   useEffect(() => {
   }, [shippingMethods])
-
 
   const [isSharePopup, setIsSharePopup] = useState(null);
   const [selectedProduct, SetSelectedProduct] = useState()
@@ -293,6 +292,7 @@ const SingleProductStickySection = ({ productData }) => {
     country: ''
   });
 
+  console.log("product", Object.keys(product).length)
 
   return (
     <>
@@ -313,71 +313,82 @@ const SingleProductStickySection = ({ productData }) => {
               categorySlug={productData?.categories?.[0]?.slug}
             />
 
-            <div className='single-product-alice-slider'>
-              <p className='single-product-slider-main-image-stock-tag' >In Stock</p>
-              <button className='single-product-arrow single-product-arrow-left' onClick={handlePrevSlide} >{/* <img src={arrowLeft} alt='left' /> */}
-                <IoChevronBack />
-              </button>
-              <AliceCarousel
-                ref={carouselRef}
-                activeIndex={activeIndex}
-                disableDotsControls
-                disableButtonsControls
-                items={
-                  product.type === 'variable'
-                    ? (selectedVariationData?.images || []).map((img, index) => (
-                      <img
-                        key={index}
-                        src={`${url}${img.image_url}`}
-                        className="single-product-slider-img"
-                        alt={`Slide ${index}`}
-                      />
-                    ))
-                    : (product?.images || []).map((item, index) => (
-                      <img
-                        key={index}
-                        src={`${url}${item.image_url}`}
-                        className="single-product-slider-img"
-                        alt="simple"
-                      />
-                    ))
-                }
-                responsive={{
-                  0: { items: 1 },
-                  1024: { items: 1 },
-                }}
-              />
+            {Object.keys(product).length > 0 ? (
+              <div className='single-product-alice-slider'>
+                <p className='single-product-slider-main-image-stock-tag' >In Stock</p>
+                <button className='single-product-arrow single-product-arrow-left' onClick={handlePrevSlide} >{/* <img src={arrowLeft} alt='left' /> */}
+                  <IoChevronBack />
+                </button>
+                <AliceCarousel
+                  ref={carouselRef}
+                  activeIndex={activeIndex}
+                  disableDotsControls
+                  disableButtonsControls
+                  items={
+                    product.type === 'variable'
+                      ? (selectedVariationData?.images || []).map((img, index) => (
+                        <img
+                          key={index}
+                          src={`${url}${img.image_url}`}
+                          className="single-product-slider-img"
+                          alt={`Slide ${index}`}
+                        />
+                      ))
+                      : (product?.images || []).map((item, index) => (
+                        <img
+                          key={index}
+                          src={`${url}${item.image_url}`}
+                          className="single-product-slider-img"
+                          alt="simple"
+                        />
+                      ))
+                  }
+                  responsive={{
+                    0: { items: 1 },
+                    1024: { items: 1 },
+                  }}
+                />
 
-              <div className="single-product-slider-thumbnails">
-                {product.type === 'variable' ? (
-                  selectedVariationData?.images?.map((img, ind) => (
-                    <div
-                      key={ind}
-                      className={`single-product-slider-thumbnail ${activeIndex === ind ? '' : 'single-product-slider-thumbnail-inactive'}`}
-                      onClick={() => handleThumbnailClickk(ind)}
-                    >
-                      <TiArrowSortedDown size={30} color='#4478C5' className={activeIndex === ind ? 'show-arrow' : 'hide-arrow'} />
-                      <img src={`${url}${img.image_url}`} alt={`Thumbnail ${ind}`} />
-                    </div>
-                  ))
-                ) : (
-                  product?.images?.map((simpleImg, index) => (
-                    <div
-                      key={index}
-                      className={`single-product-slider-thumbnail ${activeIndex === index ? '' : 'single-product-slider-thumbnail-inactive'}`}
-                      onClick={() => handleThumbnailClickk(index)}
-                    >
-                      <TiArrowSortedDown size={30} color='#4478C5' className={activeIndex === index ? 'show-arrow' : 'hide-arrow'} />
-                      <img src={`${url}${simpleImg.image_url}`} alt={`Thumbnail ${index}`} />
-                    </div>
-                  ))
-                )}
+                <div className="single-product-slider-thumbnails">
+                  {product.type === 'variable' ? (
+                    selectedVariationData?.images?.map((img, ind) => (
+                      <div
+                        key={ind}
+                        className={`single-product-slider-thumbnail ${activeIndex === ind ? '' : 'single-product-slider-thumbnail-inactive'}`}
+                        onClick={() => handleThumbnailClickk(ind)}
+                      >
+                        <TiArrowSortedDown size={30} color='#4478C5' className={activeIndex === ind ? 'show-arrow' : 'hide-arrow'} />
+                        <img src={`${url}${img.image_url}`} alt={`Thumbnail ${ind}`} />
+                      </div>
+                    ))
+                  ) : (
+                    product?.images?.map((simpleImg, index) => (
+                      <div
+                        key={index}
+                        className={`single-product-slider-thumbnail ${activeIndex === index ? '' : 'single-product-slider-thumbnail-inactive'}`}
+                        onClick={() => handleThumbnailClickk(index)}
+                      >
+                        <TiArrowSortedDown size={30} color='#4478C5' className={activeIndex === index ? 'show-arrow' : 'hide-arrow'} />
+                        <img src={`${url}${simpleImg.image_url}`} alt={`Thumbnail ${index}`} />
+                      </div>
+                    ))
+                  )}
+                </div>
+
+                <button className='single-product-arrow single-product-arrow-right' onClick={handleNextSlide}>
+                  <IoChevronForward />
+                </button>
               </div>
-
-              <button className='single-product-arrow single-product-arrow-right' onClick={handleNextSlide}>
-                <IoChevronForward />
-              </button>
-            </div>
+            ) : (
+              <div className='shimmer-single-product-main-image-slider-container'>
+                <div className='shimmer-single-product-slider-main-image'></div>
+                <div className='shimmer-single-product-main-slider-thumbnails-container'>
+                  {Array.from({ length: 4 }).map((_, index) => (
+                    <div className='shimmer-single-product-slider-thumbnail'></div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div className='left-section-delivery-options-main-container'>
               <span className='left-section-delivery-main-heading'>
@@ -401,94 +412,141 @@ const SingleProductStickySection = ({ productData }) => {
               </div>
             </div>
 
-
           </div>
 
           <div className='right-section'>
             <div className='single-product-detail-container'>
-              <div className='single-page-product-name-anddetails'>
+              {Object.keys(product).length > 0 ? (
+                <div className='single-page-product-name-anddetails'>
 
-                <h3 className='single-product-heading'>{product.name}</h3>
-                <p className='single-product-sku'>
-                  SKU : {product.sku}
-                </p>
-                <div className='single-product-rating'>
-                  <RatingReview rating={(product?.average_rating)} disabled={true} size={"20px"} />
+                  <h3 className='single-product-heading'>{product.name}</h3>
+                  <p className='single-product-sku'>
+                    SKU : {product.sku}
+                  </p>
+                  <div className='single-product-rating'>
+                    <RatingReview rating={(product?.average_rating)} disabled={true} size={"20px"} />
 
-                  <span className='single-product-share' onClick={() => handleShareModal(productData)}>
-                    <FaShareSquare className='single-product-share-icon' size={20} />
-                  </span>
+                    <span className='single-product-share' onClick={() => handleShareModal(productData)}>
+                      <FaShareSquare className='single-product-share-icon' size={20} />
+                    </span>
 
-                </div>
-                {product.type === "simple" ? <>
-                  {product?.sale_price !== "" ? <div className='single-product-prices'>
-                    <del className='single-product-old-price'>{formatedPrice(productData.regular_price)}</del>
-                    <h3 className='single-product-new-price'>{formatedPrice(productData?.sale_price)}</h3>
-                  </div> : <div className='single-product-prices'>
-                    <h3 className='single-product-new-price'>{formatedPrice(productData.regular_price)}</h3>
                   </div>
-                  }
-                </> : <>
-                  {selectedVariationData?.sale_price !== "" ? <div className='single-product-prices'>
-                    <del className='single-product-old-price'>{formatedPrice(selectedVariationData?.regular_price)}</del>
-                    <h3 className='single-product-new-price'>{formatedPrice(selectedVariationData?.sale_price)}</h3>
-                  </div> : <div className='single-product-prices'>
-                    <h3 className='single-product-new-price'>{formatedPrice(product.regular_price)}</h3>
-                  </div>
-                  }
-                </>}
-
-                <span className='single-product-shipping'>
-                  <p className='single-product-installment-price-price'>$9/month for 6 months - Total $ 199.00 </p>
-                  <p>Get it between July 27 - July 31'</p>
-                </span>
-                <div className='single-product-frame-color'>
-                  <SizeVariant
-                    productType={product.type}
-                    productData={product.variations}
-                    attributes={product.attributes}
-                    selectedColor={selectedColor}
-                    selectVariation={selectVariation}
-                    handleSelectColor={handleSelectColor}
-                    handleSelectVariation={handleSelectVariation}
-                    handleSelectedVariationData={handleSelectedVariationData}
-                  />
-                </div>
-
-                <div className='add-cart-or-add-items-div'>
-                  <div className='item-count'>
-                    <button className={`minus-btn ${product.quantity === 1 ? 'disabled' : ''}`} onClick={decreaseLocalQuantity} disabled={product.quantity === 1}>
-                      {/* <img src={minus} alt='minus btn' /> */}
-                      <FaWindowMinimize size={18} className='minus-icon' />
-                    </button>
-
-                    <input
-                      type='number'
-                      value={quantity}
-                      onChange={handleQuantityChange}
-                    />
-                    <button className='plus-btn' onClick={increaseLocalQuantity}>
-                      {/* <img src={plus} alt='plus btn' /> */}
-                      <FaPlus size={18} className='plus-icon' />
-                    </button>
-                  </div>
-                  <img src={isInWishList(product.uid) ? filledHeart : redHeart} alt='red-heart-icon' className='red-heart-icon' onClick={(e) => { e.stopPropagation(); handleWishList(product) }} />
-                  <button
-                    className={`add-to-cart-btn ${isLoading ? 'loading' : ''}`}
-                    onClick={() => {
-                      handleClick();
-                      addToCart0(product, variationData, !isProtectionCheck ? 1 : 0, quantity)
-                      handleAddToCartProduct(product);
+                  {product?.type === "simple" ? <>
+                    {product?.sale_price !== "" ? <div className='single-product-prices'>
+                      <del className='single-product-old-price'>{formatedPrice(productData?.regular_price)}</del>
+                      <h3 className='single-product-new-price'>{formatedPrice(productData?.sale_price)}</h3>
+                    </div> : <div className='single-product-prices'>
+                      <h3 className='single-product-new-price'>{formatedPrice(productData?.regular_price)}</h3>
+                    </div>
                     }
-                    }>
-                    {isLoading ? 'Loading...' : 'Add To Cart'}
-                  </button>
+                  </> : <>
+                    {selectedVariationData?.sale_price !== "" ? <div className='single-product-prices'>
+                      <del className='single-product-old-price'>{formatedPrice(selectedVariationData?.regular_price)}</del>
+                      <h3 className='single-product-new-price'>{formatedPrice(selectedVariationData?.sale_price)}</h3>
+                    </div> : <div className='single-product-prices'>
+                      <h3 className='single-product-new-price'>{formatedPrice(product?.regular_price)}</h3>
+                    </div>
+                    }
+                  </>}
+
+                  <span className='single-product-shipping'>
+                    <p className='single-product-installment-price-price'>$9/month for 6 months - Total $ 199.00 </p>
+                    <p>Get it between July 27 - July 31'</p>
+                  </span>
+                  <div className='single-product-frame-color'>
+                    <SizeVariant
+                      productType={product.type}
+                      productData={product.variations}
+                      attributes={product.attributes}
+                      selectedColor={selectedColor}
+                      selectVariation={selectVariation}
+                      handleSelectColor={handleSelectColor}
+                      handleSelectVariation={handleSelectVariation}
+                      handleSelectedVariationData={handleSelectedVariationData}
+                    />
+                  </div>
+
+                  <div className='add-cart-or-add-items-div'>
+                    <div className='item-count'>
+                      <button className={`minus-btn ${product.quantity === 1 ? 'disabled' : ''}`} onClick={decreaseLocalQuantity} disabled={product.quantity === 1}>
+                        {/* <img src={minus} alt='minus btn' /> */}
+                        <FaWindowMinimize size={18} className='minus-icon' />
+                      </button>
+
+                      <input
+                        type='number'
+                        value={quantity}
+                        onChange={handleQuantityChange}
+                      />
+                      <button className='plus-btn' onClick={increaseLocalQuantity}>
+                        {/* <img src={plus} alt='plus btn' /> */}
+                        <FaPlus size={18} className='plus-icon' />
+                      </button>
+                    </div>
+                    <img src={isInWishList(product.uid) ? filledHeart : redHeart} alt='red-heart-icon' className='red-heart-icon' onClick={(e) => { e.stopPropagation(); handleWishList(product) }} />
+                    <button
+                      className={`add-to-cart-btn ${isLoading ? 'loading' : ''}`}
+                      onClick={() => {
+                        handleClick();
+                        addToCart0(product, variationData, !isProtectionCheck ? 1 : 0, quantity)
+                        handleAddToCartProduct(product);
+                      }
+                      }>
+                      {isLoading ? 'Loading...' : 'Add To Cart'}
+                    </button>
+                  </div>
                 </div>
-              </div>
-              <FinancingOptions />
+              ) : (
+                <div className='shimmer-single-product-detail-sections'>
+                  <div className='shimmer-single-product-name-sec'>
+                    <div className='shimmer-single-product-name'></div>
+                    <div className='shimmer-single-product-name-two'></div>
+                  </div>
+                  <div className='shimmer-single-product-sku'></div>
+                  <div className='shimmer-single-product-rating'></div>
+                  <div className='shimmer-single-product-price'></div>
+
+                  <div className='shimmer-single-product-color-sec'>
+                    <div className='shimmer-single-product-color-text'></div>
+                    <div className='shimmer-single-product-color-box'></div>
+                  </div>
+
+                  <div className='shimmer-single-product-color-sec'>
+                    <div className='shimmer-single-product-filter-text'></div>
+                    <div className='shimmer-single-product-filter-box'></div>
+                  </div>
+
+                  <div className='shimmer-add-to-card-container'>
+                    <div className='shimmer-quantity-container'></div>
+                    <div className='shimmer-wishlist-icon'></div>
+                    <div className='shimmer-add-to-cart-button'></div>
+                  </div>
+
+                </div>
+              )}
+
+              {Object.keys(product).length > 0 ? (
+                <FinancingOptions />
+              ) : (
+                <div className='shimmer-financing-option'>
+                  <div className='shimmer-financing-cards-sec'>
+                    <div className='shimmer-financing-card'></div>
+                    <div className='shimmer-financing-card'></div>
+                    <div className='shimmer-financing-card'></div>
+                  </div>
+                  <div className='shimmer-financing-card-button'></div>
+                </div>
+              )}
               {product.may_also_need && product.may_also_need.length > 0 ? <AlsoNeed productsUid={product.may_also_need} /> : <></>}
 
-              <WhatWeOffer key={"single-protection"} isProtected={isProtectionCheck} setIsProtected={setIsProtectionCheck} />
+              {Object.keys(product).length > 0 ? (
+                <WhatWeOffer key={"single-protection"} isProtected={isProtectionCheck} setIsProtected={setIsProtectionCheck} />
+              ) : (
+                <div className='shimmer-what-we-offer-main'>
+                  <div className='shimmer-what-we-offer-heading'></div>
+                  <div className='shimmer-what-we-offer-card'></div>
+                </div>
+              )}
               {/* <DeliveryOptions /> */}
               <SingleProductFAQ description={product.description} />
             </div>
@@ -517,12 +575,12 @@ const SingleProductStickySection = ({ productData }) => {
           </p>
           <div className='mobile-view-price-and-favorite-div'>
             <div className='old-and-new-price'>
-              {productData.type === "simple" ? <>
+              {productData?.type === "simple" ? <>
                 {productData?.sale_price !== "0=" ? <div className='single-product-prices'>
                   <del className='single-product-old-price'>{formatedPrice(productData?.regular_price)}</del>
                   <h3 className='single-product-new-price'>{formatedPrice(productData?.sale_price)}</h3>
                 </div> : <div className='single-product-prices'>
-                  <h3 className='single-product-new-price'>{formatedPrice(productData.regular_price)}</h3>
+                  <h3 className='single-product-new-price'>{formatedPrice(productData?.regular_price)}</h3>
                 </div>
                 }
               </> : <>
@@ -530,7 +588,7 @@ const SingleProductStickySection = ({ productData }) => {
                   <del className='single-product-old-price'>{formatedPrice(selectedVariationData?.regular_price)}</del>
                   <h3 className='single-product-new-price'>{formatedPrice(selectedVariationData?.sale_price)}</h3>
                 </div> : <div className='single-product-prices'>
-                  <h3 className='single-product-new-price'>{formatedPrice(product.regular_price)}</h3>
+                  <h3 className='single-product-new-price'>{formatedPrice(product?.regular_price)}</h3>
                 </div>
                 }
               </>}

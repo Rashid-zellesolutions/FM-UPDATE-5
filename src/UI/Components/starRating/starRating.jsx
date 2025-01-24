@@ -48,7 +48,6 @@ function RatingReview({ rating, setRating, disabled,size,bgColor,bgColor2 }) {
               cursor: disabled ? "not-allowed" : "pointer",
               fontSize: size? size : `25px`,
               lineHeight:size? size : `25px`,
-              zIndex: -9
 
             }}
             onClick={(e) => handleClick(e, star)}

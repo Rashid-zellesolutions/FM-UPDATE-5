@@ -119,6 +119,7 @@ const MobileFooter = ({ checkoutPage }) => {
         setLocationAccordion(!locationAccordion);
     }
 
+
     return (
         <div className={`mobile-view-footer-main-container ${footerHide === '/cart' ? 'hide-mobile-footer' : ''} ${checkoutPage ? 'hide-mobile-footer' : ''} `}>
 
@@ -129,7 +130,7 @@ const MobileFooter = ({ checkoutPage }) => {
                         <FaPlus color='#FFFFFF' size={15} />
                     </button>
                 </div>
-                <div className={`near-store-containt-section ${locationAccordion ? 'show-mobile-footer-location' : ''}`}>
+                <div className={`mobile-view-near-store-containt-section ${locationAccordion ? 'show-mobile-footer-location' : ''}`}>
                     <div className='near-store-image-div'>
                         <img src={`${url}${defaultStore?.images?.[0]?.image_url}`} alt='near store' />
                     </div>

@@ -38,18 +38,18 @@ const PaymentMethod = ({handleSubmitOrder}) => {
 
   return (
     <div className='payment-method-main-container'>
-        <div className='payment-method-head-container' onClick={handleOnClick}>
+        {/* <div className='payment-method-head-container' onClick={handleOnClick}>
             <img src={paypalLogo} alt='logo' />
             <img src={paypalFullLogo} alt='full logo' />
             <p>As low as $377.89/month. <Link>Learn more</Link></p>    
-        </div>
+        </div> */}
         <div className='payment-types-outer-container'>
           <PaymentOptions onSelectedLabel={handleSelectedLabel} />
           <div className='payment-terms-and-procced-btn'>
               <div className='payment-term-agree'>
                 <p>
                   Your personal data will be used to process your order, support your experience throughout this website, 
-                  and for other purposes described in our privacy policy.
+                  and for other purposes described in our <Link to={'/privacy-policy'}>privacy policy</Link>.
                 </p>
                 <div className='terms-agree'>
                     <input type='checkbox' id='agree-terms' />

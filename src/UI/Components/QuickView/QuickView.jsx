@@ -16,6 +16,7 @@ import { VscHeartFilled } from "react-icons/vsc";
 import { VscHeart } from "react-icons/vsc";
 import { useList } from '../../../context/wishListContext/wishListContext';
 import { toast } from 'react-toastify';
+import RatingReview from '../starRating/starRating';
 
 const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
 
@@ -112,6 +113,8 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
         }
     }
 
+    console.log("quick view data", setQuickViewProduct)
+
     return (
         // <div className={`quick-view-outer-overlay-container ${quickViewShow ? 'show-quick-view-outer-overlay' : ''}`}>
         <div className={`quick-view-main-container ${quickViewShow ? 'show-quick-view-modal' : ''}`} onClick={quickViewClose}>
@@ -126,12 +129,9 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                     <h3>{setQuickViewProduct.name}</h3>
                     <div className='quick-view-rating'>
                         <div className='quick-view-start'>
-                            {Array.from({ length: 5 }).map((star, index) => (
-                                <FaStar key={index} size={15} className='quick-view-star-icon' />
-                            ))}
-                            <p>4.1</p>
+                            <RatingReview rating={parseFloat(setQuickViewProduct?.average_rating)} size={"12px"} disabled={true} />
+                            {/* <p>4.1</p> */}
                         </div>
-                        <p>200 Reviews</p>
 
                     </div>
                 </div>

@@ -395,7 +395,7 @@ const ShippingForm = () => {
                     /> */}
                 </div>
 
-                <div className='different-billing-option'>
+                {/* <div className='different-billing-option'>
                     <div className='different-billing-checkox'>
                         <input type='checkbox' id='defferent-billing' onClick={handleCheckboxClick} />
                         <label for='defferent-billing'>Ship to a different Address</label>
@@ -484,7 +484,7 @@ const ShippingForm = () => {
                             />
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 <div className='order-note'>
                     <SummaryInputFields type={'text'} label={'Order Notes (Optional)'} placeholder={'Notes about your order, e.g Special  delivery notes'} />

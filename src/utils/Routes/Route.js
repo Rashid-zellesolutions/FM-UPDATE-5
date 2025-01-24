@@ -23,6 +23,7 @@ import TermsAndConditions from "../../UI/Pages/TermsAndCondition/TermsAndConditi
 import PrivacyPolicy from "../../UI/Pages/PrivacyPolicy/PrivacyPolicy";
 import Contact from "../../UI/Pages/Contact/Contact";
 import OrderConfirmationPage from "../../UI/Pages/OrderConfirmationPage/OrderConfirmationPage";
+import ReturnPolicy from "../../UI/Pages/returnPolicy/ReturnPolicy";
 
 const routes = (
 
@@ -144,6 +145,10 @@ const routes = (
         <Route 
             path="/shipping-and-delivery"
             element={<ShippingAndDelivery />}
+        />
+        <Route 
+            path="/return-policy"
+            element={<ReturnPolicy />}
         />
         <Route 
             path="/book-an-appointment"

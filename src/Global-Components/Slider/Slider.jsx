@@ -11,6 +11,7 @@ import { url } from '../../utils/api';
 import loader from "../../Assets/Loader-animations/loader-check-two.gif"
 import { IoChevronForward } from "react-icons/io5";
 import { IoChevronBack } from "react-icons/io5";
+import { Link } from 'react-router-dom';
 
 
 // Slider component accepting images as props
@@ -60,6 +61,7 @@ const Sliderr = ({ images, height }) => {
         </div>
     );
 
+
     const settings = {
         dots: false, // Set to true if you want dot navigation
         infinite: true,
@@ -78,7 +80,7 @@ const Sliderr = ({ images, height }) => {
             <div className="slider" style={{ cursor: 'grab', height: height ? height : "calc(100vw * 0.26355)" }}>
                 <Slider {...settings}>
                     {images?.map((img, index) => (
-                        <div className="slide" key={index}>
+                        <Link to={`/product/${img?.link_url}`} className="slide" key={index}>
                             <img
                                 src={`${url}${img.image_url}`}
                                 alt={`slide ${index + 1}`}
@@ -86,7 +88,7 @@ const Sliderr = ({ images, height }) => {
                                 onLoad={() => setImagePreloader(true)}
                             />
 
-                        </div>
+                        </Link>
                     ))}
                 </Slider>
                 {!imagePreloader && <div className='image_preloader'>

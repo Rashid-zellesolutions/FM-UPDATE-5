@@ -4,13 +4,11 @@
     width: 100%;
     height: auto;
     gap: 15px;
-    /* margin: 0; */
-    /* margin: 0 60px; */
     padding: var(--global-padding);
 }
 
 .landing-page-financing-main-heading{
-    font-weight: 25px;
+    font-size: 25px;
     line-height: var(--heading-line-height);
     font-weight: 600;
     color: var(--text-color);

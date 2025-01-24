@@ -51,34 +51,21 @@ const SingleProduct = () => {
 
   useEffect(() => {fetchProductBySlug(slug)}, [slug])
 
-  // const handleClickTop = () => {
-  //   window.scrollTo({
-  //     top: 0,
-  //     behavior: 'smooth',
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   handleClickTop();
-  // }, [product]);
-
-  // console.log("products data", product)
-
-  if (!product) {
-    return <div>Loading product...</div>;
-  }
+  // if (!product) {
+  //   return <div>Loading product...</div>;
+  // }
 
   return (
     <div>
       <SingleProductStickySection productData={product} />
-      {product.collection?.length > 0 && <SimillerProducts collection={product.collection} />}
-      {product.related_products?.length > 0 && <FrequentlyBought relatedProducts={product.related_products} />}
+      {product?.collection?.length > 0 && <SimillerProducts collection={product?.collection} />}
+      {product?.related_products?.length > 0 && <FrequentlyBought relatedProducts={product?.related_products} />}
       <RatingAndReview rating={product?.average_rating} data={reviews} reviews={reviews} loading={loading} error={error} />
       {loading && <div>Loading reviews...</div>}
       {error && <div>{error}</div>}
       <WriteReview product_id={product?.uid} review_enable={product?.enable_review} product_name={product?.name} product_permalink={"https://"} />
       <ProductComments review_enable={product?.enable_review} data={reviews} />
-      <OutdoorFaves categories={product.categories} />
+      <OutdoorFaves categories={product?.categories} />
     </div>
   );
 };

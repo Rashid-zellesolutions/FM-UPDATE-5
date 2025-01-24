@@ -414,7 +414,7 @@
     line-height: 24px;
     font-weight: 600;
 }
-
+ 
 .single-filter span img{
     width: 30px;
     height: 30px;
@@ -480,14 +480,16 @@
   background: #555; /* Darker shade on hover */
 }
 
-/* .add-button-round{
+.add-button-round{
     border: 1px solid var(--text-color);
     border-radius: 50%;
-    padding: 5px;
+    /* padding: 5px; */
     display: flex;
     align-items: center;
     justify-content: center;
-} */
+    width: 30px;
+    height: 30px;
+}
 
 .filters{
     flex-direction: column;
@@ -749,12 +751,16 @@ label {
 }
 
 /* relevence Container */
-.relevance-container{
+/* .relevance-container{
     display: flex;
     flex-direction: column;
-    width: 270px;
+    width: 241px;
     align-items: center;
     z-index: 99;
+    padding: 10px;
+    background-color: #FDFDFD;
+    border: 1px solid #F0F0F0;
+    border-radius: 5px;
     position: relative;
 }
 
@@ -765,7 +771,6 @@ label {
     justify-content: space-between;
     gap: 5px;
     position: relative;
-    /* border-bottom: 1px solid var(--border-color); */
     cursor: pointer;
 }
 
@@ -774,10 +779,6 @@ label {
     width: 100%;
     align-items: center;
     justify-content: space-between;
-    padding: 0 5px;
-    border: 1px solid var(--border-color);
-    /* margin-top: 5px; */
-    gap: 2px;
     cursor: pointer;
     position: relative;
 }
@@ -799,10 +800,11 @@ label {
 }
 
 .relevance-heading-sort-by{
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 600;
+    font-size: 12px !important;
+    line-height: 18px !important;
+    font-weight: 400 !important;
     flex-shrink: 0;
+    color: rgba(89, 89, 89, 0.7) !important;
 }
 
 .relevance-dropdown{
@@ -811,7 +813,6 @@ label {
     width: 100%;
     height: 0;
     overflow: hidden;
-    /* border: 1px solid #D7D7D7; */
     position: absolute;
     top: 25px;
     background-color: #fff;
@@ -835,6 +836,115 @@ label {
 
 .relevance-dropdown p:hover{
     background-color: var(--border-color);
+} */
+
+.relevance-container{
+    display: flex;
+    flex-direction: column;
+    width: 241px;
+    align-items: center;
+    background-color: #FDFDFD;
+    border: 1px solid #F0F0F0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.relevance-filters-body{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    /* gap: 10px; */
+    align-items: center;
+    position: relative;
+}
+
+.relevance-filter-heading{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.relevance-heading-text{
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 400;
+    color: var(--text-color);
+    opacity: 0.7;
+    flex-shrink: 0;
+}
+
+.selected-relevance-item{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.selected-relevance-text{
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 400;
+    color: var(--text-color);
+}
+
+.relevance-heading-icon-rotate{
+    transition: all 0.3s ease;
+}
+
+.relevance-filter-items{
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    width: 241px;
+    height: 0;
+    overflow: hidden;
+    flex-direction: column;
+    gap: 5px;
+    position: absolute;
+    top: 40px;
+    left: -11px;
+    z-index: 999;
+    background-color: #FDFDFD;
+    /* padding: 10px; */
+    
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.relevance-filter-items.show-relevance-items{
+    height: 270px;
+    padding: 10px;
+    border: 1px solid #F0F0F0;
+}
+
+.relevance-single-filter{
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    width: 100%;
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: #FDFDFD;
+}
+
+.relevance-single-filter:hover{
+    background-color: #4487C5;
+}
+
+.relevance-single-filter-name{
+    font-size: 13px;
+    line-height: 19px;
+    font-weight: 400;
+    color: var(--text-color);
+}
+
+.relevance-single-filter:hover .relevance-single-filter-name{
+    color: var(--text-white);
 }
 
 /* main products card */

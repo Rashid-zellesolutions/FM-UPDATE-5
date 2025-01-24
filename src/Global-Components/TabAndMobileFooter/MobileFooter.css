@@ -133,7 +133,7 @@
     color: #fff;
 }
 
-.near-store-containt-section{
+.mobile-view-near-store-containt-section{
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -146,7 +146,7 @@
     /* gap: 10px; */
 }
 
-.near-store-containt-section.show-mobile-footer-location{
+.mobile-view-near-store-containt-section.show-mobile-footer-location{
     height: 360px;
     padding: 5px 0;
 }

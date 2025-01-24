@@ -160,9 +160,25 @@ const getFinanceBannerImagesFromApi = async () => {
 
   return (
     <LPContentContext.Provider value={{
-      postData, data, loading, landingPageCategories, landingPageFOEB, setLandingPageFOEB,content2,setContent2,
-      featuredProducts,setFeaturedProducts,slides, setSlides,getHomeSliderImages,getLandingPageContent2,getFeaturedProducts,
-      trendingNow,getTrendingProductsData,financingBanners,getFinanceBannerImagesFromApi
+      postData, 
+      data, 
+      loading, 
+      landingPageCategories, 
+      landingPageFOEB, 
+      setLandingPageFOEB,
+      content2,
+      setContent2,
+      featuredProducts,
+      setFeaturedProducts,
+      slides, 
+      setSlides,
+      getHomeSliderImages,
+      getLandingPageContent2,
+      getFeaturedProducts,
+      trendingNow,
+      getTrendingProductsData,
+      financingBanners,
+      getFinanceBannerImagesFromApi
     }}>
       {children}
     </LPContentContext.Provider>

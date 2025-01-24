@@ -54,6 +54,12 @@
     text-align: justify;
 }
 
+.payment-term-agree p a{
+    color: #50BED3;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 .terms-agree{
     display: flex;
     width: 100%;

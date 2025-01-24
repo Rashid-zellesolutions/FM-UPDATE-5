@@ -11,7 +11,7 @@ const TrustFor = () => {
       ]
   return (
     <div className='shop-with-confidence'>
-        <h3>Shop with comfidence</h3>
+        <h3>Shop with confidence</h3>
         <p>Trusted by more than 5000+ customers</p>
         <div className='trusted-by'>
             {trustedBy.map((items, index) => (

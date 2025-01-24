@@ -57,7 +57,7 @@ const Categories = ({
       
       setCategoryPageData(result.sub_categories);
       setBestSelling(result.bestSelling);
-      setParagraph(result.content);
+      setParagraph(result.content); 
       setContentImages(result.content_images);
       // console.log("result ", result)
     } catch (error) {

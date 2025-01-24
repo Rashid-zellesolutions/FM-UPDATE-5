@@ -8,6 +8,9 @@ import { useGlobalContext } from '../../../context/GlobalContext/globalContext';
 const WhatWeOffer = ({isProtected, setIsProtected}) => {
     const {setWarrantyModalState} = useGlobalContext();
     const [isSingleProtectionChecked, setIsSingleProtectionChecked] = useState(false);
+    const handleWarrantyModal = () => {
+        setWarrantyModalState(true)
+    }
     const servisesData = [
         // {key: 'professional-assembly', serviseName: 'Professional Assembly for $109.99', howItWOrk: 'How It Work', icon: toolIcon, style: '' },
         { key: 'single-protection', serviseName: '5 Year Protection Plan for $99', howItWOrk: `What's Covered`, icon: protectionIcon },
@@ -28,7 +31,7 @@ const WhatWeOffer = ({isProtected, setIsProtected}) => {
         <h3>What we Offer</h3>
         <div className='offer-cards-div'>
             {servisesData.map((item, index) => {
-                return <div key={index} className='servise-card'>
+                return <div key={index} className='servise-card' onClick={(e) => e.stopPropagation()}>
                     <div class="checkbox-wrapper-1">
                         <input 
                             id={`example-${index}`} 
@@ -42,7 +45,7 @@ const WhatWeOffer = ({isProtected, setIsProtected}) => {
                     <img src={item.icon} alt='payment-icon' />
                     <div className='servise-card-details-section'>
                         <h3>{item.serviseName}</h3>
-                        <p onClick={()=>{setWarrantyModalState(true)}} className={`${item.serviseName === 'Flexible Payment Options' ? 'payment-way' : 'how-it-work' }`}>{item.howItWOrk}</p>
+                        <p onClick={handleWarrantyModal} className={`${item.serviseName === 'Flexible Payment Options' ? 'payment-way' : 'how-it-work' }`}>{item.howItWOrk}</p>
                     </div>
                 </div>
             })}

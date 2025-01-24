@@ -10,7 +10,7 @@ const Register = ({signinClicked, handleBtnClicked}) => {
   return (
     <div className={`register-main-container ${signinClicked ? 'register-section-slide-to-left' : ''}`}>
         <img src={registerIcon} alt='registration icon' />
-        <h3 className='register-have-an-account'>{signinClicked ? "Dont't have an account" : 'Already have an account?'}</h3>
+        <h3 className='register-have-an-account'>{signinClicked ? "Don't have an account" : 'Already have an account?'}</h3>
         <span>
             <p className='register-para'>
                 {signinClicked ? `Sign up for personalized experience.  ` : `Sign in for personalized experience.`}

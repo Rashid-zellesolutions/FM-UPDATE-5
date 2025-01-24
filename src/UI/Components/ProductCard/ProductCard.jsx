@@ -15,7 +15,6 @@ const ProductCard = ({
     ProductTitle,
     ProductSku,
     reviewCount,
-    lowPriceAddvertisement,
     priceTag,
     sale_price,
     tags,
@@ -32,14 +31,13 @@ const ProductCard = ({
     attributes,
 }) => {
 
-    const [isImageLoaded,setImageLoaded] = useState(false);
+    const [isImageLoaded, setImageLoaded] = useState(false);
 
     const [cartClicked, setCartClicked] = useState(true);
 
     const [cardHovered, setCardHovered] = useState(false);
     const handleMouseEnter = () => {
         setCardHovered(true)
-        // console.log(cardHovered);
     }
 
     const handleMouseLeave = () => {
@@ -69,36 +67,60 @@ const ProductCard = ({
 
     const handleColorSelect = (color) => {
         setSelectedColor(color)
-        const matchingAttribute = singleProductData?.variations?.find(variation =>
-            variation?.attributes?.some(attribute =>
-                attribute?.type === "color" &&
-                attribute?.options?.some(option => option?.value === color)
-            )
-        );
+        if (singleProductData?.type === "variable") {
+            const matchingAttribute = singleProductData?.variations?.find(variation =>
+                variation?.attributes?.some(attribute =>
+                    attribute?.type === "color" &&
+                    attribute?.options?.some(option => option?.value === color)
+                )
+            );
+            setSelectedColorImage(matchingAttribute?.images[0]?.image_url)
+            setHoveredImage(matchingAttribute?.images[1]?.image_url)
+            return matchingAttribute;
 
-        setSelectedColorImage(matchingAttribute?.images[0]?.image_url)
-        setHoveredImage(matchingAttribute?.images[1]?.image_url)
-        return matchingAttribute;
+        } else if (singleProductData?.type === "simple") {
+            // Handle simple product logic
+            const simpleAttribute = singleProductData?.attributes?.find(attribute =>
+                attribute?.type === "color"
+            );
+
+            if (simpleAttribute) {
+                setSelectedColorImage(singleProductData?.images[0]?.image_url);
+                setHoveredImage(singleProductData?.images[1]?.image_url);
+            }
+            return simpleAttribute;
+        }
+
     }
 
     const handleImageSelect = (image) => {
         setSelectedImage(image)
-        const matchingAttribute = singleProductData?.variations?.find(variation =>
-            variation?.attributes?.some(attribute =>
-                attribute?.type === "image" &&
-                attribute?.options?.some(option => option?.value === image)
-            )
-        );
-
-        setSelectedColorImage(matchingAttribute?.images[0]?.image_url)
-        setHoveredImage(matchingAttribute?.images[1]?.image_url)
-        return matchingAttribute;
+        if (singleProductData?.type === "variable") {
+            const matchingAttribute = singleProductData?.variations?.find(variation =>
+                variation?.attributes?.some(attribute =>
+                    attribute?.type === "image" &&
+                    attribute?.options?.some(option => option?.value === image)
+                )
+            );
+            setSelectedColorImage(matchingAttribute?.images[0]?.image_url)
+            setHoveredImage(matchingAttribute?.images[1]?.image_url)
+            return matchingAttribute;
+        } else if (singleProductData?.type === "simple") {
+            const simpleAttribute = singleProductData?.attributes?.find(attribute =>
+                attribute?.type === "image"
+            );
+            setSelectedColorImage(singleProductData?.images[0]?.image_url);
+            setHoveredImage(singleProductData?.images[1]?.image_url);
+            return simpleAttribute;
+        }
     }
+
+
 
     const [priorArray, setPriorArray] = useState([])
     const moveToFirst = (array, defValue) => {
         const index = array.findIndex(item => item === defValue);
-        if(index > 0){
+        if (index > 0) {
             const [priorityItem] = array.splice(index, 1);
             array.unshift(priorityItem)
         }
@@ -106,118 +128,162 @@ const ProductCard = ({
         return array;
     }
 
+    // useEffect(() => {
+
+    //     const defAttImage = singleProductData?.variations?.find(attr =>
+    //         attr?.uid === singleProductData.default_variation
+    //     )
+    //     const defAttrColor = defAttImage?.attributes?.find(attribute =>
+    //         attribute?.type === 'color' &&
+    //         attribute?.options?.some(option => option?.value)
+    //     )
+    //     const defoultColor = defAttrColor?.options?.[0]?.value;
+
+    //     handleColorSelect(defoultColor);
+
+    //     const attribute = defAttImage?.attributes;
+    //     if (attribute) {
+    //         const defaultAttribute = getPriorityAttribute(attribute)
+    //         if (defaultAttribute) {
+    //             const updatedAttributes = moveToFirst(attribute, defaultAttribute)
+    //         }
+    //     }
+    // }, []);
+
     useEffect(() => {
+        if (singleProductData?.type === "variable") {
+            // Find the default variation
+            const defAttImage = singleProductData?.variations?.find(attr =>
+                attr?.uid === singleProductData.default_variation
+            );
 
-        const defAttImage = singleProductData?.variations?.find(attr => 
-            attr?.uid === singleProductData.default_variation
-        )
-        const defAttrColor = defAttImage?.attributes?.find(attribute => 
-            attribute?.type === 'color' &&
-            attribute?.options?.some(option => option?.value)
-        )
-        const defoultColor = defAttrColor?.options?.[0]?.value;
+            // Get the default color
+            const defAttrColor = defAttImage?.attributes?.find(attribute =>
+                attribute?.type === "color" &&
+                attribute?.options?.some(option => option?.value)
+            );
 
-        handleColorSelect(defoultColor);
+            const defaultColor = defAttrColor?.options?.[0]?.value;
 
-        const attribute = defAttImage?.attributes;
-        if(attribute){
-            const defaultAttribute = getPriorityAttribute(attribute)
-            if(defaultAttribute){
-                const updatedAttributes = moveToFirst(attribute, defaultAttribute)
+            // Automatically select the default color
+            if (defaultColor) {
+                handleColorSelect(defaultColor);
+            }
+
+            // Handle prioritized attributes for variable products
+            const attributes = defAttImage?.attributes;
+            if (attributes) {
+                const defaultAttribute = getPriorityAttribute(attributes);
+                if (defaultAttribute) {
+                    const updatedAttributes = moveToFirst(attributes, defaultAttribute);
+                }
+            }
+
+        } else if (singleProductData?.type === "simple") {
+            // For simple products, select the only color available
+            const simpleColorAttribute = singleProductData?.attributes?.find(attribute =>
+                attribute?.type === "color"
+            );
+
+            const defaultColor = simpleColorAttribute?.options?.[0]?.value;
+
+            if (defaultColor) {
+                handleColorSelect(defaultColor);
             }
         }
-    }, []);
+
+    }, [singleProductData]); // Run this effect whenever `singleProductData` changes
 
 
     const [mainImageHoverIndex, setMainImageHoverIndex] = useState(null)
 
-    const {isInWishList} = useList();
+    const { isInWishList } = useList();
 
     return (
         <>
-            <div 
-                className={`${productCardContainerClass} ${borderLeft ? 'hide-after' : ''} `} 
-                style={{ maxWidth: maxWidthAccordingToComp, width: justWidth }}   
+            <div
+                className={`${productCardContainerClass} ${borderLeft ? 'hide-after' : ''} `}
+                style={{ maxWidth: maxWidthAccordingToComp, width: justWidth }}
             >
-                <div className='product-card-data' 
-                onClick={() => handleCardClick(singleProductData)}
+                <div className='product-card-data'
+                    onClick={() => handleCardClick(singleProductData)}
                 >
 
                     <div className='product-main-image-container'>
-                        
+
                         <div className='tag-and-heart' onClick={(e) => e.stopPropagation()}>
                             {stock?.is_stock_manage === 0 && <h4 className={allow_back_order === 1 ? "stock-label back" : "stock-label out"}>{allow_back_order === 1 ? "Back Order" : "Out of Stock"}</h4>}
                             <p className='percent-label'>{percent}</p>
                             {
-                                isInWishList(singleProductData.uid) ? 
-                                    <VscHeartFilled 
+                                isInWishList(singleProductData.uid) ?
+                                    <VscHeartFilled
                                         size={25}
                                         className='wishlist-heart'
-                                        style={{color: '#C61B1A'}} 
+                                        style={{ color: '#C61B1A' }}
                                         onClick={(e) => {
-                                            e.stopPropagation(); 
-                                            handleWishListclick(singleProductData)
-                                        }} 
-                                    /> 
-                            : 
-                                <VscHeart 
-                                    size={25} 
-                                    className='wishlist-heart'
-                                    style={{float: 'right', color: '#C61B1A'}} 
-                                    onClick={(e) => {
-                                            e.stopPropagation(); 
+                                            e.stopPropagation();
                                             handleWishListclick(singleProductData)
                                         }}
-                                />
+                                    />
+                                    :
+                                    <VscHeart
+                                        size={25}
+                                        className='wishlist-heart'
+                                        style={{ float: 'right', color: '#C61B1A' }}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleWishListclick(singleProductData)
+                                        }}
+                                    />
                             }
-                            
+
                         </div>
 
-                        <img src={`${url}${
-                            selectedColorImage 
+                        <img src={`${url}${selectedColorImage
                             ? mainImageHoverIndex === singleProductData.uid
-                            ? hoveredImage
-                            : selectedColorImage 
+                                ? hoveredImage
+                                : selectedColorImage
                             : mainImage
-                        }`}
-                            alt='product img' 
+                            }`}
+                            alt='product img'
                             className='product-main-img'
                             effect='blur'
-                            onLoad={()=>{setImageLoaded(true)}}
+                            onLoad={() => { setImageLoaded(true) }}
                         />
                         {
                             !isImageLoaded && <div className="image_shimmer_loader">
-                                <ProductCardImageShimmer/>
+                                <ProductCardImageShimmer />
                             </div>
                         }
 
                         <div className='overlay-buttons'>
-                            <button 
+                            <button
                                 className={`overlay-button 
                                     ${cartClicked ? 'loading' : ''}
                                     `
-                                } 
-                                onClick={(e) => { 
-                                    e.stopPropagation() ; 
-                                    handleQuickView()}
-                                } 
-                                onMouseEnter={handleMouseEnter} 
+                                }
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleQuickView()
+                                }
+                                }
+                                onMouseEnter={handleMouseEnter}
                                 onMouseLeave={handleMouseLeave}
                             >
-                                <BsCart3/>
+                                <BsCart3 />
                                 Add to cart
                             </button>
-                            <button 
+                            <button
                                 onClick={(e) => {
                                     e.preventDefault();
                                     handleCardClick(singleProductData);
-                                    }
-                                } 
-                                className='overlay-button' 
-                                onMouseEnter={handleQuickViewHover} 
+                                }
+                                }
+                                className='overlay-button'
+                                onMouseEnter={handleQuickViewHover}
                                 onMouseLeave={handlQuickViewLeave}
                             >
-                                <IoEyeOutline/>
+                                <IoEyeOutline />
                                 View Product
                             </button>
                         </div>
@@ -238,7 +304,7 @@ const ProductCard = ({
                     <p className='product-sku' onClick={handleCardClick}>SKU : {ProductSku}</p>
                     <h3 className='product-title' > {ProductTitle} </h3>
                     <div className='product-rating-stars-div'>
-                        <RatingReview rating={parseFloat(reviewCount)} size={"12px"} disabled={true}/>
+                        <RatingReview rating={parseFloat(reviewCount)} size={"12px"} disabled={true} />
                     </div>
 
 
@@ -258,7 +324,7 @@ const ProductCard = ({
                                     {priorityAttribute.options.map((item, index) => (
                                         <img
                                             key={index}
-                                            onClick={(e) => {e.stopPropagation() ; handleImageSelect(item.value)}}
+                                            onClick={(e) => { e.stopPropagation(); handleImageSelect(item.value) }}
                                             src={"https://fm.skyhub.pk" + item.value}
                                             alt=""
                                         />
@@ -272,7 +338,7 @@ const ProductCard = ({
                                         <span
                                             key={index}
                                             className="color-variation"
-                                            onClick={(e) => {e.stopPropagation() ; handleColorSelect(item.value)}}
+                                            onClick={(e) => { e.stopPropagation(); handleColorSelect(item.value) }}
                                             style={{
                                                 backgroundColor: item.value,
                                                 // border: 'none',

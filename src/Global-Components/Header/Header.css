@@ -441,6 +441,67 @@
     color: var(--text-color);
 }
 
+/* near by shimmer effect */
+.shimmer-near-store-main-container{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.shimmer-near-store-icon{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    /* margin-right: 10px; */
+}
+
+.shimmer-near-store-city-and-timing-main{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0px 15px;
+    border-right: 1px solid var(--border-color);
+}
+
+.shimmer-near-store-heading{
+    width: 100px;
+    height: 15px;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+}
+
+.shimmer-state-and-timing{
+    width: 200px;
+    height: 15px;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+}
+
+.shimmer-delivery-and-zip-container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0px 15px;
+}
+
+.shimmer-delivery-heading{
+    width: 100px;
+    height: 15px;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+}
+
+.shimmer-zip-heading{
+    width: 60px;
+    height: 15px;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+}
+
+/* near store shimmer end */
+
 .header-icons-container {
     display: flex;
     align-items: center;

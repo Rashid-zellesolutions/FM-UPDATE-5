@@ -64,7 +64,8 @@ const DealOfTheDayCard = ({
             {truncateTitle(name, maxLength)}
           </h3>
           <div 
-            className='deal-of-the-day-price'>
+            className='deal-of-the-day-price'
+          >
               {isDiscountable ? <del>{formatePrice(price)}</del> : <></>}
               <p>{formatePrice(newPrice)}</p>
           </div>

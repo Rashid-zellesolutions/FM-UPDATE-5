@@ -265,6 +265,7 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
                 { name: 'Financing', link: '/financing' },
                 { name: 'Shipping & Delivery', link: '/shipping-and-delivery' },
                 { name: 'Terms & Conditions', link: '/terms-and-conditions' },
+                { name: 'Return Policy', link: '/return-policy' },
                 // { name: 'Protection Plan', link: '#' },
                 // { name: 'FAQs', link: '#' },
             ]

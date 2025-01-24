@@ -12,10 +12,10 @@ function FinanceBanner2({heading,image,mobileImage}) {
   return (
     <div className="finance_banner_2">
         <div className="finance_banner_2_desktop" >
-            <img src={url+image.image_url} alt="" srcset="" onClick={handleNavigate}/>
+            <img src={url+image?.image_url} alt="" srcset="" onClick={handleNavigate}/>
         </div>
         <div className="finance_banner_2_mobile">
-            <img src={url+mobileImage.image_url} alt="" srcset="" />
+            <img src={url+mobileImage?.image_url} alt="" srcset="" />
         </div>
     </div>
   );

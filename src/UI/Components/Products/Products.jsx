@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './Products.css';
 import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +13,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { FaRegArrowAltCircleLeft } from "react-icons/fa";
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
+import { IoIosArrowDown } from "react-icons/io";
 
 // Components
 
@@ -31,6 +32,8 @@ import { useList } from '../../../context/wishListContext/wishListContext';
 import { toast } from 'react-toastify';
 import DoubleRangeSlider from '../../../Global-Components/MultiRangeBar/MultiRange';
 import RatingReview from '../starRating/starRating';
+import { use } from 'react';
+import { set } from 'lodash';
 
 const Products = () => {
 
@@ -146,7 +149,7 @@ const Products = () => {
             default:
                 return setProducts(products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
         }
-        
+
     }
 
 
@@ -222,7 +225,11 @@ const Products = () => {
     const [selectedRelevanceValue, setSelectedRelevanceValue] = useState(0)
     const handleRelevance = () => {
         setRelevanceTrue(!relevanceTrue);
-        setSelectedRelevanceValue(relevanceData[0].name)
+    }
+
+    const handleSelectRelevance = (item) => {
+        setSelectedRelevanceValue(item.name);
+        setRelevanceTrue(false);
     }
 
     // Card title words limit
@@ -373,6 +380,7 @@ const Products = () => {
 
     // Pagination
     const [activePageIndex, setActivePageIndex] = useState(1);
+
     const handleActivePage = (index) => {
         setActivePage(index);
         setActivePageIndex(index);
@@ -393,9 +401,14 @@ const Products = () => {
         }
     };
 
+
     useEffect(() => {
         fetchProductData(activePage)
     }, [activePageIndex]);
+
+
+
+
 
     return (
         <div className='products-main-container'>
@@ -437,7 +450,7 @@ const Products = () => {
                                 <span onClick={() => handleColorFilterOpenClose('color-filter')}>
                                     <h3 className='filters-heading'>{allFilters?.colors?.[0]?.name}</h3>
                                     <i className='add-button-round'>
-                                        <FaPlus color='#595959' className={isOpen === 'color-filter' ? 'rotate' : 'rotate-back'} />
+                                        <FaPlus size={15} color='#595959' className={isOpen === 'color-filter' ? 'rotate' : 'rotate-back'} />
                                     </i>
                                 </span>
                                 <div className={`single-filter-items-container ${isOpen === 'color-filter' ? 'show-single-filter-icons' : ''}`}>
@@ -534,13 +547,13 @@ const Products = () => {
                                 <p>{totalPages?.totalProducts} Items Starting at {formatedPrice(allFilters?.priceRange?.minPrice)}</p>
                             ) : (
                                 <p className='total-product-count-shimmer'></p>
-                            ) 
+                            )
                             }
                             {/* <p>{totalPages?.totalProducts} Items Starting at {formatedPrice(allFilters?.priceRange?.minPrice)}</p> */}
                         </div>
 
                         {/* Relevance Dropdown */}
-                        <div className='relevance-container'>
+                        {/* <div className='relevance-container'>
                             <div className='relevance-heading' onClick={handleRelevance}>
                                 <h3 className='relevance-heading-sort-by'>Sort By:</h3>
                                 <span >
@@ -558,6 +571,34 @@ const Products = () => {
                                 ))}
                             </div>
 
+                        </div> */}
+
+                        <div className='relevance-container'>
+                            <div className='relevance-filters-body'>
+                                <div className='relevance-filter-heading' onClick={handleRelevance}>
+                                    <p className='relevance-heading-text'>Sort By</p>
+                                    <div className='selected-relevance-item'>
+                                        <p className='selected-relevance-text'>{selectedRelevanceValue}</p>
+                                        <i className='relevance-heading-icon'>
+                                            <MdKeyboardArrowDown className='relevance-heading-icon-rotate' color='#595959' size={15} />
+                                        </i>
+                                    </div>
+                                </div>
+                                <div className={`relevance-filter-items ${relevanceTrue ? 'show-relevance-items' : ''}`}>
+                                    {relevanceData.map((item, index) => (
+                                        <div
+                                            className='relevance-single-filter'
+                                            key={index}
+                                            onClick={() => {
+                                                setSelectedRelevanceValue(item.name);
+                                                setRelevanceTrue(false);
+                                                sortProducts(item.name)
+                                            }}>
+                                            <p className='relevance-single-filter-name'>{item.name}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
 
                     </div>

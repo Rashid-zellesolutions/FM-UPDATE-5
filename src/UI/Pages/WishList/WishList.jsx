@@ -77,7 +77,7 @@ const WishList = () => {
     <div className='wish-list-main-container'>
       <div className='wish-list-heading-container'>
         <h3 className='wish-list-main-heading'>Favorite Products</h3>
-        <div className='heading-line'></div>
+        {/* <div className='heading-line'></div> */}
 
         <div className='mobile-view-wishlist-card-grid-select'>
           <div className={`mobile-view-wishlist-card-grid-single-col ${activeGrid === 'single-col' ? 'grid-active' : ''}`} onClick={() => handleActiveGrid('single-col')}></div>

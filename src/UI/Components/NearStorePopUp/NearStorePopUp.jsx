@@ -26,7 +26,6 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
     const [searchQuery, setSearchQuery] = useState('');
 
     const handleInputChange = (event) => {
-        console.log(event.target.value, "here is ter,s")
         setSearchQuery(event.target.value); // Update state with the input value
     };
 
@@ -148,8 +147,7 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
                     </div>
                     <div className='pop-up-header-location'>
                         <button className='current-location-button' onClick={() => { getCurrentLocation() }}>
-                            {/* <TbCurrentLocation size={16} /> */}
-                            {/* <Link>Use Current Location</Link> */}
+                            
                             Use Current Location
                         </button>
                         <button className='delivery-zip-button' onClick={() => { fetchAllStoresUsingDelZip() }}>

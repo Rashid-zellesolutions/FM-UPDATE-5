@@ -57,6 +57,7 @@ const Home = () => {
     setCurrentUrl(location.pathname);
   }, [location]);
 
+
   useEffect(() => {
     if (!slides.length) {
       getHomeSliderImages();
@@ -64,7 +65,7 @@ const Home = () => {
     if (!data) {
       postData();
     }
-    if (!content2) {
+    if (Object.keys(content2).length === 0) {
       getLandingPageContent2();
     }
     if (!featuredProducts.length) {
@@ -99,6 +100,15 @@ const Home = () => {
       <TrendingNow data={trendingNow? trendingNow : null} />
 
       <BestSellerSlider />
+      
+      {content2?.section_2 && (
+        <FinanceBanner2
+          heading={content2.section_2?.heading}
+          image={content2.section_2?.image}
+          mobileImage={content2.section_2?.mobile_image}
+        />
+      )} 
+
       {content2?.section_1 && (
         <Comparision
           heading={content2.section_1.heading}
@@ -115,13 +125,7 @@ const Home = () => {
       {landingPageFOEB && (
         <FurnitureForBudget budgetCardData={landingPageFOEB} />
       )}
-      {content2?.section_2 && (
-        <FinanceBanner2
-          heading={content2.section_2.heading}
-          image={content2.section_2.image}
-          mobileImage={content2.section_2.mobile_image}
-        />
-      )}
+      
 
       <GetTheScop />
       <BlogSlider />

@@ -5,8 +5,9 @@ import "slick-carousel/slick/slick-theme.css";
 import './TrendingNow.css';
 import { url } from '../../../utils/api';
 import TrandingNowShmmer from './TrandingNowShimmer/TrandingNowShmmer';
+import { Link, useNavigate } from 'react-router-dom';
 
-const TrendingNow = ({data}) => {
+const TrendingNow = ({ data }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
@@ -37,6 +38,11 @@ const TrendingNow = ({data}) => {
         pauseOnHover: false,
     };
 
+    const navigate = useNavigate()
+    const handleNavigate = (item) => {
+        navigate(`/product/${item.link_url}`)
+    }
+
     return (
         <>
             {data ? (
@@ -47,7 +53,7 @@ const TrendingNow = ({data}) => {
                             <div className="tranding-slides">
                                 <Slider {...settings}>
                                     {data?.sliders.map((image, index) => (
-                                        <div className="trending-slide" key={index}>
+                                        <div className="trending-slide" key={index} onClick={() => handleNavigate(image)}>
                                             <img
                                                 src={`${url}${image.image_url}`}
                                                 alt={`Slide ${index + 1}`}
@@ -59,7 +65,7 @@ const TrendingNow = ({data}) => {
                         </div>
                         <div className='trending-items-cards'>
                             {productArray.map((item, index) => (
-                                <div key={item.uid} className='trending-item-category'>
+                                <div key={item.uid} className='trending-item-category' onClick={() => handleNavigate(item)}>
                                     <img
                                         src={`${url}${item.image_url}`}
                                         alt={item.alt_text}

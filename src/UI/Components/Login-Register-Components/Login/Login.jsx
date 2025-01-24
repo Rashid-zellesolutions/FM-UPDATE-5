@@ -83,7 +83,6 @@ const Login = ({ signupclicked, setSignupclicked }) => {
 
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
-    console.log('login button clicked');
     // Simple validation for the form
    
     setError('');
@@ -123,7 +122,6 @@ const Login = ({ signupclicked, setSignupclicked }) => {
       setLoading(false);
       setLoading(false);
     }
-    console.log("after logic run")
   };
 
 
@@ -168,7 +166,7 @@ const Login = ({ signupclicked, setSignupclicked }) => {
                 <input
                   className="login-and-register-input"
                   type="email"
-                  placeholder="name@gmail.com"
+                  placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -247,7 +245,7 @@ const Login = ({ signupclicked, setSignupclicked }) => {
               <input
                 className="login-and-register-input"
                 type="email"
-                placeholder="name@gmail.com"
+                placeholder="Email"
                 value={loginEmail}
                 onChange={(e) => setLoginEmail(e.target.value)}
                 required
@@ -266,7 +264,7 @@ const Login = ({ signupclicked, setSignupclicked }) => {
             </label>
             <div className='login-sec-forgot-pass'>
             <input type='checkbox' />
-            <p >Forgotten Password</p>
+            <p >Forgot Password</p>
           </div>
             <button className="login-sec-login-btn" type="submit">Login</button>
           </form>
