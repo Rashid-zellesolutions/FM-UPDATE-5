@@ -79,9 +79,9 @@ const GetTheScop = () => {
           {!isSubscribed ? <div className='get-the-scop-form'>
             <h3>Get the Scoop</h3>
             <span className='get-the-scop-offers'>
-              <Link> Discounts</Link> |
-              <Link> Offers</Link> |
-              <Link> Best Price</Link>
+              <p className='get-the-scoop-offers-keywords'> Discounts</p> |
+              <p className='get-the-scoop-offers-keywords'> Offers</p> |
+              <p className='get-the-scoop-offers-keywords'> Best Price</p>
             </span>
             <form className='get-the-scoop-form-input-and-button' onSubmit={handleSubmit}>
               <div className='get-the-scop-input'>

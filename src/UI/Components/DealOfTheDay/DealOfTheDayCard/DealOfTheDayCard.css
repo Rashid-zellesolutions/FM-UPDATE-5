@@ -163,10 +163,6 @@
 .deal-of-the-day-icon-one{
   display: flex;
   align-items: center;
-  background-image: url('../../../../Assets/icons/cart-bag-charcol.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: auto;
   justify-content: center;
   height: 35px;
   width: 35px;
@@ -176,18 +172,24 @@
   transition: background-color 0.5s ease;
 }
 
+.deal-of-month-cart-icon{
+  color: var(--text-color) !important;
+  opacity: 0.8;
+  font-weight: 300;
+}
+
 .deal-of-the-day-icon-one:hover{
   background-color: var(--active-nav-item-color);
-  background-image: url('../../../../Assets/icons/cart-bag-white.png');
 }
+
+.deal-of-the-day-icon-one:hover .deal-of-month-cart-icon{
+  color: #FFF !important;
+}
+
 
 .deal-of-the-day-icon-two{
   display: flex;
   align-items: center;
-  background-image: url('../../../../Assets/icons/heart-charcol.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: auto;
   justify-content: center;
   height: 35px;
   width: 35px;
@@ -199,21 +201,31 @@
 
 .deal-of-the-day-icon-two:hover{
   background-color: var(--active-nav-item-color);
-  background-image: url('../../../../Assets/icons/heart-white.png');
 }
 
 .deal-of-the-day-icon-two.active-wish-list-btn{
   background-color: var(--active-nav-item-color);
-  background-image: url('../../../../Assets/icons/heart-white.png');
 }
+
+.deal-of-month-heart-icon{
+  color: var(--text-color) !important;
+  opacity: 0.8;
+  font-weight: 300;
+}
+
+.deal-of-the-day-icon-two:hover .deal-of-month-heart-icon{
+  color: #FFF !important;
+}
+
+.deal-of-the-day-icon-two.active-wish-list-btn .deal-of-month-heart-icon{
+  color: #FFF !important;
+}
+
+
 
 .deal-of-the-day-icon-three{
   display: flex;
   align-items: center;
-  background-image: url('../../../../Assets/icons/multi-arrow-charcol.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: auto;
   justify-content: center;
   height: 35px;
   width: 35px;
@@ -225,7 +237,16 @@
 
 .deal-of-the-day-icon-three:hover{
   background-color: var(--active-nav-item-color);
-  background-image: url('../../../../Assets/icons/multi-arrow-white.png');
+}
+
+.deal-of-month-share-icon{
+  color: var(--text-color) !important;
+  opacity: 0.8;
+  font-weight: 300;
+}
+
+.deal-of-the-day-icon-three:hover .deal-of-month-share-icon{
+  color: #FFF !important;
 }
 
 .deal-of-the-day-product-under-line{

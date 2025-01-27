@@ -24,6 +24,8 @@ import PrivacyPolicy from "../../UI/Pages/PrivacyPolicy/PrivacyPolicy";
 import Contact from "../../UI/Pages/Contact/Contact";
 import OrderConfirmationPage from "../../UI/Pages/OrderConfirmationPage/OrderConfirmationPage";
 import ReturnPolicy from "../../UI/Pages/returnPolicy/ReturnPolicy";
+import AboutUs from "../../UI/Pages/AboutUs/AboutUs";
+
 
 const routes = (
 
@@ -161,6 +163,10 @@ const routes = (
         <Route
             path="/user-dashboard/:id"
             element={<UserDashboard />}
+        />
+        <Route 
+            path="/about-us"
+            element={<AboutUs />}
         />
 
         <Route exact path="/order-confirmation/:_id" element={<OrderConfirmationPage />} />

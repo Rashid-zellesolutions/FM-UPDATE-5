@@ -12,6 +12,20 @@
     padding: 0;
 }
 
+.desktop-finance-secondBanner{
+    display: flex;
+    width: 100%;
+}
+.desktop-finance-secondBanner img{
+    width: 100%;
+    height: auto;
+}
+
+.mobile-finance-secondBanner img{
+    width: 100%;
+    height: auto;
+}
+
 .payment-solutions{
     display: flex;
     align-items: center;
@@ -22,7 +36,7 @@
 
 .payment-solution-single-card{
     display: flex;
-    width: 30%;
+    width: 100%;
     flex-direction: column;
     gap: 10px;
     align-items: center;
@@ -44,8 +58,29 @@
     gap: 50px;
     padding: 35px;
 }
+.payment-solution-single-card > .desktopview{
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.payment-solution-single-card > .mobileview{
+    display: none;
+    width: 100%;
+    height: auto;
+}
 
 @media only screen and (max-width: 480px){
+
+    .desktop-finance-secondBanner{
+        display: none;
+    }
+
+    .payment-solution-single-card > .desktopview{
+        display: none;
+    }
+    .payment-solution-single-card > .mobileview{
+        display: block;
+    }
     .mobile-finance-secondBanner{
         display: flex;
     }

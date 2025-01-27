@@ -5,10 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import './DealOfTheDay.css';
 
 import DealOfTheDayCard from './DealOfTheDayCard/DealOfTheDayCard';
-import leftArrow from '../../../Assets/icons/arrow-left-white.png';
-import rightArrow from '../../../Assets/icons/right-arrow-white.png';
 
-import star from '../../../Assets/icons/Star 19.png'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { url } from '../../../utils/api';
@@ -44,8 +41,6 @@ function SampleNextArrow(props) {
 const DealOfTheDay = () => {
 
   const navigate = useNavigate();
-
-  
 
   const [dealEndTime, setDealEndTime] = useState(null); 
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });

@@ -91,7 +91,7 @@ const PromotionalBanner = (
           <Link to={'/store-locator'}>Stores</Link>
           <p onClick={handleClickOnOrders}>Orders</p>
           <Link to={'/financing'}>Financing</Link>
-          <Link to={'#'}>Help</Link>
+          <Link to={'/contact-us'}>Help</Link>
         </div>
         <div className='header-main-banner-language-div'>
           <button onClick={handleLanguageModal}>

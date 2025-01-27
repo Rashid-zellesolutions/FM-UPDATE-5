@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './DropdownMenu.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { url } from '../../../utils/api';
+import { formatedPrice, url } from '../../../utils/api';
 
 const DropdownMenu = (
     {
@@ -47,9 +47,12 @@ const DropdownMenu = (
                             <div className='pricing'>
                                 {item.sale_price === "" ?
                                     <p className='price'>${item.regular_price}</p>
-                                    : <del><p className='price'>${item.regular_price}</p></del>
+                                    : <span className='sale-price-container'>
+                                        <del className='price'>{formatedPrice(item.regular_price)}</del>
+                                        <p className='price-sale-price'>{formatedPrice(item.sale_price)}</p>
+                                    </span> 
                                 }
-                                <p className='price new'>${item.sale_price}</p>
+                                {/* <p className='price new'>${item.sale_price}</p> */}
                             </div>
                         </div>
                     })}

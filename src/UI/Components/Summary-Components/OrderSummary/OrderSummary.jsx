@@ -153,8 +153,8 @@ const OrderSummary = () => {
                 </div>
                 <div className='selected-product-total'>
                     <span>
-                        <h3>Total</h3>
-                        <p>{formatedPrice(CalculateGrandTotal())}</p>
+                        <h3 className='selected-product-grand-total-price'>Total</h3>
+                        <p className='selected-product-grand-total-price'>{formatedPrice(CalculateGrandTotal())}</p>
                     </span>
                 </div>
             </div>

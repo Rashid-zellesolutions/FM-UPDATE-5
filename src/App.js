@@ -71,7 +71,7 @@ function App() {
       <DynamicMetaTags title={title} description={description} image={image} url={""} />
       {mainLoader && <Loader />}
       {isWarrantyModalOpen && <WarrantyModal />}
-      <Snowfall />
+      {/* <Snowfall /> */}
     </div>
   );
 }

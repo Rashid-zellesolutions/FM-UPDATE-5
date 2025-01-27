@@ -161,7 +161,7 @@
     justify-content: space-between;
 }
 
-.selected-product-total span h3, p{
+.selected-product-grand-total-price{
     font-size: 20px;
     line-height: 30px;
     font-weight: 600;

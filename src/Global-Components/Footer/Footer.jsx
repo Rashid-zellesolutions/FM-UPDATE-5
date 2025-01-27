@@ -20,6 +20,9 @@ import LoaderAnimation from "../../Assets/Loader-animations/loader-check-two.gif
 import { getCurrentDay, getCurrentTimeForNewYork, url } from '../../utils/api';
 import RatingReview from '../../UI/Components/starRating/starRating';
 
+
+import { IoLocationOutline } from "react-icons/io5";
+
 // Components
 import MobileFooter from '../TabAndMobileFooter/MobileFooter';
 import FooterNav from './FooterNav/FooterNav';

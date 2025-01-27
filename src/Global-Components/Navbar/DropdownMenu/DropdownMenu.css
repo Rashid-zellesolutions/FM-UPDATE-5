@@ -107,9 +107,7 @@
 }
 
 .image-title{
-    font-size: 18px !important;
-    line-height: 20px !important;
-    font-weight: 500 !important;
+    height: 43px;
 }
 
 .image-title a{
@@ -134,8 +132,22 @@
     color: var(--text-color);
     font-size: 14px !important;
     line-height: 21px;
-    font-weight: 400;
+    font-weight: 500;
     letter-spacing: normal;
+}
+
+.sale-price-container{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: start;
+    gap: 5px;
+}
+
+.price-sale-price{
+    font-size: 17px;
+    line-height: 21px;
+    font-weight: 600;
 }
 
 .price .new{
